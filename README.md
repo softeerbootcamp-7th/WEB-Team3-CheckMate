@@ -23,7 +23,7 @@
 
 | **권민선** ([@mskwon02](https://github.com/mskwon02)) | **이영재** ([@lee0jae330](https://github.com/lee0jae330)) | **이예진** ([@lwjmcn](https://github.com/lwjmcn)) | **이용범** ([@22DT](https://github.com/22DT)) | **정한울** ([@jho7535](https://github.com/jho7535)) |
 | :---: | :---: | :---: | :---: | :---: |
-| <img src="./file/profile/hanuljeong.jpg" alt="권민선" style="height:240px; width:180px; object-fit:cover; border-radius:8px;"> | <img src="./file/profile/kangeunsong.jpeg" alt="이영재" style="height:240px; width:180px; object-fit:cover; border-radius:8px;"> | <img src="./file/profile/dohyun.png" alt="이예진" style="height:240px; width:180px; object-fit:cover; border-radius:8px;"> | <img src="./file/profile/doyeong.jpeg" alt="이용범" style="height:240px; width:180px; object-fit:cover; border-radius:8px;"> | <img src="./file/profile/dohyun.png" alt="정한울" style="height:240px; width:180px; object-fit:cover; border-radius:8px;"> |
+| <img src=".docs/img/yellow.jpg" alt="권민선" style="height:240px; width:180px; object-fit:cover; border-radius:8px;"> | <img src=".docs/img/purple.jpg" alt="이영재" style="height:240px; width:180px; object-fit:cover; border-radius:8px;"> | <img src=".docs/img/sun.jpg" alt="이예진" style="height:240px; width:180px; object-fit:cover; border-radius:8px;"> | <img src=".docs/img/green.jpg" alt="이용범" style="height:240px; width:180px; object-fit:cover; border-radius:8px;"> | <img src=".docs/img/red.jpg" alt="정한울" style="height:240px; width:180px; object-fit:cover; border-radius:8px;"> |
 | FE | FE | FE | BE | BE |
 
 </div>
