@@ -14,7 +14,17 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "ts:check": "tsc --noEmit",
+    "prepare": "husky",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "**/*.ts": [
+      "prettier --write",
+      "eslint --fix",
+      "tsc --noEmit"
+    ]
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
@@ -54,6 +64,8 @@
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-storybook": "^10.1.11",
     "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "playwright": "^1.57.0",
     "prettier": "^3.8.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
