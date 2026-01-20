@@ -16,14 +16,16 @@
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "ts:check": "tsc --noEmit",
-    "prepare": "husky",
+    "prepare": "cd .. && husky frontend/.husky",
     "lint-staged": "lint-staged"
   },
   "lint-staged": {
-    "**/*.ts": [
+    "**/*.{ts,tsx,js,jsx}": [
       "prettier --write",
-      "eslint --fix",
-      "tsc --noEmit"
+      "eslint --fix"
+    ],
+    "**/*.{ts,tsx}": [
+      "bash -c 'pnpm ts:check'"
     ]
   },
   "dependencies": {
