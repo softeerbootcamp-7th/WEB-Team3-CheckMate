@@ -21,45 +21,49 @@ jobs:
         uses: actions/github-script@v7
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          BASE_REF: origin/${{ github.base_ref }}
         with:
           script: |
             const { execSync } = require('child_process');
 
-            // 1. 데이터 추출 (오류 방지를 위해 기본값 설정)
+            // 1. 데이터 추출
             let diff = "";
             let commits = "";
             let diffStat = "";
+            const baseRef = process.env.BASE_REF;
 
             try {
-              const baseRef = 'origin/${{ github.base_ref }}';
-              diff = execSync(`git diff ${baseRef}...HEAD | head -c 50000`).toString();
+              // 한글 깨짐 방지를 위해 head -c(바이트) 대신 head -n(라인) 사용 권장
+              diff = execSync(`git diff ${baseRef}...HEAD | head -n 1000`).toString();
               diffStat = execSync(`git diff --stat ${baseRef}...HEAD`).toString();
               commits = execSync(`git log ${baseRef}...HEAD --pretty=format:"- %s"`).toString();
             } catch (e) {
               console.error("Git 데이터 추출 중 에러 발생:", e);
-              diff = "데이터 추출 실패";
+              diff = "데이터 추출 실패 (변경 사항이 너무 크거나 브랜치 참조 오류)";
             }
 
-            // 2. PR 템플릿 정의
+            // 2. PR 템플릿 정의 (들여쓰기 제거를 위해 왼쪽 정렬)
             const PR_TEMPLATE = `
             ## #️⃣ 변경 사항
-            > 이 PR에서 변경된 내용을 간결하게 설명해주세요.
+
+            ## #️⃣ 작업 상세 내용
+            - 상세 내용 1
+            - 상세 내용 2
+            - 등
 
             ## #️⃣ 관련 이슈
             - Closes #
             - Related to #
 
-            ## #️⃣ 작업 상세 내용
-            - 
-
             ## 📸 스크린샷 (선택)
             ### 변경 전
             ### 변경 후
+            
             ## 📎 참고할만한 자료 (선택)
             `;
 
             // 3. Gemini API 호출
-            const model = "gemini-1.5-flash"; // 최신 안정화 모델명 권장
+            const model = "gemini-3-flash-preview"; 
             const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
 
             try {
@@ -72,7 +76,9 @@ jobs:
                 body: JSON.stringify({
                   contents: [{
                     parts: [{
-                      text: `너는 유능한 소프트웨어 엔지니어다. 아래 제공된 커밋 내역과 코드 변경 사항을 분석하여 주어진 'PR 템플릿 형식'에 맞춰 PR 본문을 작성해라. 한국어로 작성하고, 기술적인 용어는 정확하게 사용해라. 
+                      text: `너는 유능한 소프트웨어 엔지니어다. 아래 제공된 커밋 내역과 코드 변경 사항을 분석하여 주어진 'PR 템플릿 형식'에 맞춰 PR 본문에서 변경 사항과 작업 상세 내용을 완성해라.
+                      관련 이슈, 스크린샷, 참고할만한 자료는 템플릿에서 수정하지 않을 것.
+                      한국어로 작성하고, 기술적인 용어는 정확하게 사용해라. 마크다운 형식을 유지해라. 부가적인 안내를 제외하고 PR 내용만을 응답해라.
 
                       [PR 템플릿 형식]
                       ${PR_TEMPLATE}
@@ -92,22 +98,19 @@ jobs:
 
               const data = await response.json();
               if (data.error) throw new Error(data.error.message);
-              
+            
               const summary = data.candidates?.[0]?.content?.parts?.[0]?.text || "요약 생성 실패";
 
-              // 4. PR 본문 업데이트 (백틱 내부의 백틱은 이스케이프 처리)
-              const footer = `
-            
----
-> **AI 자동 생성 결과** (내용 확인 후 삭제 및 수정하여 사용하세요)
-
-\`\`\`
-✅ 체크리스트
-- 코드가 프로젝트의 코딩 컨벤션을 따릅니다
-- 문서를 업데이트했습니다 (필요한 경우)
-- 관련 이슈를 연결했습니다
-\`\`\`
-`;
+              // 4. PR 본문 업데이트 (Footer 수정)
+              // 줄바꿈 문제를 해결하기 위해 불필요한 공백을 제거하고 깔끔하게 정의
+              const footer = `\n\n---\n> **AI 자동 생성 결과** (내용 확인 후 삭제 및 수정하여 사용하세요)\n\n` +
+                             `\`\`\`\n` +
+                             `✅ 체크리스트\n` +
+                             `- 코드가 프로젝트의 코딩 컨벤션을 따릅니다\n` +
+                             `- 문서를 업데이트했습니다 (필요한 경우)\n` +
+                             `- 관련 이슈를 연결했습니다\n` +
+                             `- 부가적인 내용 작성했습니다\n` +
+                             `\`\`\``;
 
               await github.rest.pulls.update({
                 owner: context.repo.owner,
