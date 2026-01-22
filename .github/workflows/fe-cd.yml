@@ -13,9 +13,6 @@ jobs:
       contents: 'read'
       id-token: 'write'
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
     strategy:
       matrix:
         node-version: [24]
@@ -30,6 +27,7 @@ jobs:
         with:
           node-version: ${{matrix.node-version}}
           cache: "pnpm"
+          cache-dependency-path: frontend/pnpm-lock.yaml
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Build Project
