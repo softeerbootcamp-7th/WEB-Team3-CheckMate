@@ -3,7 +3,12 @@ interface CreateApiClientConfig {
   timeout?: number;
   headers?: Record<string, string>;
   requestInterceptor?: (request: Request) => Promise<Request> | Request;
-  responseInterceptor?: (response: Response) => Promise<Response> | Response;
+  responseSuccessInterceptor?: (
+    response: Response,
+  ) => Promise<Response> | Response;
+  responseErrorInterceptor?: (
+    response: Response,
+  ) => Promise<Response> | Response;
 }
 
 interface ApiClientProps {
@@ -20,14 +25,14 @@ export const createApiClient = ({
   baseURL = import.meta.env.VITE_API_URL ?? '',
   timeout = 10000,
   requestInterceptor,
-  responseInterceptor,
+  responseSuccessInterceptor,
+  responseErrorInterceptor,
 }: CreateApiClientConfig = {}) => {
   return async function apiClient<T>({
     url,
     options = {},
   }: ApiClientProps): Promise<ApiResponse<T>> {
     /* request 객체 생성 */
-
     const _url = `${baseURL}${url}`;
 
     const controller = new AbortController();
@@ -70,14 +75,16 @@ export const createApiClient = ({
       }
     }
 
-    /* response 인터셉터 호출 */
-    if (responseInterceptor) {
-      response = await responseInterceptor(response);
+    /* response HTTP 에러 시 인터셉터 호출 */
+    if (!response.ok) {
+      if (responseErrorInterceptor) {
+        response = await responseErrorInterceptor(response);
+      }
     }
 
-    /* HTTP 에러 */
-    if (!response.ok) {
-      throw new Error(response.statusText);
+    /* response 성공 시 인터셉터 호출 */
+    if (responseSuccessInterceptor) {
+      response = await responseSuccessInterceptor(response);
     }
 
     return {
