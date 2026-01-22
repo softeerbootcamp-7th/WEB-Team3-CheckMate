@@ -24,17 +24,20 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           version: 10
+          
       - name: Use Node.js ${{matrix.node-version}}
         uses: actions/setup-node@v4
         with:
           node-version: ${{matrix.node-version}}
           cache: "pnpm"
           cache-dependency-path: frontend/pnpm-lock.yaml
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
       - name: Build Project
         run: pnpm build
-        working-directory: ./frontend
+
       - id: 'auth'
         name: Authenticate to Google Cloud
         uses: 'google-github-actions/auth@v2'
@@ -63,6 +66,7 @@ jobs:
         run: |
           gsutil -m setmeta -h "Cache-Control:public, max-age=31536000, immutable" gs://checkmate-03/dist/assets/**
           gsutil -m setmeta -h "Cache-Control:no-cache" gs://checkmate-03/dist/index.html
+          
       - name: Invalidate CDN Cache
         run: |
           # CDN 캐시 무효화 진행
