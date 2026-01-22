@@ -1,0 +1,7 @@
+# vscode settings
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# IntelliJ
+.idea/
