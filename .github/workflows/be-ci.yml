@@ -3,7 +3,7 @@ name: backend-ci
 on:
   pull_request:
     branches:
-      - dev
+      - develop
     paths:
       - "backend/**"
       - ".github/workflows/be-ci.yml"
