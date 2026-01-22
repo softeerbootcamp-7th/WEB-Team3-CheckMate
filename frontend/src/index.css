@@ -18,7 +18,7 @@
 }
 
 @theme {
-  --font-sans: 'Pretendard Variable', sans-serif;
+  --font-pretendard: 'Pretendard Variable', sans-serif;
   --font-poppins: 'Poppins', sans-serif;
 
   /*====== 색상 ======= */
@@ -58,11 +58,8 @@
   --color-others-gracyblue: #e4e9f3;
   --color-others-casualgrey: #fafafb;
 
-  /* special colors */
-  --color-special-dashboard-bg: #fafbff;
-  --color-special-card-bg: #ffffff;
-
   /* ======= sementic ========*/
+
   /* color 관련 */
   --color-brand-main: var(--color-brand-500);
   --color-brand-light: var(--color-brand-300);
@@ -71,6 +68,10 @@
   --color-others-50: var(--color-brand-50);
   --color-others-20: var(--color-brand-20);
   --color-others-tap-bg: var(--color-others-gracyblue);
+
+  /* special colors */
+  --color-special-dashboard-bg: #fafbff;
+  --color-special-card-bg: #ffffff;
 
   /*====== 간격 ======= */
   --spacing-0: 0rem; /* 0px */
@@ -108,7 +109,7 @@
 
 @layer base {
   body {
-    font-family: var(--font-sans);
+    font-family: var(--font-pretendard);
   }
 }
 
