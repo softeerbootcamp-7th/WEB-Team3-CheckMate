@@ -50,7 +50,7 @@ jobs:
       - name: Upload to GCS
         run: |
           # 빌드 파일 버킷 업로드
-          gsutil -m cp -r ./frontend/dist/* gs://checkmate-03/dist/
+          gsutil -m cp -r ./dist/* gs://checkmate-03/dist/
           # 캐시 정책 설정
           gsutil -m setmeta -h "Cache-Control:public, max-age=31536000, immutable" gs://checkmate-03/dist/assets/**
           gsutil -m setmeta -h "Cache-Control:no-cache" gs://checkmate-03/dist/index.html
