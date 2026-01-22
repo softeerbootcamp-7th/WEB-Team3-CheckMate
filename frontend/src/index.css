@@ -8,145 +8,60 @@
   font-display: swap;
   font-style: normal;
 }
-:root {
-  /* ======= primitive ========*/
-
-  /* color 관련 */
-
-  /* grey */
-  --grey-1000: #161617;
-  --grey-900: #242528;
-  --grey-800: #46474a;
-  --grey-700: #656669;
-  --grey-600: #797a7d;
-  --grey-500: #a3a4a7;
-  --grey-400: #c1c2c6;
-  --grey-300: #e4e5e8;
-  --grey-200: #f0f1f5;
-  --grey-100: #f6f7fb;
-  --grey-50: #fafbff;
-  --grey-0: #ffffff;
-
-  /* brand */
-  --brand-900: #004aa9;
-  --brand-800: #006ac9;
-  --brand-700: #007ad9;
-  --brand-600: #008cec;
-  --brand-500: #019afa;
-  --brand-400: #39a9fc;
-  --brand-300: #60b8fb;
-  --brand-200: #90cefc;
-  --brand-100: #bbe0fd;
-  --brand-50: #e3f2fe;
-  --brand-20: #f4faff;
-
-  /* others */
-  --others-red: #ff4443;
-  --others-gracyblue: #e4e9f3;
-  --others-casualgrey: #fafafb;
-
-  /* special colors */
-  --dashboard-bg: #fafbff;
-  --card-bg: #ffffff;
-
-  /* ======= sementic ========*/
-  /* color 관련 */
-  --brand-main: var(--brand-500);
-  --brand-light: var(--brand-300);
-  --others-negative: var(--others-red);
-}
 
 @theme {
   --font-sans: 'Pretendard Variable', sans-serif;
 
   /*====== 색상 ======= */
-  /* text color */
-  --color-text-grey-900: var(--grey-900);
-  --color-text-grey-700: var(--grey-700);
-  --color-text-grey-600: var(--grey-600);
-  --color-text-grey-500: var(--grey-500);
-  --color-text-grey-400: var(--grey-400);
-  --color-text-grey-300: var(--grey-300);
-  --color-text-grey-100: var(--grey-100);
-  --color-text-grey-50: var(--grey-50);
-  --color-text-grey-0: var(--grey-0);
+  /* ======= primitive ========*/
 
-  --color-text-brand-main: var(--brand-500);
-  --color-text-brand-light: var(--brand-300);
+  /* color 관련 */
 
-  --color-text-others-negative: var(--others-red);
+  /* grey */
+  --color-grey-1000: #161617;
+  --color-grey-900: #242528;
+  --color-grey-800: #46474a;
+  --color-grey-700: #656669;
+  --color-grey-600: #797a7d;
+  --color-grey-500: #a3a4a7;
+  --color-grey-400: #c1c2c6;
+  --color-grey-300: #e4e5e8;
+  --color-grey-200: #f0f1f5;
+  --color-grey-100: #f6f7fb;
+  --color-grey-50: #fafbff;
+  --color-grey-0: #ffffff;
 
-  /* icon color */
-  --color-icon-grey-900: var(--grey-900);
-  --color-icon-grey-700: var(--grey-700);
-  --color-icon-grey-600: var(--grey-600);
-  --color-icon-grey-500: var(--grey-500);
-  --color-icon-grey-400: var(--grey-400);
-  --color-icon-grey-300: var(--grey-300);
-  --color-icon-grey-100: var(--grey-100);
-  --color-icon-grey-50: var(--grey-50);
-  --color-icon-grey-0: var(--grey-0);
+  /* brand */
+  --color-brand-900: #004aa9;
+  --color-brand-800: #006ac9;
+  --color-brand-700: #007ad9;
+  --color-brand-600: #008cec;
+  --color-brand-500: #019afa;
+  --color-brand-400: #39a9fc;
+  --color-brand-300: #60b8fb;
+  --color-brand-200: #90cefc;
+  --color-brand-100: #bbe0fd;
+  --color-brand-50: #e3f2fe;
+  --color-brand-20: #f4faff;
 
-  --color-icon-brand-main: var(--brand-500);
-  --color-icon-brand-light: var(--brand-300);
+  /* others */
+  --color-others-red: #ff4443;
+  --color-others-gracyblue: #e4e9f3;
+  --color-others-casualgrey: #fafafb;
 
-  --color-icon-others-negative: var(--others-red);
+  /* special colors */
+  --color-special-dashboard-bg: #fafbff;
+  --color-special-card-bg: #ffffff;
 
-  /* border color */
-  --color-border-grey-900: var(--grey-900);
-  --color-border-grey-700: var(--grey-700);
-  --color-border-grey-600: var(--grey-600);
-  --color-border-grey-500: var(--grey-500);
-  --color-border-grey-400: var(--grey-400);
-  --color-border-grey-300: var(--grey-300);
-  --color-border-grey-200: var(--grey-200);
-  --color-border-grey-100: var(--grey-100);
-  --color-border-grey-50: var(--grey-50);
-  --color-border-grey-0: var(--grey-0);
+  /* ======= sementic ========*/
+  /* color 관련 */
+  --color-brand-main: var(--color-brand-500);
+  --color-brand-light: var(--color-brand-300);
+  --color-others-negative: var(--color-others-red);
 
-  --color-border-brand-main: var(--brand-500);
-  --color-border-brand-light: var(--brand-300);
-
-  --color-border-others-negative: var(--others-red);
-
-  /* button color */
-  --color-button-grey-900: var(--grey-900);
-  --color-button-grey-700: var(--grey-700);
-  --color-button-grey-600: var(--grey-600);
-  --color-button-grey-500: var(--grey-500);
-  --color-button-grey-400: var(--grey-400);
-  --color-button-grey-300: var(--grey-300);
-  --color-button-grey-200: var(--grey-200);
-  --color-button-grey-100: var(--grey-100);
-  --color-button-grey-50: var(--grey-50);
-  --color-button-grey-0: var(--grey-0);
-
-  --color-button-brand-bg-500: var(--brand-500);
-  --color-button-brand-bg-400: var(--brand-400);
-  --color-button-brand-bg-300: var(--brand-300);
-  --color-button-brand-bg-200: var(--brand-200);
-  --color-button-brand-bg-100: var(--brand-100);
-  --color-button-brand-bg-50: var(--brand-50);
-  --color-button-brand-20: var(--brand-20);
-
-  --color-button-others-negative: var(--others-red);
-
-  /* layer color */
-  --color-layer-grey-900: var(--grey-900);
-  --color-layer-grey-700: var(--grey-700);
-  --color-layer-grey-600: var(--grey-600);
-  --color-layer-grey-500: var(--grey-500);
-  --color-layer-grey-300: var(--grey-300);
-  --color-layer-grey-200: var(--grey-200);
-  --color-layer-grey-100: var(--grey-100);
-  --color-layer-grey-50: var(--grey-50);
-  --color-layer-grey-0: var(--grey-0);
-
-  --color-layer-others-bg-50: var(--brand-50);
-  --color-layer-others-bg-20: var(--brand-20);
-  --color-layer-others-tapbg: var(--others-casualgrey);
-
-  --color-layer-others-negative: var(--others-red);
+  --color-others-50: var(--color-brand-50);
+  --color-others-20: var(--color-brand-20);
+  --color-others-tap-bg: var(--color-others-gracyblue);
 
   /*====== 간격 ======= */
   --spacing-spacing-0: 0rem; /* 0px */
