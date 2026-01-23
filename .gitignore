@@ -5,3 +5,6 @@
 
 # IntelliJ
 .idea/
+
+# macOS
+.DS_Store
