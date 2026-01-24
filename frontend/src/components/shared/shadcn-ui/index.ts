@@ -7,3 +7,5 @@ export {
   PopoverTitle,
   PopoverDescription,
 } from './popover';
+
+export { Button } from './button';
