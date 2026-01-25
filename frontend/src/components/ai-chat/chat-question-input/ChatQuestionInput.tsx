@@ -30,6 +30,17 @@ export const ChatQuestionInput = ({
     onQuestionSubmit(question);
   }, [onQuestionSubmit]);
 
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      // 엔터 키 누르면 submit 발생, shift 엔터키 누르면 줄바꿈
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleSubmitQuestion();
+      }
+    },
+    [handleSubmitQuestion],
+  );
+
   useEffect(() => {
     // selectedQuestion이 변경되면 자동으로 제출
     if (selectedQuestion && textareaRef.current) {
@@ -39,14 +50,6 @@ export const ChatQuestionInput = ({
     }
   }, [selectedQuestion, onSelectedQuestionProcessed, handleSubmitQuestion]);
 
-  // 엔터 키 누르면 submit 발생, shift 엔터키 누르면 줄바꿈
-  const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSubmitQuestion();
-    }
-  };
-
   return (
     <div className="bg-grey-200 rounded-300 flex gap-300 px-400 py-300">
       <Textarea
@@ -54,7 +57,7 @@ export const ChatQuestionInput = ({
         ref={textareaRef}
         placeholder="무엇이든 물어보세요."
         className="peer placeholder:text-grey-500 text-grey-900 body-small-medium max-h-35 resize-none overflow-y-scroll border-none p-0 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
-        onKeyDown={onKeyDown} // 엔터 키 이벤트 핸들러 등록
+        onKeyDown={handleKeyDown} // 엔터 키 이벤트 핸들러 등록
       />
       <Button
         type="submit"
