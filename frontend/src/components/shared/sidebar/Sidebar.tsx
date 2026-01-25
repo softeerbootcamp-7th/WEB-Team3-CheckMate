@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { SIDEBAR_ITEMS } from '@/constants/shared';
+import type { SidebarItem } from '@/types/shared';
 
 export const Sidebar = () => {
   // 현재 브라우저의 URL 경로를 가져옴
@@ -16,7 +17,7 @@ export const Sidebar = () => {
         className="mx-auto mt-21 ml-[40px] h-16.5 w-41"
       />
       <div className="body-medium-medium mt-[47px] ml-[29px] flex w-[220px] flex-col gap-100">
-        {SIDEBAR_ITEMS.map((menu) => {
+        {SIDEBAR_ITEMS.map((menu: SidebarItem) => {
           // 선택된 버튼인지를 현재 url 경로와 비교하여 판단
           const isActive = pathname.startsWith(menu.path);
 
@@ -37,7 +38,7 @@ export const Sidebar = () => {
               {/* 상세분석은 하위 메뉴 버튼들이 있음. 해당 버튼들 출력해야함 */}
               {menu.subMenus && (
                 <div className="flex flex-col">
-                  {menu.subMenus.map((sub) => {
+                  {menu.subMenus.map((sub: SidebarItem) => {
                     // 하위 메뉴는 경로가 정확히 일치해야 활성화 표시
                     // /analysis/sales, /analysis/menu 등
                     const isSubActive = pathname === sub.path;
