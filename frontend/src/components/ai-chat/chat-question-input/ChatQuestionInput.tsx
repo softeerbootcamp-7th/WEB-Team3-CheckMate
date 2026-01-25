@@ -48,12 +48,12 @@ export const ChatQuestionInput = ({
   };
 
   return (
-    <div className="bg-grey-200 rounded-300 flex max-h-87.5 gap-300 px-400 py-300">
+    <div className="bg-grey-200 rounded-300 flex gap-300 px-400 py-300">
       <Textarea
         id="ai-chat"
         ref={textareaRef}
         placeholder="무엇이든 물어보세요."
-        className="peer placeholder:text-grey-500 text-grey-900 body-small-medium resize-none border-none p-0 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
+        className="peer placeholder:text-grey-500 text-grey-900 body-small-medium max-h-35 resize-none overflow-y-scroll border-none p-0 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
         onKeyDown={onKeyDown} // 엔터 키 이벤트 핸들러 등록
       />
       <Button

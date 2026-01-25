@@ -13,9 +13,11 @@ export const ChatHistory = () => {
   });
 
   return (
-    <section className="flex h-full flex-col justify-end gap-1 px-500">
-      <UserBubble message="오늘 뭐가 제일 잘 팔렸을까?" />
-      {isLoading ? <BotLoading /> : <BotBubble />}
+    <section className="flex h-full flex-col justify-end px-500">
+      <div className="flex flex-col gap-1 overflow-y-scroll">
+        <UserBubble message="오늘 뭐가 제일 잘 팔렸을까?" />
+        {isLoading ? <BotLoading /> : <BotBubble />}
+      </div>
     </section>
   );
 };

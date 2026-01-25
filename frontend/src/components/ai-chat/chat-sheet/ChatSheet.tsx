@@ -49,14 +49,14 @@ export const ChatSheet = () => {
       <SheetContent
         showCloseButton={false}
         side="left"
-        className="rounded-500 m-1000 mt-auto h-[600px] w-90 gap-0 border-[2.5px] border-transparent bg-[linear-gradient(#fafbff,#fafbff),linear-gradient(171.25deg,#34aafb_-2.76%,#4eb0f6_12.29%,#73c1fd_38.18%,#009afa_89.66%)] [background-clip:content-box,border-box] bg-origin-border shadow-xl"
+        className="rounded-500 m-1000 mt-auto flex h-[600px] w-90 flex-col border-[2.5px] border-transparent bg-[linear-gradient(#fafbff,#fafbff),linear-gradient(171.25deg,#34aafb_-2.76%,#4eb0f6_12.29%,#73c1fd_38.18%,#009afa_89.66%)] [background-clip:content-box,border-box] bg-origin-border shadow-xl"
       >
         {/* 접근성 description */}
         <SheetDescription className="sr-only">
           AI mate 채팅창이에요. 질문을 입력하거나 추천 질문을 선택할 수 있어요.
         </SheetDescription>
         {/* 헤더 */}
-        <SheetHeader className="flex-row justify-between p-500">
+        <SheetHeader className="shrink-0 flex-row justify-between p-500">
           <SheetTitle>
             <img
               src="/assets/images/ai-mate-logo-row.png"
@@ -70,13 +70,15 @@ export const ChatSheet = () => {
         </SheetHeader>
 
         {/* 채팅 시작 페이지 또는 채팅 히스토리 */}
-        {!didStartChat ? (
-          <ChatStart onQuestionSelect={handleQuestionSelect} />
-        ) : (
-          <ChatHistory />
-        )}
+        <div className="min-h-0 flex-1 shrink-0">
+          {!didStartChat ? (
+            <ChatStart onQuestionSelect={handleQuestionSelect} />
+          ) : (
+            <ChatHistory />
+          )}
+        </div>
 
-        <SheetFooter className="p-500 pt-4.5">
+        <SheetFooter className="m-500 mt-0 p-0">
           {/* 질문 입력 영역 */}
           <ChatQuestionInput
             selectedQuestion={selectedQuestion}
