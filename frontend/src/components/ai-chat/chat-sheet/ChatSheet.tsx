@@ -1,27 +1,19 @@
-import { useState } from 'react';
-
-import { XIcon } from 'lucide-react';
-
-import { Button } from '@/components/shared/ui/button';
 import {
   Sheet,
-  SheetClose,
   SheetContent,
-  SheetDescription,
   SheetFooter,
-  SheetHeader,
   SheetOverlay,
-  SheetTitle,
-  SheetTrigger,
 } from '@/components/shared/ui/sheet';
+import { useChatState } from '@/hooks/ai-chat';
 
 import { ChatHistory } from '../chat-history/ChatHistory';
 import { ChatQuestionInput } from '../chat-question-input/ChatQuestionInput';
+import { ChatSheetHeader } from '../chat-sheet-header/ChatSheetHeader';
+import { ChatSheetTrigger } from '../chat-sheet-trigger/ChatSheetTrigger';
 import { ChatStart } from '../chat-start/ChatStart';
 
 export const ChatSheet = () => {
-  const [didStartChat, setDidStartChat] = useState<boolean>(false);
-  const [selectedQuestion, setSelectedQuestion] = useState<string | null>(null);
+  const [chatState, { setDidStartChat, setSelectedQuestion }] = useChatState();
 
   const handleQuestionSelect = (question: string) => {
     setSelectedQuestion(question);
@@ -34,44 +26,24 @@ export const ChatSheet = () => {
     console.info('질문 제출:', question);
   };
 
+  const handleChatReset = () => {
+    setDidStartChat(false);
+  };
+
   return (
-    <Sheet onOpenChange={(open) => open && setDidStartChat(false)}>
-      <SheetTrigger asChild>
-        <Button className="bg-grey-0 size-18 rounded-full border-none p-350 pb-400 shadow-[0_0_3.6px_0_rgba(0,0,0,0.15),0_3.6px_7.2px_0_rgba(0,0,0,0.08)]">
-          <img
-            src="/assets/images/ai-mate-logo-col.png"
-            alt="AI mate 로고"
-            className="h-9.5 object-contain"
-          />
-        </Button>
-      </SheetTrigger>
+    <Sheet onOpenChange={(open) => open && handleChatReset()}>
+      <ChatSheetTrigger />
       <SheetOverlay className="bg-transparent" />
       <SheetContent
         showCloseButton={false}
         side="left"
         className="rounded-500 m-1000 mt-auto flex h-[600px] w-90 flex-col border-[2.5px] border-transparent bg-[linear-gradient(#fafbff,#fafbff),linear-gradient(171.25deg,#34aafb_-2.76%,#4eb0f6_12.29%,#73c1fd_38.18%,#009afa_89.66%)] [background-clip:content-box,border-box] bg-origin-border shadow-xl"
       >
-        {/* 접근성 description */}
-        <SheetDescription className="sr-only">
-          AI mate 채팅창이에요. 질문을 입력하거나 추천 질문을 선택할 수 있어요.
-        </SheetDescription>
-        {/* 헤더 */}
-        <SheetHeader className="shrink-0 flex-row justify-between p-500">
-          <SheetTitle>
-            <img
-              src="/assets/images/ai-mate-logo-row.png"
-              alt="AI mate 로고"
-              className="h-6 object-contain"
-            />
-          </SheetTitle>
-          <SheetClose className="text-grey-600 size-6 cursor-pointer">
-            <XIcon className="size-6" />
-          </SheetClose>
-        </SheetHeader>
+        <ChatSheetHeader />
 
         {/* 채팅 시작 페이지 또는 채팅 히스토리 */}
         <div className="min-h-0 flex-1 shrink-0">
-          {!didStartChat ? (
+          {!chatState.didStartChat ? (
             <ChatStart onQuestionSelect={handleQuestionSelect} />
           ) : (
             <ChatHistory />
@@ -79,9 +51,8 @@ export const ChatSheet = () => {
         </div>
 
         <SheetFooter className="m-500 mt-0 p-0">
-          {/* 질문 입력 영역 */}
           <ChatQuestionInput
-            selectedQuestion={selectedQuestion}
+            selectedQuestion={chatState.selectedQuestion}
             onSelectedQuestionProcessed={() => setSelectedQuestion(null)}
             onQuestionSubmit={handleQuestionSubmit}
           />
