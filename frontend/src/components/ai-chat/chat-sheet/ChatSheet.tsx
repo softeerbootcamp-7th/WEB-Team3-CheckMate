@@ -41,7 +41,7 @@ export const ChatSheet = () => {
           <img
             src="/assets/images/ai-mate-logo-col.png"
             alt="AI mate 로고"
-            className="h-9.5 w-fit"
+            className="h-9.5 object-contain"
           />
         </Button>
       </SheetTrigger>
@@ -61,10 +61,10 @@ export const ChatSheet = () => {
             <img
               src="/assets/images/ai-mate-logo-row.png"
               alt="AI mate 로고"
-              className="h-6 w-fit"
+              className="h-6 object-contain"
             />
           </SheetTitle>
-          <SheetClose className="text-grey-600 size-6">
+          <SheetClose className="text-grey-600 size-6 cursor-pointer">
             <XIcon className="size-6" />
           </SheetClose>
         </SheetHeader>
