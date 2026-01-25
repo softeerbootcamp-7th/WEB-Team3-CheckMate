@@ -1,3 +1,5 @@
+import { CHAT_RECOMMENDED_QUESTIONS } from '@/constants/ai-chat';
+
 import { RecommendedQuestion } from '../recommended-question/RecommendedQuestion';
 
 interface ChatStartProps {
@@ -5,12 +7,6 @@ interface ChatStartProps {
 }
 
 export const ChatStart = ({ onQuestionSelect }: ChatStartProps) => {
-  const questions = [
-    '지금 상태를 한 줄로 요약해줘',
-    '이 화면에서 주의할 포인트가 있을까?',
-    '지금 뭐부터 확인하면 좋을지 우선순위로 알려줘',
-  ];
-
   return (
     <section className="flex h-full flex-col justify-between px-500 pt-18">
       <div className="flex flex-col gap-y-250">
@@ -24,7 +20,7 @@ export const ChatStart = ({ onQuestionSelect }: ChatStartProps) => {
         </p>
       </div>
       <ul className="flex flex-col gap-150">
-        {questions.map((question) => (
+        {CHAT_RECOMMENDED_QUESTIONS.map((question) => (
           <RecommendedQuestion
             key={question}
             question={question}
