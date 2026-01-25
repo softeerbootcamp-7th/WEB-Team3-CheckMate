@@ -2,6 +2,7 @@ import './index.css';
 
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 
 import { worker } from './mocks/browser.ts';
 import App from './App.tsx';
@@ -14,14 +15,18 @@ if (root) {
     worker.start().then(() => {
       createRoot(root).render(
         <StrictMode>
-          <App />
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
         </StrictMode>,
       );
     });
   } else {
     createRoot(root).render(
       <StrictMode>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </StrictMode>,
     );
   }

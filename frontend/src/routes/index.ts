@@ -1,0 +1,1 @@
+export { MainPageRouter } from './MainPageRouter';

@@ -1,15 +1,9 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
-import { Sidebar } from './components/shared';
+import { MainPageRouter } from '@/routes';
 
 function App() {
   return (
     <div className="h-screen w-screen">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Sidebar />} />
-        </Routes>
-      </BrowserRouter>
+      <MainPageRouter />
     </div>
   );
 }
