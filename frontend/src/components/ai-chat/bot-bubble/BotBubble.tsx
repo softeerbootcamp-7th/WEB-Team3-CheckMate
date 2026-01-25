@@ -1,4 +1,8 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+import { useAutoScroll } from '@/hooks/ai-chat/useAutoScroll';
+import { useSpacerHeight } from '@/hooks/ai-chat/useSpacerHeight';
+import { useStreamingText } from '@/hooks/ai-chat/useStreamingText';
 
 import { BotLoading } from '../bot-loading/BotLoading';
 
@@ -7,92 +11,43 @@ interface BotBubbleProps {
   isLatest?: boolean;
   userBubbleRef?: React.RefObject<HTMLDivElement | null>;
 }
+
 export const BotBubble = ({
   message,
   isLatest = false,
   userBubbleRef,
 }: BotBubbleProps) => {
-  const [isLoading, setIsLoading] = useState<boolean>(isLatest);
-  const [displayed, setDisplayed] = useState<string>(isLatest ? '' : message);
+  const [isLoading, setIsLoading] = useState(isLatest);
+  const textRef = useRef<HTMLParagraphElement>(null);
 
-  const [spacerHeight, setSpacerHeight] = useState<number>(0);
-  const textRef = useRef<HTMLParagraphElement | null>(null);
-
+  // 로딩 상태 관리 (mocked)
   useEffect(() => {
     if (!isLatest) {
       return;
     }
-    // scroll to bottom
-    const wrapper = document.getElementById('chat-history-wrapper');
-    if (!wrapper) {
-      return;
-    }
-    wrapper.scrollTo({ top: wrapper.scrollHeight, behavior: 'smooth' });
-  }, [isLoading, isLatest]);
-
-  useEffect(() => {
-    if (!isLatest) {
-      return;
-    }
-
-    // 2초 뒤 로딩 종료 (mock)
     const timer = setTimeout(() => setIsLoading(false), 2000);
     return () => clearTimeout(timer);
   }, [isLatest]);
 
-  useEffect(() => {
-    let id: NodeJS.Timeout;
+  // 스트리밍 텍스트 표시 (mocked)
+  const displayedText = useStreamingText({
+    text: message,
+    enabled: !isLoading && isLatest,
+  });
 
-    if (!isLoading && isLatest) {
-      // 스트리밍 mock
-      let currentIndex = 0;
-      id = setInterval(() => {
-        setDisplayed(message.slice(0, currentIndex + 1));
-        currentIndex++;
-        if (currentIndex >= message.length) {
-          clearInterval(id);
-        }
-      }, 30);
-    }
-    return () => clearInterval(id);
-  }, [message, isLatest, isLoading]);
+  // 가장 최신 메시지로 자동 스크롤
+  useAutoScroll({
+    enabled: isLatest,
+    dependencies: [isLoading, displayedText],
+  });
 
-  useLayoutEffect(() => {
-    if (
-      !isLatest ||
-      !userBubbleRef ||
-      !userBubbleRef.current ||
-      !textRef ||
-      !textRef.current
-    ) {
-      return;
-    }
-
-    const wrapper = document.getElementById('chat-history-wrapper');
-    if (!wrapper) {
-      return;
-    }
-
-    // spacer 높이 계산: wrapper높이 - userBubble높이 - text높이
-    const calculateHeight = () => {
-      const wrapperH = wrapper.clientHeight;
-      const userH = userBubbleRef.current?.clientHeight ?? 0;
-      const textH = textRef.current?.clientHeight ?? 0;
-      const PADDING_BOTTOM_HEIGHT = 18; // wrapper의 padding-bottom 값
-      const GAP_HEIGHT = 16; // userBubble과 botBubble, botBubble과 spacer 사이 간격
-      const newHeight = Math.max(
-        0,
-        wrapperH - userH - textH - PADDING_BOTTOM_HEIGHT - GAP_HEIGHT * 2,
-      );
-      setSpacerHeight(newHeight);
-    };
-
-    // 다음 프레임에 측정
-    requestAnimationFrame(calculateHeight);
-
-    // scroll to bottom, don't show scrollbar
-    wrapper.scrollTo({ top: wrapper.scrollHeight, behavior: 'smooth' });
-  }, [isLatest, displayed, userBubbleRef]);
+  // 아래 여백 높이 계산
+  const spacerHeight = useSpacerHeight({
+    enabled: isLatest,
+    userBubbleRef: userBubbleRef ?? { current: null },
+    textRef,
+    displayedText,
+  });
 
   if (isLoading) {
     return <BotLoading />;
@@ -103,7 +58,7 @@ export const BotBubble = ({
         ref={textRef}
         className="body-small-medium text-grey-900 whitespace-pre-line"
       >
-        {displayed}
+        {displayedText}
       </p>
       {isLatest && (
         <div
