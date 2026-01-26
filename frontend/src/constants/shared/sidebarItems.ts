@@ -1,5 +1,5 @@
 import {
-  AnaylsisIcon,
+  AnalysisIcon,
   DailyReportIcon,
   DashboardIcon,
   SettingsIcon,
@@ -17,7 +17,7 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
     id: 'ANALYSIS',
     name: '상세분석',
     path: '/analysis',
-    Icon: AnaylsisIcon,
+    Icon: AnalysisIcon,
     subMenus: [
       {
         id: 'ANALYSIS_SALES',
