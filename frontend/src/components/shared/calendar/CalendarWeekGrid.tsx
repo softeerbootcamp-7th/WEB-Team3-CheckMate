@@ -7,7 +7,7 @@ import {
 
 import { CalendarDateCell } from './CalendarDateCell';
 
-interface CalendarDateGridProps {
+interface CalendarWeekGridProps {
   currentDateForCalendar: Date;
   selectedStartDate?: Date;
   selectedEndDate?: Date;
@@ -17,7 +17,7 @@ interface CalendarDateGridProps {
   handleSelectDate: (currentDate: Date) => void;
 }
 
-export const CalendarDateGrid = ({
+export const CalendarWeekGrid = ({
   currentDateForCalendar,
   selectedStartDate,
   selectedEndDate,
@@ -25,7 +25,7 @@ export const CalendarDateGrid = ({
   numberOfDatesForCalendar,
   firstWeekOfNextMonth,
   handleSelectDate,
-}: CalendarDateGridProps) => {
+}: CalendarWeekGridProps) => {
   const renderDateCell = ({
     date,
     isPreviousMonth,

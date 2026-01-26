@@ -1,22 +1,22 @@
-import { useCalendar } from '@/hooks/shared';
+import { useCalendarNavigation, useDateCalendar } from '@/hooks/shared';
 
 import { CalendarDateGrid } from './CalendarDateGrid';
 import { CalendarDayGrid } from './CalendarDayGrid';
 import { CalendarHeader } from './CalendarHeader';
 
-interface CalendarProps {
+interface DateCalendarProps {
   selectedStartDate?: Date;
   setSelectedStartDate: (date?: Date) => void;
   selectedEndDate?: Date;
   setSelectedEndDate: (date?: Date) => void;
 }
 
-export const Calendar = ({
+export const DateCalendar = ({
   selectedStartDate,
   setSelectedStartDate,
   selectedEndDate,
   setSelectedEndDate,
-}: CalendarProps) => {
+}: DateCalendarProps) => {
   const {
     currentDateForCalendar,
     currentYearForCalendar,
@@ -24,10 +24,13 @@ export const Calendar = ({
     numberOfDatesForCalendar,
     lastWeekOfPreviousMonth,
     firstWeekOfNextMonth,
-    handleClickPreviousMonth,
-    handleClickNextMonth,
-    handleSelectDate,
-  } = useCalendar({
+    handleMovePreviousMonth,
+    handleMoveNextMonth,
+  } = useCalendarNavigation({
+    selectedEndDate,
+  });
+
+  const { handleSelectDate } = useDateCalendar({
     selectedStartDate,
     selectedEndDate,
     setSelectedStartDate,
@@ -38,10 +41,11 @@ export const Calendar = ({
     <section className="rounded-300 border-grey-300 w-80 border p-350">
       <div className="size-full">
         <CalendarHeader
-          currentYearForCalendar={currentYearForCalendar}
-          currentMonthForCalendar={currentMonthForCalendar}
-          handleClickPreviousMonth={handleClickPreviousMonth}
-          handleClickNextMonth={handleClickNextMonth}
+          headerTitle={`${currentYearForCalendar}년 ${currentMonthForCalendar}월`}
+          previousAriaLabel="이전 달로 이동"
+          nextAriaLabel="다음 달로 이동"
+          handleClickPreviousMonth={handleMovePreviousMonth}
+          handleClickNextMonth={handleMoveNextMonth}
         />
         <CalendarDayGrid />
         <CalendarDateGrid
