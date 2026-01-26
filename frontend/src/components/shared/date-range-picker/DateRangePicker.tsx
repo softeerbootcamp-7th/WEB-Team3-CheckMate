@@ -9,7 +9,7 @@ import { useDateRangePicker } from '@/hooks/shared';
 import { Calendar } from '../calendar';
 import { Button, Popover, PopoverContent, PopoverTrigger } from '../shadcn-ui';
 
-import { DateRangePickerSide } from './DateRangePicker.side';
+import { DateRangePickerSide } from './DateRangePickerSide';
 
 interface DateRangePickerProps {
   startDate?: Date;

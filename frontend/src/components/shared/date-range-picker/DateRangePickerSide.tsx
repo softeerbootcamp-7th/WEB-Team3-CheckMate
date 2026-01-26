@@ -6,10 +6,10 @@ import { type DateRangePickerType } from '@/constants/shared';
 import { useDateRangePickerSide } from '@/hooks/shared';
 import { cn } from '@/utils/shared';
 
-import { DateRangePickerCancelButton } from './DateRangePicker.cancel-button';
-import { DateRangePickerSaveButton } from './DateRangePicker.save-button';
-import { DateRangePickerSelectedDate } from './DateRangePicker.selected-date';
-import { DateRangePickerStartEndIndicator } from './DateRangePicker.start-end-indicator';
+import { DateRangePickerCancelButton } from './DateRangePickerCancelButton';
+import { DateRangePickerSaveButton } from './DateRangePickerSaveButton';
+import { DateRangePickerSelectedDate } from './DateRangePickerSelectedDate';
+import { DateRangePickerStartEndIndicator } from './DateRangePickerStartEndIndicator';
 
 interface DateRangePickerSideProps {
   selectedStartDate?: Date;

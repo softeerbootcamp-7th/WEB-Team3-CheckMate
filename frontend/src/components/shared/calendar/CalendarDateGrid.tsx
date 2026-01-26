@@ -5,7 +5,7 @@ import {
   isStartDate,
 } from '@/utils/shared';
 
-import { CalendarDateCell } from './Calendar.date-cell';
+import { CalendarDateCell } from './CalendarDateCell';
 
 interface CalendarDateGridProps {
   currentDateForCalendar: Date;

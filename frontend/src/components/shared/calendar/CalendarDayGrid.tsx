@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { DAY_OF_WEEK_LIST } from '@/constants/shared';
 
-import { CalendarDayCell } from './Calendar.day-cell';
+import { CalendarDayCell } from './CalendarDayCell';
 
 export const CalendarDayGrid = memo(() => {
   return (
