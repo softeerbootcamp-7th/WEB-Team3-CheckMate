@@ -7,9 +7,14 @@ import { Button } from '../shadcn-ui';
 interface SelectDateProps {
   selectedDate: string;
   resetDate: () => void;
+  ariaLabel: string;
 }
 
-const SelectedDate = ({ selectedDate, resetDate }: SelectDateProps) => {
+const SelectedDate = ({
+  selectedDate,
+  resetDate,
+  ariaLabel,
+}: SelectDateProps) => {
   return (
     <div className="bg-grey-100 rounded-200 flex w-40 items-center justify-between py-250 pr-250 pl-400">
       <span
@@ -25,6 +30,7 @@ const SelectedDate = ({ selectedDate, resetDate }: SelectDateProps) => {
         size="icon"
         className="text-grey-600 size-fit"
         onClick={resetDate}
+        aria-label={ariaLabel}
       >
         <X className="size-5" />
       </Button>
@@ -46,7 +52,11 @@ export const DateRangePickerSelectedDate = ({
   return (
     <div className="flex items-center justify-between">
       <span className="body-small-medium text-grey-900">{label}</span>
-      <SelectedDate selectedDate={selectedDate} resetDate={resetDate} />
+      <SelectedDate
+        selectedDate={selectedDate}
+        resetDate={resetDate}
+        ariaLabel={`${label} 날짜 초기화 버튼`}
+      />
     </div>
   );
 };
