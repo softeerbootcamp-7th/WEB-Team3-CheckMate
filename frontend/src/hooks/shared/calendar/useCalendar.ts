@@ -117,11 +117,14 @@ export const useCalendar = ({
       date,
     );
 
+    // 시작 날짜와 종료 날짜가 없을 때, 선택한 날짜를 시작 날짜로 설정
     if (!selectedStartDate && !selectedEndDate) {
       setSelectedStartDate(selectedDate);
       return;
     }
 
+    // 시작 날짜가 있고 종료 날짜가 없을 때, 선택한 날짜가 시작 날짜보다 크면 종료 날짜로 설정
+    // 작으면 시작 날짜를 종료 날짜를 설정하고 시작 날짜를 선택한 날짜로 설정
     if (selectedStartDate && !selectedEndDate) {
       const currentSelectedStartDate = new Date(selectedStartDate);
       if (selectedDate.getTime() > selectedStartDate.getTime()) {
@@ -134,19 +137,23 @@ export const useCalendar = ({
       return;
     }
 
+    // 시작 날짜와 종료 날짜가 있을 때
     if (selectedStartDate && selectedEndDate) {
       const currentSelectedStartDate = new Date(selectedStartDate);
       const currentSelectedEndDate = new Date(selectedEndDate);
+      // 선택한 날짜가 종료 날짜보다 크거나 같으면 종료 날짜로 설정
       if (selectedDate.getTime() > currentSelectedEndDate.getTime()) {
         setSelectedEndDate(selectedDate);
         return;
       }
 
-      if (selectedDate.getTime() < currentSelectedStartDate.getTime()) {
+      // 선택한 날짜가 시작 날짜보다 작으면 시작 날짜를 설정하고 종료 날짜를 설정
+      if (selectedDate.getTime() <= currentSelectedStartDate.getTime()) {
         setSelectedStartDate(selectedDate);
-        setSelectedEndDate(currentSelectedEndDate);
+        setSelectedEndDate(currentSelectedStartDate);
       }
 
+      // 선택한 날짜가 시작 날짜와 종료 날짜 사이에 있으면 종료 날짜를 설정
       if (
         selectedDate.getTime() > currentSelectedStartDate.getTime() &&
         selectedDate.getTime() < currentSelectedEndDate.getTime()
