@@ -1,1 +1,1 @@
-export { MainPageRouter } from './MainPageRouter';
+export { PageRouter } from './MainPageRouter';

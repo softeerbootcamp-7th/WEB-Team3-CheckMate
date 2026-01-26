@@ -13,7 +13,7 @@ import { SalesPage } from '@/pages/sales-page';
 import { SettingPage } from '@/pages/setting-page';
 import { WeatherPage } from '@/pages/weather-page';
 
-const mainRouterObject: RouteObject = {
+const routerObject: RouteObject = {
   Component: MainLayout,
   children: [
     { index: true, element: <Navigate to="dashboard" replace /> },
@@ -35,8 +35,8 @@ const mainRouterObject: RouteObject = {
   ],
 };
 
-const router = createBrowserRouter([mainRouterObject]);
+const router = createBrowserRouter([routerObject]);
 
-export const MainPageRouter = () => {
+export const PageRouter = () => {
   return <RouterProvider router={router} />;
 };
