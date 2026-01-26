@@ -1,18 +1,14 @@
-import { useMemo } from 'react';
+import { type ComponentProps } from 'react';
 
-import {
-  DATE_RANGE_PICKER_TYPE,
-  type DateRangePickerType,
-} from '@/constants/shared';
+import { CALENDAR_FACTORY, type DateRangePickerType } from '@/constants/shared';
 import { useDateRangePicker } from '@/hooks/shared';
-import { cn } from '@/utils/shared';
 
-import { Calendar } from '../calendar';
-import { Button, Popover, PopoverContent, PopoverTrigger } from '../shadcn-ui';
+import { Popover, PopoverContent, PopoverTrigger } from '../shadcn-ui';
 
 import { DateRangePickerSide } from './DateRangePickerSide';
+import { DateRangePickerTrigger } from './DateRangePickerTrigger';
 
-interface DateRangePickerProps {
+interface DateRangePickerProps extends ComponentProps<typeof Popover> {
   startDate?: Date;
   setStartDate?: (date?: Date) => void;
   endDate?: Date;
@@ -28,10 +24,11 @@ export const DateRangePicker = ({
   setEndDate,
   dateRangePickerType,
   triggerClassName,
+  ...props
 }: DateRangePickerProps) => {
   const {
     isOpen,
-    setIsOpen,
+    handleOpenChange,
     ariaLabel,
     handleCancel,
     handleSave,
@@ -47,48 +44,28 @@ export const DateRangePicker = ({
     dateRangePickerType,
   });
 
-  const CalendarComponent = useMemo(() => {
-    switch (dateRangePickerType) {
-      case DATE_RANGE_PICKER_TYPE.date:
-        return (
-          <Calendar
-            selectedStartDate={selectedStartDate}
-            setSelectedStartDate={setSelectedStartDate}
-            selectedEndDate={selectedEndDate}
-            setSelectedEndDate={setSelectedEndDate}
-          />
-        );
-      default:
-        return null;
-    }
-  }, [
-    dateRangePickerType,
-    selectedStartDate,
-    setSelectedStartDate,
-    selectedEndDate,
-    setSelectedEndDate,
-  ]);
-
   return (
-    <Popover open={isOpen} onOpenChange={setIsOpen}>
+    <Popover open={isOpen} onOpenChange={handleOpenChange} {...props}>
       <PopoverTrigger asChild>
-        <Button
-          variant="ghost"
-          className={cn(
-            'bg-grey-200 text-grey-700 border-grey-300 rounded-unlimit body-small-medium flex h-8 w-fit items-center justify-center border px-300',
-            triggerClassName,
-          )}
-          aria-label={ariaLabel}
-        >
-          기간 선택
-        </Button>
+        <DateRangePickerTrigger
+          isOpen={isOpen}
+          triggerClassName={triggerClassName}
+          startDate={startDate}
+          endDate={endDate}
+          ariaLabel={ariaLabel}
+        />
       </PopoverTrigger>
       <PopoverContent
         align="end"
         className="shadow-card-floating rounded-400 bg-special-card-bg flex w-full gap-600 border-none p-4"
         aria-label={ariaLabel}
       >
-        {CalendarComponent}
+        {CALENDAR_FACTORY[dateRangePickerType]({
+          selectedStartDate,
+          setSelectedStartDate,
+          selectedEndDate,
+          setSelectedEndDate,
+        })}
         <DateRangePickerSide
           selectedStartDate={selectedStartDate}
           selectedEndDate={selectedEndDate}
