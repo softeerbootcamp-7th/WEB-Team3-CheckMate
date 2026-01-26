@@ -40,28 +40,30 @@ export const ChatHistory = ({
   return (
     <section
       ref={wrapperRef}
-      className="mx-500 flex h-full flex-col gap-400 overflow-y-scroll pb-4.5"
+      className="mx-500 flex h-full flex-col overflow-y-scroll pb-4.5"
     >
-      <div className="flex flex-1" />
-      {chatHistoryList.map((chat, index) => {
-        const isLatest = index === chatHistoryList.length - 1;
+      <div className="flex flex-1 flex-col" /> {/* 상단 spacer */}
+      <div className="flex flex-col gap-400">
+        {chatHistoryList.map((chat, index) => {
+          const isLatest = index === chatHistoryList.length - 1;
 
-        return (
-          <ChatHistoryItem
-            key={`${chat.question}-${index}`}
-            question={chat.question}
-            answer={chat.answer}
-            isLatest={isLatest}
-            isLoading={isLatest && isLoading}
-            userBubbleRef={userBubbleRef}
-            botBubbleRef={botBubbleRef}
-          />
-        );
-      })}
-
+          return (
+            <ChatHistoryItem
+              key={`${chat.question}-${index}`}
+              question={chat.question}
+              answer={chat.answer}
+              isLatest={isLatest}
+              isLoading={isLatest && isLoading}
+              userBubbleRef={userBubbleRef}
+              botBubbleRef={botBubbleRef}
+            />
+          );
+        })}
+      </div>
+      {/* 스트리밍용 하단 spacer */}
       <div
         className="w-full shrink-0"
-        style={{ height: `${spacerHeight}px` }}
+        style={{ height: `${isLoading ? 0 : spacerHeight}px` }}
       />
     </section>
   );
