@@ -20,9 +20,6 @@ export const useCalendarNavigation = ({
     selectedEndDate ?? new Date(),
   );
 
-  const currentYearForCalendar = currentDateForCalendar.getFullYear();
-  const currentMonthForCalendar = currentDateForCalendar.getMonth() + 1;
-
   /**
    * @description 현재 달력의 날짜 수를 반환
    */
@@ -83,8 +80,6 @@ export const useCalendarNavigation = ({
 
   return {
     currentDateForCalendar,
-    currentYearForCalendar,
-    currentMonthForCalendar,
     numberOfDatesForCalendar,
     lastWeekOfPreviousMonth,
     firstWeekOfNextMonth,

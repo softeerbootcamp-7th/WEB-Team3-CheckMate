@@ -1,3 +1,4 @@
+import { CALENDAR_CONFIG, DATE_RANGE_PICKER_TYPE } from '@/constants/shared';
 import { useCalendarNavigation, useWeekCalendar } from '@/hooks/shared';
 
 import { CalendarDayGrid } from './CalendarDayGrid';
@@ -19,8 +20,6 @@ export const WeekCalendar = ({
 }: WeekCalendarProps) => {
   const {
     currentDateForCalendar,
-    currentYearForCalendar,
-    currentMonthForCalendar,
     numberOfDatesForCalendar,
     lastWeekOfPreviousMonth,
     firstWeekOfNextMonth,
@@ -36,13 +35,16 @@ export const WeekCalendar = ({
     setSelectedEndDate,
   });
 
+  const { headerTitle, previousAriaLabel, nextAriaLabel } =
+    CALENDAR_CONFIG[DATE_RANGE_PICKER_TYPE.week];
+
   return (
     <section className="rounded-300 border-grey-300 w-80 border p-350">
       <div className="size-full">
         <CalendarHeader
-          headerTitle={`${currentYearForCalendar}년 ${currentMonthForCalendar}월`}
-          previousAriaLabel="이전 달로 이동"
-          nextAriaLabel="다음 달로 이동"
+          headerTitle={headerTitle(currentDateForCalendar)}
+          previousAriaLabel={previousAriaLabel}
+          nextAriaLabel={nextAriaLabel}
           handleClickPreviousMonth={handleMovePreviousMonth}
           handleClickNextMonth={handleMoveNextMonth}
         />
