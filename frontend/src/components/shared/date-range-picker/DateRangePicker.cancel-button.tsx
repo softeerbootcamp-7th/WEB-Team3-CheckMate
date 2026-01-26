@@ -12,6 +12,7 @@ export const DateRangePickerCancelButton = ({
       variant="ghost"
       className="bg-grey-200 text-grey-700 w-19"
       onClick={handleCancel}
+      aria-label="기간 설정 취소"
     >
       취소
     </Button>

@@ -20,6 +20,7 @@ export const DateRangePickerSaveButton = ({
       )}
       onClick={handleSave}
       disabled={disabled}
+      aria-label="기간 설정 저장"
     >
       저장
     </Button>

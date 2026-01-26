@@ -46,6 +46,7 @@ export const Calendar = ({
             size="icon"
             className="size-fit"
             onClick={handleClickPreviousMonth}
+            aria-label="이전 달로 이동"
           >
             <ChevronLeft className="size-5" />
           </Button>
@@ -57,6 +58,7 @@ export const Calendar = ({
             size="icon"
             className="size-fit"
             onClick={handleClickNextMonth}
+            aria-label="다음 달로 이동"
           >
             <ChevronRight className="size-5" />
           </Button>
