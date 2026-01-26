@@ -1,8 +1,10 @@
+import { memo } from 'react';
+
 interface UserBubbleProps {
   message: string;
   ref: React.Ref<HTMLDivElement>;
 }
-export const UserBubble = ({ message, ref }: UserBubbleProps) => {
+export const UserBubble = memo(({ message, ref }: UserBubbleProps) => {
   return (
     <div
       ref={ref}
@@ -13,4 +15,4 @@ export const UserBubble = ({ message, ref }: UserBubbleProps) => {
       </p>
     </div>
   );
-};
+});

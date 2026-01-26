@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import { BotBubble } from './BotBubble';
 import { UserBubble } from './UserBubble';
 
@@ -9,7 +11,7 @@ interface ChatHistoryItemProps {
   botBubbleRef: React.RefObject<HTMLParagraphElement | null>;
   userBubbleRef: React.RefObject<HTMLParagraphElement | null>;
 }
-export const ChatHistoryItem = ({
+const ChatHistoryItemComponent = ({
   question,
   answer,
   isLatest = false,
@@ -29,3 +31,12 @@ export const ChatHistoryItem = ({
     </>
   );
 };
+
+export const ChatHistoryItem = memo(
+  ChatHistoryItemComponent,
+  (prev, next) =>
+    prev.question === next.question &&
+    prev.answer === next.answer &&
+    prev.isLatest === next.isLatest &&
+    prev.isLoading === next.isLoading,
+);

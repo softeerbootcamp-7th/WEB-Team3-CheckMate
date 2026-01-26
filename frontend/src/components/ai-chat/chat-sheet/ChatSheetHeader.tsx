@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import { XIcon } from 'lucide-react';
 
 import {
@@ -7,7 +9,7 @@ import {
   SheetTitle,
 } from '@/components/shared/shadcn-ui/sheet';
 
-export const ChatSheetHeader = () => {
+export const ChatSheetHeader = memo(() => {
   return (
     <>
       {/* 접근성 description */}
@@ -30,4 +32,4 @@ export const ChatSheetHeader = () => {
       </SheetHeader>
     </>
   );
-};
+});
