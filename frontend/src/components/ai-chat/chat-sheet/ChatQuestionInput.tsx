@@ -38,6 +38,10 @@ export const ChatQuestionInput = ({
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
       // 엔터 키 누르면 submit 발생, shift 엔터키 누르면 줄바꿈
+      if (e.nativeEvent.isComposing) {
+        // 한글 자모 조합 중일 때는 무시
+        return;
+      }
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
         if (!isLoading) {
