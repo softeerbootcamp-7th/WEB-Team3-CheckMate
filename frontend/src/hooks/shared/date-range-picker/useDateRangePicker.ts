@@ -1,12 +1,11 @@
 import { useCallback, useMemo, useState } from 'react';
 
-import { Calendar } from '@/components/shared';
 import {
   DATE_RANGE_PICKER_TYPE,
   type DateRangePickerType,
 } from '@/constants/shared';
 
-interface useDateRangePickerProps {
+interface UseDateRangePickerProps {
   startDate?: Date;
   endDate?: Date;
   setStartDate?: (date?: Date) => void;
@@ -20,7 +19,7 @@ export const useDateRangePicker = ({
   setStartDate,
   setEndDate,
   dateRangePickerType,
-}: useDateRangePickerProps) => {
+}: UseDateRangePickerProps) => {
   const [selectedStartDate, setSelectedStartDate] = useState<Date | undefined>(
     startDate,
   );
@@ -45,28 +44,6 @@ export const useDateRangePicker = ({
     }
   }, [dateRangePickerType]);
 
-  const CalendarComponent = useMemo(() => {
-    switch (dateRangePickerType) {
-      case DATE_RANGE_PICKER_TYPE.date:
-        return (
-          <Calendar
-            selectedStartDate={selectedStartDate}
-            setSelectedStartDate={setSelectedStartDate}
-            selectedEndDate={selectedEndDate}
-            setSelectedEndDate={setSelectedEndDate}
-          />
-        );
-      default:
-        return null;
-    }
-  }, [
-    dateRangePickerType,
-    selectedStartDate,
-    setSelectedStartDate,
-    selectedEndDate,
-    setSelectedEndDate,
-  ]);
-
   const handleCancel = useCallback(() => {
     setSelectedStartDate(undefined);
     setSelectedEndDate(undefined);
@@ -83,7 +60,6 @@ export const useDateRangePicker = ({
     isOpen,
     setIsOpen,
     ariaLabel,
-    CalendarComponent,
     handleCancel,
     handleSave,
     selectedStartDate,

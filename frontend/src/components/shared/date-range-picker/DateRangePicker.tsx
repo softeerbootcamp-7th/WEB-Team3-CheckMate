@@ -1,6 +1,12 @@
-import { type DateRangePickerType } from '@/constants/shared';
+import { useMemo } from 'react';
+
+import {
+  DATE_RANGE_PICKER_TYPE,
+  type DateRangePickerType,
+} from '@/constants/shared';
 import { useDateRangePicker } from '@/hooks/shared';
 
+import { Calendar } from '../calendar';
 import { Button, Popover, PopoverContent, PopoverTrigger } from '../shadcn-ui';
 
 import { DateRangePickerSide } from './DateRangePicker.side';
@@ -24,7 +30,6 @@ export const DateRangePicker = ({
     isOpen,
     setIsOpen,
     ariaLabel,
-    CalendarComponent,
     handleCancel,
     handleSave,
     selectedStartDate,
@@ -38,6 +43,28 @@ export const DateRangePicker = ({
     setEndDate,
     dateRangePickerType,
   });
+
+  const CalendarComponent = useMemo(() => {
+    switch (dateRangePickerType) {
+      case DATE_RANGE_PICKER_TYPE.date:
+        return (
+          <Calendar
+            selectedStartDate={selectedStartDate}
+            setSelectedStartDate={setSelectedStartDate}
+            selectedEndDate={selectedEndDate}
+            setSelectedEndDate={setSelectedEndDate}
+          />
+        );
+      default:
+        return null;
+    }
+  }, [
+    dateRangePickerType,
+    selectedStartDate,
+    setSelectedStartDate,
+    selectedEndDate,
+    setSelectedEndDate,
+  ]);
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
