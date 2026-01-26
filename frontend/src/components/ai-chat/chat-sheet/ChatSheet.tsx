@@ -3,7 +3,7 @@ import {
   SheetContent,
   SheetFooter,
   SheetOverlay,
-} from '@/components/shared/ui/sheet';
+} from '@/components/shared/shadcn-ui/sheet';
 import { useChatState } from '@/hooks/ai-chat';
 
 import { ChatHistory } from '../chat-history';

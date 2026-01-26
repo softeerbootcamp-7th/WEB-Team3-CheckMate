@@ -1,4 +1,4 @@
-import { Button } from '@/components/shared/ui/button';
+import { Button } from '@/components/shared/shadcn-ui/button';
 
 interface RecommendedQuestionProps {
   question: string;

@@ -2,8 +2,8 @@ import { useCallback, useEffect, useRef } from 'react';
 
 import { ArrowUp } from 'lucide-react';
 
-import { Button } from '@/components/shared/ui/button';
-import { Textarea } from '@/components/shared/ui/textarea';
+import { Button } from '@/components/shared/shadcn-ui/button';
+import { Textarea } from '@/components/shared/shadcn-ui/textarea';
 
 interface ChatQuestionInputProps {
   selectedQuestion: string | null;

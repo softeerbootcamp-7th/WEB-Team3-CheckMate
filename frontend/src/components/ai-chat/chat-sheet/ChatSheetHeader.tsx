@@ -5,7 +5,7 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from '@/components/shared/ui/sheet';
+} from '@/components/shared/shadcn-ui/sheet';
 
 export const ChatSheetHeader = () => {
   return (
