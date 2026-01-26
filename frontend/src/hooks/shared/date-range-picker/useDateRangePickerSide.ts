@@ -52,8 +52,13 @@ export const useDateRangePickerSide = ({
   }, [dateRangePickerType, selectedEndDate]);
 
   const handleResetStartDate = useCallback(() => {
+    if (selectedEndDate) {
+      setSelectedStartDate(selectedEndDate);
+      setSelectedEndDate(undefined);
+      return;
+    }
     setSelectedStartDate(undefined);
-  }, [setSelectedStartDate]);
+  }, [selectedEndDate, setSelectedStartDate, setSelectedEndDate]);
 
   const handleResetEndDate = useCallback(() => {
     setSelectedEndDate(undefined);
