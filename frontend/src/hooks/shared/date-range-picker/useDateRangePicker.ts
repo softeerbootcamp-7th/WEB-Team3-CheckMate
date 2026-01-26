@@ -44,6 +44,20 @@ export const useDateRangePicker = ({
     }
   }, [dateRangePickerType]);
 
+  const handleOpenChange = useCallback(
+    (open: boolean) => {
+      if (!open) {
+        setSelectedStartDate(undefined);
+        setSelectedEndDate(undefined);
+      } else {
+        setSelectedStartDate(startDate);
+        setSelectedEndDate(endDate);
+      }
+      setIsOpen(open);
+    },
+    [startDate, endDate],
+  );
+
   const handleCancel = useCallback(() => {
     setSelectedStartDate(undefined);
     setSelectedEndDate(undefined);
@@ -58,7 +72,7 @@ export const useDateRangePicker = ({
 
   return {
     isOpen,
-    setIsOpen,
+    handleOpenChange,
     ariaLabel,
     handleCancel,
     handleSave,
