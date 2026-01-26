@@ -42,7 +42,7 @@ export const DATE_RANGE_SIDE_CONFIG = {
       const yearDifference = endDate.getFullYear() - startDate.getFullYear();
       const monthDifference = endDate.getMonth() - startDate.getMonth();
 
-      return yearDifference * 12 + monthDifference <= 12;
+      return yearDifference * 12 + monthDifference + 1 <= 12;
     },
     formattedDate: formatDateYYYYMM,
   },
