@@ -22,7 +22,12 @@ export const useSpacerHeight = ({
   const [spacerHeight, setSpacerHeight] = useState(0);
 
   useLayoutEffect(() => {
-    if (!enabled || !userBubbleRef.current || !botBubbleRef.current) {
+    if (
+      !enabled ||
+      !userBubbleRef.current ||
+      !botBubbleRef.current ||
+      !wrapperRef.current
+    ) {
       return;
     }
 
@@ -45,7 +50,9 @@ export const useSpacerHeight = ({
 
     requestAnimationFrame(calculateHeight);
 
-    wrapper.scrollTo({ top: wrapper.scrollHeight, behavior: 'smooth' });
+    if (displayedText.length === 1) {
+      wrapper.scrollTo({ top: wrapper.scrollHeight, behavior: 'smooth' });
+    }
   }, [enabled, wrapperRef, displayedText, userBubbleRef, botBubbleRef]);
 
   return spacerHeight;
