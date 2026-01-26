@@ -5,6 +5,7 @@ import {
   type DateRangePickerType,
 } from '@/constants/shared';
 import { useDateRangePicker } from '@/hooks/shared';
+import { cn } from '@/utils/shared';
 
 import { Calendar } from '../calendar';
 import { Button, Popover, PopoverContent, PopoverTrigger } from '../shadcn-ui';
@@ -17,6 +18,7 @@ interface DateRangePickerProps {
   endDate?: Date;
   setEndDate?: (date?: Date) => void;
   dateRangePickerType: DateRangePickerType;
+  triggerClassName?: string;
 }
 
 export const DateRangePicker = ({
@@ -25,6 +27,7 @@ export const DateRangePicker = ({
   endDate,
   setEndDate,
   dateRangePickerType,
+  triggerClassName,
 }: DateRangePickerProps) => {
   const {
     isOpen,
@@ -71,7 +74,10 @@ export const DateRangePicker = ({
       <PopoverTrigger asChild>
         <Button
           variant="ghost"
-          className="bg-grey-200 text-grey-700 border-grey-300 rounded-unlimit body-small-medium flex h-8 w-fit items-center justify-center border px-300"
+          className={cn(
+            'bg-grey-200 text-grey-700 border-grey-300 rounded-unlimit body-small-medium flex h-8 w-fit items-center justify-center border px-300',
+            triggerClassName,
+          )}
           aria-label={ariaLabel}
         >
           기간 선택
