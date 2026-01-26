@@ -71,3 +71,48 @@ export const isBetweenSelectedDate = ({
     currentDate.getTime() < selectedEndDate.getTime()
   );
 };
+
+export const getCurrentDate = ({
+  date,
+  dateForCalendar,
+  isPreviousMonth,
+  isNextMonth,
+}: {
+  date: number;
+  dateForCalendar: Date;
+  isPreviousMonth: boolean;
+  isNextMonth: boolean;
+}) => {
+  return new Date(
+    dateForCalendar.getFullYear(),
+    dateForCalendar.getMonth() +
+      (isPreviousMonth ? -1 : 0) +
+      (isNextMonth ? 1 : 0),
+    date,
+  );
+};
+
+export const getMondayOfWeek = (currentDate: Date) => {
+  const dayOfCurrentDate =
+    currentDate.getDay() === 0 ? 7 : currentDate.getDay();
+
+  return new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    currentDate.getDate() - dayOfCurrentDate + 1,
+  );
+};
+
+export const getSundayOfWeek = (currentDate?: Date) => {
+  if (!currentDate) {
+    return undefined;
+  }
+  const dayOfCurrentDate =
+    currentDate.getDay() === 0 ? 7 : currentDate.getDay();
+
+  return new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    currentDate.getDate() + 7 - dayOfCurrentDate,
+  );
+};
