@@ -1,10 +1,10 @@
-import { useLayoutEffect, useState } from 'react';
+import { type RefObject, useLayoutEffect, useState } from 'react';
 
 interface UseSpacerHeightOptions {
   enabled: boolean;
-  wrapperRef: React.RefObject<HTMLDivElement | null>;
-  userBubbleRef: React.RefObject<HTMLDivElement | null>;
-  botBubbleRef: React.RefObject<HTMLParagraphElement | null>;
+  wrapperRef: RefObject<HTMLDivElement | null>;
+  userBubbleRef: RefObject<HTMLDivElement | null>;
+  botBubbleRef: RefObject<HTMLParagraphElement | null>;
   displayedText: string;
   containerId?: string;
 }

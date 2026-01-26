@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, type RefObject } from 'react';
 
 import { BotBubble } from './BotBubble';
 import { UserBubble } from './UserBubble';
@@ -8,8 +8,8 @@ interface ChatHistoryItemProps {
   answer: string;
   isLatest?: boolean;
   isLoading: boolean;
-  botBubbleRef: React.RefObject<HTMLParagraphElement | null>;
-  userBubbleRef: React.RefObject<HTMLParagraphElement | null>;
+  botBubbleRef: RefObject<HTMLParagraphElement | null>;
+  userBubbleRef: RefObject<HTMLDivElement | null>;
 }
 const ChatHistoryItemComponent = ({
   question,

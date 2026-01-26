@@ -1,10 +1,12 @@
+import type { RefObject } from 'react';
+
 import { BotLoading } from './BotLoading';
 
 interface BotBubbleProps {
   message: string;
   isLatest?: boolean;
   isLoading: boolean;
-  ref: React.RefObject<HTMLParagraphElement | null>;
+  ref: RefObject<HTMLParagraphElement | null>;
 }
 
 export const BotBubble = ({
