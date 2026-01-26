@@ -5,8 +5,10 @@ on:
       - main
     paths:
       - "frontend/**"
+  # 수동 실행 가능
   workflow_dispatch:
 
+# 이미 실행 중인 워크플로우
 concurrency:
   group: deploy-storybook
   cancel-in-progress: true
