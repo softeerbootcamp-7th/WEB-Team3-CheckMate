@@ -1,6 +1,6 @@
 export {
   SettingsIcon,
-  AnaylsisIcon,
+  AnalysisIcon,
   DailyReportIcon,
   DashboardIcon,
 } from './icons';
