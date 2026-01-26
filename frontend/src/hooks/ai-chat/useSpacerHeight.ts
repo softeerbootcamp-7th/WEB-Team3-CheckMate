@@ -18,7 +18,6 @@ export const useSpacerHeight = ({
   userBubbleRef,
   botBubbleRef,
   displayedText,
-  containerId = 'chat-history-wrapper',
 }: UseSpacerHeightOptions) => {
   const [spacerHeight, setSpacerHeight] = useState(0);
 
@@ -47,14 +46,7 @@ export const useSpacerHeight = ({
     requestAnimationFrame(calculateHeight);
 
     wrapper.scrollTo({ top: wrapper.scrollHeight, behavior: 'smooth' });
-  }, [
-    enabled,
-    wrapperRef,
-    displayedText,
-    userBubbleRef,
-    botBubbleRef,
-    containerId,
-  ]);
+  }, [enabled, wrapperRef, displayedText, userBubbleRef, botBubbleRef]);
 
   return spacerHeight;
 };
