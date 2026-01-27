@@ -13,4 +13,5 @@ export {
   getSundayOfWeek,
   getCurrentMonth,
   getDateDifference,
+  getCurrentYear,
 } from './calendar';

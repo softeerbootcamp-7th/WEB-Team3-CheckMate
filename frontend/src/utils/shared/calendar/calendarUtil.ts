@@ -136,3 +136,7 @@ export const getDateDifference = ({
 }) => {
   return (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24) + 1;
 };
+
+export const getCurrentYear = ({ year }: { year: number }) => {
+  return new Date(year, 0, 1);
+};
