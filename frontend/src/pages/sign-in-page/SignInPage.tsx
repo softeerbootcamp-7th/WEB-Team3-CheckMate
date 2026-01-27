@@ -1,3 +1,10 @@
+import { OnboardingLayout } from '@/components/shared';
+
 export const SignInPage = () => {
-  return <div>SignInPage</div>;
+  return (
+    <OnboardingLayout>
+      <OnboardingLayout.Sidebar>Sidebar</OnboardingLayout.Sidebar>
+      <OnboardingLayout.Main>Main</OnboardingLayout.Main>
+    </OnboardingLayout>
+  );
 };
