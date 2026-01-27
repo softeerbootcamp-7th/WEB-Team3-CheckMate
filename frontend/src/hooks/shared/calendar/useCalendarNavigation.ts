@@ -94,6 +94,22 @@ export const useCalendarNavigation = ({
     });
   }, []);
 
+  const handleMovePrevious10Years = useCallback(() => {
+    setCurrentDateForCalendar((prev) => {
+      const newDate = new Date(prev);
+      newDate.setFullYear(newDate.getFullYear() - 10);
+      return newDate;
+    });
+  }, []);
+
+  const handleMoveNext10Years = useCallback(() => {
+    setCurrentDateForCalendar((prev) => {
+      const newDate = new Date(prev);
+      newDate.setFullYear(newDate.getFullYear() + 10);
+      return newDate;
+    });
+  }, []);
+
   return {
     currentDateForCalendar,
     numberOfDatesForCalendar,
@@ -103,5 +119,7 @@ export const useCalendarNavigation = ({
     handleMoveNextMonth,
     handleMovePreviousYear,
     handleMoveNextYear,
+    handleMovePrevious10Years,
+    handleMoveNext10Years,
   };
 };
