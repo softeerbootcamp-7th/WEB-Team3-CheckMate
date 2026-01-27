@@ -14,12 +14,14 @@ export const SalesTrends = () => {
           description="매출이 늘고 있는지, 줄고 있는지 흐름으로 살펴봐요."
         />
       </header>
-      <div className="contents">
+      <section className="mt-4 grid grid-rows-3 gap-5">
         <DailyRevenueTrend />
         <WeeklyRevenueTrend />
-        <MonthlyRevenueTrend />
-        <YearlyRevenueTrend />
-      </div>
+        <div className="flex gap-5">
+          <MonthlyRevenueTrend />
+          <YearlyRevenueTrend />
+        </div>
+      </section>
     </section>
   );
 };

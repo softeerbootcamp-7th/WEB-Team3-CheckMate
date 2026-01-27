@@ -1,21 +1,8 @@
-interface WeekdayPoint {
-  weekday: string;
-  revenue: number;
-}
-
-interface RevenueByWeekdayProps {
-  data?: WeekdayPoint[];
-  className?: string;
-}
-
-export const RevenueByWeekday = ({
-  data = [],
-  className = '',
-}: RevenueByWeekdayProps) => {
+export const RevenueByWeekday = () => {
   return (
-    <section className={`sales-patterns-revenue-by-weekday ${className}`}>
-      <h3 className="title-small-semibold">요일별 매출</h3>
-      <div>Days: {data.length}</div>
-    </section>
+    <article className="card">
+      <h3>요일별 매출</h3>
+      <div>Days: 0</div>
+    </article>
   );
 };

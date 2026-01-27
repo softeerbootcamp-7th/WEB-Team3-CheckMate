@@ -1,18 +1,8 @@
-interface AverageRevenuePerOrderProps {
-  average?: number;
-  className?: string;
-}
-
-export const AverageRevenuePerOrder = ({
-  average = 0,
-  className = '',
-}: AverageRevenuePerOrderProps) => {
+export const AverageRevenuePerOrder = () => {
   return (
-    <section
-      className={`sales-overview-average-revenue-per-order ${className}`}
-    >
-      <h3 className="title-small-semibold">건당 평균가</h3>
-      <div className="value-large">{average}</div>
-    </section>
+    <article className="card">
+      <h3>건당 평균가</h3>
+      <div className="value-large">295,600원</div>
+    </article>
   );
 };

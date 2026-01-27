@@ -12,10 +12,10 @@ export const SalesPatterns = () => {
           description="매장이 바쁜 때를 파악해요."
         />
       </header>
-      <div className="contents">
+      <section className="mt-4 grid grid-rows-2 gap-4">
         <PeakTimeByHour />
         <RevenueByWeekday />
-      </div>
+      </section>
     </section>
   );
 };
