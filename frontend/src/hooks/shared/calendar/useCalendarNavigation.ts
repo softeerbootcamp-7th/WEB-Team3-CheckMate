@@ -61,7 +61,7 @@ export const useCalendarNavigation = ({
   }, [currentDateForCalendar]);
 
   /**
-   * @description 달력의 년도를 이전 달로 이동하는 함수
+   * @description 달력의 달을 이전 달로 이동하는 함수
    */
   const handleMovePreviousMonth = useCallback(() => {
     setCurrentDateForCalendar(
@@ -70,7 +70,7 @@ export const useCalendarNavigation = ({
   }, []);
 
   /**
-   * @description 달력의 년도를 다음 달로 이동하는 함수
+   * @description 달력의 달을 다음 달로 이동하는 함수
    */
   const handleMoveNextMonth = useCallback(() => {
     setCurrentDateForCalendar(
@@ -85,6 +85,7 @@ export const useCalendarNavigation = ({
       return newDate;
     });
   }, []);
+
   const handleMoveNextYear = useCallback(() => {
     setCurrentDateForCalendar((prev) => {
       const newDate = new Date(prev);

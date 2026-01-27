@@ -38,7 +38,7 @@ export const DATE_RANGE_SIDE_CONFIG = {
       });
 
       // 7 * 12 = 84
-      return dateDifference <= 84; // 7 * 12 = 84
+      return dateDifference <= 84;
     },
     formattedDate: formatDateYYYYMMDD,
   },
