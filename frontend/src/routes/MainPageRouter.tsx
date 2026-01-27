@@ -1,9 +1,4 @@
-import {
-  createBrowserRouter,
-  Navigate,
-  type RouteObject,
-  RouterProvider,
-} from 'react-router-dom';
+import { Navigate, type RouteObject } from 'react-router-dom';
 
 import { MainLayout } from '@/components/shared';
 import { DailyReportPage } from '@/pages/daily-report-page';
@@ -13,7 +8,7 @@ import { SalesPage } from '@/pages/sales-page';
 import { SettingPage } from '@/pages/setting-page';
 import { WeatherPage } from '@/pages/weather-page';
 
-const routerObject: RouteObject = {
+export const mainPageRoutes: RouteObject = {
   Component: MainLayout,
   children: [
     { index: true, element: <Navigate to="dashboard" replace /> },
@@ -33,10 +28,4 @@ const routerObject: RouteObject = {
     { path: 'daily-report', Component: DailyReportPage },
     { path: 'settings', Component: SettingPage },
   ],
-};
-
-const router = createBrowserRouter([routerObject]);
-
-export const PageRouter = () => {
-  return <RouterProvider router={router} />;
 };
