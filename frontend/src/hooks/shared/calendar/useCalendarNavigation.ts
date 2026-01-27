@@ -112,6 +112,7 @@ export const useCalendarNavigation = ({
 
   return {
     currentDateForCalendar,
+    setCurrentDateForCalendar,
     numberOfDatesForCalendar,
     lastWeekOfPreviousMonth,
     firstWeekOfNextMonth,

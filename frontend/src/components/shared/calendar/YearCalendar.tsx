@@ -19,6 +19,7 @@ export const YearCalendar = ({
 }: YearCalendarProps) => {
   const {
     currentDateForCalendar,
+    setCurrentDateForCalendar,
     handleMovePrevious10Years,
     handleMoveNext10Years,
   } = useCalendarNavigation({
@@ -33,6 +34,11 @@ export const YearCalendar = ({
 
   const { headerTitle, previousAriaLabel, nextAriaLabel } =
     CALENDAR_CONFIG[DATE_RANGE_PICKER_TYPE.year];
+
+  if (currentDateForCalendar.getFullYear() % 10 !== 0) {
+    const year = Math.floor(currentDateForCalendar.getFullYear() / 10) * 10;
+    setCurrentDateForCalendar(new Date(year, 0, 1));
+  }
 
   return (
     <section className="rounded-300 border-grey-300 w-80 border p-350">
