@@ -1,7 +1,7 @@
 import { Navigate, Outlet, type RouteObject } from 'react-router-dom';
 
-import { mainPageRoutes } from './mainPageRoutes';
-import { signInRoutes } from './signInRoutes';
+import { mainPageRoutes } from './MainPageRoutes';
+import { signInRoutes } from './SignInRoutes';
 
 export const rootRoutes: RouteObject = {
   path: '/',
