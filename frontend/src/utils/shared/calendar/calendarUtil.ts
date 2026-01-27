@@ -116,3 +116,13 @@ export const getSundayOfWeek = (currentDate?: Date) => {
     currentDate.getDate() + 7 - dayOfCurrentDate,
   );
 };
+
+export const getCurrentMonth = ({
+  month,
+  dateForCalendar,
+}: {
+  month: number;
+  dateForCalendar: Date;
+}) => {
+  return new Date(dateForCalendar.getFullYear(), month, 1);
+};

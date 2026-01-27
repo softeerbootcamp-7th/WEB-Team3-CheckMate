@@ -78,6 +78,21 @@ export const useCalendarNavigation = ({
     );
   }, []);
 
+  const handleMovePreviousYear = useCallback(() => {
+    setCurrentDateForCalendar((prev) => {
+      const newDate = new Date(prev);
+      newDate.setFullYear(newDate.getFullYear() - 1);
+      return newDate;
+    });
+  }, []);
+  const handleMoveNextYear = useCallback(() => {
+    setCurrentDateForCalendar((prev) => {
+      const newDate = new Date(prev);
+      newDate.setFullYear(newDate.getFullYear() + 1);
+      return newDate;
+    });
+  }, []);
+
   return {
     currentDateForCalendar,
     numberOfDatesForCalendar,
@@ -85,5 +100,7 @@ export const useCalendarNavigation = ({
     firstWeekOfNextMonth,
     handleMovePreviousMonth,
     handleMoveNextMonth,
+    handleMovePreviousYear,
+    handleMoveNextYear,
   };
 };
