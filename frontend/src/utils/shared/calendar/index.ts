@@ -8,4 +8,5 @@ export {
   getCurrentDate,
   getMondayOfWeek,
   getSundayOfWeek,
+  getCurrentMonth,
 } from './calendarUtil';
