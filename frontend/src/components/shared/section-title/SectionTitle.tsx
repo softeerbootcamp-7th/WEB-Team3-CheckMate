@@ -8,7 +8,7 @@ export const SectionTitle = ({ title, description }: SectionTitleProps) => {
   const descId = useId();
 
   return (
-    <header className="flex items-center gap-200">
+    <div className="flex items-center gap-200">
       <h2
         aria-describedby={descId}
         className="title-medium-semibold text-grey-900"
@@ -20,6 +20,6 @@ export const SectionTitle = ({ title, description }: SectionTitleProps) => {
           {description}
         </span>
       )}
-    </header>
+    </div>
   );
 };
