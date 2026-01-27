@@ -1,4 +1,8 @@
-export { useCalendar } from './calendar';
+export {
+  useDateCalendar,
+  useWeekCalendar,
+  useCalendarNavigation,
+} from './calendar';
 export {
   useDateRangePicker,
   useDateRangePickerSide,
