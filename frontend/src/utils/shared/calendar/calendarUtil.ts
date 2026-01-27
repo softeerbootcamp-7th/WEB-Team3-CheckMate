@@ -29,9 +29,9 @@ export const getFirstDayOfMonth = (date: Date) => {
  */
 export const getLastDayOfMonth = (date: Date) => {
   const year = date.getFullYear();
-  const nextMonth = date.getMonth();
+  const nextMonth = date.getMonth() + 1;
 
-  return new Date(year, nextMonth + 1, 0).getDay();
+  return new Date(year, nextMonth, 0).getDay();
 };
 
 export const isStartDate = ({
@@ -125,4 +125,18 @@ export const getCurrentMonth = ({
   dateForCalendar: Date;
 }) => {
   return new Date(dateForCalendar.getFullYear(), month, 1);
+};
+
+export const getDateDifference = ({
+  startDate,
+  endDate,
+}: {
+  startDate: Date;
+  endDate: Date;
+}) => {
+  return (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24) + 1;
+};
+
+export const getCurrentYear = ({ year }: { year: number }) => {
+  return new Date(year, 0, 1);
 };
