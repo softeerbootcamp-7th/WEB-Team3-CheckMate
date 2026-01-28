@@ -4,6 +4,7 @@ import { fn } from 'storybook/test';
 import { SignInButton } from './SignInButton';
 
 const meta = {
+  title: 'components/sign-in/sign-in-button/SignInButton',
   component: SignInButton,
   parameters: {
     layout: 'centered',

@@ -4,6 +4,7 @@ import { fn } from 'storybook/test';
 import { SignInMainSection } from './SignInMainSection';
 
 const meta = {
+  title: 'components/sign-in/sign-in-main-section/SignInMainSection',
   component: SignInMainSection,
   parameters: {
     layout: 'fullscreen',
