@@ -63,6 +63,7 @@ public class StoreService {
                       .map(
                           businessHour ->
                               BusinessHour.builder() // 엔티티 변환
+                                  .day(businessHour.dayOfWeek().getKorean())
                                   .openTime(businessHour.openTime())
                                   .closeTime(businessHour.closeTime())
                                   .closed(businessHour.closed())

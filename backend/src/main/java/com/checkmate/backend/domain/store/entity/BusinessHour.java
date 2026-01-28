@@ -23,6 +23,7 @@ public class BusinessHour extends BaseTimeEntity {
   @Column(name = "business_hour_id")
   private Long id;
 
+  private String day;
   private String openTime;
   private String closeTime;
 
