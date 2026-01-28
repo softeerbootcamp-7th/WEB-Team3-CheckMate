@@ -1,8 +1,27 @@
-export const OrderCount = () => {
+import {
+  PERIOD_PRESET_KEYS,
+  type PeriodType,
+} from '@/constants/shared/periods';
+
+import { SalesComparison } from './shared/SalesComparison';
+
+interface OrderCountProps {
+  periodType: PeriodType<typeof PERIOD_PRESET_KEYS.dayWeekMonth> | undefined; // 오늘 / 이번주/ 이번달
+  startDate?: Date;
+  endDate?: Date;
+}
+
+export const OrderCount = ({ periodType }: OrderCountProps) => {
+  const mockedLastOrderCount = periodType ? 23 : undefined;
+  const mockedCurrentOrderCount = 42;
+
   return (
-    <article className="card">
-      <h3>주문건수</h3>
-      <div className="value-large">12건</div>
-    </article>
+    <SalesComparison
+      periodType={periodType}
+      title="주문건"
+      unit="건"
+      lastValue={mockedLastOrderCount}
+      currentValue={mockedCurrentOrderCount}
+    />
   );
 };

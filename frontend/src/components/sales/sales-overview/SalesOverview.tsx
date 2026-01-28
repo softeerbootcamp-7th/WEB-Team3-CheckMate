@@ -1,7 +1,11 @@
 import { useState } from 'react';
 
-import { DateRangePicker, SectionTitle } from '@/components/shared';
-import { DATE_RANGE_PICKER_TYPE } from '@/constants/shared';
+import { PeriodSelect, SectionTitle } from '@/components/shared';
+import {
+  PERIOD_PRESET_KEYS,
+  PERIOD_PRESETS,
+  type PeriodType,
+} from '@/constants/shared';
 
 import { ActualRevenue } from './ActualRevenue';
 import { AverageRevenuePerOrder } from './AverageRevenuePerOrder';
@@ -10,6 +14,9 @@ import { OrderCount } from './OrderCount';
 import { TotalRevenue } from './TotalRevenue';
 
 export const SalesOverview = () => {
+  const [periodType, setPeriodType] = useState<
+    PeriodType<typeof PERIOD_PRESET_KEYS.dayWeekMonth> | undefined
+  >(PERIOD_PRESETS.dayWeekMonth.today);
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
 
@@ -20,19 +27,33 @@ export const SalesOverview = () => {
           title="매출 현황"
           description="실제 매출과 주문 상황을 한눈에 확인해요."
         />
-        <DateRangePicker
+        <PeriodSelect
+          periodPreset={PERIOD_PRESET_KEYS.dayWeekMonth}
+          periodType={periodType}
+          setPeriodType={setPeriodType}
           startDate={startDate}
           setStartDate={setStartDate}
           endDate={endDate}
           setEndDate={setEndDate}
-          dateRangePickerType={DATE_RANGE_PICKER_TYPE.date}
         />
       </header>
       <section className="mt-4 grid grid-rows-2 gap-5">
         <div className="grid grid-cols-3 gap-5">
-          <ActualRevenue />
-          <OrderCount />
-          <AverageRevenuePerOrder />
+          <ActualRevenue
+            periodType={periodType}
+            startDate={startDate}
+            endDate={endDate}
+          />
+          <OrderCount
+            periodType={periodType}
+            startDate={startDate}
+            endDate={endDate}
+          />
+          <AverageRevenuePerOrder
+            periodType={periodType}
+            startDate={startDate}
+            endDate={endDate}
+          />
         </div>
         <div className="grid grid-cols-2 gap-5">
           <TotalRevenue />
