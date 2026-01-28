@@ -5,3 +5,4 @@ export { DateRangePicker } from './date-range-picker';
 export { Calendar } from './calendar';
 export { SectionTitle } from './section-title';
 export { PeriodSelect } from './period-select';
+export { OnboardingLayout } from './onboarding-layout';
