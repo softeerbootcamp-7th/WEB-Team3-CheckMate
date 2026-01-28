@@ -1,5 +1,6 @@
 package com.checkmate.backend.domain.store.controller;
 
+import static com.checkmate.backend.global.response.SuccessStatus.BUSINESS_VERIFICATION_SUCCESS;
 import static com.checkmate.backend.global.response.SuccessStatus.STORE_CREATE_SUCCESS;
 
 import com.checkmate.backend.domain.store.dto.request.BusinessVerifyRequestDTO;
@@ -66,6 +67,6 @@ public class StoreController {
     BusinessVerifyResponseDTO response =
         businessVerificationService.verifyBusiness(businessVerifyRequestDTO);
 
-    return ApiResponse.success(STORE_CREATE_SUCCESS, response);
+    return ApiResponse.success(BUSINESS_VERIFICATION_SUCCESS, response);
   }
 }

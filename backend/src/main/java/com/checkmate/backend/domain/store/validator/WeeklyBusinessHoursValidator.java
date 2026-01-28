@@ -2,11 +2,13 @@ package com.checkmate.backend.domain.store.validator;
 
 import com.checkmate.backend.domain.store.dto.request.StoreCreateRequestDTO;
 import com.checkmate.backend.domain.store.enums.DayOfWeekType;
+import com.checkmate.backend.global.validator.ValidatorUtils;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import org.springframework.util.StringUtils;
 
 public class WeeklyBusinessHoursValidator
     implements ConstraintValidator<
@@ -21,7 +23,7 @@ public class WeeklyBusinessHoursValidator
 
     // 1. null / empty 검증
     if (hours == null || hours.isEmpty()) {
-      ViolationUtils.addErrorMessage(context, "영업시간은 월~일 모두 입력해야 합니다.");
+      ValidatorUtils.addErrorMessage(context, "영업시간은 월~일 모두 입력해야 합니다.");
       return false;
     }
 
@@ -32,7 +34,7 @@ public class WeeklyBusinessHoursValidator
       DayOfWeekType day = hour.dayOfWeek();
 
       if (map.containsKey(day)) {
-        ViolationUtils.addErrorMessage(context, "요일별 영업시간은 중복될 수 없습니다.");
+        ValidatorUtils.addErrorMessage(context, "요일별 영업시간은 중복될 수 없습니다.");
         return false;
       }
 
@@ -40,7 +42,7 @@ public class WeeklyBusinessHoursValidator
     }
 
     if (map.size() != DayOfWeekType.values().length) {
-      ViolationUtils.addErrorMessage(context, "영업시간은 월~일 모두 입력해야 합니다.");
+      ValidatorUtils.addErrorMessage(context, "영업시간은 월~일 모두 입력해야 합니다.");
       return false;
     }
 
@@ -55,8 +57,8 @@ public class WeeklyBusinessHoursValidator
       }
 
       // 3-1. 영업일이면 open / close 필수
-      if (ViolationUtils.isBlank(open) || ViolationUtils.isBlank(close)) {
-        ViolationUtils.addErrorMessage(context, hour.dayOfWeek() + "의 영업 시작/마감 시간을 입력해주세요.");
+      if (!StringUtils.hasText(open) || !StringUtils.hasText(close)) {
+        ValidatorUtils.addErrorMessage(context, hour.dayOfWeek() + "의 영업 시작/마감 시간을 입력해주세요.");
         return false;
       }
 
@@ -65,7 +67,7 @@ public class WeeklyBusinessHoursValidator
 
       // 3-2. 시작/마감 동일 불가
       if (openMinutes == closeMinutes) {
-        ViolationUtils.addErrorMessage(context, hour.dayOfWeek() + "의 영업 시작 시간과 마감 시간은 같을 수 없습니다.");
+        ValidatorUtils.addErrorMessage(context, hour.dayOfWeek() + "의 영업 시작 시간과 마감 시간은 같을 수 없습니다.");
         return false;
       }
     }
@@ -86,7 +88,7 @@ public class WeeklyBusinessHoursValidator
       // 자정 이후 마감한 경우만 검사
       if (todayOpen > todayClose) {
         if (nextOpen <= todayClose) {
-          ViolationUtils.addErrorMessage(
+          ValidatorUtils.addErrorMessage(
               context, day + "과 " + day.next() + "의 영업시간이 겹칩니다. 다음 요일의 시작 시간은 이전 요일 마감 이후여야 합니다.");
           return false;
         }
