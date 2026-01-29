@@ -1,17 +1,15 @@
-package com.checkmate.backend.domain.member.entity;
+package com.checkmate.backend.global.converter;
 
 import com.checkmate.backend.global.util.EncryptionUtil;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
+import lombok.RequiredArgsConstructor;
 
 @Converter
-public class TokenEncryptionConverter implements AttributeConverter<String, String> {
+@RequiredArgsConstructor
+public class StringEncryptionConverter implements AttributeConverter<String, String> {
 
   private final EncryptionUtil encryptionUtil;
-
-  public TokenEncryptionConverter(EncryptionUtil encryptionUtil) {
-    this.encryptionUtil = encryptionUtil;
-  }
 
   @Override
   public String convertToDatabaseColumn(String attribute) {

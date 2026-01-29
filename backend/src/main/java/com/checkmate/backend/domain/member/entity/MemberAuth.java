@@ -1,5 +1,6 @@
 package com.checkmate.backend.domain.member.entity;
 
+import com.checkmate.backend.global.converter.StringEncryptionConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,11 +25,11 @@ public class MemberAuth {
   private Member member;
 
   @Column(columnDefinition = "TEXT")
-  @Convert(converter = TokenEncryptionConverter.class)
+  @Convert(converter = StringEncryptionConverter.class)
   private String googleAccessToken;
 
   @Column(columnDefinition = "TEXT")
-  @Convert(converter = TokenEncryptionConverter.class)
+  @Convert(converter = StringEncryptionConverter.class)
   private String googleRefreshToken;
 
   @Column(columnDefinition = "TEXT")
