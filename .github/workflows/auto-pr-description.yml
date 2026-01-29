@@ -2,8 +2,7 @@ name: Gemini PR Auto-Description
 
 on:
   pull_request:
-    types: [opened]
-  workflow_dispatch:
+    types: [opened, reopened]
 
 jobs:
   gemini-summarize:
