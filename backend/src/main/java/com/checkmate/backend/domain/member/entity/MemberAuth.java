@@ -2,14 +2,12 @@ package com.checkmate.backend.domain.member.entity;
 
 import com.checkmate.backend.global.converter.StringEncryptionConverter;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(
     name = "member_auth",
     indexes = {@Index(name = "idx_member_id", columnList = "member_id")})
