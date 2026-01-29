@@ -14,7 +14,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeToken
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.client.json.JsonFactory;
 import java.io.IOException;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -41,11 +41,12 @@ public class MemberService {
   private final MemberAuthRepository memberAuthRepository;
   private final OidcService oidcService;
 
+  private final NetHttpTransport httpTransport;
+  private final JsonFactory jsonFactory;
+
   @Transactional
   public AuthResult processGoogleLogin(String code) {
-    log.info(
-        "Processing Google Login. Code received (masked): {}...",
-        code.substring(0, Math.min(code.length(), 5)));
+    log.info("Processing Google Login. Code received (masked).");
 
     GoogleTokenResponse tokenResponse = exchangeCodeForToken(code);
 
@@ -63,7 +64,7 @@ public class MemberService {
     }
 
     log.info("New member detected. Initiating signup for: {}", email);
-    Member newMember = memberRepository.save(new Member(null, email));
+    Member newMember = memberRepository.save(new Member(email));
     log.info("New member saved. Member ID: {}", newMember.getId());
 
     saveOrUpdateTokens(newMember, tokenResponse);
@@ -75,8 +76,8 @@ public class MemberService {
       log.debug("Attempting to exchange auth code for Google tokens...");
       GoogleTokenResponse response =
           new GoogleAuthorizationCodeTokenRequest(
-                  new NetHttpTransport(),
-                  GsonFactory.getDefaultInstance(),
+                  httpTransport,
+                  jsonFactory,
                   "https://oauth2.googleapis.com/token",
                   clientId,
                   clientSecret,
