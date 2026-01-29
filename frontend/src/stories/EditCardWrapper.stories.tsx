@@ -66,7 +66,7 @@ export const WideChildComponent: Story = {
     isAdded: false,
     period: '오늘',
     children: (
-      <div className="flex h-[800px] w-[200px] flex-col gap-2 bg-amber-300">
+      <div className="flex h-[800px] w-[300px] flex-col gap-2 bg-amber-300">
         <div className="title-large-semibold break-keep">
           세로가 긴 자식 콘텐츠
         </div>
