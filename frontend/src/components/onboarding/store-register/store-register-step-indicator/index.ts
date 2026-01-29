@@ -1,1 +1,0 @@
-export { StoreRegisterStepIndicator } from './StoreRegisterStepIndicator';
