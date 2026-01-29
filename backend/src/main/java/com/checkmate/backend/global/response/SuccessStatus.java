@@ -6,30 +6,30 @@ import org.springframework.http.HttpStatus;
 @Getter
 public enum SuccessStatus {
 
-  /** Member */
-  // 200
-  GOOGLE_LOGIN_SUCCESS(HttpStatus.OK, "구글 로그인에 성공했습니다."),
-  BUSINESS_VERIFICATION_SUCCESS(HttpStatus.OK, "사업자 인증 성공했습니다."),
+    /** Member */
+    // 200
+    GOOGLE_LOGIN_SUCCESS(HttpStatus.OK, "구글 로그인에 성공했습니다."),
+    BUSINESS_VERIFICATION_SUCCESS(HttpStatus.OK, "사업자 인증 성공했습니다."),
 
-  // 201
-  MEMBER_SIGNUP_SUCCESS(HttpStatus.CREATED, "회원 가입에 성공했습니다"),
+    // 201
+    MEMBER_SIGNUP_SUCCESS(HttpStatus.CREATED, "회원 가입에 성공했습니다"),
 
-  /** Store */
-  // 200
+    /** Store */
+    // 200
 
-  // 201
-  SEND_PAY_INFO_SAVE_SUCCESS(HttpStatus.CREATED, "결제 정보 등록 성공"),
-  STORE_CREATE_SUCCESS(HttpStatus.CREATED, "매장 등록 성공했습니다.");
+    // 201
+    SEND_PAY_INFO_SAVE_SUCCESS(HttpStatus.CREATED, "결제 정보 등록 성공"),
+    STORE_CREATE_SUCCESS(HttpStatus.CREATED, "매장 등록 성공했습니다.");
 
-  private final HttpStatus httpStatus;
-  private final String message;
+    private final HttpStatus httpStatus;
+    private final String message;
 
-  SuccessStatus(HttpStatus httpStatus, String message) {
-    this.httpStatus = httpStatus;
-    this.message = message;
-  }
+    SuccessStatus(HttpStatus httpStatus, String message) {
+        this.httpStatus = httpStatus;
+        this.message = message;
+    }
 
-  public int getStatusCode() {
-    return this.httpStatus.value();
-  }
+    public int getStatusCode() {
+        return this.httpStatus.value();
+    }
 }

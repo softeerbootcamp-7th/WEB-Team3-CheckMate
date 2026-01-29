@@ -26,64 +26,64 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/auth")
 public class AuthController {
 
-  @Value("${google.client.id}")
-  private String clientId;
+    @Value("${google.client.id}")
+    private String clientId;
 
-  @Value("${google.client.secret}")
-  private String clientSecret;
+    @Value("${google.client.secret}")
+    private String clientSecret;
 
-  @Value("${google.client.redirect-uri}")
-  private String redirectUri;
+    @Value("${google.client.redirect-uri}")
+    private String redirectUri;
 
-  @Value("${google.client.authorization-uri}")
-  private String authorizationUri;
+    @Value("${google.client.authorization-uri}")
+    private String authorizationUri;
 
-  private final MemberService memberService;
+    private final MemberService memberService;
 
-  @GetMapping("/google")
-  public String redirectToGoogle(HttpSession session) {
-    String scope = "openid email profile https://www.googleapis.com/auth/gmail.send";
-    String state = UUID.randomUUID().toString();
+    @GetMapping("/google")
+    public String redirectToGoogle(HttpSession session) {
+        String scope = "openid email profile https://www.googleapis.com/auth/gmail.send";
+        String state = UUID.randomUUID().toString();
 
-    session.setAttribute("oauth_state", state);
+        session.setAttribute("oauth_state", state);
 
-    log.info("Google Login Redirect Requested. Generated State: {}", state);
+        log.info("Google Login Redirect Requested. Generated State: {}", state);
 
-    UriComponents builder =
-        UriComponentsBuilder.fromHttpUrl(authorizationUri)
-            .queryParam("client_id", clientId)
-            .queryParam("redirect_uri", redirectUri)
-            .queryParam("response_type", "code")
-            .queryParam("scope", scope)
-            .queryParam("state", state)
-            .queryParam("access_type", "offline")
-            .queryParam("prompt", "consent")
-            .build();
+        UriComponents builder =
+                UriComponentsBuilder.fromHttpUrl(authorizationUri)
+                        .queryParam("client_id", clientId)
+                        .queryParam("redirect_uri", redirectUri)
+                        .queryParam("response_type", "code")
+                        .queryParam("scope", scope)
+                        .queryParam("state", state)
+                        .queryParam("access_type", "offline")
+                        .queryParam("prompt", "consent")
+                        .build();
 
-    return "redirect:" + builder.toUriString();
-  }
-
-  @GetMapping("/google/callback")
-  @ResponseBody
-  public ResponseEntity<ApiResponse<AuthResult>> handleGoogleCallback(
-      @RequestParam String code, @RequestParam String state, HttpSession session) {
-
-    validateState(state, session);
-    AuthResult authResult = memberService.processGoogleLogin(code);
-
-    SuccessStatus status =
-        authResult.isNewMember()
-            ? SuccessStatus.MEMBER_SIGNUP_SUCCESS
-            : SuccessStatus.GOOGLE_LOGIN_SUCCESS;
-
-    return ApiResponse.success(status, authResult);
-  }
-
-  private void validateState(String state, HttpSession session) {
-    String savedState = (String) session.getAttribute("oauth_state");
-    if (savedState == null || !savedState.equals(state)) {
-      throw new BadRequestException(ErrorStatus.INVALID_OAUTH_STATE);
+        return "redirect:" + builder.toUriString();
     }
-    session.removeAttribute("oauth_state");
-  }
+
+    @GetMapping("/google/callback")
+    @ResponseBody
+    public ResponseEntity<ApiResponse<AuthResult>> handleGoogleCallback(
+            @RequestParam String code, @RequestParam String state, HttpSession session) {
+
+        validateState(state, session);
+        AuthResult authResult = memberService.processGoogleLogin(code);
+
+        SuccessStatus status =
+                authResult.isNewMember()
+                        ? SuccessStatus.MEMBER_SIGNUP_SUCCESS
+                        : SuccessStatus.GOOGLE_LOGIN_SUCCESS;
+
+        return ApiResponse.success(status, authResult);
+    }
+
+    private void validateState(String state, HttpSession session) {
+        String savedState = (String) session.getAttribute("oauth_state");
+        if (savedState == null || !savedState.equals(state)) {
+            throw new BadRequestException(ErrorStatus.INVALID_OAUTH_STATE);
+        }
+        session.removeAttribute("oauth_state");
+    }
 }

@@ -6,5 +6,5 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MemberAuthRepository extends JpaRepository<MemberAuth, Long> {
-  Optional<MemberAuth> findByMember(Member member);
+    Optional<MemberAuth> findByMember(Member member);
 }

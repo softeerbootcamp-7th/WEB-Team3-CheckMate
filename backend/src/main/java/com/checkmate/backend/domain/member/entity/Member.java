@@ -12,17 +12,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Member {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "member_id")
-  private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
+    private Long id;
 
-  @Email
-  @Column(unique = true, nullable = false)
-  private String email;
+    @Email
+    @Column(unique = true, nullable = false)
+    private String email;
 
-  @Builder
-  public Member(String email) {
-    this.email = email;
-  }
+    @Builder
+    public Member(String email) {
+        this.email = email;
+    }
 }
