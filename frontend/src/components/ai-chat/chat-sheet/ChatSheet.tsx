@@ -5,7 +5,7 @@ import {
   SheetContent,
   SheetFooter,
 } from '@/components/shared/shadcn-ui/sheet';
-import { useChatStream } from '@/hooks/ai-chat';
+import { useBodyScrollLock, useChatStream } from '@/hooks/ai-chat';
 
 import { ChatHistory } from '../chat-history';
 
@@ -44,6 +44,10 @@ export const ChatSheet = () => {
     cancelChat();
   };
 
+  // 챗봇 창 위에서 스크롤 시 배경 스크롤 막기
+  const [isHovered, setIsHovered] = useState(false);
+  useBodyScrollLock(isHovered);
+
   return (
     <Sheet
       modal={false}
@@ -68,6 +72,8 @@ export const ChatSheet = () => {
         onInteractOutside={(e) => e.preventDefault()}
         showCloseButton={false}
         side="left"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         className="rounded-500 m-1000 mt-auto flex h-[600px] w-90 flex-col gap-0 border-[2.5px] border-transparent bg-[linear-gradient(#fafbff,#fafbff),linear-gradient(171.25deg,#34aafb_-2.76%,#4eb0f6_12.29%,#73c1fd_38.18%,#009afa_89.66%)] [background-clip:content-box,border-box] bg-origin-border shadow-xl"
       >
         <ChatSheetHeader />
