@@ -1,6 +1,7 @@
 package com.checkmate.backend.global.util;
 
 import com.checkmate.backend.global.exception.EncryptionException;
+import com.checkmate.backend.global.response.ErrorStatus;
 import jakarta.annotation.PostConstruct;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
@@ -59,7 +60,7 @@ public class EncryptionUtil {
 
       return Base64.getEncoder().encodeToString(combined);
     } catch (Exception e) {
-      throw new EncryptionException("Encryption failed", e);
+      throw new EncryptionException(ErrorStatus.ENCRYPTION_FAILED);
     }
   }
 
@@ -87,7 +88,7 @@ public class EncryptionUtil {
 
       return new String(decrypted, StandardCharsets.UTF_8);
     } catch (Exception e) {
-      throw new EncryptionException("Decryption failed", e);
+      throw new EncryptionException(ErrorStatus.DECRYPTION_FAILED);
     }
   }
 
