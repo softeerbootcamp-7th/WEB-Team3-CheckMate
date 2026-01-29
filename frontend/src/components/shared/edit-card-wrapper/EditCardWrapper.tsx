@@ -10,7 +10,7 @@ import {
   MIN_WIDTH,
   PADDING_SIZE,
 } from '@/constants/shared';
-import { useEditCardWrapperMeasure } from '@/hooks/shared/edit-card-wrapper/useEditCardWrapperMeasure';
+import { useEditCardWrapperMeasure } from '@/hooks/shared/edit-card-wrapper';
 import { cn } from '@/utils/shared';
 
 import { PeriodTag } from './PeriodTag';
