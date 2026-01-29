@@ -13,7 +13,7 @@ export const AddressSearchButton = ({
     <Button
       type="button"
       className={cn(
-        'bg-brand-main body-medium-semibold! text-grey-50 shirnk-0 absolute right-0 bottom-0 flex h-12 items-center gap-2.5 px-3',
+        'bg-brand-main body-medium-semibold! text-grey-50 absolute right-0 bottom-0 flex h-12 shrink-0 items-center gap-2.5 px-3',
         className,
       )}
     >
