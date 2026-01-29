@@ -1,7 +1,5 @@
 import type { ReactNode } from 'react';
 
-import { CircleCheck } from 'lucide-react';
-
 import {
   CHANGE_SCALE,
   HEADER_HEIGHT,
@@ -13,6 +11,7 @@ import {
 import { useEditCardWrapperMeasure } from '@/hooks/shared/edit-card-wrapper';
 import { cn } from '@/utils/shared';
 
+import { AddedCardOverlay } from './AddedCardOverlay';
 import { PeriodTag } from './PeriodTag';
 import { PlusIconButton } from './PlusIconButton';
 import { TrashCanIconButton } from './TrashCanIconButton';
@@ -80,18 +79,7 @@ export const EditCardWrapper = ({
         </div>
       </div>
 
-      {isAdded && (
-        <div className="pointer-events-none absolute inset-[10px] flex items-center justify-center">
-          <div
-            className={cn(
-              'caption-large-semibold rounded-unlimit flex gap-1 border border-gray-200 bg-gray-100 py-1 pr-2 pl-[10px] text-center text-gray-900',
-            )}
-          >
-            대시보드 추가
-            <CircleCheck className="size-4 fill-gray-900 text-gray-50" />
-          </div>
-        </div>
-      )}
+      {isAdded && <AddedCardOverlay />}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { cn } from '@/utils/shared/lib/utils';
+import { cn } from '@/utils/shared';
 
 interface DefaultCardWrapperProps {
   children: ReactNode;
