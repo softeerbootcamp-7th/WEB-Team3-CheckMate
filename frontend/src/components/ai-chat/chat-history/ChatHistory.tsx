@@ -48,13 +48,13 @@ export const ChatHistory = ({
 
           return (
             <ChatHistoryItem
-              key={`${chat.question}-${index}`}
+              key={`${chat.question}å-${index}`}
               question={chat.question}
               answer={chat.answer}
               isLatest={isLatest}
               isLoading={isLatest && isLoading}
-              userBubbleRef={userBubbleRef}
-              botBubbleRef={botBubbleRef}
+              userBubbleRef={isLatest ? userBubbleRef : undefined}
+              botBubbleRef={isLatest ? botBubbleRef : undefined}
             />
           );
         })}

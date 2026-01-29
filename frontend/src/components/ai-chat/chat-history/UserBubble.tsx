@@ -2,7 +2,7 @@ import { memo, type RefObject } from 'react';
 
 interface UserBubbleProps {
   message: string;
-  userBubbleRef: RefObject<HTMLDivElement | null>;
+  userBubbleRef?: RefObject<HTMLDivElement | null>;
 }
 export const UserBubble = memo(
   ({ message, userBubbleRef }: UserBubbleProps) => {
