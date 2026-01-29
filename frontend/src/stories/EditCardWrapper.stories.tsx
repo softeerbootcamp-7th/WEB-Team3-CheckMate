@@ -61,7 +61,7 @@ export const WideChildeComponent: Story = {
   },
 };
 
-export const WideChildComponent: Story = {
+export const TallChildComponent: Story = {
   args: {
     isAdded: false,
     period: '오늘',
