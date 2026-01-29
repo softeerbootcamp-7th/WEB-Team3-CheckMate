@@ -1,7 +1,4 @@
-import {
-  PERIOD_PRESET_KEYS,
-  type PeriodType,
-} from '@/constants/shared/periods';
+import { PERIOD_PRESET_KEYS, type PeriodType } from '@/constants/shared';
 
 import { SalesComparison } from './shared';
 
