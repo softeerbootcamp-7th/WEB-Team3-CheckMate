@@ -37,13 +37,17 @@ export const useSpacerHeight = ({
     }
 
     const calculateHeight = () => {
-      const wrapperH = wrapper.clientHeight;
-      const userH = userBubbleRef.current?.clientHeight ?? 0;
-      const textH = botBubbleRef.current?.clientHeight ?? 0;
+      const wrapperHeight = wrapper.clientHeight;
+      const userHeight = userBubbleRef.current?.clientHeight ?? 0;
+      const textHeight = botBubbleRef.current?.clientHeight ?? 0;
 
       const newHeight = Math.max(
         0,
-        wrapperH - userH - textH - PADDING_BOTTOM_HEIGHT - GAP_HEIGHT * 2,
+        wrapperHeight -
+          userHeight -
+          textHeight -
+          PADDING_BOTTOM_HEIGHT -
+          GAP_HEIGHT * 2,
       );
       setSpacerHeight(newHeight);
     };
