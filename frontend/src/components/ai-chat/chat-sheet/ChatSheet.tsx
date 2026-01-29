@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import {
   Sheet,
@@ -26,23 +26,28 @@ export const ChatSheet = () => {
     resetChat,
   } = useChatStream();
 
-  const handleQuestionSelect = (question: string) => {
-    handleQuestionSubmit(question);
-  };
-
-  const handleQuestionSubmit = (question: string) => {
-    setDidStartChat(true);
-    submitQuestion(question);
-  };
+  const handleQuestionSubmit = useCallback(
+    (question: string) => {
+      setDidStartChat(true);
+      submitQuestion(question);
+    },
+    [submitQuestion],
+  );
+  const handleQuestionSelect = useCallback(
+    (question: string) => {
+      handleQuestionSubmit(question);
+    },
+    [handleQuestionSubmit],
+  );
 
   const handleChatReset = () => {
     setDidStartChat(false);
     resetChat();
   };
 
-  const handleChatCancel = () => {
+  const handleChatCancel = useCallback(() => {
     cancelChat();
-  };
+  }, [cancelChat]);
 
   // 챗봇 창 위에서 스크롤 시 배경 스크롤 막기
   const [isHovered, setIsHovered] = useState(false);

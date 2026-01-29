@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { memo, useRef } from 'react';
 
 import { ArrowUp } from 'lucide-react';
 import { Square } from 'lucide-react';
@@ -12,14 +12,14 @@ interface ChatQuestionInputProps {
   onQuestionCancel: () => void;
   isLoading: boolean;
 }
-export const ChatQuestionInput = ({
+export const ChatQuestionInputComponent = ({
   onQuestionSubmit,
   onQuestionCancel,
   isLoading,
 }: ChatQuestionInputProps) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleSubmitQuestion = useCallback(() => {
+  const handleSubmitQuestion = () => {
     if (isLoading) {
       onQuestionCancel();
       return;
@@ -36,24 +36,21 @@ export const ChatQuestionInput = ({
       return;
     }
     onQuestionSubmit(question);
-  }, [onQuestionSubmit, isLoading, onQuestionCancel]);
+  };
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-      // 엔터 키 누르면 submit 발생, shift 엔터키 누르면 줄바꿈
-      if (e.nativeEvent.isComposing) {
-        // 한글 자모 조합 중일 때는 무시
-        return;
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // 엔터 키 누르면 submit 발생, shift 엔터키 누르면 줄바꿈
+    if (e.nativeEvent.isComposing) {
+      // 한글 자모 조합 중일 때는 무시
+      return;
+    }
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (!isLoading) {
+        handleSubmitQuestion();
       }
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        if (!isLoading) {
-          handleSubmitQuestion();
-        }
-      }
-    },
-    [handleSubmitQuestion, isLoading],
-  );
+    }
+  };
 
   return (
     <div className="bg-grey-200 rounded-300 flex gap-300 px-400 py-300">
@@ -90,3 +87,7 @@ export const ChatQuestionInput = ({
     </div>
   );
 };
+
+export const ChatQuestionInput = memo(ChatQuestionInputComponent);
+
+ChatQuestionInput.displayName = 'ChatQuestionInput';

@@ -39,7 +39,7 @@ export const useChatStream = (): UseChatStreamReturn => {
 
   const abortControllerRef = useRef<AbortController | null>(null);
 
-  const submitQuestion = (question: string) => {
+  const submitQuestion = useCallback((question: string) => {
     abortControllerRef.current = new AbortController();
 
     // 질문을 히스토리에 추가
@@ -85,7 +85,7 @@ export const useChatStream = (): UseChatStreamReturn => {
         currentIndex++;
       }, MOCK_STREAMING_SPEED);
     }, MOCK_LOADING_DELAY);
-  };
+  }, []);
 
   const cancelChat = useCallback(() => {
     if (abortControllerRef.current) {
