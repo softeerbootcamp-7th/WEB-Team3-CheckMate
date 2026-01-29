@@ -2,6 +2,14 @@ import type { ReactNode } from 'react';
 
 import { CircleCheck } from 'lucide-react';
 
+import {
+  CHANGE_SCALE,
+  HEADER_HEIGHT,
+  HEADER_MAIN_GAP,
+  MIN_HEIGHT,
+  MIN_WIDTH,
+  PADDING_SIZE,
+} from '@/constants/shared';
 import { useEditCardWrapperMeasure } from '@/hooks/shared/edit-card-wrapper/useEditCardWrapperMeasure';
 import { cn } from '@/utils/shared';
 
@@ -20,13 +28,6 @@ interface EditCardWrapperProps {
   onClickDeleteButton?: () => void; // 대시보드에서 삭제하는 버튼 클릭 헨들러
   onClickAddButton?: () => void; // 대시보드에 추가하는 버튼 클릭 핸들러
 }
-
-const CHANGE_SCALE = 0.65; // 65% 축소
-const PADDING_SIZE = 12; // 패딩 박스 내 여백 사이즈(12px)
-const HEADER_HEIGHT = 26; // 헤더 높이(위에 있는 버튼들 높이 : 26px)
-const HEADER_MAIN_GAP = 16; // 헤더와 내용 사이 간격(16px)
-const MIN_WIDTH = 220; // 최소 너비 220px
-const MIN_HEIGHT = 147; // 최소 높이 147px
 
 export const EditCardWrapper = ({
   isAdded,
