@@ -104,7 +104,7 @@ public class MemberService {
 
     MemberAuth memberAuth =
         memberAuthRepository
-                .findByMember(member)
+            .findByMember(member)
             .orElseGet(
                 () -> {
                   log.debug("No existing auth info found. Creating new MemberAuth.");
