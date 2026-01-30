@@ -38,8 +38,6 @@ const SampleChild = () => {
 
 export const Default: Story = {
   args: {
-    width: 340,
-    height: 228,
     title: '오늘 날씨 예보',
     children: <SampleChild />,
   },

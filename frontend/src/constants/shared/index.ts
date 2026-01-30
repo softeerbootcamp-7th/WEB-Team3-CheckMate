@@ -6,3 +6,5 @@ export {
 export { DAY_OF_WEEK_LIST, CALENDAR_FACTORY } from './calendar';
 
 export { SIDEBAR_ITEMS } from './sidebarItems';
+
+export { DEFAULT_CARD_WRAPPER_SIZE } from './default-card-wrapper';

@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 
 import { ChevronRight } from 'lucide-react';
 
+import { DEFAULT_CARD_WRAPPER_SIZE } from '@/constants/shared';
 import { cn } from '@/utils/shared';
 
 import { Button } from '../shadcn-ui';
@@ -22,8 +23,8 @@ export const DefaultCardWrapper = ({
   hasChevronRightIcon = false,
   onClickChevronRightIcon,
   className,
-  width,
-  height,
+  width = DEFAULT_CARD_WRAPPER_SIZE.width,
+  height = DEFAULT_CARD_WRAPPER_SIZE.height,
 }: DefaultCardWrapperProps) => {
   return (
     <article
