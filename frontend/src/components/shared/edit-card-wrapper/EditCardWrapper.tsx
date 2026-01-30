@@ -45,7 +45,7 @@ export const EditCardWrapper = ({
         height: Math.max(EDIT_CARD_WRAPPER.MIN_HEIGHT, computedCardHeight), // 최소 높이 147px
       }}
       className={cn(
-        'bg-special-card-bg rounded-400 relative flex flex-col overflow-hidden border border-gray-300 p-3',
+        'bg-special-card-bg rounded-400 border-grey-300 relative flex flex-col overflow-hidden border p-3',
         className,
       )}
     >
@@ -80,11 +80,11 @@ export const EditCardWrapper = ({
         <div className="pointer-events-none absolute inset-[10px] flex items-center justify-center">
           <div
             className={cn(
-              'caption-large-semibold rounded-unlimit flex gap-1 border border-gray-200 bg-gray-100 py-1 pr-2 pl-[10px] text-center text-gray-900',
+              'caption-large-semibold rounded-unlimit border-grey-200 bg-grey-100 text-grey-900 flex gap-1 border py-1 pr-2 pl-[10px] text-center',
             )}
           >
             대시보드 추가
-            <CircleCheck className="size-4 fill-gray-900 text-gray-50" />
+            <CircleCheck className="fill-grey-900 text-grey-50 size-4" />
           </div>
         </div>
       )}

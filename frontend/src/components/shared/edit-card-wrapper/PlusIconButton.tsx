@@ -9,7 +9,7 @@ export const PlusIconButton = ({ onClickAddButton }: PlusIconButtonProps) => {
   return (
     <button
       onClick={onClickAddButton}
-      className="rounded-unlimit flex size-6.5 items-center justify-center border border-gray-200 bg-gray-100 text-gray-900 hover:border-gray-900 active:bg-gray-900 active:text-gray-50"
+      className="rounded-unlimit border-grey-200 bg-grey-100 text-grey-900 hover:border-grey-900 active:bg-grey-900 active:text-grey-50 flex size-6.5 items-center justify-center border"
     >
       <Plus className="size-4" />
     </button>

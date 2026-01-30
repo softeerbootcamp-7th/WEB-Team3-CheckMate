@@ -12,8 +12,8 @@ export const PeriodTag = ({ isAdded, period }: PeriodTagProps) => {
     <div
       className={cn(
         isAdded
-          ? 'border border-gray-200 bg-gray-100 text-gray-900'
-          : 'bg-gray-900 text-gray-50',
+          ? 'border-grey-200 bg-grey-100 text-grey-900 border'
+          : 'bg-grey-900 text-grey-50',
         'caption-large-semibold rounded-unlimit px-250 py-100 text-center',
       )}
     >

@@ -8,11 +8,11 @@ export const AddedCardOverlay = () => {
     <div className="pointer-events-none absolute inset-3 flex items-center justify-center">
       <div
         className={cn(
-          'caption-large-semibold rounded-unlimit flex gap-1 border border-gray-200 bg-gray-100 py-1 pr-2 pl-2.5 text-center text-gray-900',
+          'caption-large-semibold rounded-unlimit border-grey-200 bg-grey-100 text-grey-900 flex gap-1 border py-1 pr-2 pl-2.5 text-center',
         )}
       >
         대시보드 추가
-        <CircleCheck className="size-4 fill-gray-900 text-gray-50" />
+        <CircleCheck className="fill-grey-900 text-grey-50 size-4" />
       </div>
     </div>
   );
