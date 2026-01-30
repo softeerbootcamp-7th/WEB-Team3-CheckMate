@@ -36,24 +36,20 @@ export const useSpacerHeight = ({
       return;
     }
 
-    const calculateHeight = () => {
-      const wrapperHeight = wrapper.clientHeight;
-      const userHeight = userBubbleRef.current?.clientHeight ?? 0;
-      const textHeight = botBubbleRef.current?.clientHeight ?? 0;
+    const wrapperHeight = wrapper.clientHeight;
+    const userHeight = userBubbleRef.current?.clientHeight ?? 0;
+    const textHeight = botBubbleRef.current?.clientHeight ?? 0;
 
-      const newHeight = Math.max(
-        0,
-        wrapperHeight -
-          userHeight -
-          textHeight -
-          PADDING_BOTTOM_HEIGHT -
-          GAP_HEIGHT * 2,
-      );
-      setSpacerHeight(newHeight);
-    };
-
-    requestAnimationFrame(calculateHeight);
-
+    const newHeight = Math.max(
+      0,
+      wrapperHeight -
+        userHeight -
+        textHeight -
+        PADDING_BOTTOM_HEIGHT -
+        GAP_HEIGHT * 2,
+    );
+    setSpacerHeight(newHeight);
+    // 1번만 자동 스크롤
     if (displayedText.length === 1) {
       wrapper.scrollTo({ top: wrapper.scrollHeight, behavior: 'smooth' });
     }
