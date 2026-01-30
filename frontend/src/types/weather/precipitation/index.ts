@@ -1,1 +1,1 @@
-export { type WeatherPrecipitationInsight } from './WeatherPrecipitationInsight';
+export { type WeatherPrecipitationInsight } from './weatherPrecipitationInsight';
