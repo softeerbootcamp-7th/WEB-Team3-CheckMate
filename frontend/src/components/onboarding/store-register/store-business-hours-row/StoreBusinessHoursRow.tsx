@@ -46,7 +46,7 @@ export const StoreBusinessHoursRow = memo(
           selectedTime={selectedEndTime}
           onSelect={handleEndTimeSelect}
         />
-        <Switch className="cursor-pointer self-center justify-self-center" />
+        <Switch className="cursor-pointer self-center justify-self-end" />
       </>
     );
   },

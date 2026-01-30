@@ -7,7 +7,7 @@ export const StoreBusinessHoursHeaderRow = () => {
       <span className="body-medium-semibold text-grey-600 col-start-4 text-center">
         영업마감
       </span>
-      <span className="body-medium-semibold text-grey-600 col-start-5 text-center">
+      <span className="body-medium-semibold text-grey-600 col-start-5 pr-3 text-end">
         휴무
       </span>
     </>
