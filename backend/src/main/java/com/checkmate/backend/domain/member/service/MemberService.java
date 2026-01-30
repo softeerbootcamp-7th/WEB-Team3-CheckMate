@@ -53,14 +53,14 @@ public class MemberService {
             String email, GoogleTokenResponse googleTokenResponse) {
         Member member =
                 memberRepository
-                        .findByEmail(email)
+                        .findWithStoreByEmail(email)
                         .orElseGet(
                                 () -> {
                                     Member newMember = new Member(email);
                                     return memberRepository.save(newMember);
                                 });
 
-        Long storeId = getStoreId(member);
+        Long storeId = (member.getStore() != null) ? member.getStore().getId() : null;
 
         // JWT 토큰 생성
         String accessToken = jwtUtil.generateAccessToken(member.getId(), storeId);
@@ -109,7 +109,7 @@ public class MemberService {
 
                 if (attempt < MAX_RETRY_ATTEMPTS) {
                     try {
-                        Thread.sleep(RETRY_DELAY_MS * attempt); // 지수 백오프
+                        Thread.sleep(RETRY_DELAY_MS * attempt);
                     } catch (InterruptedException ie) {
                         Thread.currentThread().interrupt();
                         throw new InternalServerException(ErrorStatus.GOOGLE_TOKEN_EXCHANGE_FAILED);
@@ -156,16 +156,5 @@ public class MemberService {
         memberAuth.updateRefreshToken(jwtRefreshToken);
 
         memberAuthRepository.save(memberAuth);
-    }
-
-    private Long getStoreId(Member member) {
-        if (member.getStore() == null) {
-            return null;
-        }
-
-        return memberRepository
-                .findByIdWithStore(member.getId())
-                .map(m -> m.getStore().getId())
-                .orElse(null);
     }
 }

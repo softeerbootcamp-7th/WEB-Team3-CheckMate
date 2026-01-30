@@ -9,6 +9,6 @@ import org.springframework.data.repository.query.Param;
 public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<Member> findByEmail(String email);
 
-    @Query("select m from Member m join fetch m.store where m.id = :id")
-    Optional<Member> findByIdWithStore(@Param("id") Long id);
+    @Query("SELECT m FROM Member m LEFT JOIN FETCH m.store WHERE m.email = :email")
+    Optional<Member> findWithStoreByEmail(@Param("email") String email);
 }

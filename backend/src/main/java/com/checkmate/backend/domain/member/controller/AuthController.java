@@ -42,6 +42,9 @@ public class AuthController {
     @Value("${google.client.authorization-uri}")
     private String authorizationUri;
 
+    @Value("${jwt.refresh.expiration}")
+    private long refreshTokenExpiration; // ms 단위
+
     private final MemberService memberService;
 
     @GetMapping("/google")
@@ -84,7 +87,7 @@ public class AuthController {
                         .httpOnly(true) // JS 접근 불가 (XSS 방어)
                         .secure(true) // HTTPS 전송 (로컬 테스트 시 http 환경이면 false로 변경 필요할 수 있음)
                         .path("/")
-                        .maxAge(7 * 24 * 60 * 60)
+                        .maxAge(refreshTokenExpiration / 1000) // 초 단위
                         .sameSite("None") // 크로스 사이트 요청 허용
                         .build();
 

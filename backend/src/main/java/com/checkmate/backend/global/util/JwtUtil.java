@@ -67,21 +67,20 @@ public class JwtUtil {
                 .compact();
     }
 
-    public boolean validateToken(String token) {
+    public void validateToken(String token) {
         try {
             parseToken(token);
-            return true;
         } catch (SecurityException | MalformedJwtException e) {
-            log.error("Invalid JWT signature: {}", e.getMessage());
+            log.warn("Invalid JWT signature: {}", e.getMessage());
             throw new UnauthorizedException(ErrorStatus.INVALID_JWT_SIGNATURE);
         } catch (ExpiredJwtException e) {
-            log.info("Expired JWT token: {}", e.getMessage());
+            log.debug("Expired JWT token: {}", e.getMessage());
             throw new UnauthorizedException(ErrorStatus.EXPIRED_JWT_TOKEN);
         } catch (UnsupportedJwtException e) {
-            log.error("Unsupported JWT token: {}", e.getMessage());
+            log.warn("Unsupported JWT token: {}", e.getMessage());
             throw new UnauthorizedException(ErrorStatus.UNSUPPORTED_JWT_TOKEN);
         } catch (IllegalArgumentException e) {
-            log.error("JWT token is invalid: {}", e.getMessage());
+            log.warn("JWT token is invalid: {}", e.getMessage());
             throw new UnauthorizedException(ErrorStatus.INVALID_JWT_TOKEN);
         }
     }
