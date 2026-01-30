@@ -29,17 +29,19 @@ export const DefaultCardWrapper = ({
         className,
       )}
     >
-      <div className="text-grey-700 relative flex items-center">
-        {title && <h3 className="body-medium-semibold">{title}</h3>}
-        {titleIcon && (
-          <button
-            className="size-4 [&>svg]:size-full"
-            onClick={onClickTitleIcon}
-          >
-            {titleIcon}
-          </button>
-        )}
-      </div>
+      {(title || titleIcon) && (
+        <div className="text-grey-700 relative flex items-center">
+          {title && <h3 className="body-medium-semibold">{title}</h3>}
+          {titleIcon && (
+            <button
+              className="size-4 [&>svg]:size-full"
+              onClick={onClickTitleIcon}
+            >
+              {titleIcon}
+            </button>
+          )}
+        </div>
+      )}
       {children}
     </article>
   );
