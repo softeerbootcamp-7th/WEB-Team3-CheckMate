@@ -4,6 +4,8 @@ import { ChevronRight } from 'lucide-react';
 
 import { cn } from '@/utils/shared';
 
+import { Button } from '../shadcn-ui';
+
 interface DefaultCardWrapperProps {
   children: ReactNode;
   title?: string;
@@ -35,12 +37,9 @@ export const DefaultCardWrapper = ({
         <div className="text-grey-700 relative flex items-center">
           {title && <h3 className="body-medium-semibold">{title}</h3>}
           {hasChevronRightIcon && (
-            <button
-              className="size-4 [&>svg]:size-full"
-              onClick={onClickChevronRightIcon}
-            >
-              <ChevronRight />
-            </button>
+            <Button className="!p-0" onClick={onClickChevronRightIcon}>
+              <ChevronRight className="size-4" />
+            </Button>
           )}
         </div>
       )}
