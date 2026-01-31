@@ -1,7 +1,10 @@
 services:
   backend:
-    build: ./backend
-    container_name: spring-backend
+    image: ${DOCKERHUB_USERNAME}/checkmate-be:latest
+    container_name: checkmate-be
+    env_file: .env
+    ports:
+      - "8080:8080"
     restart: always
 
   nginx:
