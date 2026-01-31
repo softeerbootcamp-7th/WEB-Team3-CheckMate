@@ -1,0 +1,87 @@
+name: backend-cd
+
+on:
+  push:
+    branches:
+      - main
+      - feature/#13
+    paths:
+      - "backend/**"
+      - "nginx/**"
+      - "docker-compose.yml"
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 1. AWS OIDC 인증
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.AWS_ROLE_NAME }}
+          aws-region: ap-northeast-2
+
+      # 2. 백엔드 JAR 빌드
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: corretto
+          java-version: 17
+          cache: gradle
+
+      - name: Build with Gradle
+        working-directory: backend
+        run: |
+          chmod +x gradlew
+          ./gradlew clean build -x test
+
+      # 3. 도커 이미지 빌드 및 푸시
+      - name: Docker Hub Login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and Push
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/checkmate-be ./backend
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/checkmate-be
+
+      # 4. 설정 파일 전송 (S3 임시 보관)
+      - name: Upload Config to S3
+        run: |
+          zip -r deploy.zip docker-compose.yml nginx/default.conf
+          aws s3 cp deploy.zip s3://check-mate-be-deploy/deploy.zip
+
+      # 5. SSM으로 EC2에 명령
+      - name: AWS SSM Send Command
+        run: |
+          aws ssm send-command \
+            --instance-ids "${{ secrets.EC2_INSTANCE_ID }}" \
+            --document-name "AWS-RunShellScript" \
+            --parameters 'commands=[
+              "mkdir -p ~/app",
+              "cd ~/app",
+              "aws s3 cp s3://${{ secrets.S3_BUCKET_NAME }}/deploy.zip .",
+              "unzip -o deploy.zip",
+              "echo \"SPRING_PROFILES_ACTIVE=prod\" > .env",
+              "echo \"DB_URL=${{ secrets.DB_URL }}\" >> .env",
+              "echo \"DB_USERNAME=${{ secrets.DB_USERNAME }}\" >> .env",
+              "echo \"DB_PASSWORD=${{ secrets.DB_PASSWORD }}\" >> .env",
+              "echo \"GOOGLE_ID=${{ secrets.GOOGLE_ID }}\" >> .env",
+              "echo \"GOOGLE_SECRET=${{ secrets.GOOGLE_SECRET }}\" >> .env",
+              "echo \"JWT_SECRET=${{ secrets.JWT_SECRET }}\" >> .env",
+              "echo \"ENC_KEY=${{ secrets.ENC_KEY }}\" >> .env",
+              "docker-compose pull backend",
+              "docker-compose up -d",
+              "docker image prune -f",
+              "rm deploy.zip"
+            ]' \
+            --region ap-northeast-2
