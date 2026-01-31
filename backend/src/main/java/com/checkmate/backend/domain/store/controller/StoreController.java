@@ -12,6 +12,7 @@ import com.checkmate.backend.global.response.ApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +50,7 @@ public class StoreController {
     @PostMapping
     public ResponseEntity<ApiResponse<Void>> create(
             @RequestAttribute("memberId") Long memberId,
-            @RequestBody StoreCreateRequestDTO storeCreateRequestDTO) {
+            @Valid @RequestBody StoreCreateRequestDTO storeCreateRequestDTO) {
         storeService.create(memberId, storeCreateRequestDTO);
 
         return ApiResponse.success_only(STORE_CREATE_SUCCESS);

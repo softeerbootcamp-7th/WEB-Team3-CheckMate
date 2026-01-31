@@ -8,7 +8,7 @@ import jakarta.validation.constraints.*;
 import java.util.List;
 
 public record StoreCreateRequestDTO(
-        @Schema(description = "사업자등록번호 검증 성공 시 발급되는 인증 토큰") String businessAuthToken,
+        @Schema(description = "사업자등록번호 검증 성공 시 발급되는 인증 토큰") @NotBlank String businessAuthToken,
         @Schema(description = "매장명")
                 @NotBlank(message = "매장명을 입력해주세요.")
                 @Size(max = 15, message = "매장명은 15자 이내로 입력하세요.")
