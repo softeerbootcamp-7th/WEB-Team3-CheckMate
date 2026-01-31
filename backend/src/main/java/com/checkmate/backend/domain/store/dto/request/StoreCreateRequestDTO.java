@@ -8,10 +8,6 @@ import jakarta.validation.constraints.*;
 import java.util.List;
 
 public record StoreCreateRequestDTO(
-        @Schema(description = "사업자등록번호 (숫자 10자리, '-' 제외)")
-                @NotBlank(message = "사업자등록번호를 입력해주세요.")
-                @Pattern(regexp = "^[0-9]{10}$", message = "사업자등록번호는 숫자 10자리로 입력해주세요.")
-                String businessRegistrationNumber,
         @Schema(description = "사업자등록번호 검증 성공 시 발급되는 인증 토큰") String businessAuthToken,
         @Schema(description = "매장명")
                 @NotBlank(message = "매장명을 입력해주세요.")
