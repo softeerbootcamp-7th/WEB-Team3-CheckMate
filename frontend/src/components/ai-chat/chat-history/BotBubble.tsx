@@ -6,7 +6,7 @@ interface BotBubbleProps {
   message: string;
   isLatest?: boolean;
   isLoading: boolean;
-  botBubbleRef?: RefObject<HTMLParagraphElement | null>;
+  botBubbleRef?: RefObject<HTMLDivElement | null>;
 }
 
 export const BotBubble = ({

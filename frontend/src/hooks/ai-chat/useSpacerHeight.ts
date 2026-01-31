@@ -5,7 +5,7 @@ interface UseSpacerHeightOptions {
   isLoading: boolean;
   wrapperRef: RefObject<HTMLDivElement | null>;
   userBubbleRef: RefObject<HTMLDivElement | null>;
-  botBubbleRef: RefObject<HTMLParagraphElement | null>;
+  botBubbleRef: RefObject<HTMLDivElement | null>;
   historyCount: number;
 }
 

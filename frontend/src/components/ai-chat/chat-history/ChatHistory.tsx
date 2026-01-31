@@ -18,7 +18,7 @@ export const ChatHistory = ({
 }: ChatHistoryProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const userBubbleRef = useRef<HTMLDivElement>(null);
-  const botBubbleRef = useRef<HTMLParagraphElement>(null);
+  const botBubbleRef = useRef<HTMLDivElement>(null);
 
   const { spacerRef } = useSpacerHeight({
     enabled: isLoading || isStreaming,
