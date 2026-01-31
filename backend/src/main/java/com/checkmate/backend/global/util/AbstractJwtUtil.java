@@ -4,6 +4,7 @@ import com.checkmate.backend.global.exception.UnauthorizedException;
 import com.checkmate.backend.global.response.ErrorStatus;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 import java.nio.charset.StandardCharsets;
 import javax.crypto.SecretKey;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +29,7 @@ public abstract class AbstractJwtUtil {
         } catch (ExpiredJwtException e) {
             log.debug("Expired JWT token: {}", e.getMessage());
             throw new UnauthorizedException(expiredStatus);
-        } catch (SecurityException | MalformedJwtException e) {
+        } catch (SecurityException | MalformedJwtException | SignatureException e) {
             log.warn("Invalid JWT signature: {}", e.getMessage());
             throw new UnauthorizedException(invalidStatus);
         } catch (UnsupportedJwtException e) {
