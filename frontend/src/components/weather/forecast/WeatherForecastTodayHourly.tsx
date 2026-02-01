@@ -1,15 +1,10 @@
 import { DefaultCardWrapper } from '@/components/shared/default-card-wrapper';
-import type { WeatherForecastHour } from '@/types/weather';
+import { mockHourlyForecastList } from '@/mocks/weather';
 
 import { WeatherForecastHourItem } from './WeatherForecastHourItem';
 
-interface WeatherForecastTodayHourlyCardProps {
-  hourlyForecastList: WeatherForecastHour[];
-}
-
-export const WeatherForecastTodayHourly = ({
-  hourlyForecastList,
-}: WeatherForecastTodayHourlyCardProps) => {
+export const WeatherForecastTodayHourly = () => {
+  const hourlyForecastList = mockHourlyForecastList;
   return (
     <DefaultCardWrapper title="오늘 시간별 예보" height={228} width={700}>
       <div className="flex flex-col gap-5">

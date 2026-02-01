@@ -1,19 +1,8 @@
 import { DefaultCardWrapper } from '@/components/shared/default-card-wrapper';
+import { mockTodayForecastData } from '@/mocks/weather';
 
-interface WeatherForecastTodayProps {
-  mainText: string;
-  subText: string;
-  weatherAlert?: {
-    iconPath: string;
-    message: string;
-  };
-}
-
-export const WeatherForecastToday = ({
-  mainText,
-  subText,
-  weatherAlert,
-}: WeatherForecastTodayProps) => {
+export const WeatherForecastToday = () => {
+  const { mainText, subText, weatherAlert } = mockTodayForecastData;
   return (
     <DefaultCardWrapper title="오늘 날씨 예보" width={340} height={228}>
       <div className="flex flex-col gap-[6px]">

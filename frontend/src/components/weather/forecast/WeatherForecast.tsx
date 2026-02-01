@@ -1,9 +1,4 @@
 import { SectionTitle } from '@/components/shared';
-import {
-  mockHourlyForecastList,
-  mockOneDayAmPmForecastList,
-  mockTodayForecastData,
-} from '@/mocks/weather';
 
 import { WeatherForecastToday } from './WeatherForecastToday';
 import { WeatherForecastTodayHourly } from './WeatherForecastTodayHourly';
@@ -19,21 +14,13 @@ export const WeatherForecast = () => {
 
       <section className="flex flex-col gap-5">
         <div className="flex gap-5">
-          <WeatherForecastToday
-            mainText={mockTodayForecastData.mainText}
-            subText={mockTodayForecastData.subText}
-            weatherAlert={mockTodayForecastData.weatherAlert}
-          />
+          <WeatherForecastToday />
 
-          <WeatherForecastTodayHourly
-            hourlyForecastList={mockHourlyForecastList}
-          />
+          <WeatherForecastTodayHourly />
         </div>
 
         <div>
-          <WeatherForecastWeekly
-            oneDayAmPmForecastList={mockOneDayAmPmForecastList}
-          />
+          <WeatherForecastWeekly />
         </div>
       </section>
     </section>
