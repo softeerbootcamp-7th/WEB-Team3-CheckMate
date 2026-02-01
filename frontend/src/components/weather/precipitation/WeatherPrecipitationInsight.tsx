@@ -7,7 +7,7 @@ export const WeatherPrecipitationInsight = () => {
     <DefaultCardWrapper title="강수 인사이트" width={340} height={228}>
       <div className="flex flex-col">
         <p className="title-large-semibold break-keep">{subText}</p>
-        <p className="body-small-medium mt-[6px] break-keep text-gray-600">
+        <p className="body-small-medium text-grey-600 mt-[6px] break-keep">
           {mainText}
         </p>
       </div>
