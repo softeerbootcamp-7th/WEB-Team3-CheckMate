@@ -1,9 +1,19 @@
+import { cn } from '@/utils/shared';
+
 interface InputErrorMessageProps {
   message?: string;
+  className?: string;
 }
 
-export const InputErrorMessage = ({ message }: InputErrorMessageProps) => {
+export const InputErrorMessage = ({
+  message,
+  className,
+}: InputErrorMessageProps) => {
   return (
-    <p className="text-body-small text-others-red animate-shake">*{message}</p>
+    <p
+      className={cn('text-body-small text-others-red animate-shake', className)}
+    >
+      *{message}
+    </p>
   );
 };
