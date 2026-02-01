@@ -1,4 +1,4 @@
-import { type InputHTMLAttributes, type RefObject, useId } from 'react';
+import { type InputHTMLAttributes, type Ref, useId } from 'react';
 
 import { cn } from '@/utils/shared';
 
@@ -11,7 +11,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   inputClassName?: string;
   label?: string;
   description?: string;
-  ref?: RefObject<HTMLInputElement | null>;
+  ref?: Ref<HTMLInputElement | null>;
 }
 
 export const Input = ({
