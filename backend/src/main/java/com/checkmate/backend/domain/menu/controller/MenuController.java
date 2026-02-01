@@ -42,10 +42,10 @@ public class MenuController {
     })
     @PostMapping
     public ResponseEntity<ApiResponse<Void>> createMenu(
-            @RequestAttribute("memberId") Long memberId,
+            @RequestAttribute("storeId") Long storeId,
             @RequestBody MenuCreateRequestDTO menuCreateRequestDTO) {
 
-        menuService.registerMenus(memberId, menuCreateRequestDTO);
+        menuService.registerMenus(storeId, menuCreateRequestDTO);
 
         return ApiResponse.success_only(MENU_CREATE_SUCCESS);
     }
@@ -58,9 +58,6 @@ public class MenuController {
         @io.swagger.v3.oas.annotations.responses.ApiResponse(
                 responseCode = "403",
                 description = "메뉴에 접근할 권한이 없습니다."),
-        @io.swagger.v3.oas.annotations.responses.ApiResponse(
-                responseCode = "404",
-                description = "매장을 찾을 수 없습니다."),
         @io.swagger.v3.oas.annotations.responses.ApiResponse(
                 responseCode = "404",
                 description = "메뉴를 찾을 수 없습니다."),
@@ -76,11 +73,11 @@ public class MenuController {
     })
     @PostMapping("/{menu-id}/ingredients")
     public ResponseEntity<ApiResponse<Void>> addIngredientsToMenu(
-            @RequestAttribute("memberId") Long memberId,
+            @RequestAttribute("storeId") Long storeId,
             @PathVariable("menu-id") Long menuId,
             @RequestBody IngredientCreateRequestDTO ingredientCreateRequestDTO) {
 
-        menuService.addIngredientsToMenu(memberId, menuId, ingredientCreateRequestDTO);
+        menuService.addIngredientsToMenu(storeId, menuId, ingredientCreateRequestDTO);
 
         return ApiResponse.success_only(INGREDIENT_CREATE_SUCCESS);
     }
@@ -103,9 +100,9 @@ public class MenuController {
     })
     @GetMapping
     public ResponseEntity<ApiResponse<List<MenuCategoryResponseDTO>>> getMenus(
-            @RequestAttribute("memberId") Long memberId) {
+            @RequestAttribute("storeId") Long storeId) {
 
-        List<MenuCategoryResponseDTO> response = menuService.getMenus(memberId);
+        List<MenuCategoryResponseDTO> response = menuService.getMenus(storeId);
 
         return ApiResponse.success(MENU_GET_SUCCESS, response);
     }
