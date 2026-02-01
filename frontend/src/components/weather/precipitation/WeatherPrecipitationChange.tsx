@@ -3,7 +3,7 @@ import { CircleArrowRight } from 'lucide-react';
 import { DefaultCardWrapper } from '@/components/shared';
 import { mockPrecipitationChange } from '@/mocks/precipitation';
 
-import { WeatherPrecipitationChangeItem } from './WeatherPrecipitationChageItem';
+import { WeatherPrecipitationChangeItem } from './WeatherPrecipitationChangeItem';
 
 export const WeatherPrecipitationChange = () => {
   const { description, ordersChangePercentage, salesChangePercentage } =
