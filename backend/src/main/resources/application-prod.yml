@@ -25,7 +25,7 @@ google:
   client:
     id: ${GOOGLE_ID}
     secret: ${GOOGLE_SECRET}
-    redirect-uri: http://43.200.152.163/auth/google/callback
+    redirect-uri: https://check-mate.kro.kr/auth/google/callback
     authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
     token-uri: https://oauth2.googleapis.com/token
 
@@ -40,3 +40,8 @@ jwt:
   refresh:
     expiration: 604800000 # 7일
     header: Authorization-Refresh
+
+business:
+  jwt:
+    key: Team3-CheckMate-BIZ-JWE-KEY-9f8d7a6c5b4a3210
+    expiration: 300000
