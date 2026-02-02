@@ -54,11 +54,8 @@ export const useDashboardTabsDialog = () => {
 
   const handleAddClick = (index: number) => {
     setNewTabs((prev) => {
-      const copy = prev.slice();
-      // ensure length up to index
-      while (copy.length <= index) {
-        copy.push('');
-      }
+      const copy = [...prev];
+      copy[index] = '';
       return copy;
     });
     setEditingIndex(index);
