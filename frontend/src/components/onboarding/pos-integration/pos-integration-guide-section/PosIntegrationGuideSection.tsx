@@ -14,7 +14,7 @@ export const PosIntegrationGuideSection = () => {
       <div className="mb-5 flex w-full justify-center gap-4">
         {POS_INTEGRATION_GUIDE_CARD_LIST.map((card, index) => (
           <PosIntegrationGuideCard
-            key={index}
+            key={card.path}
             stepCount={index + 1}
             path={card.path}
             description={card.description}
