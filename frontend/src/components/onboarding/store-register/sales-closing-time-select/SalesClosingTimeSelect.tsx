@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { Select, SelectContent } from '@/components/shared/shadcn-ui';
 
@@ -12,9 +12,9 @@ export const SalesClosingTimeSelect = () => {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const handleOpenChange = useCallback((open: boolean) => {
+  const handleOpenChange = (open: boolean) => {
     setIsOpen(open);
-  }, []);
+  };
 
   return (
     <Select open={isOpen} onOpenChange={handleOpenChange} defaultValue="0시">
