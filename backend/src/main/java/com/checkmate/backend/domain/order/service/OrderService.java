@@ -106,6 +106,7 @@ public class OrderService {
                         .refundAmount(0)
                         .paymentStatus(PaymentStatus.PAID.getValue())
                         .paidAt(receiptRequestDTO.paidAt())
+                        .order(order)
                         .build();
 
         paymentRepository.save(payment);

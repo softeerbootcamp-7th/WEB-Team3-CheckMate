@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Table(
         name = "order_menu",
         indexes = {
-            @Index(name = "idx_order_menu_store_id", columnList = "order_Id"),
+            @Index(name = "idx_order_menu_store_id", columnList = "order_id"),
             @Index(name = "idx_order_menu_menu_version_id", columnList = "menu_version_id")
         })
 public class OrderMenu extends BaseTimeEntity {
