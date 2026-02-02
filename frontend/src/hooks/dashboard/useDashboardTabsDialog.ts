@@ -12,6 +12,13 @@ export const useDashboardTabsDialog = () => {
   const [editingIndex, setEditingIndex] = useState<number | null>(
     dialogMode === DASHBOARD_TABS_DIALOG_MODE.ADD ? tabs.length : null,
   );
+  const [isDeleted, setIsDeleted] = useState<boolean[]>([
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
 
   // 편집 모드 진입 시 포커스 설정
   useEffect(() => {
@@ -42,6 +49,7 @@ export const useDashboardTabsDialog = () => {
 
   const handleDelete = (index: number) => {
     setNewTabs((prev) => prev.map((r, i) => (i === index ? '' : r)));
+    setIsDeleted((prev) => prev.map((r, i) => (i === index ? true : r)));
   };
 
   const handleAddClick = (index: number) => {
@@ -68,12 +76,22 @@ export const useDashboardTabsDialog = () => {
     if (hasDuplicate) {
       return;
     }
+
+    isDeleted.forEach((deleted) => {
+      if (deleted) {
+        // TODO 서버에 삭제 요청 보내기
+      }
+    });
+
     // trim 후 저장
     const filteredTabs = newTabs.filter(
       (tab) => tab !== undefined && tab.trim() !== '',
     ) as string[];
     const trimmedTabs = filteredTabs.map((tab) => tab.trim());
+
+    // TODO 서버에 추가 요청 보내기
     setTabs(trimmedTabs);
+
     closeDialog();
   };
 
