@@ -19,11 +19,10 @@ public enum SalesType {
 
     // DB value로 Enum 가져오기
     public static SalesType fromValue(String value) {
-        if (value == null) return null;
-        return Arrays.stream(values())
-                .filter(v -> v.value.equals(value))
-                .findFirst()
-                .orElseThrow(
-                        () -> new IllegalArgumentException("Invalid OrderType value: " + value));
+        if (value == null) {
+            return null;
+        }
+
+        return Arrays.stream(values()).filter(v -> v.value.equals(value)).findFirst().orElse(null);
     }
 }
