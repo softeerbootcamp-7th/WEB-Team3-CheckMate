@@ -1,6 +1,7 @@
 package com.checkmate.backend.domain.store.service;
 
 import static com.checkmate.backend.global.response.ErrorStatus.MEMBER_NOT_FOUND_EXCEPTION;
+import static com.checkmate.backend.global.response.ErrorStatus.SSE_CONNECTION_REQUIRED;
 
 import com.checkmate.backend.domain.member.entity.Member;
 import com.checkmate.backend.domain.member.repository.MemberRepository;
@@ -9,14 +10,21 @@ import com.checkmate.backend.domain.store.entity.BusinessHour;
 import com.checkmate.backend.domain.store.entity.Store;
 import com.checkmate.backend.domain.store.repository.BusinessHourRepository;
 import com.checkmate.backend.domain.store.repository.StoreRepository;
+import com.checkmate.backend.global.exception.BadRequestException;
 import com.checkmate.backend.global.exception.NotFoundException;
+import com.checkmate.backend.global.sse.SseEmitterManager;
 import com.checkmate.backend.global.util.BusinessJwtUtil;
 import jakarta.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +34,7 @@ public class StoreService {
     private final MemberRepository memberRepository;
     private final BusinessHourRepository businessHourRepository;
     private final BusinessJwtUtil businessJwtUtil;
+    private final SseEmitterManager sseEmitterManager;
 
     /*
      * c
@@ -92,5 +101,37 @@ public class StoreService {
                         });
 
         return storeId;
+    }
+
+    /** 포스 연동 */
+    public void connectPOS(Long storeId) {
+        SseEmitter emitter = sseEmitterManager.getEmitter(storeId);
+
+        if (emitter == null) {
+            log.warn("[connectPOS][SSE 연동 안 했는데 포스 연동 시도함][storeId= {}]", storeId);
+            throw new BadRequestException(SSE_CONNECTION_REQUIRED);
+        }
+
+        CompletableFuture.runAsync(
+                () -> {
+                    Random random = new Random();
+                    try {
+                        // 5 ~ 10초 랜덤 대기
+                        int waitSeconds = 5 + random.nextInt(6);
+                        TimeUnit.SECONDS.sleep(waitSeconds);
+
+                        // 0.5 확률로 성공 또는 실패
+                        boolean success = random.nextBoolean();
+
+                        if (success) {
+                            emitter.send("success");
+
+                        } else {
+                            emitter.send("fail");
+                        }
+                    } catch (InterruptedException | IOException e) {
+                        log.warn("[connectPOS][storeId= {}, reason= {}]", storeId, e.getMessage());
+                    }
+                });
     }
 }
