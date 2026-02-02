@@ -93,6 +93,7 @@ jobs:
               "echo \"GOOGLE_ID=${{ secrets.GOOGLE_ID }}\" >> .env",
               "echo \"GOOGLE_SECRET=${{ secrets.GOOGLE_SECRET }}\" >> .env",
               "echo \"JWT_SECRET=${{ secrets.JWT_SECRET }}\" >> .env",
+              "echo \"JWT_BUSINESS_SECRET=${{ secrets.JWT_BUSINESS_SECRET }}\" >> .env",
               "echo \"ENC_KEY=${{ secrets.ENC_KEY }}\" >> .env",
               "docker-compose pull",
               "docker-compose up -d",
