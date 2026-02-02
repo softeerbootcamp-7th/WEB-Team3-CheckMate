@@ -10,7 +10,6 @@ import {
 } from '../store-register-form-content';
 
 export const StoreRegisterForm = () => {
-  // TODO: 폼 type 타입 정의하기
   const methods = useForm<StoreRegisterFormType>({
     mode: 'all',
   });
