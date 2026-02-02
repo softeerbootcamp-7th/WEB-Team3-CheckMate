@@ -19,6 +19,7 @@ export const StoreRegisterForm = () => {
   const handleSubmit = methods.handleSubmit(() => {
     if (currentStep < STORE_REGISTER_STEP.SALES_CLOSING_TIME) {
       moveNextStep();
+      return;
     }
   });
 
