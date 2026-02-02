@@ -64,3 +64,9 @@ export {
   DialogTitle,
   DialogTrigger,
 } from './dialog';
+export {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from './tooltip';
