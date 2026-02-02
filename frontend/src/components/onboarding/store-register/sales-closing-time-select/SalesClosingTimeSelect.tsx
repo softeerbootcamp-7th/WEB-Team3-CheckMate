@@ -17,7 +17,10 @@ export const SalesClosingTimeSelect = () => {
   return (
     <Select open={isOpen} onOpenChange={handleOpenChange} defaultValue="0시">
       <SalesClosingTimeSelectTrigger isOpen={isOpen} />
-      <SelectContent position="popper" className="h-54 border-none">
+      <SelectContent
+        position="popper"
+        className="h-54 w-25.5 overflow-y-auto border-none"
+      >
         {SALES_CLOSING_TIME_LIST.map((time) => (
           <SalesClosingTimeSelectItem key={time} time={time} />
         ))}
