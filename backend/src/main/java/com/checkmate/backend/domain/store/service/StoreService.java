@@ -18,7 +18,7 @@ import jakarta.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -110,9 +110,9 @@ public class StoreService {
         if (emitter == null) throw new BadRequestException(SSE_CONNECTION_REQUIRED);
 
         try {
-            int waitSeconds = 3 + new Random().nextInt(5);
+            int waitSeconds = 3 + ThreadLocalRandom.current().nextInt(5);
             TimeUnit.SECONDS.sleep(waitSeconds);
-            emitter.send(new Random().nextBoolean() ? "success" : "fail");
+            emitter.send(ThreadLocalRandom.current().nextBoolean() ? "success" : "fail");
         } catch (InterruptedException | IOException e) {
             log.warn("[connectPOS][storeId= {}, reason= {}]", storeId, e.getMessage());
         }

@@ -9,19 +9,19 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 @Slf4j
 public class SseEventSender {
 
-    private final SseEmitterManager repository;
+    private final SseEmitterManager sseEmitterManager;
 
-    public SseEventSender(SseEmitterManager repository) {
-        this.repository = repository;
+    public SseEventSender(SseEmitterManager sseEmitterManager) {
+        this.sseEmitterManager = sseEmitterManager;
     }
 
     public void send(Long storeId, String topic, Object data) {
 
-        if (!repository.isSubscribed(storeId, topic)) {
+        if (!sseEmitterManager.isSubscribed(storeId, topic)) {
             return; // 구독 안 했으면 안 보냄
         }
 
-        SseEmitter emitter = repository.getEmitter(storeId);
+        SseEmitter emitter = sseEmitterManager.getEmitter(storeId);
         if (emitter == null) return;
 
         try {
@@ -32,7 +32,7 @@ public class SseEventSender {
                     storeId,
                     topic,
                     e.getMessage());
-            repository.removeClient(storeId);
+            sseEmitterManager.removeClient(storeId);
         }
     }
 }
