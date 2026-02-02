@@ -9,8 +9,6 @@ import com.checkmate.backend.global.response.ErrorStatus;
 import com.checkmate.backend.global.response.SuccessStatus;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import jakarta.servlet.http.HttpSession;
-
-import java.util.Map;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -51,7 +49,7 @@ public class AuthController {
 
     @GetMapping("/google")
     public String redirectToGoogle(
-                @RequestParam(required = false) String redirect_url, HttpSession session) {
+            @RequestParam(required = false) String redirect_url, HttpSession session) {
         String scope = "openid email profile https://www.googleapis.com/auth/gmail.send";
         String state = UUID.randomUUID().toString();
 
@@ -59,10 +57,8 @@ public class AuthController {
 
         log.info("Google Login Redirect Requested. Generated State: {}", state);
 
-            String clientRedirectUrl =
-                    redirect_url != null && !redirect_url.isEmpty()
-                            ? redirect_url
-                            : redirectUri;
+        String clientRedirectUrl =
+                redirect_url != null && !redirect_url.isEmpty() ? redirect_url : redirectUri;
 
         UriComponents builder =
                 UriComponentsBuilder.fromUriString(authorizationUri)
