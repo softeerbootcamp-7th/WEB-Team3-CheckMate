@@ -1,6 +1,6 @@
 import { DialogFooter } from '@/components/shared/shadcn-ui';
 import { MAX_DASHBOARD_TABS } from '@/constants/dashboard';
-import { useDashboardTabsDialog } from '@/hooks/dashboard/useDashboardTabsDialog';
+import { useDashboardTabsDialog } from '@/hooks/dashboard';
 
 import { DashboardTabInput } from './DashboardTabInput';
 import { DialogCancelButton } from './DialogCancelButton';

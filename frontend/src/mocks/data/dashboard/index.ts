@@ -1,1 +1,1 @@
-export { gridItems } from './gridItem.ts';
+export { gridItems } from './gridItem';
