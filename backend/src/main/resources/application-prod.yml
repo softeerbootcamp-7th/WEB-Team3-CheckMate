@@ -45,3 +45,4 @@ business:
   jwt:
     key: Team3-CheckMate-BIZ-JWE-KEY-9f8d7a6c5b4a3210
     expiration: 300000
+
