@@ -1,6 +1,7 @@
-import type { ChangeEvent, Ref } from 'react';
+import { type ChangeEvent, type Ref } from 'react';
 
 import { Input } from '@/components/shared';
+import { cn } from '@/utils/shared';
 
 interface DashboardTabInputProps {
   index: number;
@@ -18,28 +19,29 @@ export const DashboardTabInput = ({
   setEditingIndex,
   ref,
 }: DashboardTabInputProps) => {
+  const hasDuplicate =
+    newTabs.filter(
+      (tab, i) => tab === newTabs[index] && tab.trim() !== '' && i !== index,
+    ).length > 0;
+
   return (
     <Input
       ref={ref}
       value={newTabs[index] ?? ''}
-      onChange={(e: ChangeEvent<HTMLInputElement>) =>
-        handleChange(index, e.target.value)
-      }
+      onChange={(e: ChangeEvent<HTMLInputElement>) => {
+        handleChange(index, e.target.value);
+      }}
       disabled={index !== editingIndex}
-      isError={
-        // 중복
-        newTabs.filter(
-          (tab, i) =>
-            tab === newTabs[index] && tab.trim() !== '' && i !== index,
-        ).length > 0
-      }
+      isError={hasDuplicate}
       errorMessagePosition="right"
       errorMessage="중복된 이름입니다."
       errorClassName="body-small-medium"
       onBlur={() => setEditingIndex(null)}
       maxLength={6}
-      // TODO error & focus 시 테두리 안 나옴
-      inputClassName="rounded-150 bg-grey-0 body-medium-semibold text-grey-900 w-42.5 p-200 focus:bg-grey-100 focus:outline-none"
+      inputClassName={cn(
+        'rounded-150 bg-grey-0 body-medium-semibold text-grey-900 w-42.5 p-200 focus:bg-grey-100 ',
+        !hasDuplicate && 'focus:outline-none',
+      )}
     />
   );
 };
