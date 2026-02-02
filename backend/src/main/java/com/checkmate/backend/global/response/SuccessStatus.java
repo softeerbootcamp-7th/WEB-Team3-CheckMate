@@ -16,6 +16,7 @@ public enum SuccessStatus {
 
     /** Store */
     // 200
+    POS_CONNECT_START(HttpStatus.OK, "POS 연동을 시작합니다."),
 
     // 201
     SEND_PAY_INFO_SAVE_SUCCESS(HttpStatus.CREATED, "결제 정보 등록 성공"),
