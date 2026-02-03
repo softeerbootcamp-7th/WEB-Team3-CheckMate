@@ -144,18 +144,24 @@ export const IngredientEditDialog = ({
                     </TooltipContent>
                   </Tooltip>
                 </div>
-
-                <Button
-                  type="button"
-                  className={cn(
-                    fields.length === 0
-                      ? 'text-grey-300 border-grey-300'
-                      : 'text-brand-500 border-brand-500',
-                    'rounded-200 h-8.5 border-[1.5px] px-350 py-200',
+                <div className="flex items-center gap-4">
+                  <Button
+                    type="button"
+                    className={cn(
+                      fields.length === 0
+                        ? 'text-brand-500 border-brand-500'
+                        : 'text-grey-300 border-grey-300 pointer-events-none',
+                      'rounded-200 h-8.5 w-23.5 border-[1.5px] px-350 py-200',
+                    )}
+                  >
+                    AI 자동완성
+                  </Button>
+                  {fields.length !== 0 && (
+                    <span className="body-small-medium text-grey-700">
+                      AI 자동완성은 입력된 식재료가 없을 때만 사용할 수 있어요.
+                    </span>
                   )}
-                >
-                  AI 자동완성
-                </Button>
+                </div>
               </div>
               <Button
                 onClick={onClickAddIngredient}
