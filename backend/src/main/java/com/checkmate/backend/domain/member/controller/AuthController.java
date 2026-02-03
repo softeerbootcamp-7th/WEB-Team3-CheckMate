@@ -161,7 +161,7 @@ public class AuthController {
                 responseCode = "404",
                 description = "해당 사용자를 찾을 수 없습니다.")
     })
-    @GetMapping("/refresh")
+    @PostMapping("/refresh")
     @ResponseBody
     public ResponseEntity<ApiResponse<LoginResponse>> refreshAccessToken(
             @CookieValue(value = "refresh_token", required = false) String refreshToken) {
