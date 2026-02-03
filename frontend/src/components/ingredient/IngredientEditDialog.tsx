@@ -76,7 +76,7 @@ export const IngredientEditDialog = ({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="rounded-500 h-175 !w-[1000px] !max-w-[1000px] gap-0 border-none bg-gray-50 p-12.5 [&>button]:hidden">
-        <form className="flex h-full w-full flex-col">
+        <form className="flex h-full min-h-0 w-full flex-col">
           <DialogHeader className="flex w-full flex-row items-center justify-between self-start">
             <DialogTitle className="!title-large-semibold text-grey-900">
               {mockMenuIngredients.menu}
@@ -104,7 +104,7 @@ export const IngredientEditDialog = ({
           </DialogHeader>
 
           <div className="bg-grey-300 mt-5.5 h-[2px]" />
-          <section className="mt-10 flex flex-1 flex-col gap-10">
+          <section className="mt-10 flex min-h-0 flex-1 flex-col gap-10">
             <header className="flex justify-between">
               <div className="flex items-center gap-5">
                 <div className="flex items-center gap-[6px]">
@@ -152,18 +152,15 @@ export const IngredientEditDialog = ({
                 식재료 추가
               </Button>
             </header>
-            <main className="flex-1 overflow-y-auto">
+            <main className="flex-1 overflow-y-auto p-1">
               {fields.length === 0 ? (
                 <div className="text-grey-500 flex h-full items-center justify-center pb-10">
                   메뉴 제조에 필요한 식재료를 등록해주세요
                 </div>
               ) : (
-                <div className="grid grid-cols-2 gap-x-14 gap-y-6">
+                <div className="grid grid-cols-2 gap-x-12 gap-y-6">
                   {fields.map((field, index) => (
-                    <div
-                      key={field.id}
-                      className="flex items-center gap-[10px]"
-                    >
+                    <div key={field.id} className="flex items-center gap-2.5">
                       <input
                         {...register(`ingredients.${index}.name`)}
                         placeholder="식재료명"
