@@ -3,7 +3,8 @@ import { API_BASE_URL } from '@/constants/shared';
 
 export const SignInButton = () => {
   const handleClickSignInWithGoogle = async () => {
-    window.location.href = `${API_BASE_URL}/auth/google`;
+    const googleAuthUrl = `${API_BASE_URL}/auth/google?redirect_url=${window.location.origin}/sign-in`;
+    window.location.href = googleAuthUrl;
   };
   return (
     <Button
