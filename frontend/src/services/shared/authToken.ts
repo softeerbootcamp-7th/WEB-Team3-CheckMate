@@ -58,8 +58,6 @@ class AuthToken {
               .then((res) => resolve(res))
               .catch(reject);
           });
-          // 재요청 큐 초기화
-          this.retryQueue.length = 0;
 
           // 첫 요청 재요청
           const retryRequest = await this.insert(request.clone());
@@ -70,12 +68,13 @@ class AuthToken {
             reject();
           });
           // 재요청 큐 초기화
-          this.retryQueue.length = 0;
           // 로그인 페이지로 리다이렉트
           throw new ApiError('Unauthorized', 401, 'UNAUTHORIZED');
         } finally {
           // access token 갱신 여부 플래그 초기화
           this.isRefreshing = false;
+          // 재요청 큐 초기화
+          this.retryQueue.length = 0;
         }
       }
       // 재요청 큐에 요청 추가
