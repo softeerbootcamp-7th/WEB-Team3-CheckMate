@@ -7,3 +7,4 @@ export {
   type ErrorResponse,
 } from './apiClient';
 export { ApiError } from './apiError';
+export { authToken } from './authToken';
