@@ -28,7 +28,11 @@ public enum SuccessStatus {
 
     // 201
     MENU_CREATE_SUCCESS(HttpStatus.CREATED, "메뉴 등록에 성공했습니다."),
-    INGREDIENT_CREATE_SUCCESS(HttpStatus.CREATED, "식재료 등록에 성공했습니다.");
+    INGREDIENT_CREATE_SUCCESS(HttpStatus.CREATED, "식재료 등록에 성공했습니다."),
+
+    /** Order */
+    // 201
+    ORDER_RECEIVE_SUCCESS(HttpStatus.CREATED, "주문 수신에 성공했습니다.");
 
     private final HttpStatus httpStatus;
     private final String message;
