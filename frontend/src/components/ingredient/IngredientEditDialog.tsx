@@ -74,8 +74,8 @@ export const IngredientEditDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="rounded-500 h-175 !w-[1000px] !max-w-[1000px] gap-0 border-none bg-gray-50 p-12.5 [&>button]:hidden">
-        <form className="flex h-full min-h-0 w-full flex-col">
+      <form>
+        <DialogContent className="rounded-500 flex h-175 !w-[1000px] !max-w-[1000px] flex-col gap-0 border-none bg-gray-50 p-12.5 [&>button]:hidden">
           {/** 메뉴명과 취소, 저장 버튼 있는 행 */}
           <IngredientEditDialogHeader
             handleSubmit={handleSubmit}
@@ -104,8 +104,8 @@ export const IngredientEditDialog = ({
               onClickDeleteIngredient={onClickDeleteIngredient}
             />
           </section>
-        </form>
-      </DialogContent>
+        </DialogContent>
+      </form>
     </Dialog>
   );
 };
