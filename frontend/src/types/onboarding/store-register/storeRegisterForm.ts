@@ -11,9 +11,8 @@ export interface StoreRegisterForm {
   businessRegistrationNumber: string;
   businessAuthToken: string;
   storeName: string;
-  zipcode: string; // 우편번호
+  zoneCode: string; // 우편번호
   roadAddress: string; // 도로명 주소
-  detailAddress: string; // 상세 주소
   businessHours: BusinessHour[];
   salesClosingHour: number; // 매출 마감 시간
 }
