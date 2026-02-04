@@ -1,8 +1,5 @@
 import { type Control, Controller, type FieldErrors } from 'react-hook-form';
 
-import type { FormValues } from '@/types/ingredient';
-import { cn } from '@/utils/shared';
-
 import {
   Select,
   SelectContent,
@@ -10,7 +7,10 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from '../shared/shadcn-ui';
+} from '@/components/shared/shadcn-ui';
+import { INGREDIENT_UNIT } from '@/constants/ingredient';
+import type { FormValues } from '@/types/ingredient';
+import { cn } from '@/utils/shared';
 
 import { IngredientUnitSelectItem } from './IngredientUnitSelectItem';
 
@@ -68,13 +68,13 @@ export const IngredientUnitInput = ({
               position={'popper'}
             >
               <SelectGroup>
-                <IngredientUnitSelectItem unit="ml" />
+                <IngredientUnitSelectItem unit={INGREDIENT_UNIT.ml} />
                 <SelectSeparator />
-                <IngredientUnitSelectItem unit="L" />
+                <IngredientUnitSelectItem unit={INGREDIENT_UNIT.L} />
                 <SelectSeparator />
-                <IngredientUnitSelectItem unit="g" />
+                <IngredientUnitSelectItem unit={INGREDIENT_UNIT.g} />
                 <SelectSeparator />
-                <IngredientUnitSelectItem unit="kg" />
+                <IngredientUnitSelectItem unit={INGREDIENT_UNIT.kg} />
               </SelectGroup>
             </SelectContent>
           </Select>
