@@ -1,4 +1,4 @@
-import { MenuCard } from '@/components/ingredient/menuCard';
+import { MenuCard } from '@/components/ingredient';
 
 export const SettingPage = () => {
   return (
