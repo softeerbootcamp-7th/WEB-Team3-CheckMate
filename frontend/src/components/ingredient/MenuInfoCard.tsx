@@ -8,7 +8,7 @@ interface MenuCardProps {
   price: number;
 }
 
-export const MenuCard = ({ menuId, menuName, price }: MenuCardProps) => {
+export const MenuInfoCard = ({ menuId, menuName, price }: MenuCardProps) => {
   const { isDialogOpen, setIsDialogOpen } = useMenuCard();
   return (
     <>

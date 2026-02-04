@@ -1,1 +1,1 @@
-export { MenuCard } from './menuCard';
+export { MenuInfoCard } from './MenuInfoCard';
