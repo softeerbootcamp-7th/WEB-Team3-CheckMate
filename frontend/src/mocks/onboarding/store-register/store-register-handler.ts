@@ -11,6 +11,7 @@ const postHandler = [
     >(
       {
         success: true,
+        message: 'Success',
         data: { businessAuthToken: 'mock-business-auth-token' },
       },
       { status: 201 },

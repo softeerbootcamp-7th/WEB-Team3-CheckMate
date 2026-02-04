@@ -1,4 +1,4 @@
-import { HttpResponse } from 'msw';
+import { HttpResponse, passthrough } from 'msw';
 
 import { type ErrorResponse, type SuccessResponse } from '@/services/shared';
 import type {
@@ -27,6 +27,7 @@ const getHandler = [
     return HttpResponse.json<SuccessResponse<GetAuthMeResponseDto>>(
       {
         success: true,
+        message: 'Success',
         data: {
           userInfo: {
             id: 1,
@@ -48,15 +49,17 @@ const getHandler = [
 ];
 
 const postHandler = [
-  mswHttp.post('/auth/refresh', () =>
+  mswHttp.post('/auth/refresh', () => {
     HttpResponse.json<SuccessResponse<PostAuthRefreshResponseDto>>(
       {
         success: true,
+        message: 'Success',
         data: { accessToken: 'mock-access-token' },
       },
       { status: 200 },
-    ),
-  ),
+    );
+    return passthrough();
+  }),
 ];
 
 export const authHandler = [...getHandler, ...postHandler];

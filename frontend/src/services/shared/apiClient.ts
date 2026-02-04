@@ -49,6 +49,7 @@ interface ApiClientProps {
  */
 export interface ApiResponse {
   success: boolean;
+  message: string;
 }
 
 export interface SuccessResponse<T = unknown> extends ApiResponse {
@@ -58,7 +59,6 @@ export interface SuccessResponse<T = unknown> extends ApiResponse {
 
 export interface ErrorResponse extends ApiResponse {
   success: false;
-  message: string;
   errorCode: string;
 }
 
