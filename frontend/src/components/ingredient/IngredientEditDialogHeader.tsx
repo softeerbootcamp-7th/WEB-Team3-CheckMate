@@ -7,18 +7,18 @@ import { cn } from '@/utils/shared';
 import { Button } from '../shared/shadcn-ui';
 
 interface IngredientEditDialogHeaderProps {
-  onOpenChange: (open: boolean) => void;
   handleSubmit: UseFormHandleSubmit<FormValues>;
-  onSubmit: (data: FormValues) => void;
+  onClickSubmit: (data: FormValues) => Promise<void>;
+  onClickCancel: () => void;
   onError: (errors: FieldErrors<FormValues>) => void;
   isDirty: boolean;
   menuName: string;
 }
 
 export const IngredientEditDialogHeader = ({
-  onOpenChange,
+  onClickCancel,
   handleSubmit,
-  onSubmit,
+  onClickSubmit,
   onError,
   isDirty,
   menuName,
@@ -32,12 +32,12 @@ export const IngredientEditDialogHeader = ({
         <Button
           type="button"
           className="body-medium-semibold w-20 border-none px-350 py-200 focus:ring-0"
-          onClick={() => onOpenChange(false)}
+          onClick={onClickCancel}
         >
           취소
         </Button>
         <Button
-          onClick={handleSubmit(onSubmit, onError)}
+          onClick={handleSubmit(onClickSubmit, onError)}
           className={cn(
             isDirty
               ? 'bg-grey-900 text-grey-50'

@@ -50,8 +50,14 @@ export const IngredientEditDialog = ({
     append({ id: '', name: '', amount: '', unit: '' });
   };
 
-  const onSubmit = (data: FormValues) => {
-    return data; // 그냥 임시 return. 사용하는 데는 없음
+  const onClickSubmit = async () =>
+    //data: FormValues
+    {
+      // fetch() : fetch 작업 하기
+      onOpenChange(false); // 다이얼로그 닫기
+    };
+  const onClickCancel = () => {
+    onOpenChange(false);
   };
   const onError = (errors: FieldErrors<FormValues>) => {
     toast(
@@ -72,9 +78,9 @@ export const IngredientEditDialog = ({
         <form className="flex h-full min-h-0 w-full flex-col">
           {/** 메뉴명과 취소, 저장 버튼 있는 행 */}
           <IngredientEditDialogHeader
-            onOpenChange={onOpenChange}
             handleSubmit={handleSubmit}
-            onSubmit={onSubmit}
+            onClickSubmit={onClickSubmit}
+            onClickCancel={onClickCancel}
             onError={onError}
             isDirty={isDirty}
             menuName={mockMenuIngredients.menu}
