@@ -1,7 +1,8 @@
-import { StoreAddressInput } from '../store-address-input';
-import { StoreNameInput } from '../store-name-input';
 import { StoreRegisterFormTitle } from '../store-register-form-title';
 import { StoreRegisterStepButtonGroup } from '../store-register-step-button-group';
+
+import { StoreAddressInput } from './StoreAddressInput';
+import { StoreNameInput } from './StoreNameInput';
 
 export const StoreInfoInputSection = () => {
   return (

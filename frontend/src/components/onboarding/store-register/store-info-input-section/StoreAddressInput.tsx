@@ -1,6 +1,6 @@
 import { Input } from '@/components/shared';
 
-import { AddressSearchButton } from '../address-search-button';
+import { AddressSearchButton } from './AddressSearchButton';
 
 export const StoreAddressInput = () => {
   return (
