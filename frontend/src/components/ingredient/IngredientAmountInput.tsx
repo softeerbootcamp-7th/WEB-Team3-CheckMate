@@ -1,9 +1,8 @@
 import type { FieldErrors, UseFormRegister } from 'react-hook-form';
 
+import { Input } from '@/components/shared/shadcn-ui';
 import type { FormValues } from '@/types/ingredient';
 import { cn } from '@/utils/shared';
-
-import { Input } from '../shared/shadcn-ui';
 
 interface IngredientAmountInputProps {
   index: number;

@@ -1,9 +1,8 @@
 import { Plus } from 'lucide-react';
 
+import { Button } from '@/components/shared/shadcn-ui';
 import type { FormValues } from '@/types/ingredient';
 import { cn } from '@/utils/shared';
-
-import { Button } from '../shared/shadcn-ui';
 
 import { IngredientQuestionIconWithTooltip } from './IngredientQuestionIconWithTooltip';
 

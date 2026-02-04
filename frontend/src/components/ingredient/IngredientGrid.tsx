@@ -6,9 +6,8 @@ import {
 
 import { X } from 'lucide-react';
 
+import { Button } from '@/components/shared/shadcn-ui';
 import type { FormValues } from '@/types/ingredient';
-
-import { Button } from '../shared/shadcn-ui';
 
 import { IngredientAmountInput } from './IngredientAmountInput';
 import { IngredientMenuInput } from './IngredientMenuInput';

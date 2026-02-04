@@ -2,10 +2,9 @@ import { type FieldErrors } from 'react-hook-form';
 
 import { toast } from 'sonner';
 
+import { Dialog, DialogContent } from '@/components/shared/shadcn-ui';
 import { useIngredientForm } from '@/hooks/ingredient';
 import type { FormValues } from '@/types/ingredient';
-
-import { Dialog, DialogContent } from '../shared/shadcn-ui/dialog';
 
 import { IngredientEditDialogHeader } from './IngredientEditDialogHeader';
 import { IngredientEditInfoHeader } from './IngredientEditInfoHeader';

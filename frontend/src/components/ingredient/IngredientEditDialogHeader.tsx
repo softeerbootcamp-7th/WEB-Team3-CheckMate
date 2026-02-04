@@ -1,10 +1,10 @@
 import { type FieldErrors, type UseFormHandleSubmit } from 'react-hook-form';
 
+import { DialogHeader, DialogTitle } from '@/components/shared/shadcn-ui';
 import type { FormValues } from '@/types/ingredient';
 import { cn } from '@/utils/shared';
 
 import { Button } from '../shared/shadcn-ui';
-import { DialogHeader, DialogTitle } from '../shared/shadcn-ui/dialog';
 
 interface IngredientEditDialogHeaderProps {
   onOpenChange: (open: boolean) => void;

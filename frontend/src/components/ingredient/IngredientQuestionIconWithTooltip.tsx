@@ -4,7 +4,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '../shared/shadcn-ui/tooltip';
+} from '@/components/shared/shadcn-ui';
 
 // 식재료 입력 옆 물음표 아이콘 툴팁 컴포넌트
 export const IngredientQuestionIconWithTooltip = () => {

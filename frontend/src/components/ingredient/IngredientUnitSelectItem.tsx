@@ -1,4 +1,4 @@
-import { SelectItem } from '../shared/shadcn-ui';
+import { SelectItem } from '@/components/shared/shadcn-ui';
 
 interface IngredientUnitDropDownMenuItemProps {
   unit: string;
