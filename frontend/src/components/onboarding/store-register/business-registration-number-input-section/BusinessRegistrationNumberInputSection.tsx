@@ -9,7 +9,7 @@ import { BusinessRegistrationNumberVerifyButton } from './BusinessRegistrationNu
 
 export const BusinessRegistrationNumberInputSection = () => {
   const {
-    ref,
+    combineRefCallback,
     onBlur,
     value,
     error,
@@ -38,7 +38,7 @@ export const BusinessRegistrationNumberInputSection = () => {
           placeholder="-없이 숫자만 입력"
           type="text"
           inputMode="numeric"
-          ref={ref}
+          ref={combineRefCallback}
           onChange={handleBusinessRegistrationNumberChange}
           onBlur={onBlur}
           value={value}
