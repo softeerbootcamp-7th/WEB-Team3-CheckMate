@@ -35,9 +35,6 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.90.19
         version: 5.90.19(react@19.2.3)
-      '@tanstack/react-query-devtools':
-        specifier: ^5.91.3
-        version: 5.91.3(@tanstack/react-query@5.90.19(react@19.2.3))(react@19.2.3)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -105,6 +102,9 @@ importers:
       '@tanstack/eslint-plugin-query':
         specifier: ^5.91.3
         version: 5.91.3(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+      '@tanstack/react-query-devtools':
+        specifier: ^5.91.3
+        version: 5.91.3(@tanstack/react-query@5.90.19(react@19.2.3))(react@19.2.3)
       '@types/node':
         specifier: ^24.10.1
         version: 24.10.9
