@@ -67,9 +67,8 @@ public class StoreService {
                 Store.builder()
                         .businessRegistrationNumber(businessRegistrationNumber)
                         .storeName(storeCreateRequestDTO.storeName())
-                        .zipcode(storeCreateRequestDTO.zipcode())
+                        .zoneCode(storeCreateRequestDTO.zoneCode())
                         .roadAddress(storeCreateRequestDTO.roadAddress())
-                        .detailAddress(storeCreateRequestDTO.detailAddress())
                         .salesClosingHour(storeCreateRequestDTO.salesClosingHour())
                         .member(member)
                         .build();

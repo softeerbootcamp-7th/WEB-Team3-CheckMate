@@ -48,7 +48,7 @@ public class StoreController {
     })
     @PostMapping
     public ResponseEntity<ApiResponse<Void>> create(
-            @RequestAttribute("memberId") Long memberId,
+            @RequestParam("memberId") Long memberId,
             @Valid @RequestBody StoreCreateRequestDTO storeCreateRequestDTO) {
         storeService.create(memberId, storeCreateRequestDTO);
 
