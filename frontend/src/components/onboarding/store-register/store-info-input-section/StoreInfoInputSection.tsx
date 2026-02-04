@@ -10,12 +10,16 @@ import { StoreAddressInput } from './StoreAddressInput';
 import { StoreNameInput } from './StoreNameInput';
 
 export const StoreInfoInputSection = () => {
-  const { watch } = useFormContext<StoreRegisterForm>();
+  const {
+    watch,
+    formState: { isValid },
+  } = useFormContext<StoreRegisterForm>();
 
-  const isValid =
+  const isStoreInfoValid =
     watch(STORE_REGISTER_FORM_FIELD.STORE_NAME) &&
     watch(STORE_REGISTER_FORM_FIELD.ZONE_CODE) &&
-    watch(STORE_REGISTER_FORM_FIELD.ROAD_ADDRESS);
+    watch(STORE_REGISTER_FORM_FIELD.ROAD_ADDRESS) &&
+    isValid;
 
   return (
     <>
@@ -27,7 +31,7 @@ export const StoreInfoInputSection = () => {
           <StoreNameInput />
           <StoreAddressInput />
         </div>
-        <StoreRegisterStepButtonGroup disable={!isValid} />
+        <StoreRegisterStepButtonGroup disable={!isStoreInfoValid} />
       </div>
     </>
   );
