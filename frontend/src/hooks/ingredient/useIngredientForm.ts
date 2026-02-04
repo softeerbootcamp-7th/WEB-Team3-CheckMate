@@ -12,6 +12,7 @@ export const useIngredientForm = ({ formValues }: UseIngredientFormParams) => {
     register,
     handleSubmit,
     getValues,
+    setValue,
     formState: { isDirty, errors: formErrors },
   } = useForm<FormValues>({
     reValidateMode: 'onBlur',
@@ -26,7 +27,7 @@ export const useIngredientForm = ({ formValues }: UseIngredientFormParams) => {
   const isIngredientRowEmpty = (index: number) => {
     const row = getValues(`ingredients.${index}`);
     const ifAnyFieldFilled = [row.name, row.amount, row.unit].some((field) => {
-      return String(field).trim().length > 0;
+      return field.trim().length > 0;
     });
     return !ifAnyFieldFilled;
   };
@@ -39,6 +40,7 @@ export const useIngredientForm = ({ formValues }: UseIngredientFormParams) => {
     formErrors,
     fields,
     append,
+    setValue,
     remove,
     isIngredientRowEmpty,
   };

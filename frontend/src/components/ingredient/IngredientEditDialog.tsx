@@ -37,6 +37,7 @@ export const IngredientEditDialog = ({
     formErrors,
     fields,
     append,
+    setValue,
     remove,
     isIngredientRowEmpty,
   } = useIngredientForm({
@@ -101,6 +102,7 @@ export const IngredientEditDialog = ({
               formErrors={formErrors}
               control={control}
               isIngredientRowEmpty={isIngredientRowEmpty}
+              setValue={setValue}
               onClickDeleteIngredient={onClickDeleteIngredient}
             />
           </section>

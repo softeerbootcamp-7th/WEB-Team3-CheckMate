@@ -1,4 +1,8 @@
-import type { FieldErrors, UseFormRegister } from 'react-hook-form';
+import type {
+  FieldErrors,
+  UseFormRegister,
+  UseFormSetValue,
+} from 'react-hook-form';
 
 import { Input } from '@/components/shared/shadcn-ui';
 import type { FormValues } from '@/types/ingredient';
@@ -9,6 +13,7 @@ interface IngredientAmountInputProps {
   register: UseFormRegister<FormValues>;
   formErrors: FieldErrors<FormValues>;
   isIngredientRowEmpty: (index: number) => boolean;
+  setValue: UseFormSetValue<FormValues>;
 }
 
 export const IngredientAmountInput = ({
@@ -16,6 +21,7 @@ export const IngredientAmountInput = ({
   register,
   formErrors,
   isIngredientRowEmpty,
+  setValue,
 }: IngredientAmountInputProps) => {
   return (
     <Input
@@ -33,10 +39,11 @@ export const IngredientAmountInput = ({
       })}
       onInput={(e) => {
         // 숫자만 입력되도록 실시간 필터링 -> 검증때만 입력 불가가 아니라 애초에 입력 불가능하게
-        e.currentTarget.value = e.currentTarget.value.replace(
-          /[^0-9]/g, // /: 정규식 시작과 끝 , ^ : 부정, g: 모든 문자에 적용
-          '',
-        );
+        const onlyNumbers = e.currentTarget.value.replace(/[^0-9]/g, '');
+        // dom에 반영
+        e.currentTarget.value = onlyNumbers;
+        //  RHF에게 변경 사항 알림
+        setValue(`ingredients.${index}.amount`, onlyNumbers);
       }}
       placeholder="용량"
       className={cn(

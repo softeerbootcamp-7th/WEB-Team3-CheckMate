@@ -1,4 +1,8 @@
-import type { FieldErrors, UseFormRegister } from 'react-hook-form';
+import type {
+  FieldErrors,
+  UseFormRegister,
+  UseFormSetValue,
+} from 'react-hook-form';
 
 import { Input } from '@/components/shared/shadcn-ui';
 import type { FormValues } from '@/types/ingredient';
@@ -8,6 +12,7 @@ interface IngredientMenuInputProps {
   register: UseFormRegister<FormValues>;
   formErrors: FieldErrors<FormValues>;
   isIngredientRowEmpty: (index: number) => boolean;
+  setValue: UseFormSetValue<FormValues>;
 }
 
 export const IngredientMenuInput = ({
@@ -15,6 +20,7 @@ export const IngredientMenuInput = ({
   register,
   formErrors,
   isIngredientRowEmpty,
+  setValue,
 }: IngredientMenuInputProps) => {
   return (
     <Input
@@ -25,6 +31,7 @@ export const IngredientMenuInput = ({
         onBlur: (e) => {
           // 사용자가 입력 마치고 다른 영역 클릭했을 때 실행되는 함수 -> 앞뒤 공백 제거
           e.target.value = e.target.value.trim();
+          setValue(`ingredients.${index}.name`, e.target.value);
         },
         validate: (currentFieldValue) => {
           // 한 행의 모든 값 비어있으면 오류 발생 안시키고 검증 통과

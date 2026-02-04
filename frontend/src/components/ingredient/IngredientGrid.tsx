@@ -2,6 +2,7 @@ import {
   type Control,
   type FieldErrors,
   type UseFormRegister,
+  type UseFormSetValue,
 } from 'react-hook-form';
 
 import { X } from 'lucide-react';
@@ -20,6 +21,7 @@ interface IngredientGridProps {
   control: Control<FormValues>;
   isIngredientRowEmpty: (index: number) => boolean;
   onClickDeleteIngredient: (index: number) => void;
+  setValue: UseFormSetValue<FormValues>;
 }
 
 export const IngredientGrid = ({
@@ -27,6 +29,7 @@ export const IngredientGrid = ({
   register,
   formErrors,
   control,
+  setValue,
   isIngredientRowEmpty,
   onClickDeleteIngredient,
 }: IngredientGridProps) => {
@@ -45,12 +48,14 @@ export const IngredientGrid = ({
                 register={register}
                 formErrors={formErrors}
                 isIngredientRowEmpty={isIngredientRowEmpty}
+                setValue={setValue}
               />
               <IngredientAmountInput
                 index={index}
                 register={register}
                 formErrors={formErrors}
                 isIngredientRowEmpty={isIngredientRowEmpty}
+                setValue={setValue}
               />
               <IngredientUnitInput
                 index={index}
