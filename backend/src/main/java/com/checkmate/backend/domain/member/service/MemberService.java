@@ -75,9 +75,9 @@ public class MemberService {
     }
 
     // 재시도 로직이 포함된 Google Token 교환
-    public GoogleTokenResponse exchangeCodeForToken(String code, String redirect_url) {
+    public GoogleTokenResponse exchangeCodeForToken(String code, String redirectUrl) {
         String clientRedirectUrl =
-                redirect_url != null && !redirect_url.isEmpty() ? redirect_url : redirectUri;
+                redirectUrl != null && !redirectUrl.isEmpty() ? redirectUrl : redirectUri;
 
         int attempt = 0;
         IOException lastException = null;

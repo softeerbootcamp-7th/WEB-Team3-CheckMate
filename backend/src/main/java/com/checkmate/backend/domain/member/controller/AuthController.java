@@ -59,7 +59,7 @@ public class AuthController {
     })
     @GetMapping("/google")
     public String redirectToGoogle(
-            @RequestParam(required = false) String redirect_url, HttpSession session) {
+            @RequestParam(required = false) String redirectUrl, HttpSession session) {
         String scope = "openid email profile https://www.googleapis.com/auth/gmail.send";
         //        String state = UUID.randomUUID().toString();
 
@@ -68,7 +68,7 @@ public class AuthController {
         //        log.info("Google Login Redirect Requested. Generated State: {}", state);
 
         String clientRedirectUrl =
-                redirect_url != null && !redirect_url.isEmpty() ? redirect_url : redirectUri;
+                redirectUrl != null && !redirectUrl.isEmpty() ? redirectUrl : redirectUri;
 
         UriComponents builder =
                 UriComponentsBuilder.fromUriString(authorizationUri)
