@@ -5,23 +5,26 @@ import type { QueryClient } from '@tanstack/react-query';
 import { getAuthGoogle } from '@/services/auth';
 import { authOptions } from '@/services/auth/options';
 
-const getUserOnboardingStatus = async (queryClient: QueryClient) => {
-  const data = await queryClient.ensureQueryData(authOptions.me).catch(() => {
-    return null;
-  });
+const getUserAuthStatus = async (queryClient: QueryClient) => {
+  const data = await queryClient
+    .ensureQueryData(authOptions.status)
+    .catch(() => {
+      return null;
+    });
 
   if (!data) {
     return null;
   }
 
-  switch (data.onboardingStatus) {
-    case 'NONE':
-      return redirect('/onboarding/store');
-    case 'REGISTERED_STORE':
-      return redirect('/onboarding/pos');
-    case 'COMPLETED':
-      return redirect('/dashboard');
+  if (data.hasPosIntegration) {
+    return redirect('/dashboard');
   }
+
+  if (data.hasStore) {
+    return redirect('/onboarding/pos');
+  }
+
+  return redirect('/onboarding/store');
 };
 
 export const signInLoader = (queryClient: QueryClient) => async () => {
@@ -32,7 +35,7 @@ export const signInLoader = (queryClient: QueryClient) => async () => {
 
   // code 와 state 가 없으면 로그인 페이지로 바로 이동
   if (!code) {
-    return await getUserOnboardingStatus(queryClient);
+    return await getUserAuthStatus(queryClient);
   }
 
   // query params 초기화 (새로고침 없이 지우기 위해 replaceState 사용)
@@ -44,5 +47,5 @@ export const signInLoader = (queryClient: QueryClient) => async () => {
     redirectUrl: `${window.location.origin}/sign-in`,
   });
 
-  return await getUserOnboardingStatus(queryClient);
+  return await getUserAuthStatus(queryClient);
 };

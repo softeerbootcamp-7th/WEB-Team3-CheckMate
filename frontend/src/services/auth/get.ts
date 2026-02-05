@@ -1,7 +1,7 @@
 import type {
   GetAuthGoogleQuery,
   GetAuthGoogleResponseDto,
-  GetAuthMeResponseDto,
+  GetAuthStatusResponseDto,
 } from '@/types/auth';
 
 import { authorizedApi, basicApi } from '../shared';
@@ -18,6 +18,7 @@ export const getAuthGoogle = async (query: GetAuthGoogleQuery) => {
 };
 
 export const getAuthMe = async () => {
-  const { data } = await authorizedApi.get<GetAuthMeResponseDto>('/auth/me');
+  const { data } =
+    await authorizedApi.get<GetAuthStatusResponseDto>('/auth/status');
   return data;
 };

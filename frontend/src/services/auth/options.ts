@@ -4,8 +4,8 @@ import { getAuthMe } from './get';
 import { authKeys } from './keys';
 
 export const authOptions = {
-  me: queryOptions({
-    queryKey: authKeys.me(),
+  status: queryOptions({
+    queryKey: authKeys.status(),
     queryFn: getAuthMe,
   }),
 };

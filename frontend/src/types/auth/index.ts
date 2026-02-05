@@ -1,6 +1,6 @@
 export type { GetAuthGoogleQuery } from './query';
 export type {
   GetAuthGoogleResponseDto,
-  GetAuthMeResponseDto,
+  GetAuthStatusResponseDto,
   PostAuthRefreshResponseDto,
 } from './dto';
