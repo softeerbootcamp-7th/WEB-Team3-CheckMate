@@ -43,7 +43,10 @@ interface ApiClientProps {
  * @interface ApiResponse
  * @template T - 응답 본문의 데이터 타입
  * @property {boolean} success - 요청 성공 여부
+ * @property {boolean} success - 요청 성공 여부
  * @property {T} data - 파싱된 JSON 응답 본문
+ * @property {string} message - 응답 메시지
+ * @property {string} errorCode - 에러 코드
  * @property {string} message - 응답 메시지
  * @property {string} errorCode - 에러 코드
  */
@@ -227,6 +230,7 @@ export const createApiClient = ({
  * @example
  * const data = await basicApiClient({ url: '/posts' });
  */
+const basicApiClient = createApiClient();
 const basicApiClient = createApiClient();
 
 /**
