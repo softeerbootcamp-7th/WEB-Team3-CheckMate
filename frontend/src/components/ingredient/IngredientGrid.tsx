@@ -7,15 +7,18 @@ import type { IngredientFormValues } from '@/types/ingredient';
 
 import { IngredientAmountInput } from './IngredientAmountInput';
 import { IngredientMenuInput } from './IngredientMenuInput';
+import { IngredientSkeleton } from './IngredientSkeleton';
 import { IngredientUnitInput } from './IngredientUnitInput';
 
 interface IngredientGridProps {
+  isPending: boolean;
   fields: IngredientFormValues['ingredients'];
   isIngredientRowEmpty: (index: number) => boolean;
   onClickDeleteIngredient: (index: number) => void;
 }
 
 export const IngredientGrid = ({
+  isPending,
   fields,
   isIngredientRowEmpty,
   onClickDeleteIngredient,
@@ -26,6 +29,18 @@ export const IngredientGrid = ({
     control,
     setValue,
   } = useFormContext<IngredientFormValues>();
+  // 데이터 로딩 중(서버로부터 받아오든, AI 자동생성 중이든) 일 때 보여줄 화면
+  if (isPending) {
+    return (
+      <main className="flex-1 p-1">
+        <div className="!body-medium-semibold grid auto-rows-[42px] grid-cols-2 gap-x-12 gap-y-6">
+          {Array.from({ length: 5 }).map((_, index) => (
+            <IngredientSkeleton key={index} />
+          ))}
+        </div>
+      </main>
+    );
+  }
   return (
     <main className="flex-1 overflow-y-auto p-1">
       {fields.length === 0 ? ( // 식재료가 하나도 없을 때
