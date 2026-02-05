@@ -96,7 +96,7 @@ public class SseController {
     })
     @PostMapping("/subscribe")
     public ResponseEntity<ApiResponse<Void>> subscribe(
-            @RequestAttribute Long storeId, @RequestAttribute("topic") AnalysisCardCode topic) {
+            @RequestAttribute Long storeId, @RequestParam("topic") AnalysisCardCode topic) {
         sseEmitterManager.subscribe(storeId, topic);
 
         return ApiResponse.success_only(SSE_SUBSCRIBE_SUCCESS);
@@ -113,7 +113,7 @@ public class SseController {
     })
     @PostMapping("/unsubscribe")
     public ResponseEntity<ApiResponse<Void>> unsubscribe(
-            @RequestAttribute Long storeId, @RequestAttribute("topic") AnalysisCardCode topic) {
+            @RequestAttribute Long storeId, @RequestParam("topic") AnalysisCardCode topic) {
 
         sseEmitterManager.unsubscribe(storeId, topic);
 
