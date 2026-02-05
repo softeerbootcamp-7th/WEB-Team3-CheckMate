@@ -1,5 +1,8 @@
 import { API_BASE_URL } from '@/constants/shared';
 
+import { ApiError } from './apiError';
+import { authToken } from './authToken';
+
 /**
  * API 클라이언트 인스턴스 생성을 위한 설정 옵션
  * @interface CreateApiClientConfig
@@ -19,6 +22,7 @@ interface CreateApiClientConfig {
     response: Response,
   ) => Promise<Response> | Response;
   responseErrorInterceptor?: (
+    request: Request,
     response: Response,
   ) => Promise<Response> | Response;
 }
@@ -38,13 +42,38 @@ interface ApiClientProps {
  * 표준 API 응답 구조 (수정 필요)
  * @interface ApiResponse
  * @template T - 응답 본문의 데이터 타입
- * @property {T} data - 파싱된 JSON 응답 본문
- * @property {number} status - HTTP 상태 코드
+ * @property {boolean} success - 요청 성공 여부
+ * @property {string} message - 응답 메시지
+ * @property {string} errorCode - 에러 코드
  */
-interface ApiResponse<T> {
-  data: T;
-  status: number;
+export interface ApiResponse {
+  success: boolean;
+  message: string;
 }
+
+export interface SuccessResponse<T = unknown> extends ApiResponse {
+  success: true;
+  data: T;
+}
+
+export interface ErrorResponse extends ApiResponse {
+  success: false;
+  errorCode: string;
+}
+
+const handleSuccessResponse = async <T>(
+  response: Response,
+  responseSuccessInterceptor: CreateApiClientConfig['responseSuccessInterceptor'],
+): Promise<SuccessResponse<T>> => {
+  if (responseSuccessInterceptor) {
+    response = await responseSuccessInterceptor(response);
+  }
+
+  const data = (await response.json()) as SuccessResponse<T>;
+  return {
+    ...data,
+  };
+};
 
 /**
  * 선택적 인터셉터와 타임아웃 처리가 포함된 설정된 API 클라이언트 함수를 생성합니다.
@@ -57,7 +86,7 @@ interface ApiResponse<T> {
  *
  * @template T - 타입 안전한 응답을 위해 반환된 클라이언트 함수에서 사용 가능한 제네릭 타입
  * @param {CreateApiClientConfig} [config={}] - 클라이언트의 설정 옵션
- * @returns {Function} ApiClientProps를 받아 Promise<ApiResponse<T>>를 반환하는 비동기 함수.
+ * @returns {Function} ApiClientProps를 받아 Promise<SuccessResponse<T>>를 반환하는 비동기 함수.
  *                    네트워크 실패, 타임아웃 또는 기타 요청 오류 시 Error를 throw합니다.
  *
  * @example
@@ -111,17 +140,19 @@ export const createApiClient = ({
   return async function apiClient<T>({
     url,
     options = {},
-  }: ApiClientProps): Promise<ApiResponse<T>> {
+  }: ApiClientProps): Promise<SuccessResponse<T>> {
     /* request 객체 생성 */
     const _url = `${baseURL}${url}`;
 
     const controller = new AbortController();
+
     const _options: RequestInit = {
       ...options,
       headers: {
         'Content-Type': 'application/json', // json
         ...options.headers,
       },
+      credentials: 'include',
       signal: controller.signal, // timeout
     };
 
@@ -132,6 +163,9 @@ export const createApiClient = ({
       request = await requestInterceptor(request);
     }
 
+    /* 재요청(retry) 등을 위해 미리 복제 (fetch 후에는 body가 소모되어 clone 불가) */
+    const clonedRequest = request.clone();
+
     /* fetch 호출 w/ timeout */
     let response: Response;
     let timeoutId: ReturnType<typeof setTimeout> | undefined = undefined;
@@ -139,7 +173,7 @@ export const createApiClient = ({
     const timeoutPromise = new Promise<Response>((_, reject) => {
       timeoutId = setTimeout(() => {
         controller.abort();
-        reject(new Error('Request timeout'));
+        reject(new ApiError('Request timeout', 504, 'TIMEOUT_ERROR'));
       }, timeout);
     });
 
@@ -152,20 +186,36 @@ export const createApiClient = ({
     /* response HTTP 에러 시 인터셉터 호출 */
     if (!response.ok) {
       if (responseErrorInterceptor) {
-        response = await responseErrorInterceptor(response);
+        response = await responseErrorInterceptor(clonedRequest, response);
       }
-      console.error(response);
+      // responseErrorInterceptor 호출 후 해당 요청이 성공한 경우
+      if (response.ok) {
+        return await handleSuccessResponse<T>(
+          response,
+          responseSuccessInterceptor,
+        );
+      }
+
+      let errorData: ErrorResponse;
+      try {
+        errorData = (await response.json()) as ErrorResponse;
+      } catch {
+        errorData = {
+          success: false,
+          message: 'Unknown error',
+          errorCode: 'UNKNOWN_ERROR',
+        };
+      }
+
+      throw new ApiError(
+        errorData.message,
+        response.status,
+        errorData.errorCode,
+      );
     }
 
     /* response 성공 시 인터셉터 호출 */
-    if (responseSuccessInterceptor) {
-      response = await responseSuccessInterceptor(response);
-    }
-
-    return {
-      data: await response.json(),
-      status: response.status,
-    };
+    return await handleSuccessResponse<T>(response, responseSuccessInterceptor);
   };
 };
 
@@ -176,7 +226,7 @@ export const createApiClient = ({
  * @example
  * const data = await basicApiClient({ url: '/posts' });
  */
-export const basicApiClient = createApiClient();
+const basicApiClient = createApiClient();
 
 /**
  * JWT 인증이 포함된 미리 구성된 API 클라이언트
@@ -191,18 +241,43 @@ export const basicApiClient = createApiClient();
  * localStorage.setItem('bearer', 'eyJhbGc...');
  * const userData = await authorizedApiClient({ url: '/user/profile' });
  */
-export const authorizedApiClient = createApiClient({
-  requestInterceptor: async (request) => {
-    const jwt = localStorage.getItem('bearer');
-    if (jwt) {
-      const headerObj = Object.fromEntries(request.headers.entries());
-      return new Request(request, {
-        headers: {
-          ...headerObj,
-          Authorization: `Bearer ${jwt}`,
-        },
-      });
-    }
-    return request;
-  },
+const authorizedApiClient = createApiClient({
+  requestInterceptor: async (request) => await authToken.insert(request),
+  responseErrorInterceptor: async (request, response) =>
+    await authToken.reissue(request, response),
 });
+
+type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+
+const createHttpMethodWrapper = (
+  client: ReturnType<typeof createApiClient>,
+) => {
+  const request = <T>(
+    method: HttpMethod,
+    url: string,
+    options: RequestInit = {},
+  ) =>
+    client<T>({
+      url,
+      options: {
+        ...options,
+        method,
+      },
+    });
+
+  return {
+    get: <T>(url: string, options: RequestInit = {}) =>
+      request<T>('GET', url, options),
+    post: <T>(url: string, options: RequestInit = {}) =>
+      request<T>('POST', url, options),
+    put: <T>(url: string, options: RequestInit = {}) =>
+      request<T>('PUT', url, options),
+    patch: <T>(url: string, options: RequestInit = {}) =>
+      request<T>('PATCH', url, options),
+    delete: <T>(url: string, options: RequestInit = {}) =>
+      request<T>('DELETE', url, options),
+  };
+};
+
+export const basicApi = createHttpMethodWrapper(basicApiClient);
+export const authorizedApi = createHttpMethodWrapper(authorizedApiClient);

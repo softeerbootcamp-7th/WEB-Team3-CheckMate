@@ -131,3 +131,18 @@ jobs:
             echo "배포 실패!"
             exit 1
           fi
+
+      - name: Send result to n8n
+        if: always() #n8n webhook 실행
+        run: |
+          curl -X POST "${{ secrets.BE_CD_SLACK_N8N_WEBHOOK_URL }}" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "workflow": "${{ github.workflow }}",
+            "status": "${{ job.status }}",
+            "repository": "${{ github.repository }}",
+            "actor": "${{ github.actor }}",
+            "commit_msg": "${{ github.event.head_commit.message }}",
+            "run_url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+            "group_id": "S0AA1TB9VUK"
+          }'
