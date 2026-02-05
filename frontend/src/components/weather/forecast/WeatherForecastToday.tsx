@@ -14,8 +14,10 @@ export const WeatherForecastToday = () => {
             </span>
           </div>
         )}
-        <div className="title-large-semibold break-keep">{mainText}</div>
-        <span className="body-small-medium text-grey-600 pr-6 break-keep">
+        <div className="title-large-semibold whitespace-pre-wrap">
+          {mainText}
+        </div>
+        <span className="body-small-medium text-grey-600 pr-6 whitespace-pre-wrap">
           {subText}
         </span>
       </div>
