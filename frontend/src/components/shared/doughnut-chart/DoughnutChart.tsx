@@ -28,6 +28,26 @@ export const DoughnutChart = ({
       }));
     }
 
+    const mappedData = chartData.map((item) => ({
+      ...item,
+      percentage: Math.round((item.value / totalValue) * 100),
+    }));
+
+    if (mappedData.reduce((sum, item) => sum + item.percentage, 0) < 100) {
+      const difference =
+        100 - mappedData.reduce((sum, item) => sum + item.percentage, 0);
+      for (let i = 0; i < difference; i++) {
+        mappedData[i].percentage++;
+      }
+    } else if (
+      mappedData.reduce((sum, item) => sum + item.percentage, 0) > 100
+    ) {
+      const difference =
+        mappedData.reduce((sum, item) => sum + item.percentage, 0) - 100;
+      for (let i = 0; i < difference; i++) {
+        mappedData[i].percentage--;
+      }
+    }
     return mappedData;
   }, [chartData]);
 
