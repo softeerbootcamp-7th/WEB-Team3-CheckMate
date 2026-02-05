@@ -2,7 +2,7 @@ import { SelectTrigger, SelectValue } from '@/components/shared/shadcn-ui';
 import { cn } from '@/utils/shared';
 
 interface StoreBusinessHourSelectTriggerProps {
-  selectedTime: string | null;
+  selectedTime?: string;
   isOpen: boolean;
   placeholder: string;
 }
@@ -24,7 +24,9 @@ export const StoreBusinessHourSelectTrigger = ({
         outline: isOpen ? '1px solid var(--color-grey-300)' : 'none',
       }}
     >
-      <SelectValue placeholder={placeholder} />
+      <SelectValue placeholder={placeholder}>
+        {selectedTime ?? placeholder}
+      </SelectValue>
     </SelectTrigger>
   );
 };

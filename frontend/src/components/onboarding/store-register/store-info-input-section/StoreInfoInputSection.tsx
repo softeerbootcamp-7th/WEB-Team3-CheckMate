@@ -1,9 +1,29 @@
-import { StoreAddressInput } from '../store-address-input';
-import { StoreNameInput } from '../store-name-input';
+import { useFormContext } from 'react-hook-form';
+
+import {
+  STORE_NAME,
+  STORE_REGISTER_FORM_FIELD,
+} from '@/constants/onboarding/store-register';
+import type { StoreRegisterForm } from '@/types/onboarding/store-register';
+
 import { StoreRegisterFormTitle } from '../store-register-form-title';
 import { StoreRegisterStepButtonGroup } from '../store-register-step-button-group';
 
+import { StoreAddressInput } from './StoreAddressInput';
+import { StoreNameInput } from './StoreNameInput';
+
 export const StoreInfoInputSection = () => {
+  const { watch } = useFormContext<StoreRegisterForm>();
+
+  const isStoreInfoValid =
+    !!watch(STORE_REGISTER_FORM_FIELD.STORE_NAME) &&
+    watch(STORE_REGISTER_FORM_FIELD.STORE_NAME).length >=
+      STORE_NAME.MIN_LENGTH &&
+    watch(STORE_REGISTER_FORM_FIELD.STORE_NAME).length <=
+      STORE_NAME.MAX_LENGTH &&
+    !!watch(STORE_REGISTER_FORM_FIELD.ZONE_CODE) &&
+    !!watch(STORE_REGISTER_FORM_FIELD.ROAD_ADDRESS);
+
   return (
     <>
       <StoreRegisterFormTitle
@@ -14,7 +34,7 @@ export const StoreInfoInputSection = () => {
           <StoreNameInput />
           <StoreAddressInput />
         </div>
-        <StoreRegisterStepButtonGroup />
+        <StoreRegisterStepButtonGroup disable={!isStoreInfoValid} />
       </div>
     </>
   );
