@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { RANKING_COLORS } from '@/constants/shared/doughnut-chart';
 import type { DoughnutChartItem } from '@/types/shared';
 
@@ -15,6 +17,19 @@ export const DoughnutChart = ({
   const CLIP_RADIUS = 100;
   const STROKE_WIDTH = VIEW_RADIUS - CLIP_RADIUS;
   const DONUT_RADIUS = CLIP_RADIUS + STROKE_WIDTH / 2;
+
+  const chartDataWithPercentage = useMemo(() => {
+    const totalValue = chartData.reduce((sum, item) => sum + item.value, 0);
+    if (totalValue === 0) {
+      return chartData.map((item) => ({
+        label: item.label,
+        percentage: 0,
+        color: item.color,
+      }));
+    }
+
+    return mappedData;
+  }, [chartData]);
 
   // 100% percentage -> 180도 degree
   const getDegreeFromPercentage = (percentage: number) => {
@@ -58,93 +73,90 @@ export const DoughnutChart = ({
       viewBox={`0 0 ${VIEW_SIZE} ${VIEW_SIZE}`}
       style={{ backgroundColor: '#fff' }}
     >
-      {chartData
-        .sort((a, b) => b.percentage - a.percentage)
-        .map((data, index) => {
-          const cumulativePercentage = chartData
-            .slice(0, index)
-            .reduce((sum, item) => sum + item.percentage, 0);
-          const cumulativeDegree =
-            getDegreeFromPercentage(cumulativePercentage);
+      {chartDataWithPercentage.map((data, index) => {
+        const cumulativePercentage = chartDataWithPercentage
+          .slice(0, index)
+          .reduce((sum, item) => sum + item.percentage, 0);
+        const cumulativeDegree = getDegreeFromPercentage(cumulativePercentage);
 
-          const degree = getDegreeFromPercentage(data.percentage);
+        const degree = getDegreeFromPercentage(data.percentage);
 
-          const path = getPath(degree, cumulativeDegree);
+        const path = getPath(degree, cumulativeDegree);
 
-          const arcLength = getArcLength(degree);
-          const circumference = getArcLength(360);
+        const arcLength = getArcLength(degree);
+        const circumference = getArcLength(360);
 
-          const currentAnimationDuration = getAnimationDuration(degree);
-          const cumulativeAnimationDuration =
-            getAnimationDuration(cumulativeDegree);
+        const currentAnimationDuration = getAnimationDuration(degree);
+        const cumulativeAnimationDuration =
+          getAnimationDuration(cumulativeDegree);
 
-          const { x: LABEL_X, y: LABEL_Y } = getCoordinates(
-            cumulativeDegree + degree / 2,
-          );
+        const { x: LABEL_X, y: LABEL_Y } = getCoordinates(
+          cumulativeDegree + degree / 2,
+        );
 
-          // text color 결정 로직 (배경색 대비)
-          const MIDDLE_COLOR_HEX = 0x999999; // 기준이 되는 중간계열 배경색 상수
-          const color = data.color ?? RANKING_COLORS[index];
-          const textColor =
-            parseInt(
-              color.startsWith('var(')
-                ? getComputedStyle(document.documentElement)
-                    .getPropertyValue(color.slice(4, -1).trim())
-                    .trim()
-                    .slice(1)
-                : color.slice(1),
-              16,
-            ) > MIDDLE_COLOR_HEX
-              ? 'var(--color-grey-900)'
-              : 'var(--color-grey-0)';
+        // text color 결정 로직 (배경색 대비)
+        const MIDDLE_COLOR_HEX = 0x999999; // 기준이 되는 중간계열 배경색 상수
+        const color = data.color ?? RANKING_COLORS[index];
+        const textColor =
+          parseInt(
+            color.startsWith('var(')
+              ? getComputedStyle(document.documentElement)
+                  .getPropertyValue(color.slice(4, -1).trim())
+                  .trim()
+                  .slice(1)
+              : color.slice(1),
+            16,
+          ) > MIDDLE_COLOR_HEX
+            ? 'var(--color-grey-900)'
+            : 'var(--color-grey-0)';
 
-          return (
-            <g key={data.label}>
-              <path
-                d={path}
-                stroke={color}
-                strokeWidth={STROKE_WIDTH}
-                strokeDasharray={` ${arcLength} ${circumference * 2 - arcLength}`} // 50퍼센트가 넘는 경우에도 빈 공간이 생기도록 원주를 한 번 더 더함
-                strokeDashoffset={arcLength}
-                fill="none"
+        return (
+          <g key={data.label}>
+            <path
+              d={path}
+              stroke={color}
+              strokeWidth={STROKE_WIDTH}
+              strokeDasharray={` ${arcLength} ${circumference * 2 - arcLength}`} // 50퍼센트가 넘는 경우에도 빈 공간이 생기도록 원주를 한 번 더 더함
+              strokeDashoffset={arcLength}
+              fill="none"
+            >
+              <animate
+                attributeName="stroke-dashoffset"
+                from={arcLength}
+                to={0}
+                dur={`${currentAnimationDuration}ms`}
+                begin={`${cumulativeAnimationDuration}ms`}
+                fill="freeze"
+              />
+            </path>
+
+            {/* TODO 45 매직넘버 분리 필요 */}
+            {arcLength > 45 && (
+              <text
+                x={LABEL_X}
+                y={LABEL_Y + 9} // line height 보정
+                fill={textColor}
+                textAnchor="middle"
+                opacity={0}
+                fontSize={'24px'}
+                fontWeight={600}
               >
+                {data.percentage}%
                 <animate
-                  attributeName="stroke-dashoffset"
-                  from={arcLength}
-                  to={0}
-                  dur={`${currentAnimationDuration}ms`}
-                  begin={`${cumulativeAnimationDuration}ms`}
+                  attributeName="opacity"
+                  from={0}
+                  to={1}
+                  dur={`${currentAnimationDuration / 2}ms`}
+                  begin={`${
+                    cumulativeAnimationDuration + currentAnimationDuration / 2
+                  }ms`}
                   fill="freeze"
                 />
-              </path>
-
-              {/* TODO 45 매직넘버 분리 필요 */}
-              {arcLength > 45 && (
-                <text
-                  x={LABEL_X}
-                  y={LABEL_Y + 9} // line height 보정
-                  fill={textColor}
-                  textAnchor="middle"
-                  opacity={0}
-                  fontSize={'24px'}
-                  fontWeight={600}
-                >
-                  {data.percentage}%
-                  <animate
-                    attributeName="opacity"
-                    from={0}
-                    to={1}
-                    dur={`${currentAnimationDuration / 2}ms`}
-                    begin={`${
-                      cumulativeAnimationDuration + currentAnimationDuration / 2
-                    }ms`}
-                    fill="freeze"
-                  />
-                </text>
-              )}
-            </g>
-          );
-        })}
+              </text>
+            )}
+          </g>
+        );
+      })}
     </svg>
   );
 };
