@@ -27,15 +27,23 @@ export const IngredientEditInfoHeader = ({
 
         <div className="flex items-center gap-4">
           <Button
+            disabled={fields.length !== 0} // AI 추천 생성 중일 때 or 목록에 식자재 있을때는 비활성화 -> 클릭 불가
             type="button"
             className={cn(
-              fields.length === 0
-                ? 'text-brand-500 border-brand-500'
-                : 'text-grey-300 border-grey-300 pointer-events-none',
-              'rounded-200 h-8.5 w-23.5 border-[1.5px] px-350 py-200',
+              'rounded-200 h-8.5 w-23.5 border-[1.5px] border-transparent px-350 py-200',
+              '[background-clip:padding-box,border-box] bg-origin-border',
+              'bg-[linear-gradient(#fff,#fff),linear-gradient(to_right,#C263FF,#17C4FF,#44C4F5)]',
+              fields.length !== 0 ? 'border-grey-300' : '',
             )}
           >
-            AI 자동완성
+            <span
+              className={cn(
+                'bg-[linear-gradient(to_right,#C263FF,#17C4FF,#44C4F5)] bg-clip-text text-transparent',
+                fields.length !== 0 ? 'text-grey-300' : '',
+              )}
+            >
+              AI 자동완성
+            </span>
           </Button>
           {fields.length !== 0 && (
             <span className="body-small-medium text-grey-700">
