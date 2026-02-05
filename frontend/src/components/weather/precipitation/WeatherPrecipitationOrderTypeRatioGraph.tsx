@@ -13,7 +13,7 @@ export const WeatherPrecipitationOrderTypeRatioGraph = ({
 }: WeatherPrecipitationOrderTypeRatioGraphProps) => {
   return (
     <div className="flex flex-col gap-1.5">
-      <p className="body-small-bold text-grey-900">{graphTitle}</p>
+      <span className="body-small-bold text-grey-900">{graphTitle}</span>
       <div className="flex flex-col gap-1">
         <p className="bg-brand-400 h-3" />
         <div className="body-small-medium text-grey-600 flex justify-between">

@@ -35,7 +35,7 @@ export const WeatherForecastOneDayAmPmItem = ({
         {halfList.map(({ label, iconPath, temperature }) => {
           return (
             <div
-              key={label} // 오전 또는 오후가  키가 됨
+              key={`${date.getDate()}-${label}`} // 날짜 + (오전 또는 오후)가  키가 됨
               className="flex flex-col items-center gap-1"
             >
               <span className="caption-large-medium text-grey-600">
