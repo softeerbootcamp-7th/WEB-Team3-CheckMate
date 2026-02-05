@@ -1,1 +1,1 @@
-export { CATEGORIES_RANKING_DATA } from './categoriesRanking';
+export { CATEGORIES_RANKING_DATA } from './categoriesRevenue';
