@@ -1,5 +1,5 @@
 export interface DoughnutChartItem {
-  percentage: number;
+  value: number;
   label: string;
   color?: string;
 }
