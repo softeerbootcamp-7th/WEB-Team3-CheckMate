@@ -3,12 +3,16 @@ package com.checkmate.backend.domain.member.service;
 import static com.checkmate.backend.domain.member.entity.MemberAuth.createWithMember;
 
 import com.checkmate.backend.domain.member.dto.AuthToken;
+import com.checkmate.backend.domain.member.dto.MemberStatusResponse;
 import com.checkmate.backend.domain.member.entity.Member;
 import com.checkmate.backend.domain.member.entity.MemberAuth;
 import com.checkmate.backend.domain.member.repository.MemberAuthRepository;
 import com.checkmate.backend.domain.member.repository.MemberRepository;
+import com.checkmate.backend.domain.store.repository.PosRepository;
 import com.checkmate.backend.global.auth.oidc.OidcService;
 import com.checkmate.backend.global.exception.InternalServerException;
+import com.checkmate.backend.global.exception.NotFoundException;
+import com.checkmate.backend.global.exception.UnauthorizedException;
 import com.checkmate.backend.global.response.ErrorStatus;
 import com.checkmate.backend.global.util.JwtUtil;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
@@ -39,6 +43,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final MemberAuthRepository memberAuthRepository;
+    private final PosRepository posRepository;
     private final OidcService oidcService;
     private final JwtUtil jwtUtil;
 
@@ -73,7 +78,10 @@ public class MemberService {
     }
 
     // 재시도 로직이 포함된 Google Token 교환
-    public GoogleTokenResponse exchangeCodeForToken(String code) {
+    public GoogleTokenResponse exchangeCodeForToken(String code, String redirectUrl) {
+        String clientRedirectUrl =
+                redirectUrl != null && !redirectUrl.isEmpty() ? redirectUrl : redirectUri;
+
         int attempt = 0;
         IOException lastException = null;
 
@@ -93,7 +101,7 @@ public class MemberService {
                                         clientId,
                                         clientSecret,
                                         code,
-                                        redirectUri)
+                                        clientRedirectUrl)
                                 .execute();
 
                 log.debug("Google token exchange successful on attempt {}", attempt);
@@ -126,10 +134,65 @@ public class MemberService {
         throw new InternalServerException(ErrorStatus.GOOGLE_TOKEN_EXCHANGE_FAILED);
     }
 
+    @Transactional(readOnly = true)
+    public String refreshAccessToken(String refreshToken) {
+        // 리프레시 토큰 검증
+        jwtUtil.validateRefreshToken(refreshToken);
+
+        // 리프레시 토큰에서 사용자 ID 추출
+        Long memberId = jwtUtil.getUserIdFromToken(refreshToken);
+
+        // DB에 저장된 리프레시 토큰과 비교
+        Member member =
+                memberRepository
+                        .findById(memberId)
+                        .orElseThrow(
+                                () ->
+                                        new NotFoundException(
+                                                ErrorStatus.MEMBER_NOT_FOUND_EXCEPTION));
+
+        MemberAuth memberAuth =
+                memberAuthRepository
+                        .findByMember(member)
+                        .orElseThrow(
+                                () ->
+                                        new UnauthorizedException(
+                                                ErrorStatus.REFRESH_TOKEN_NOT_FOUND));
+
+        if (!refreshToken.equals(memberAuth.getRefreshToken())) {
+            log.warn("Refresh token mismatch for member: {}", memberId);
+            throw new UnauthorizedException(ErrorStatus.REFRESH_TOKEN_MISMATCH);
+        }
+
+        // 새로운 액세스 토큰 생성
+        Long storeId = (member.getStore() != null) ? member.getStore().getId() : null;
+
+        return jwtUtil.generateAccessToken(memberId, storeId);
+    }
+
     public String extractEmailFromToken(String idToken) {
         log.debug("Verifying ID Token and extracting email...");
         GoogleIdToken.Payload payload = oidcService.verifyIdToken(idToken);
         return payload.getEmail();
+    }
+
+    public MemberStatusResponse getMemberStatus(Long memberId) {
+        Member member =
+                memberRepository
+                        .findWithStoreById(memberId)
+                        .orElseThrow(
+                                () ->
+                                        new NotFoundException(
+                                                ErrorStatus.MEMBER_NOT_FOUND_EXCEPTION));
+
+        boolean hasStore = member.getStore() != null;
+        boolean hasPosIntegration = false;
+
+        if (hasStore) {
+            hasPosIntegration = posRepository.existsByStoreId(member.getStore().getId());
+        }
+
+        return new MemberStatusResponse(member.getEmail(), hasStore, hasPosIntegration);
     }
 
     private void saveOrUpdateMemberAuth(

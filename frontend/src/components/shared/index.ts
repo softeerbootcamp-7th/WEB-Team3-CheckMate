@@ -8,3 +8,4 @@ export { PeriodSelect } from './period-select';
 export { OnboardingLayout } from './onboarding-layout';
 export { Input } from './input';
 export { DefaultCardWrapper } from './default-card-wrapper';
+export { Spinner } from './spinner';
