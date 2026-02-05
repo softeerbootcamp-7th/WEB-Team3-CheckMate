@@ -3,8 +3,8 @@ package com.checkmate.backend.domain.analysis.processor;
 import com.checkmate.backend.domain.analysis.AnalysisContext;
 import com.checkmate.backend.domain.analysis.enums.AnalysisCardCode;
 
-public interface AnalysisProcessor {
+public interface AnalysisProcessor<T extends AnalysisContext> {
     boolean supports(AnalysisCardCode analysisCardCode);
 
-    void process(AnalysisContext analysisContext);
+    void process(T context);
 }
