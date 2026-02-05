@@ -231,7 +231,6 @@ export const createApiClient = ({
  * const data = await basicApiClient({ url: '/posts' });
  */
 const basicApiClient = createApiClient();
-const basicApiClient = createApiClient();
 
 /**
  * JWT 인증이 포함된 미리 구성된 API 클라이언트
