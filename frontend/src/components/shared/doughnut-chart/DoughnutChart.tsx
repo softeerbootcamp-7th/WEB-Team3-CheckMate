@@ -41,6 +41,17 @@ export const DoughnutChart = ({
       xmlns="http://www.w3.org/2000/svg"
       viewBox={`0 0 ${VIEW_SIZE} ${VIEW_SIZE}`}
     >
+      {/* 가이드라인 호 */}
+      <DonutSegment
+        path={getSVGPath(359.99, 0, DONUT_RADIUS, VIEW_RADIUS)}
+        strokeWidth={STROKE_WIDTH}
+        color={'var(--color-grey-100)'}
+        arcLength={getArcLength(359.99, DONUT_RADIUS)}
+        circumference={getArcLength(360, DONUT_RADIUS)}
+        currentAnimationDuration={animationDuration}
+        cumulativeAnimationDuration={0}
+      />
+
       {chartDataWithPercentage.map((data, index) => {
         // 누적 백분율 계산
         const cumulativePercentage = chartDataWithPercentage
