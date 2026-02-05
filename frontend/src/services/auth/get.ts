@@ -17,7 +17,7 @@ export const getAuthGoogle = async (query: GetAuthGoogleQuery) => {
   return data;
 };
 
-export const getAuthMe = async () => {
+export const getAuthStatus = async () => {
   const { data } =
     await authorizedApi.get<GetAuthStatusResponseDto>('/auth/status');
   return data;
