@@ -2,10 +2,11 @@ import type { StoreRegisterForm } from '@/types/onboarding/store-register';
 
 export const refineStoreRegisterFormData = (
   data: StoreRegisterForm,
-): StoreRegisterForm => {
+): Omit<StoreRegisterForm, 'businessRegistrationNumber'> => {
+  const { businessRegistrationNumber: _, ...rest } = data;
   return {
-    ...data,
-    businessHours: data.businessHours.map((businessHour) => {
+    ...rest,
+    businessHours: rest.businessHours.map((businessHour) => {
       return {
         ...businessHour,
         openTime: businessHour.openTime ? businessHour.openTime : undefined,
