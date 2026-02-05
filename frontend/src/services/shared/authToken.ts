@@ -28,12 +28,10 @@ class AuthToken {
 
   async insert(request: Request) {
     if (this.accessToken) {
-      const headerObj = Object.fromEntries(request.headers.entries());
+      const headers = new Headers(request.headers);
+      headers.set('Authorization', `Bearer ${this.accessToken}`);
       return new Request(request, {
-        headers: {
-          ...headerObj,
-          Authorization: `Bearer ${this.accessToken}`,
-        },
+        headers,
       });
     }
     return request;
