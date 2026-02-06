@@ -12,6 +12,9 @@ export {
   getMondayOfWeek,
   getSundayOfWeek,
   getCurrentMonth,
+  getLastDateOfMonth,
+  isSameMonth,
   getDateDifference,
   getCurrentYear,
 } from './calendar';
+export { formatNumber } from './formatNumber';

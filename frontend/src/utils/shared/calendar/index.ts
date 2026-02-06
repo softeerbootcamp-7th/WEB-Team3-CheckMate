@@ -11,4 +11,6 @@ export {
   getCurrentMonth,
   getDateDifference,
   getCurrentYear,
+  getLastDateOfMonth,
+  isSameMonth,
 } from './calendarUtil';
