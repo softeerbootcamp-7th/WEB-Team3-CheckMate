@@ -13,7 +13,7 @@ export const TabDeleteButton = ({
   return (
     <Button
       onClick={onClick}
-      aria-label="삭제"
+      aria-label="탭 삭제"
       disabled={disabled}
       className="p-0!"
     >
