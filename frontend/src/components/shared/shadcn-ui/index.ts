@@ -37,7 +37,6 @@ export {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
 } from './dropdown-menu';
-export { Switch } from './switch';
 export {
   Select,
   SelectContent,
@@ -50,3 +49,4 @@ export {
   SelectTrigger,
   SelectValue,
 } from './select';
+export { Checkbox } from './checkbox';
