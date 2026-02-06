@@ -1,3 +1,4 @@
+import { CategoryRevenueRanking } from '@/components/menu/CategoryRevenueRanking';
 import { SectionTitle } from '@/components/shared';
 
 import { RevenueByOrderMethod } from './RevenueByOrderMethod';
@@ -17,6 +18,9 @@ export const SalesSource = () => {
         <RevenueBySaleType />
         <RevenueByOrderMethod />
         <RevenueByPaymentMethod />
+
+        {/* 카테고리별 매출 테스트용 */}
+        <CategoryRevenueRanking />
       </section>
     </section>
   );
