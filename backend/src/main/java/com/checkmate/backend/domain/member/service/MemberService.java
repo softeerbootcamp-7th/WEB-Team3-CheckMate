@@ -9,7 +9,7 @@ import com.checkmate.backend.domain.member.entity.MemberAuth;
 import com.checkmate.backend.domain.member.repository.MemberAuthRepository;
 import com.checkmate.backend.domain.member.repository.MemberRepository;
 import com.checkmate.backend.domain.store.repository.PosRepository;
-import com.checkmate.backend.global.auth.oidc.OidcService;
+import com.checkmate.backend.global.auth.OidcService;
 import com.checkmate.backend.global.exception.InternalServerException;
 import com.checkmate.backend.global.exception.NotFoundException;
 import com.checkmate.backend.global.exception.UnauthorizedException;
