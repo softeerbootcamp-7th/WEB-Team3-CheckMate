@@ -13,3 +13,5 @@ export {
   type PeriodType,
 } from './periods';
 export { CDN_BASE_URL } from './cdnBaseUrl';
+
+export { ROUTE_PATHS } from './routePaths';
