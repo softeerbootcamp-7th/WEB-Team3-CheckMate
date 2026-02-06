@@ -108,6 +108,28 @@
 
   /*그림자*/
   --shadow-card-floating: 0 12px 50px -12px rgba(16, 24, 40, 0.25);
+
+  /* 애니메이션 */
+  --animate-shake: shake 150ms ease-in 2;
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(-5px);
+    }
+    50% {
+      transform: translateX(5px);
+    }
+  }
+
+  --animate-fade-in: fadeIn 200ms ease-in-out;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 }
 
 @layer base {
@@ -126,6 +148,16 @@
   * {
     scrollbar-width: thin;
     scrollbar-color: var(--color-grey-300) transparent;
+  }
+}
+
+/* Card utility */
+@layer components {
+  .card {
+    @apply bg-special-card-bg rounded-400 p-5;
+    & h3 {
+      @apply body-medium-semibold text-grey-700;
+    }
   }
 }
 
@@ -302,4 +334,13 @@
 }
 @utility caption-medium-medium {
   @apply caption-medium font-medium;
+}
+
+@utility scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
