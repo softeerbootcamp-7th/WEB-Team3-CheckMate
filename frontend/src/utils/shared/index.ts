@@ -11,5 +11,8 @@ export {
   getCurrentDate,
   getMondayOfWeek,
   getSundayOfWeek,
+  getCurrentMonth,
+  getLastDateOfMonth,
+  isSameMonth,
 } from './calendar';
 export { formatNumber } from './formatNumber';
