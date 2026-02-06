@@ -1,12 +1,13 @@
 import { HttpResponse, passthrough } from 'msw';
 
-import { mockDb } from '@/mocks/data';
-import { mswHttp } from '@/mocks/shared';
 import type { SuccessResponse } from '@/services/shared';
 import type {
   PostBusinessRegistrationNumberResponseDto,
   PostStoreRegisterRequestDto,
 } from '@/types/onboarding/store-register';
+
+import { mockDb } from '../../data';
+import { mswHttp } from '../../shared';
 
 const postHandler = [
   mswHttp.post('/api/stores/business/verify', () => {
