@@ -1,6 +1,6 @@
+export { DashboardTabsContext } from './dashboardTabsContext';
 export {
-  DashboardTabsContext,
   DASHBOARD_TABS_DIALOG_MODE,
   type DashboardTabsDialogMode,
-} from './dashboardTabsContext';
+} from './dashboardTabsDialogMode';
 export { MAX_DASHBOARD_TABS } from './maxDashboardTab';

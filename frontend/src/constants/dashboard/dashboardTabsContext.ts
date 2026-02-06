@@ -1,14 +1,6 @@
 import { createContext } from 'react';
 
-import type { ValueOf } from '@/utils/shared';
-
-export const DASHBOARD_TABS_DIALOG_MODE = {
-  ADD: 'add',
-  MANAGE: 'manage',
-};
-export type DashboardTabsDialogMode = ValueOf<
-  typeof DASHBOARD_TABS_DIALOG_MODE
->;
+import type { DashboardTabsDialogMode } from './dashboardTabsDialogMode';
 
 interface DashboardTabsContextType {
   tabs: string[];
