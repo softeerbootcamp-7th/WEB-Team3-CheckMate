@@ -39,7 +39,6 @@ export {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
 } from './dropdown-menu';
-export { Switch } from './switch';
 export {
   Select,
   SelectContent,
@@ -70,3 +69,5 @@ export {
   TooltipContent,
   TooltipProvider,
 } from './tooltip';
+export { Checkbox } from './checkbox';
+export { Toaster } from './sonner';
