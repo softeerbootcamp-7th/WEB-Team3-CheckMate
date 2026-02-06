@@ -41,8 +41,7 @@ public class OrderController {
     })
     @PostMapping
     public ResponseEntity<ApiResponse<Void>> receivePosOrder(
-            @LoginMember MemberSession member,
-            @RequestBody ReceiptRequestDTO receiptRequestDTO) {
+            @LoginMember MemberSession member, @RequestBody ReceiptRequestDTO receiptRequestDTO) {
 
         orderService.receivePosOrder(member.storeId(), receiptRequestDTO);
 
