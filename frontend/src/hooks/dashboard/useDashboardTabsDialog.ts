@@ -69,13 +69,11 @@ export const useDashboardTabsDialog = () => {
   };
 
   const handleSave = () => {
-    // 중복 검사
-    const hasDuplicate = newTabs.some(
-      (tab, index) =>
-        tab?.trim() &&
-        newTabs.indexOf(tab) !== index &&
-        newTabs.indexOf(tab) !== -1,
-    );
+    const trimmedTabs = newTabs.map((tab) => tab?.trim()); // trim 처리
+    const filteredTabs = trimmedTabs.filter((tab) => tab) as string[]; // undefined 및 빈 문자열 제거
+
+    // 중복 확인
+    const hasDuplicate = new Set(filteredTabs).size !== filteredTabs.length;
     if (hasDuplicate) {
       return;
     }
@@ -86,14 +84,8 @@ export const useDashboardTabsDialog = () => {
       }
     });
 
-    // trim 후 저장
-    const filteredTabs = newTabs.filter(
-      (tab) => tab !== undefined && tab.trim() !== '',
-    ) as string[];
-    const trimmedTabs = filteredTabs.map((tab) => tab.trim());
-
     // TODO 서버에 추가 요청 보내기
-    setTabs(trimmedTabs);
+    setTabs(filteredTabs);
 
     closeDialog();
   };
