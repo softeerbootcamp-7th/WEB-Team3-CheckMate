@@ -103,12 +103,12 @@ public class JwtUtil {
         }
     }
 
-    private Jws<Claims> parseToken(String token) {
-        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token);
-    }
-
-    public Long getUserIdFromToken(String token) {
+    public Long getMemberIdFromToken(String token) {
         Claims claims = parseToken(token).getPayload();
         return Long.parseLong(claims.getSubject());
+    }
+
+    private Jws<Claims> parseToken(String token) {
+        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token);
     }
 }

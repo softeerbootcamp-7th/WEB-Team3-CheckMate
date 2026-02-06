@@ -140,7 +140,7 @@ public class MemberService {
         jwtUtil.validateRefreshToken(refreshToken);
 
         // 리프레시 토큰에서 사용자 ID 추출
-        Long memberId = jwtUtil.getUserIdFromToken(refreshToken);
+        Long memberId = jwtUtil.getMemberIdFromToken(refreshToken);
 
         // DB에 저장된 리프레시 토큰과 비교
         Member member =
