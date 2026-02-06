@@ -34,41 +34,46 @@ export const useDashboardTabsDialog = () => {
     }
   }, [editingIndex]);
 
-  const handleChange = (index: number, newValue: string) => {
+  const handleChange = (currentIndex: number, newValue: string) => {
     setNewTabs((tabs) => [
-      ...tabs.slice(0, index),
+      ...tabs.slice(0, currentIndex),
       newValue,
-      ...tabs.slice(index + 1),
+      ...tabs.slice(currentIndex + 1),
     ]);
   };
 
-  const handleEdit = (index: number) => {
-    setEditingIndex(index);
-    inputRefs.current[index]?.focus();
+  const handleEdit = (currentIndex: number) => {
+    setEditingIndex(currentIndex);
+    inputRefs.current[currentIndex]?.focus();
   };
 
-  const handleDelete = (index: number) => {
-    setNewTabs((prev) => prev.map((r, i) => (i === index ? undefined : r)));
-    setIsDeleted((prev) => prev.map((r, i) => (i === index ? true : r)));
+  const handleDelete = (currentIndex: number) => {
+    setNewTabs((prev) =>
+      prev.map((tab, index) => (index === currentIndex ? undefined : tab)),
+    );
+    setIsDeleted((prev) =>
+      prev.map((isDeleted, index) =>
+        index === currentIndex ? true : isDeleted,
+      ),
+    );
   };
 
-  const handleAddClick = (index: number) => {
+  const handleAddClick = (currentIndex: number) => {
     setNewTabs((prev) => {
       const copy = [...prev];
-      copy[index] = '';
+      copy[currentIndex] = '';
       return copy;
     });
-    setEditingIndex(index);
-    inputRefs.current[index]?.focus();
+    setEditingIndex(currentIndex);
+    inputRefs.current[currentIndex]?.focus();
   };
 
   const handleSave = () => {
     // 중복 검사
     const hasDuplicate = newTabs.some(
-      (tab, i) =>
-        tab &&
-        tab.trim() &&
-        newTabs.indexOf(tab) !== i &&
+      (tab, index) =>
+        tab?.trim() &&
+        newTabs.indexOf(tab) !== index &&
         newTabs.indexOf(tab) !== -1,
     );
     if (hasDuplicate) {
