@@ -50,3 +50,4 @@ export {
   SelectValue,
 } from './select';
 export { Checkbox } from './checkbox';
+export { Toaster } from './sonner';

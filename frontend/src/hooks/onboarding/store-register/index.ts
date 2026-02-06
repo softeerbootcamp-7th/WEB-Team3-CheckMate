@@ -5,3 +5,5 @@ export { useStoreName } from './useStoreName';
 export { useStoreAddress } from './useStoreAddress';
 export { useStoreBusinessHours } from './useStoreBusinessHours';
 export { useStoreBusinessHoursStep } from './useStoreBusinessHoursStep';
+export { useStoreClosingTime } from './useStoreClosingTime';
+export { useStoreRegisterForm } from './useStoreRegisterForm';
