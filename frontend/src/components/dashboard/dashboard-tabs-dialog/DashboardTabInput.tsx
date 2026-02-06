@@ -1,4 +1,4 @@
-import { type ChangeEvent, type KeyboardEvent, type Ref } from 'react';
+import type { ChangeEvent, KeyboardEvent, Ref } from 'react';
 
 import { Input } from '@/components/shared';
 import { cn } from '@/utils/shared';

@@ -1,5 +1,6 @@
 import {
   type InputHTMLAttributes,
+  type Ref,
   type RefCallback,
   type RefObject,
   useId,
@@ -22,6 +23,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   description?: string;
   ref?:
+    | Ref<HTMLInputElement | null>
     | RefObject<HTMLInputElement | null>
     | RefCallback<HTMLInputElement | null>;
 }
