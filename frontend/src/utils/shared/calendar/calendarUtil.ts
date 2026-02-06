@@ -212,3 +212,28 @@ export const isSameMonth = ({
     date.getMonth() === compareDate?.getMonth()
   );
 };
+
+/**
+ * @description 인자로 주어진 date의 연도의 마지막 날짜를 반환
+ * @param date
+ * @returns
+ */
+export const getLastDateOfYear = (date: Date) => {
+  return new Date(date.getFullYear() + 1, 0, 0);
+};
+
+/**
+ * @description 인자로 주어진 date의 연도가 인자로 주어진 compareDate의 연도와 동일한지 여부를 반환
+ * @param date
+ * @param compareDate
+ * @returns
+ */
+export const isSameYear = ({
+  date,
+  compareDate,
+}: {
+  date: Date;
+  compareDate?: Date;
+}) => {
+  return date.getFullYear() === compareDate?.getFullYear();
+};

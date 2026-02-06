@@ -2,8 +2,7 @@ import {
   cn,
   getCurrentYear,
   isBetweenSelectedDate,
-  isEndDate,
-  isStartDate,
+  isSameYear,
 } from '@/utils/shared';
 
 import { CalendarYearCell } from './CalendarYearCell';
@@ -26,14 +25,14 @@ export const CalendarYearGrid = ({
       year,
     });
 
-    const isStart = isStartDate({
-      currentDate,
-      selectedStartDate,
+    const isStart = isSameYear({
+      date: currentDate,
+      compareDate: selectedStartDate,
     });
 
-    const isEnd = isEndDate({
-      currentDate,
-      selectedEndDate,
+    const isEnd = isSameYear({
+      date: currentDate,
+      compareDate: selectedEndDate,
     });
 
     const isBetweenStartEndDate = isBetweenSelectedDate({

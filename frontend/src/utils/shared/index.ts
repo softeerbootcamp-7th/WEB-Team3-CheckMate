@@ -16,5 +16,7 @@ export {
   isSameMonth,
   getDateDifference,
   getCurrentYear,
+  getLastDateOfYear,
+  isSameYear,
 } from './calendar';
 export { formatNumber } from './formatNumber';

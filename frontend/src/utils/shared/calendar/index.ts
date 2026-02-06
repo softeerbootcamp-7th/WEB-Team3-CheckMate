@@ -13,4 +13,6 @@ export {
   getCurrentYear,
   getLastDateOfMonth,
   isSameMonth,
+  getLastDateOfYear,
+  isSameYear,
 } from './calendarUtil';
