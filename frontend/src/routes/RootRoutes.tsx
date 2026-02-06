@@ -1,5 +1,6 @@
 import { Navigate, Outlet, type RouteObject } from 'react-router-dom';
 
+import { ROUTE_PATHS } from '@/constants/shared';
 import { RootErrorFallback } from '@/pages/root-error-fallback';
 
 import { authRoutes } from './AuthRoutes';

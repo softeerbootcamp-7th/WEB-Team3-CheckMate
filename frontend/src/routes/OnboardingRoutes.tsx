@@ -1,7 +1,7 @@
 import { Navigate, type RouteObject } from 'react-router-dom';
 
-import { ROUTE_PATHS } from '@/constants/shared';
 import { Spinner } from '@/components/shared';
+import { ROUTE_PATHS } from '@/constants/shared';
 import { onBoardingStoreLoader } from '@/pages/onboarding/onboarding-loader';
 import { onBoardingPosLoader } from '@/pages/onboarding/onboarding-loader/onBoardingPosLoader';
 import { PosIntegrationPage } from '@/pages/onboarding/pos-integration-page';

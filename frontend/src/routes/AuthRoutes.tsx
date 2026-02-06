@@ -1,9 +1,7 @@
 import type { RouteObject } from 'react-router-dom';
 
-import { ROUTE_PATHS } from '@/constants/shared';
-import { SignInPage } from '@/pages/sign-in-page';
-
 import { Spinner } from '@/components/shared';
+import { ROUTE_PATHS } from '@/constants/shared';
 import { signInLoader, SignInPage } from '@/pages/sign-in-page';
 import { queryClient } from '@/services/shared';
 
