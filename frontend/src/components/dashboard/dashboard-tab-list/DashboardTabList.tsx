@@ -11,13 +11,13 @@ export const DashboardTabList = () => {
       aria-label="대시보드 탭 목록"
       className="bg-others-tap-bg rounded-200 flex h-fit! items-center p-100"
     >
-      {tabs.map((tabName, index) => (
+      {tabs.map((tabName) => (
         <TabsTrigger
-          key={`trigger-${tabName}-${index}`}
+          key={`trigger-${tabName}`}
           value={tabName}
           role="tab"
           aria-label={`${tabName} 탭`}
-          aria-controls={`dashboard-panel-${index}`}
+          aria-controls={tabName}
           className="rounded-150 text-grey-700 data-[state=inactive]:body-medium-medium data-[state=active]:bg-special-card-bg data-[state=active]:text-grey-900 data-[state=active]:body-medium-bold h-9 min-w-28.5 bg-transparent px-4 shadow-none!"
         >
           {tabName}
