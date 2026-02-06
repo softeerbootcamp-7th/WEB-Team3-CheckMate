@@ -8,5 +8,8 @@ export {
   isBetweenSelectedDate,
   isStartDate,
   isEndDate,
+  getCurrentDate,
+  getMondayOfWeek,
+  getSundayOfWeek,
 } from './calendar';
 export { formatNumber } from './formatNumber';

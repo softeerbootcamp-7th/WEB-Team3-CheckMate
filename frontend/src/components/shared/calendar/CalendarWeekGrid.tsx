@@ -1,6 +1,7 @@
 import {
   cn,
   getCurrentDate,
+  getSundayOfWeek,
   isBetweenSelectedDate,
   isEndDate,
   isStartDate,
@@ -8,25 +9,25 @@ import {
 
 import { CalendarDateCell } from './CalendarDateCell';
 
-interface CalendarDateGridProps {
+interface CalendarWeekGridProps {
   currentDateForCalendar: Date;
   selectedStartDate?: Date;
   selectedEndDate?: Date;
   lastWeekOfPreviousMonth: number[];
   numberOfDatesForCalendar: number;
   firstWeekOfNextMonth: number[];
-  handleSelectDate: (currentDate: Date) => void;
+  handleSelectWeek: (currentDate: Date) => void;
 }
 
-export const CalendarDateGrid = ({
+export const CalendarWeekGrid = ({
   currentDateForCalendar,
   selectedStartDate,
   selectedEndDate,
   lastWeekOfPreviousMonth,
   numberOfDatesForCalendar,
   firstWeekOfNextMonth,
-  handleSelectDate,
-}: CalendarDateGridProps) => {
+  handleSelectWeek,
+}: CalendarWeekGridProps) => {
   const renderDateCell = ({
     date,
     isPreviousMonth,
@@ -43,6 +44,9 @@ export const CalendarDateGrid = ({
       isNextMonth,
     });
 
+    const sundayOfStartDate = getSundayOfWeek(selectedStartDate);
+    const isOnlyStartDateSelected = selectedStartDate && !selectedEndDate;
+
     const isStart = isStartDate({
       currentDate,
       selectedStartDate,
@@ -50,29 +54,32 @@ export const CalendarDateGrid = ({
 
     const isEnd = isEndDate({
       currentDate,
-      selectedEndDate,
+      selectedEndDate: isOnlyStartDateSelected
+        ? sundayOfStartDate
+        : selectedEndDate,
     });
-
-    const isSelected = isStart || isEnd;
 
     const isBetweenStartEndDate = isBetweenSelectedDate({
       currentDate,
       selectedStartDate,
-      selectedEndDate,
+      selectedEndDate: isOnlyStartDateSelected
+        ? sundayOfStartDate
+        : selectedEndDate,
     });
+
     return (
       <CalendarDateCell
         key={date}
         date={date}
         className={cn(
-          isSelected
-            ? 'before:bg-grey-900 text-grey-50 after:bg-grey-100 before:absolute before:inset-0 before:z-2 before:rounded-[5rem] before:content-[""] after:absolute after:z-1 after:h-full after:w-1/2 after:content-[""]'
-            : (isPreviousMonth || isNextMonth) && 'text-grey-300',
+          (isPreviousMonth || isNextMonth) && 'text-grey-300',
+          (isStart || isEnd) &&
+            'before:bg-grey-900 text-grey-900 bg-grey-100 before:absolute before:h-full before:w-1.5 before:content-[""]',
+          isStart && 'before:left-[-6px] before:rounded-l-[5px]',
+          isEnd && 'before:right-[-6px] before:rounded-r-[5px]',
           isBetweenStartEndDate && 'bg-grey-100',
-          isStart && 'after:right-0',
-          isEnd && 'after:left-0',
         )}
-        onClick={() => handleSelectDate(currentDate)}
+        onClick={() => handleSelectWeek(currentDate)}
       />
     );
   };
