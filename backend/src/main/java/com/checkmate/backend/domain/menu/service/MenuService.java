@@ -112,8 +112,10 @@ public class MenuService {
                 Optional.ofNullable(ingredientCreateRequestDTO.ingredients()).orElse(List.of());
 
         for (IngredientCreateRequestDTO.Ingredient dto : ingredientDTOs) {
+            Unit unit = dto.unit();
+            String baseUnit = unit.baseUnitValue();
 
-            ingredientRepository.insertIgnore(storeId, dto.name());
+            ingredientRepository.insertIgnore(storeId, dto.name(), baseUnit);
 
             Ingredient ingredient =
                     ingredientRepository
@@ -128,7 +130,6 @@ public class MenuService {
                                                 INGREDIENT_NOT_FUND_EXCEPTION);
                                     });
 
-            Unit unit = dto.unit();
             Integer quantity = dto.quantity();
 
             recipeRepository.save(
