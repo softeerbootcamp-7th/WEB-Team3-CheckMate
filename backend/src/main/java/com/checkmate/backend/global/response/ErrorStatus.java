@@ -66,8 +66,22 @@ public enum ErrorStatus {
     INGREDIENT_NOT_FUND_EXCEPTION(HttpStatus.NOT_FOUND, "식자재를 찾을 수 없습니다."),
 
     // 409
-    MENU_RECIPE_ALREADY_EXISTS(HttpStatus.CONFLICT, "이미 식자재(레시피)가 등록된 메뉴입니다.");
-    ;
+    MENU_RECIPE_ALREADY_EXISTS(HttpStatus.CONFLICT, "이미 식자재(레시피)가 등록된 메뉴입니다."),
+
+    /** Dashboard */
+    // 400
+    DASHBOARD_LIMIT_EXCEEDED(HttpStatus.BAD_REQUEST, "대시보드는 최대 5개까지 생성 가능합니다."),
+    INVALID_DASHBOARD_NAME(HttpStatus.BAD_REQUEST, "유효하지 않은 대시보드 이름입니다."),
+    DASHBOARD_NAME_TOO_LONG(HttpStatus.BAD_REQUEST, "대시보드 이름은 최대 6자까지 입력 가능합니다."),
+    DUPLICATE_DASHBOARD_NAME(HttpStatus.BAD_REQUEST, "이미 존재하는 대시보드 이름입니다."),
+    DEFAULT_DASHBOARD_MODIFICATION_RESTRICTED(HttpStatus.BAD_REQUEST, "기본 대시보드는 수정할 수 없습니다."),
+    DEFAULT_DASHBOARD_DELETE_RESTRICTED(HttpStatus.BAD_REQUEST, "기본 대시보드는 삭제할 수 없습니다."),
+
+    // 403
+    DASHBOARD_ACCESS_DENIED(HttpStatus.FORBIDDEN, "해당 대시보드에 접근할 권한이 없습니다."),
+
+    // 404
+    DASHBOARD_NOT_FOUND(HttpStatus.NOT_FOUND, "대시보드를 찾을 수 없습니다.");
 
     private final HttpStatus httpStatus;
     private final String message;
