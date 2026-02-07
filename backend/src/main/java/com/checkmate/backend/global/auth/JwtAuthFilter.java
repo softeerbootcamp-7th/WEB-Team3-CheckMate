@@ -1,14 +1,12 @@
 package com.checkmate.backend.global.auth;
 
 import com.checkmate.backend.global.exception.UnauthorizedException;
-import com.checkmate.backend.global.response.ErrorStatus;
 import com.checkmate.backend.global.util.JwtUtil;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.UnsupportedJwtException;
 import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Component;
@@ -26,7 +24,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
-            @NonNull FilterChain filterChain) {
+            @NonNull FilterChain filterChain)
+            throws ServletException, IOException {
         try {
             String token = request.getHeader("Authorization");
 
@@ -43,36 +42,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         } catch (UnauthorizedException ex) {
             handlerExceptionResolver.resolveException(request, response, null, ex);
-        } catch (SecurityException | MalformedJwtException e) {
-            handlerExceptionResolver.resolveException(
-                    request,
-                    response,
-                    null,
-                    new UnauthorizedException(ErrorStatus.INVALID_JWT_SIGNATURE));
-        } catch (ExpiredJwtException e) {
-            handlerExceptionResolver.resolveException(
-                    request,
-                    response,
-                    null,
-                    new UnauthorizedException(ErrorStatus.EXPIRED_JWT_TOKEN));
-        } catch (UnsupportedJwtException e) {
-            handlerExceptionResolver.resolveException(
-                    request,
-                    response,
-                    null,
-                    new UnauthorizedException(ErrorStatus.UNSUPPORTED_JWT_TOKEN));
-        } catch (IllegalArgumentException e) {
-            handlerExceptionResolver.resolveException(
-                    request,
-                    response,
-                    null,
-                    new UnauthorizedException(ErrorStatus.INVALID_JWT_TOKEN));
-        } catch (Exception e) {
-            handlerExceptionResolver.resolveException(
-                    request,
-                    response,
-                    null,
-                    new UnauthorizedException(ErrorStatus.UNAUTHORIZED_ACCESS));
+        } catch (Exception ex) {
+            // Handle other JWT related exceptions
+            handlerExceptionResolver.resolveException(request, response, null, ex);
         }
     }
 }
