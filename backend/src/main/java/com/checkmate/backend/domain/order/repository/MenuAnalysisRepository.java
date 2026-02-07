@@ -1,5 +1,6 @@
 package com.checkmate.backend.domain.order.repository;
 
+import com.checkmate.backend.domain.analysis.dto.projection.IngredientUsageProjection;
 import com.checkmate.backend.domain.analysis.dto.projection.TimeSlotMenuOrderCountProjection;
 import com.checkmate.backend.domain.analysis.dto.response.CategorySalesResponse;
 import com.checkmate.backend.domain.analysis.dto.response.MenuSalesResponse;
@@ -57,6 +58,22 @@ public interface MenuAnalysisRepository extends JpaRepository<Order, Long> {
                     + " group by o.timeSlot2H, m.id, m.name"
                     + " order by o.timeSlot2H asc")
     List<TimeSlotMenuOrderCountProjection> findMenuCountPerTimeSlot(
+            @Param("storeId") Long storeId,
+            @Param("startDate") LocalDate startDate,
+            @Param("endDate") LocalDate endDate);
+
+    /** MNU_04 (식자재 소진량) */
+    @Query(
+            "select new com.checkmate.backend.domain.analysis.dto.projection.IngredientUsageProjection(ing.id, ing.name, sum(r.quantityNormalized * oi.quantity))"
+                    + " from Order o"
+                    + " join OrderItem oi on oi.order.id=o.id"
+                    + " join oi.menuVersion mv"
+                    + " join Recipe r on r.menuVersion.id=mv.id"
+                    + " join r.ingredient ing"
+                    + " where o.store.id=:storeId and o.orderDate>=:startDate and o.orderDate <:endDate"
+                    + " group by ing.id, ing.name"
+                    + " order by sum(r.quantityNormalized * oi.quantity) desc")
+    List<IngredientUsageProjection> findIngredientUsage(
             @Param("storeId") Long storeId,
             @Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate);
