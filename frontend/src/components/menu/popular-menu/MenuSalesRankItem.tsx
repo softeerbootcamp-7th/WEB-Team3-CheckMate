@@ -1,12 +1,12 @@
 import { RankBadge } from '@/components/shared';
-
-const HIGHLIGHT_RANK_THRESHOLD = 3;
+import { MENU_SALES_RANK } from '@/constants/menu';
+import type { MenuSalesRank } from '@/types/menu';
 
 interface MenuSalesRankItemProps {
-  rank: number;
-  menuName: string;
-  totalSalesAmount: number;
-  totalOrderCount: number;
+  rank: MenuSalesRank['rank'];
+  menuName: MenuSalesRank['menuName'];
+  totalSalesAmount: MenuSalesRank['totalSalesAmount'];
+  totalOrderCount: MenuSalesRank['totalOrderCount'];
 }
 
 export const MenuSalesRankItem = ({
@@ -15,7 +15,7 @@ export const MenuSalesRankItem = ({
   totalSalesAmount,
   totalOrderCount,
 }: MenuSalesRankItemProps) => {
-  const isHighlight = rank <= HIGHLIGHT_RANK_THRESHOLD;
+  const isHighlight = rank <= MENU_SALES_RANK.HIGHLIGHT_RANK_THRESHOLD;
 
   return (
     <tr>
