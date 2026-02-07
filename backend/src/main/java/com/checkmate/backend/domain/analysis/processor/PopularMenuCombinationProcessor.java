@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 /** MNU_05(인기 메뉴 조합) */
@@ -35,7 +36,7 @@ public class PopularMenuCombinationProcessor implements AnalysisProcessor<MenuAn
         return AnalysisCode.MNU_05 == analysisCardCode.getMetricCode();
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
     @Override
     public void process(MenuAnalysisContext context) {
 
