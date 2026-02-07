@@ -1,2 +1,3 @@
-export { menuSalesRankItems } from './menuSalesRankItem';
-export { ingredientConsumptionRankItems } from './ingredientConsumptionRankItem';
+export { menuSalesRankItems } from './menuSalesRankItems';
+export { ingredientConsumptionRankItems } from './ingredientConsumptionRankItems';
+export { menuCombinationRankItems } from './menuCombinationRankItems';
