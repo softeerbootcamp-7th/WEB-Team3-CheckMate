@@ -13,7 +13,7 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 import query from '@tanstack/eslint-plugin-query';
 
 export default defineConfig([
-  globalIgnores(['dist', 'node_modules']),
+  globalIgnores(['dist', 'node_modules', 'storybook-static']),
   ...query.configs['flat/recommended'],
   ...storybook.configs['flat/recommended'],
   {

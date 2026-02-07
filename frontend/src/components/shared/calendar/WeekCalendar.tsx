@@ -1,57 +1,62 @@
-import { useCalendar } from '@/hooks/shared';
+import { CALENDAR_CONFIG, DATE_RANGE_PICKER_TYPE } from '@/constants/shared';
+import { useCalendarNavigation, useWeekCalendar } from '@/hooks/shared';
 
-import { CalendarDateGrid } from './CalendarDateGrid';
 import { CalendarDayGrid } from './CalendarDayGrid';
 import { CalendarHeader } from './CalendarHeader';
+import { CalendarWeekGrid } from './CalendarWeekGrid';
 
-interface CalendarProps {
+interface WeekCalendarProps {
   selectedStartDate?: Date;
   setSelectedStartDate: (date?: Date) => void;
   selectedEndDate?: Date;
   setSelectedEndDate: (date?: Date) => void;
 }
 
-export const Calendar = ({
+export const WeekCalendar = ({
   selectedStartDate,
   setSelectedStartDate,
   selectedEndDate,
   setSelectedEndDate,
-}: CalendarProps) => {
+}: WeekCalendarProps) => {
   const {
     currentDateForCalendar,
-    currentYearForCalendar,
-    currentMonthForCalendar,
     numberOfDatesForCalendar,
     lastWeekOfPreviousMonth,
     firstWeekOfNextMonth,
-    handleClickPreviousMonth,
-    handleClickNextMonth,
-    handleSelectDate,
-  } = useCalendar({
+    handleMovePreviousMonth,
+    handleMoveNextMonth,
+  } = useCalendarNavigation({
+    selectedEndDate,
+  });
+  const { handleSelectWeek } = useWeekCalendar({
     selectedStartDate,
     selectedEndDate,
     setSelectedStartDate,
     setSelectedEndDate,
   });
 
+  const { headerTitle, previousAriaLabel, nextAriaLabel } =
+    CALENDAR_CONFIG[DATE_RANGE_PICKER_TYPE.week];
+
   return (
     <section className="rounded-300 border-grey-300 w-80 border p-350">
       <div className="size-full">
         <CalendarHeader
-          currentYearForCalendar={currentYearForCalendar}
-          currentMonthForCalendar={currentMonthForCalendar}
-          handleClickPreviousMonth={handleClickPreviousMonth}
-          handleClickNextMonth={handleClickNextMonth}
+          headerTitle={headerTitle(currentDateForCalendar)}
+          previousAriaLabel={previousAriaLabel}
+          nextAriaLabel={nextAriaLabel}
+          handleClickPreviousMonth={handleMovePreviousMonth}
+          handleClickNextMonth={handleMoveNextMonth}
         />
         <CalendarDayGrid />
-        <CalendarDateGrid
+        <CalendarWeekGrid
           currentDateForCalendar={currentDateForCalendar}
           selectedStartDate={selectedStartDate}
           selectedEndDate={selectedEndDate}
           lastWeekOfPreviousMonth={lastWeekOfPreviousMonth}
           numberOfDatesForCalendar={numberOfDatesForCalendar}
           firstWeekOfNextMonth={firstWeekOfNextMonth}
-          handleSelectDate={handleSelectDate}
+          handleSelectWeek={handleSelectWeek}
         />
       </div>
     </section>
