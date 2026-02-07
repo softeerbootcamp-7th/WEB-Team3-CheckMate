@@ -65,13 +65,9 @@ export const getSVGPath = (
   donutRadius: number,
   viewRadius: number,
 ) => {
-  const LARGE_ARC_FLAG = degree > 180 ? 1 : 0;
+  const LARGE_ARC_FLAG = degree + cumulativeDegree > 180 ? 1 : 0;
 
-  const { x: START_X, y: START_Y } = getCoordinates(
-    cumulativeDegree,
-    donutRadius,
-    viewRadius,
-  );
+  const { x: START_X, y: START_Y } = getCoordinates(0, donutRadius, viewRadius);
   const { x: DELTA_X, y: DELTA_Y } = getCoordinates(
     cumulativeDegree + degree,
     donutRadius,

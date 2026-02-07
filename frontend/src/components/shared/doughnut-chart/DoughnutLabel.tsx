@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 interface DoughnutLabelProps {
   x: number;
   y: number;
@@ -15,25 +17,30 @@ export const DoughnutLabel = ({
   currentAnimationDuration,
   cumulativeAnimationDuration,
 }: DoughnutLabelProps) => {
+  const [isAnimating, setIsAnimating] = useState(true);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(
+      () => setIsAnimating(false),
+      cumulativeAnimationDuration,
+    );
+    return () => clearTimeout(timeoutId);
+  }, [cumulativeAnimationDuration]);
+
   return (
     <text
       x={x}
       y={y + 9} // line-height 보정
       fill={textColor}
       textAnchor="middle"
-      opacity={0}
+      opacity={isAnimating ? 0 : 1}
       fontSize={'24px'}
       fontWeight={600}
+      style={{
+        transition: `opacity ${currentAnimationDuration / 2}ms linear`,
+      }}
     >
       {label}%
-      <animate
-        attributeName="opacity"
-        from={0}
-        to={1}
-        dur={`${currentAnimationDuration / 2}ms`} // 중간부터 페이드 인
-        begin={`${cumulativeAnimationDuration + currentAnimationDuration / 2}ms`}
-        fill="freeze"
-      />
     </text>
   );
 };

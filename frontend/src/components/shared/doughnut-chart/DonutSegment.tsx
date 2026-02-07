@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 interface DonutSegmentProps {
   path: string;
   strokeWidth: number;
@@ -17,26 +19,27 @@ export const DonutSegment = ({
   currentAnimationDuration,
   cumulativeAnimationDuration,
 }: DonutSegmentProps) => {
+  const [isDrawing, setIsDrawing] = useState(true);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => setIsDrawing(false), 0);
+    return () => clearTimeout(timeoutId);
+  }, []);
+
   return (
     <path
       d={path}
       stroke={color}
       strokeWidth={strokeWidth}
-      // 호 길이만큼만 그려지고, (원주 - 호 길이 제오) 만큼은 여백, 원주만큼 추가 여백으로 50% 넘는 세그먼트에 대해서도 여백이 되도록 함
-      strokeDasharray={` ${arcLength} ${circumference * 2 - arcLength}`}
+      strokeDasharray={`${arcLength} ${circumference}`}
       // 호 길이만큼 offset 줘서 안보이게 시작
-      strokeDashoffset={arcLength}
+      strokeDashoffset={isDrawing ? arcLength : 0}
       fill="none"
-    >
-      <animate
-        // offset에 대해서 애니메이션 적용 -> 등장 애니메이션
-        attributeName="stroke-dashoffset"
-        from={arcLength}
-        to={0}
-        dur={`${currentAnimationDuration}ms`}
-        begin={`${cumulativeAnimationDuration}ms`}
-        fill="freeze"
-      />
-    </path>
+      style={{
+        transition: `stroke-dashoffset ${cumulativeAnimationDuration + currentAnimationDuration}ms ease,
+                     stroke-dasharray ${cumulativeAnimationDuration + currentAnimationDuration}ms ease`,
+        transitionDelay: `${isDrawing ? cumulativeAnimationDuration : 0}ms`,
+      }}
+    />
   );
 };

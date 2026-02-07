@@ -22,18 +22,28 @@ interface DoughnutChartProps {
 
 export const DoughnutChart = ({
   chartData,
-  animationDuration = 500,
+  animationDuration = 800,
 }: DoughnutChartProps) => {
   const VIEW_RADIUS = 180;
   const VIEW_SIZE = VIEW_RADIUS * 2;
   const CLIP_RADIUS = 100;
   const STROKE_WIDTH = VIEW_RADIUS - CLIP_RADIUS;
   const DONUT_RADIUS = CLIP_RADIUS + STROKE_WIDTH / 2;
-  const MIN_ARC_LENGTH_FOR_LABEL = 45;
+  //
+  const MIN_PERCENTAGE_FOR_LABEL = 5; // 라벨 표시 최소 백분율
 
   const chartDataWithPercentage = useMemo(
-    () => computeChartDataWithPercentage(chartData),
+    () =>
+      computeChartDataWithPercentage(chartData)
+        .reverse()
+        .filter((data) => data.percentage > 0),
     [chartData],
+  );
+
+  // 전체 원주(360도) 길이는 모든 세그먼트에서 동일하므로 미리 계산
+  const fullCircumference = useMemo(
+    () => getArcLength(360, DONUT_RADIUS),
+    [DONUT_RADIUS],
   );
 
   return (
@@ -47,15 +57,15 @@ export const DoughnutChart = ({
         strokeWidth={STROKE_WIDTH}
         color={'var(--color-grey-100)'}
         arcLength={getArcLength(359.99, DONUT_RADIUS)}
-        circumference={getArcLength(360, DONUT_RADIUS)}
-        currentAnimationDuration={animationDuration}
+        circumference={fullCircumference}
+        currentAnimationDuration={0}
         cumulativeAnimationDuration={0}
       />
 
       {chartDataWithPercentage.map((data, index) => {
         // 누적 백분율 계산
         const cumulativePercentage = chartDataWithPercentage
-          .slice(0, index)
+          .slice(index + 1)
           .reduce((sum, item) => sum + item.percentage, 0);
         const cumulativeDegree = getDegreeFromPercentage(cumulativePercentage);
 
@@ -69,20 +79,8 @@ export const DoughnutChart = ({
           VIEW_RADIUS,
         );
 
-        // 현재 세그먼트의 호 길이
-        const arcLength = getArcLength(degree, DONUT_RADIUS);
-        // 원주 계산
-        const circumference = getArcLength(360, DONUT_RADIUS);
-
-        // 애니메이션 지속 시간 계산
-        const currentAnimationDuration = getAnimationDuration(
-          degree,
-          animationDuration,
-        );
-        const cumulativeAnimationDuration = getAnimationDuration(
-          cumulativeDegree,
-          animationDuration,
-        );
+        // 현재 세그먼트까지의 호 길이
+        const arcLength = getArcLength(degree + cumulativeDegree, DONUT_RADIUS);
 
         // 현재 세그먼트의 중앙으로 라벨 좌표 계산
         const { x: LABEL_X, y: LABEL_Y } = getCoordinates(
@@ -92,22 +90,33 @@ export const DoughnutChart = ({
         );
 
         // 색상 및 텍스트 색상 결정
-        const color = data.color ?? RANKING_COLORS[index]; // 디폴트: 랭킹에 따른 색상
+        const color =
+          data.color ??
+          RANKING_COLORS[chartDataWithPercentage.length - 1 - index]; // 디폴트: 랭킹에 따른 색상
         const textColor = getTextColor(color);
 
+        const currentAnimationDuration = getAnimationDuration(
+          degree,
+          animationDuration,
+        );
+        const cumulativeAnimationDuration = getAnimationDuration(
+          cumulativeDegree,
+          animationDuration,
+        );
+
         return (
-          <g key={data.label}>
+          <g key={data.label} style={{ zIndex: -index }}>
             <DonutSegment
               path={path}
               strokeWidth={STROKE_WIDTH}
               color={color}
               arcLength={arcLength}
-              circumference={circumference}
+              circumference={fullCircumference}
               currentAnimationDuration={currentAnimationDuration}
               cumulativeAnimationDuration={cumulativeAnimationDuration}
             />
 
-            {arcLength > MIN_ARC_LENGTH_FOR_LABEL && (
+            {data.percentage >= MIN_PERCENTAGE_FOR_LABEL && (
               <DoughnutLabel
                 x={LABEL_X}
                 y={LABEL_Y}
