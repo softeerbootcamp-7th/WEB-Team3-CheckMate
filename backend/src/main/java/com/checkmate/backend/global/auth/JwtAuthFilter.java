@@ -33,7 +33,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             if (token != null && token.startsWith("Bearer ")) {
                 String jwtToken = token.substring(7);
                 Long memberId = jwtUtil.getMemberIdFromToken(jwtToken);
-                Long storeId = jwtUtil.getStorerIdFromToken(jwtToken);
+                Long storeId = jwtUtil.getStoreIdFromToken(jwtToken);
 
                 MemberSession sessionDto = new MemberSession(memberId, storeId);
                 request.setAttribute("loginMember", sessionDto);

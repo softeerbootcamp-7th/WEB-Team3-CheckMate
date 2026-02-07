@@ -83,7 +83,7 @@ public class JwtUtil {
         return Long.parseLong(claims.getSubject());
     }
 
-    public Long getStorerIdFromToken(String token) {
+    public Long getStoreIdFromToken(String token) {
         Claims claims = parseToken(token).getPayload();
         Object storeIdObj = claims.get("storeId");
         if (storeIdObj == null) {
