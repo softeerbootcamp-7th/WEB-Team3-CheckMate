@@ -16,7 +16,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
 
     private final LoginMemberArgumentResolver loginMemberArgumentResolver;
-    private final JwtAuthFilter jwtAuthFilter;
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -38,7 +37,8 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public FilterRegistrationBean<JwtAuthFilter> jwtFilterRegistration() {
+    public FilterRegistrationBean<JwtAuthFilter> jwtFilterRegistration(
+            JwtAuthFilter jwtAuthFilter) {
         FilterRegistrationBean<JwtAuthFilter> registration = new FilterRegistrationBean<>();
         registration.setFilter(jwtAuthFilter);
         registration.addUrlPatterns("/api/*");
