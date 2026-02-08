@@ -1,3 +1,5 @@
+import { useId } from 'react';
+
 import { useDoughnutAnimation, useDoughnutSegments } from '@/hooks/shared';
 import type { DoughnutChartItem } from '@/types/shared';
 import { getSVGPathFromAngle, getTextColor } from '@/utils/shared';
@@ -26,6 +28,8 @@ export const DoughnutChart = ({
   const strokeWidth = totalRadius - clipRadius;
   const donutRadius = clipRadius + strokeWidth / 2;
 
+  const titleId = useId();
+
   const { onFrame, segments, setLabelRef, setSegmentRef } = useDoughnutSegments(
     {
       chartData,
@@ -40,9 +44,9 @@ export const DoughnutChart = ({
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox={`0 0 ${viewSize} ${viewSize}`}
-      aria-labelledby="title"
+      aria-labelledby={titleId}
     >
-      <title id="title">{title}</title>
+      <title id={titleId}>{title}</title>
       {/* 가이드라인 호 */}
       <DoughnutSegment
         color="var(--color-grey-100)"
