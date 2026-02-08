@@ -19,3 +19,5 @@ export {
   getSVGPathFromAngle,
   getTextColor,
 } from './doughnut-chart';
+
+export { createPeriodTypeProvider } from './period-select';

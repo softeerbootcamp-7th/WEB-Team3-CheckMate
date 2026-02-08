@@ -13,7 +13,7 @@ export {
   PERIOD_PRESET_KEYS,
   type PeriodPresetType,
   type PeriodType,
-} from './periods';
+} from './period-select';
 export { CDN_BASE_URL } from './cdnBaseUrl';
 export { API_BASE_URL } from './apiBaseUrl';
 
