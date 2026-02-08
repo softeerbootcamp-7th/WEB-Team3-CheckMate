@@ -1,4 +1,4 @@
-package com.checkmate.backend.domain.analysis.dto;
+package com.checkmate.backend.domain.analysis.dto.response;
 
 import com.checkmate.backend.domain.analysis.entity.Dashboard;
 

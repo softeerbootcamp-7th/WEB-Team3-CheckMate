@@ -1,6 +1,6 @@
 package com.checkmate.backend.domain.analysis.controller;
 
-import com.checkmate.backend.domain.analysis.dto.DashboardResponse;
+import com.checkmate.backend.domain.analysis.dto.response.DashboardResponse;
 import com.checkmate.backend.domain.analysis.service.DashboardService;
 import com.checkmate.backend.global.auth.LoginMember;
 import com.checkmate.backend.global.auth.MemberSession;

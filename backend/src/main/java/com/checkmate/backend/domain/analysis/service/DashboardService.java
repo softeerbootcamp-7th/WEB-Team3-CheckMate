@@ -1,6 +1,6 @@
 package com.checkmate.backend.domain.analysis.service;
 
-import com.checkmate.backend.domain.analysis.dto.DashboardResponse;
+import com.checkmate.backend.domain.analysis.dto.response.DashboardResponse;
 import com.checkmate.backend.domain.analysis.entity.Dashboard;
 import com.checkmate.backend.domain.analysis.repository.DashboardRepository;
 import com.checkmate.backend.domain.store.entity.Store;
