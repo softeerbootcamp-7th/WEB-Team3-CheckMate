@@ -32,7 +32,10 @@ export const SalesSourceChart = ({ data, title }: SalesSourceChartProps) => {
       <h3>{title}</h3>
 
       <div className="mx-auto my-4.5 w-45">
-        <DoughnutChart chartData={chartData} />
+        <DoughnutChart
+          title={`${title} 관련 도넛 차트`}
+          chartData={chartData}
+        />
       </div>
 
       <SalesSourceChartLegend

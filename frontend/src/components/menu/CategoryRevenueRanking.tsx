@@ -26,9 +26,12 @@ export const CategoryRevenueRanking = () => {
 
   return (
     <article className="card">
-      <h3>주문수단별 매출</h3>
+      <h3>카테고리별 매출</h3>
       <div className="mx-auto my-4.5 size-45">
-        <DoughnutChart chartData={chartData} />
+        <DoughnutChart
+          title="카테고리별 매출 관련 도넛 차트"
+          chartData={chartData}
+        />
       </div>
       <CategoryRevenueChartLegend chartData={chartData} />
     </article>

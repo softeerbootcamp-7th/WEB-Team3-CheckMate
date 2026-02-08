@@ -6,6 +6,7 @@ import { DoughnutLabel } from './DoughnutLabel';
 import { DoughnutSegment } from './DoughnutSegment';
 
 interface DoughnutChartProps {
+  title: string;
   chartData: DoughnutChartItem[];
   animationDuration?: number;
   totalRadius?: number;
@@ -14,6 +15,7 @@ interface DoughnutChartProps {
 }
 
 export const DoughnutChart = ({
+  title,
   chartData,
   animationDuration = 800,
   totalRadius = 180,
@@ -38,7 +40,9 @@ export const DoughnutChart = ({
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox={`0 0 ${viewSize} ${viewSize}`}
+      aria-labelledby="title"
     >
+      <title id="title">{title}</title>
       {/* 가이드라인 호 */}
       <DoughnutSegment
         color="var(--color-grey-100)"

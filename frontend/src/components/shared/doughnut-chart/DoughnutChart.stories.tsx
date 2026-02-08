@@ -50,7 +50,11 @@ const DoughnutChartStory = () => {
 
   return (
     <>
-      <DoughnutChart chartData={segments} animationDuration={600} />
+      <DoughnutChart
+        title="도넛 차트 접근성 제목"
+        chartData={segments}
+        animationDuration={600}
+      />
 
       <section aria-label="차트 데이터 조정">
         <p className="body-large-medium mb-2">chartData</p>
