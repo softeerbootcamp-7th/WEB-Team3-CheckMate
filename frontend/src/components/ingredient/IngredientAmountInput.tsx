@@ -6,6 +6,7 @@ import type {
 
 import { Input } from '@/components/shared/shadcn-ui';
 import type { IngredientFormValues } from '@/types/ingredient';
+import { checkValidation } from '@/utils/ingredient';
 import { cn } from '@/utils/shared';
 
 interface IngredientAmountInputProps {
@@ -29,12 +30,11 @@ export const IngredientAmountInput = ({
       maxLength={5}
       {...register(`ingredients.${index}.amount`, {
         validate: (currentFieldValue) => {
-          // 한 행의 모든 값 비어있으면 오류 발생 안시키고 검증 통과
-          if (isIngredientRowEmpty(index)) {
-            return true;
-          }
-          // 용량은 반드시 입력되어야 함
-          return currentFieldValue.length > 0;
+          return checkValidation({
+            isIngredientRowEmpty,
+            index,
+            currentFieldValue,
+          });
         },
       })}
       onChange={(e) => {
