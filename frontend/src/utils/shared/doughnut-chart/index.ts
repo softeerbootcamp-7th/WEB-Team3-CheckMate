@@ -1,9 +1,7 @@
 export {
   computeChartDataWithPercentage,
-  getDegreeFromPercentage,
-  getArcLength,
-  getCoordinates,
-  getSVGPath,
+  getAngleFromPercentage,
+  getCoordinatesFromAngle,
+  getSVGPathFromAngle,
   getTextColor,
-  getAnimationDuration,
 } from './doughnutChart';

@@ -11,3 +11,11 @@ export {
   isEndDate,
 } from './calendar';
 export { formatNumber } from './formatNumber';
+
+export {
+  computeChartDataWithPercentage,
+  getAngleFromPercentage,
+  getCoordinatesFromAngle,
+  getSVGPathFromAngle,
+  getTextColor,
+} from './doughnut-chart';

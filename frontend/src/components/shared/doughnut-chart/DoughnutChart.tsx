@@ -1,134 +1,68 @@
-import { useMemo } from 'react';
-
-import { RANKING_COLORS } from '@/constants/shared/doughnut-chart';
+import { useDoughnutAnimation, useDoughnutSegments } from '@/hooks/shared';
 import type { DoughnutChartItem } from '@/types/shared';
-import {
-  computeChartDataWithPercentage,
-  getAnimationDuration,
-  getArcLength,
-  getCoordinates,
-  getDegreeFromPercentage,
-  getSVGPath,
-  getTextColor,
-} from '@/utils/shared/doughnut-chart';
+import { getSVGPathFromAngle, getTextColor } from '@/utils/shared';
 
-import { DonutSegment } from './DonutSegment';
 import { DoughnutLabel } from './DoughnutLabel';
+import { DoughnutSegment } from './DoughnutSegment';
 
 interface DoughnutChartProps {
   chartData: DoughnutChartItem[];
   animationDuration?: number;
+  totalRadius?: number;
+  clipRadius?: number;
+  minPercentageForLabel?: number;
 }
 
 export const DoughnutChart = ({
   chartData,
   animationDuration = 800,
+  totalRadius = 180,
+  clipRadius = 100,
+  minPercentageForLabel = 5, // 라벨을 표시하는 최소 퍼센테이지
 }: DoughnutChartProps) => {
-  const VIEW_RADIUS = 180;
-  const VIEW_SIZE = VIEW_RADIUS * 2;
-  const CLIP_RADIUS = 100;
-  const STROKE_WIDTH = VIEW_RADIUS - CLIP_RADIUS;
-  const DONUT_RADIUS = CLIP_RADIUS + STROKE_WIDTH / 2;
-  //
-  const MIN_PERCENTAGE_FOR_LABEL = 5; // 라벨 표시 최소 백분율
+  const viewSize = totalRadius * 2;
+  const strokeWidth = totalRadius - clipRadius;
+  const donutRadius = clipRadius + strokeWidth / 2;
 
-  const chartDataWithPercentage = useMemo(
-    () =>
-      computeChartDataWithPercentage(chartData)
-        .reverse()
-        .filter((data) => data.percentage > 0),
-    [chartData],
+  const { onFrame, segments, setLabelRef, setSegmentRef } = useDoughnutSegments(
+    {
+      chartData,
+      donutRadius,
+      totalRadius,
+      minPercentageForLabel,
+    },
   );
-
-  // 전체 원주(360도) 길이는 모든 세그먼트에서 동일하므로 미리 계산
-  const fullCircumference = useMemo(
-    () => getArcLength(360, DONUT_RADIUS),
-    [DONUT_RADIUS],
-  );
+  useDoughnutAnimation(segments, { onFrame, duration: animationDuration });
 
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox={`0 0 ${VIEW_SIZE} ${VIEW_SIZE}`}
+      viewBox={`0 0 ${viewSize} ${viewSize}`}
     >
       {/* 가이드라인 호 */}
-      <DonutSegment
-        path={getSVGPath(359.99, 0, DONUT_RADIUS, VIEW_RADIUS)}
-        strokeWidth={STROKE_WIDTH}
-        color={'var(--color-grey-100)'}
-        arcLength={getArcLength(359.99, DONUT_RADIUS)}
-        circumference={fullCircumference}
-        currentAnimationDuration={0}
-        cumulativeAnimationDuration={0}
+      <DoughnutSegment
+        color="var(--color-grey-100)"
+        strokeWidth={strokeWidth}
+        path={getSVGPathFromAngle(0, 359.99, donutRadius, totalRadius)}
       />
 
-      {chartDataWithPercentage.map((data, index) => {
-        // 누적 백분율 계산
-        const cumulativePercentage = chartDataWithPercentage
-          .slice(index + 1)
-          .reduce((sum, item) => sum + item.percentage, 0);
-        const cumulativeDegree = getDegreeFromPercentage(cumulativePercentage);
+      {segments.map((segment, index) => (
+        <g key={segment.label}>
+          <DoughnutSegment
+            ref={(el) => setSegmentRef(index, el)}
+            color={segment.color}
+            strokeWidth={strokeWidth}
+          />
 
-        // 현재 세그먼트의 각도 계산
-        const degree = getDegreeFromPercentage(data.percentage);
-        // 현재 세그먼트의 SVG Path 계산
-        const path = getSVGPath(
-          degree,
-          cumulativeDegree,
-          DONUT_RADIUS,
-          VIEW_RADIUS,
-        );
-
-        // 현재 세그먼트까지의 호 길이
-        const arcLength = getArcLength(degree + cumulativeDegree, DONUT_RADIUS);
-
-        // 현재 세그먼트의 중앙으로 라벨 좌표 계산
-        const { x: LABEL_X, y: LABEL_Y } = getCoordinates(
-          cumulativeDegree + degree / 2,
-          DONUT_RADIUS,
-          VIEW_RADIUS,
-        );
-
-        // 색상 및 텍스트 색상 결정
-        const color =
-          data.color ??
-          RANKING_COLORS[chartDataWithPercentage.length - 1 - index]; // 디폴트: 랭킹에 따른 색상
-        const textColor = getTextColor(color);
-
-        const currentAnimationDuration = getAnimationDuration(
-          degree,
-          animationDuration,
-        );
-        const cumulativeAnimationDuration = getAnimationDuration(
-          cumulativeDegree,
-          animationDuration,
-        );
-
-        return (
-          <g key={data.label} style={{ zIndex: -index }}>
-            <DonutSegment
-              path={path}
-              strokeWidth={STROKE_WIDTH}
-              color={color}
-              arcLength={arcLength}
-              circumference={fullCircumference}
-              currentAnimationDuration={currentAnimationDuration}
-              cumulativeAnimationDuration={cumulativeAnimationDuration}
+          {segment.percentage >= minPercentageForLabel && (
+            <DoughnutLabel
+              ref={(el) => setLabelRef(index, el)}
+              label={segment.percentage}
+              textColor={getTextColor(segment.color)}
             />
-
-            {data.percentage >= MIN_PERCENTAGE_FOR_LABEL && (
-              <DoughnutLabel
-                x={LABEL_X}
-                y={LABEL_Y}
-                label={data.percentage}
-                textColor={textColor}
-                currentAnimationDuration={currentAnimationDuration}
-                cumulativeAnimationDuration={cumulativeAnimationDuration}
-              />
-            )}
-          </g>
-        );
-      })}
+          )}
+        </g>
+      ))}
     </svg>
   );
 };

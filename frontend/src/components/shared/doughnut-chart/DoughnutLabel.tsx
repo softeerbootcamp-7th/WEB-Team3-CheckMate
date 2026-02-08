@@ -1,46 +1,29 @@
-import { useEffect, useState } from 'react';
+import type { Ref } from 'react';
 
 interface DoughnutLabelProps {
-  x: number;
-  y: number;
+  ref: Ref<SVGTextElement>;
   label: string | number;
   textColor: string;
-  currentAnimationDuration: number;
-  cumulativeAnimationDuration: number;
 }
 
 export const DoughnutLabel = ({
-  x,
-  y,
+  ref,
   label,
   textColor,
-  currentAnimationDuration,
-  cumulativeAnimationDuration,
 }: DoughnutLabelProps) => {
-  const [isAnimating, setIsAnimating] = useState(true);
-
-  useEffect(() => {
-    const timeoutId = setTimeout(
-      () => setIsAnimating(false),
-      cumulativeAnimationDuration,
-    );
-    return () => clearTimeout(timeoutId);
-  }, [cumulativeAnimationDuration]);
-
   return (
     <text
-      x={x}
-      y={y + 9} // line-height 보정
+      ref={ref}
+      x={0}
+      y={0}
+      opacity={0}
       fill={textColor}
       textAnchor="middle"
-      opacity={isAnimating ? 0 : 1}
       fontSize={'24px'}
       fontWeight={600}
-      style={{
-        transition: `opacity ${currentAnimationDuration / 2}ms linear`,
-      }}
     >
       {label}%
     </text>
   );
 };
+DoughnutLabel.displayName = 'DoughnutLabel';
