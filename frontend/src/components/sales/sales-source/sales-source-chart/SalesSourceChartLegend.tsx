@@ -17,19 +17,21 @@ export const SalesSourceChartLegend = ({
   periodType,
 }: SalesSourceChartLegendProps) => {
   return (
-    <ul className="mt-auto flex w-full flex-col gap-1">
+    <div className="mt-auto w-full">
       {periodType === PERIOD_PRESETS.dayWeekMonth.today && (
-        <span className="text-grey-500 caption-large-medium text-right">
+        <span className="text-grey-500 caption-large-medium block w-full text-right">
           최근 7일 평균 대비
         </span>
       )}
-      {salesSourceData.map((data) => (
-        <SalesSourceChartLegendItem
-          key={data.salesSourceType}
-          data={data}
-          periodType={periodType}
-        />
-      ))}
-    </ul>
+      <ul className="mt-1 flex flex-col gap-1">
+        {salesSourceData.map((data) => (
+          <SalesSourceChartLegendItem
+            key={data.salesSourceType}
+            data={data}
+            periodType={periodType}
+          />
+        ))}
+      </ul>
+    </div>
   );
 };
