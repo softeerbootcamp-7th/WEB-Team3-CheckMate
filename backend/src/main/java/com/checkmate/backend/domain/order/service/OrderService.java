@@ -107,20 +107,10 @@ public class OrderService {
     }
 
     private int calculate2HourSlot(LocalDateTime orderedAt) {
-        int hour = orderedAt.getHour(); // 0~23
-        if (hour == 0) return 0;
-        if (hour >= 1 && hour < 3) return 2;
-        if (hour >= 3 && hour < 5) return 4;
-        if (hour >= 5 && hour < 7) return 6;
-        if (hour >= 7 && hour < 9) return 8;
-        if (hour >= 9 && hour < 11) return 10;
-        if (hour >= 11 && hour < 13) return 12;
-        if (hour >= 13 && hour < 15) return 14;
-        if (hour >= 15 && hour < 17) return 16;
-        if (hour >= 17 && hour < 19) return 18;
-        if (hour >= 19 && hour < 21) return 20;
-        if (hour >= 21 && hour < 23) return 22;
+        int hour = orderedAt.getHour();
 
-        return 24;
+        if (hour == 23) return 24;
+        if (hour % 2 != 0) return hour + 1;
+        return hour;
     }
 }
