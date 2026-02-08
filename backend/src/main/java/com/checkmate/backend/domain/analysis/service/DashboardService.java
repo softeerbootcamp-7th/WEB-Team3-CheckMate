@@ -39,8 +39,7 @@ public class DashboardService {
         String trimmedName = validateAndTrimName(storeId, name);
         Store store = findStore(storeId);
 
-        Dashboard dashboard =
-                Dashboard.builder().name(trimmedName).store(store).build();
+        Dashboard dashboard = Dashboard.builder().name(trimmedName).store(store).build();
 
         return dashboardRepository.save(dashboard).getId();
     }
