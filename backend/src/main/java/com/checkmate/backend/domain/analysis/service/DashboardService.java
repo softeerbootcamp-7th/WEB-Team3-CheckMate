@@ -2,6 +2,7 @@ package com.checkmate.backend.domain.analysis.service;
 
 import com.checkmate.backend.domain.analysis.dto.response.DashboardResponse;
 import com.checkmate.backend.domain.analysis.entity.Dashboard;
+import com.checkmate.backend.domain.analysis.repository.DashboardCardLayoutRepository;
 import com.checkmate.backend.domain.analysis.repository.DashboardRepository;
 import com.checkmate.backend.domain.analysis.util.DashboardValidator;
 import com.checkmate.backend.domain.store.entity.Store;
@@ -23,6 +24,7 @@ public class DashboardService {
     private final DashboardRepository dashboardRepository;
     private final StoreRepository storeRepository;
     private final DashboardValidator dashboardValidator;
+    private final DashboardCardLayoutRepository layoutRepository;
 
     public List<DashboardResponse> getDashboards(Long storeId) {
         return dashboardRepository.findAllByStoreIdWithDefault(storeId).stream()
@@ -69,6 +71,10 @@ public class DashboardService {
             throw new BadRequestException(ErrorStatus.DEFAULT_DASHBOARD_DELETE_RESTRICTED);
         }
 
+        // 3. 연관된 레이아웃 먼저 삭제 (연쇄 삭제)
+        layoutRepository.deleteAllByDashboardId(dashboardId);
+
+        // 4. 대시보드 삭제
         dashboardRepository.delete(dashboard);
     }
 
