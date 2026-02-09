@@ -21,3 +21,5 @@ export { API_BASE_URL } from './apiBaseUrl';
 
 export { RANKING_COLORS, DOUGHNUT_CHART_DEFAULT } from './doughnut-chart';
 export { EDIT_CARD_WRAPPER } from './edit-card-wrapper';
+
+export { ONE_HUNDRED_MILLION, TEN_THOUSAND } from './number';
