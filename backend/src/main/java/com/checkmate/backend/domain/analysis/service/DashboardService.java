@@ -7,7 +7,6 @@ import com.checkmate.backend.domain.analysis.util.DashboardValidator;
 import com.checkmate.backend.domain.store.entity.Store;
 import com.checkmate.backend.domain.store.repository.StoreRepository;
 import com.checkmate.backend.global.exception.BadRequestException;
-import com.checkmate.backend.global.exception.ForbiddenException;
 import com.checkmate.backend.global.exception.NotFoundException;
 import com.checkmate.backend.global.response.ErrorStatus;
 import java.util.List;

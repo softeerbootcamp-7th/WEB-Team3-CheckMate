@@ -2,6 +2,7 @@ package com.checkmate.backend.domain.analysis.util;
 
 import com.checkmate.backend.domain.analysis.entity.Dashboard;
 import com.checkmate.backend.domain.analysis.repository.DashboardRepository;
+import com.checkmate.backend.domain.store.entity.Store;
 import com.checkmate.backend.global.exception.ForbiddenException;
 import com.checkmate.backend.global.exception.NotFoundException;
 import com.checkmate.backend.global.response.ErrorStatus;
@@ -17,13 +18,17 @@ public class DashboardValidator {
     private final DashboardRepository dashboardRepository;
 
     public Dashboard validateDashboardAccess(Long storeId, Long dashboardId) {
-        Dashboard dashboard = dashboardRepository.findById(dashboardId)
-                .orElseThrow(() -> new NotFoundException(ErrorStatus.DASHBOARD_NOT_FOUND));
+        Dashboard dashboard =
+                dashboardRepository
+                        .findById(dashboardId)
+                        .orElseThrow(() -> new NotFoundException(ErrorStatus.DASHBOARD_NOT_FOUND));
 
-        Long storeIdOfDashboard = dashboard.getStore().getId();
-        if (storeIdOfDashboard == null || !storeIdOfDashboard.equals(storeId)) {
-            log.warn("Unauthorized dashboard access: storeId {} tried to access dashboardId {}",
-                    storeId, dashboardId);
+        Store storeIdOfDashboard = dashboard.getStore();
+        if (storeIdOfDashboard == null || !storeIdOfDashboard.getId().equals(storeId)) {
+            log.warn(
+                    "Unauthorized dashboard access: storeId {} tried to access dashboardId {}",
+                    storeId,
+                    dashboardId);
             throw new ForbiddenException(ErrorStatus.DASHBOARD_ACCESS_DENIED);
         }
 
