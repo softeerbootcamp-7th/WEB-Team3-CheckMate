@@ -1,4 +1,4 @@
-import type { DayOfWeek } from './dayOfWekk';
+import type { DayOfWeek } from './dayOfWeek';
 
 export interface BusinessHour {
   dayOfWeek: DayOfWeek;
