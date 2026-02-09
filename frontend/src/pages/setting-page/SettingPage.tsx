@@ -1,5 +1,4 @@
-import { SettingOption } from '@/components/setting';
-import { SettingMyStoreInfo } from '@/components/setting';
+import { SettingMyStoreInfo, SettingOption } from '@/components/setting';
 
 export const SettingPage = () => {
   return (
