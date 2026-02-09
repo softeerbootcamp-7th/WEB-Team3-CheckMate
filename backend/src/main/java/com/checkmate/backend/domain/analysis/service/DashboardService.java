@@ -24,15 +24,15 @@ public class DashboardService {
     private final StoreRepository storeRepository;
 
     public List<DashboardResponse> getDashboards(Long storeId) {
-        return dashboardRepository.findAllByStoreIdOrderByIdAsc(storeId).stream()
+        return dashboardRepository.findAllByStoreIdWithDefault(storeId).stream()
                 .map(DashboardResponse::from)
                 .toList();
     }
 
     @Transactional
     public Long addDashboard(Long storeId, String name) {
-        // 최대 5개 제한 체크
-        if (dashboardRepository.countByStoreId(storeId) >= 5) {
+        // 기본 대시보드 제외 최대 4개 제한 체크
+        if (dashboardRepository.countByStoreId(storeId) >= 4) {
             throw new BadRequestException(ErrorStatus.DASHBOARD_LIMIT_EXCEEDED);
         }
 
