@@ -18,7 +18,8 @@ export const CategoryRevenueChartLegend = <T extends DoughnutChartItem>({
               <div
                 className="rounded-50 inline-block size-3.5 shrink-0"
                 style={{
-                  backgroundColor: data.color ?? RANKING_COLORS[index],
+                  backgroundColor:
+                    data.color ?? RANKING_COLORS[index % RANKING_COLORS.length],
                 }}
               />
               <span className="body-small-medium text-grey-900 shrink-0">

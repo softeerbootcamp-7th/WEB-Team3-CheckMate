@@ -45,7 +45,8 @@ export const useDoughnutSegments = ({
         const startAngle = acc.cumulativeAngle;
         const endAngle = acc.cumulativeAngle + angle;
         const midAngle = (startAngle + endAngle) / 2;
-        const color = data.color ?? RANKING_COLORS[index];
+        const color =
+          data.color ?? RANKING_COLORS[index % RANKING_COLORS.length];
 
         acc.segments.push({
           startAngle,
