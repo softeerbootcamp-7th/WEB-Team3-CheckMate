@@ -1,5 +1,5 @@
 import {
-  type PERIOD_PRESET_KEYS,
+  PERIOD_PRESET_KEYS,
   PERIOD_PRESETS,
   type PeriodType,
 } from '@/constants/shared';
