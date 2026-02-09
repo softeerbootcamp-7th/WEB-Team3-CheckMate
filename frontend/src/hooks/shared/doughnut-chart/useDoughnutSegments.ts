@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useRef } from 'react';
 
-import { RANKING_COLORS } from '@/constants/shared';
+import { DOUGHNUT_CHART_DEFAULT, RANKING_COLORS } from '@/constants/shared';
 import type { DoughnutChartItem } from '@/types/shared';
 import {
   computeChartDataWithPercentage,
@@ -88,7 +88,10 @@ export const useDoughnutSegments = ({
             totalRadius,
           );
           labelRef.setAttribute('x', Math.round(x).toString());
-          labelRef.setAttribute('y', Math.round(y + 9).toString());
+          labelRef.setAttribute(
+            'y',
+            Math.round(y + DOUGHNUT_CHART_DEFAULT.LABEL_Y_OFFSET).toString(),
+          );
           labelRef.setAttribute(
             'opacity',
             interpolatedState.labelOpacity.toString(),

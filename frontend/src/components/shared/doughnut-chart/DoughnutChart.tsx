@@ -1,5 +1,6 @@
 import { useId } from 'react';
 
+import { DOUGHNUT_CHART_DEFAULT } from '@/constants/shared';
 import { useDoughnutAnimation, useDoughnutSegments } from '@/hooks/shared';
 import type { DoughnutChartItem } from '@/types/shared';
 import { getSVGPathFromAngle, getTextColor } from '@/utils/shared';
@@ -19,10 +20,10 @@ interface DoughnutChartProps {
 export const DoughnutChart = ({
   title,
   chartData,
-  animationDuration = 800,
-  totalRadius = 180,
-  clipRadius = 100,
-  minPercentageForLabel = 5, // 라벨을 표시하는 최소 퍼센테이지
+  animationDuration = DOUGHNUT_CHART_DEFAULT.ANIMATION_DURATION,
+  totalRadius = DOUGHNUT_CHART_DEFAULT.TOTAL_RADIUS,
+  clipRadius = DOUGHNUT_CHART_DEFAULT.CLIP_RADIUS,
+  minPercentageForLabel = DOUGHNUT_CHART_DEFAULT.MIN_PERCENTAGE_FOR_LABEL, // 라벨을 표시하는 최소 퍼센테이지
 }: DoughnutChartProps) => {
   const viewSize = totalRadius * 2;
   const strokeWidth = totalRadius - clipRadius;

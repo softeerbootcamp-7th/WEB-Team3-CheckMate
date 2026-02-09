@@ -19,5 +19,5 @@ export { CDN_BASE_URL } from './cdnBaseUrl';
 export { ROUTE_PATHS } from './routePaths';
 export { API_BASE_URL } from './apiBaseUrl';
 
-export { RANKING_COLORS } from './doughnut-chart';
+export { RANKING_COLORS, DOUGHNUT_CHART_DEFAULT } from './doughnut-chart';
 export { EDIT_CARD_WRAPPER } from './edit-card-wrapper';
