@@ -50,7 +50,7 @@ public class DashboardService {
     @Transactional
     public void updateDashboardName(Long storeId, Long dashboardId, String newName) {
         // 1. 소유권 및 권한 검증
-        Dashboard dashboard = dashboardValidator.validateDashboardAccess(storeId, dashboardId);
+        Dashboard dashboard = dashboardValidator.validateModificationAccess(storeId, dashboardId);
 
         // 2. 홈 대시보드 수정 불가 로직
         if (dashboard.getIsDefault()) {
@@ -64,7 +64,7 @@ public class DashboardService {
     @Transactional
     public void deleteDashboard(Long storeId, Long dashboardId) {
         // 1. 소유권 및 권한 검증
-        Dashboard dashboard = dashboardValidator.validateDashboardAccess(storeId, dashboardId);
+        Dashboard dashboard = dashboardValidator.validateModificationAccess(storeId, dashboardId);
 
         // 2. 홈 대시보드 삭제 불가 로직
         if (dashboard.getIsDefault()) {
