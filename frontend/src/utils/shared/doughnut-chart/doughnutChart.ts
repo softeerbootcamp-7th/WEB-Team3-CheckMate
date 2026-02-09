@@ -1,3 +1,4 @@
+import { DOUGHNUT_CHART_DEFAULT } from '@/constants/shared';
 import type { DoughnutChartItem } from '@/types/shared';
 
 export const computeChartDataWithPercentage = (
@@ -39,7 +40,7 @@ export const computeChartDataWithPercentage = (
 
 export const getAngleFromPercentage = (percentage: number) => {
   // 100%일 때 360도이면 시작점과 끝점이 같아서 호가 그려지지 않음 -> 359.99
-  return 359.99 * (percentage / 100);
+  return DOUGHNUT_CHART_DEFAULT.MAX_DOUGHTNUT_ANGLE * (percentage / 100);
 };
 
 export const getCoordinatesFromAngle = (

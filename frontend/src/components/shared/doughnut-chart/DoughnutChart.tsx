@@ -52,7 +52,12 @@ export const DoughnutChart = ({
       <DoughnutSegment
         color="var(--color-grey-100)"
         strokeWidth={strokeWidth}
-        path={getSVGPathFromAngle(0, 359.99, donutRadius, totalRadius)}
+        path={getSVGPathFromAngle(
+          0,
+          DOUGHNUT_CHART_DEFAULT.MAX_DOUGHTNUT_ANGLE,
+          donutRadius,
+          totalRadius,
+        )}
       />
 
       {segments.map((segment, index) => (
