@@ -49,10 +49,7 @@ export const IngredientPage = () => {
         setSelectedCategory={setSelectedCategory}
       />
       <section className="flex flex-col gap-6">
-        <IngredientMenuGrid
-          currentPageMenus={currentPageMenus}
-          selectedCategory={selectedCategory}
-        />
+        <IngredientMenuGrid currentPageMenus={currentPageMenus} />
         {totalPageCount >= 2 && ( // 2페이지 이상일 때만 하단 페이지네이션 바 노출
           <IngredientPaginationBar
             currentPage={currentPage}

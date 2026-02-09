@@ -1,14 +1,15 @@
 import { cn } from '@/utils/shared';
 
+interface MenuCategoryItemProps {
+  categoryName: string;
+  isSelected?: boolean;
+  onClickItem: () => void;
+}
 export const MenuCategoryItem = ({
   categoryName,
   isSelected = true,
   onClickItem,
-}: {
-  categoryName: string;
-  isSelected?: boolean;
-  onClickItem: () => void;
-}) => {
+}: MenuCategoryItemProps) => {
   return (
     <button
       onClick={onClickItem}
