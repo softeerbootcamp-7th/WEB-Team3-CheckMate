@@ -1,1 +1,5 @@
-export type { GetDailyReportContentResponseDto } from './getDailyReportContentDto';
+export type {
+  Kpi,
+  Insight,
+  GetDailyReportContentResponseDto,
+} from './getDailyReportContentDto';

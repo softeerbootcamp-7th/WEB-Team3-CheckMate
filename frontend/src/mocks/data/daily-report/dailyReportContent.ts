@@ -6,14 +6,14 @@ export const DAILY_REPORT_CONTENT_DATA: GetDailyReportContentResponseDto = {
     full_text: '오늘은 성과가 뚜렷한 날이에요.',
     highlight: '성과가 뚜렷한',
   },
-  status_label: '최상',
+  status_label: '주의',
   kpi: {
     net_sales: {
       label: '실매출',
       value: '1,850,000원',
-      diff_val: '+18.5%',
+      diff_val: '-18.5%',
       diff_desc: '동요일 대비',
-      trend_dir: 'up',
+      trend_dir: 'down',
     },
     orders: {
       label: '주문건수',

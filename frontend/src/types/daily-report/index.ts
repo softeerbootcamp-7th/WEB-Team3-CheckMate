@@ -1,2 +1,2 @@
 export type { Notification } from './notification';
-export type { GetDailyReportContentResponseDto } from './dto/getDailyReportContentDto';
+export type { Kpi, Insight, GetDailyReportContentResponseDto } from './dto';

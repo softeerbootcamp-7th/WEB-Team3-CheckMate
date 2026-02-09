@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
+import { DailyReportContent } from './daily-report-content';
 import { DailyReportCalendar } from './DailyReportCalendar';
-import { DailyReportContent } from './DailyReportContent';
 
 export const DailyReportMain = () => {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(
