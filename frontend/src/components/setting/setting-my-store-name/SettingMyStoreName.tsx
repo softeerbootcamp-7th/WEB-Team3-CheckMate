@@ -1,15 +1,12 @@
-export const SettingMyStoreName = ({ storeName }: { storeName: string }) => {
-  return (
-    <article className="flex flex-col gap-4">
-      <div className="flex items-center gap-3">
-        <span className="body-large-semibold text-grey-900">매장명</span>
-        <span className="body-medium-medium text-grey-600">
-          서비스 안에서 표시될 이름이에요
-        </span>
-      </div>
-      <div className="rounded-200 bg-grey-100 body-large-semibold text-grey-900 px-400 py-250">
-        {storeName}
-      </div>
-    </article>
-  );
+import { StoreNameInput } from '@/components/onboarding/store-register/store-info-input-section/StoreNameInput';
+import { useInitializeStoreName } from '@/hooks/setting/useInitializeStoreName';
+
+interface SettingMyStoreNameProps {
+  storeName: string;
+}
+
+export const SettingMyStoreName = ({ storeName }: SettingMyStoreNameProps) => {
+  // 서버에서 받아온 값으로 RHF 폼 값을 초기화(덮어쓰기)
+  useInitializeStoreName({ storeName });
+  return <StoreNameInput />;
 };
