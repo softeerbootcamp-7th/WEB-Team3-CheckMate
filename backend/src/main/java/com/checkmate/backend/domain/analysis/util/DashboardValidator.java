@@ -20,7 +20,8 @@ public class DashboardValidator {
         Dashboard dashboard = dashboardRepository.findById(dashboardId)
                 .orElseThrow(() -> new NotFoundException(ErrorStatus.DASHBOARD_NOT_FOUND));
 
-        if (!dashboard.getStore().getId().equals(storeId)) {
+        Long storeIdOfDashboard = dashboard.getStore().getId();
+        if (storeIdOfDashboard == null || !storeIdOfDashboard.equals(storeId)) {
             log.warn("Unauthorized dashboard access: storeId {} tried to access dashboardId {}",
                     storeId, dashboardId);
             throw new ForbiddenException(ErrorStatus.DASHBOARD_ACCESS_DENIED);
