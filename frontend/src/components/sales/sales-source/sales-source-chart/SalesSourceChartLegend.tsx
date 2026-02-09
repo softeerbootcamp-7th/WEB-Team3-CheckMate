@@ -27,7 +27,7 @@ export const SalesSourceChartLegend = ({
         {salesSourceData.map((data) => (
           <SalesSourceChartLegendItem
             key={data.salesSourceType}
-            data={data}
+            salesSourceData={data}
             periodType={periodType}
           />
         ))}

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import { DoughnutChart } from '@/components/shared';
 import { SALES_SOURCE_COLORS } from '@/constants/sales';
@@ -10,12 +10,14 @@ import { usePeriodTypeContext } from '../period-type-provider';
 import { SalesSourceChartLegend } from './SalesSourceChartLegend';
 
 interface SalesSourceChartProps {
-  data: SalesSource[];
+  salesSourceData: SalesSource[];
   title: string;
 }
-export const SalesSourceChart = ({ data, title }: SalesSourceChartProps) => {
+export const SalesSourceChart = ({
+  salesSourceData,
+  title,
+}: SalesSourceChartProps) => {
   const { periodType } = usePeriodTypeContext();
-  const [salesSourceData] = useState<SalesSource[]>(data);
 
   const chartData: DoughnutChartItem[] = useMemo(
     () =>

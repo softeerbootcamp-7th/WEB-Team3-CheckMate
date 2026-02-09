@@ -9,11 +9,11 @@ import type { SalesSource } from '@/types/sales';
 import { cn, formatNumberInTenThousands } from '@/utils/shared';
 
 interface SalesSourceChartLegendItemProps {
-  data: SalesSource;
+  salesSourceData: SalesSource;
   periodType?: PeriodType<typeof PERIOD_PRESET_KEYS.dayWeekMonth> | undefined; // 오늘 / 이번주/ 이번달
 }
 export const SalesSourceChartLegendItem = ({
-  data,
+  salesSourceData,
   periodType,
 }: SalesSourceChartLegendItemProps) => {
   return (
@@ -29,10 +29,13 @@ export const SalesSourceChartLegendItem = ({
       <div className="flex items-center gap-2">
         <div
           className="rounded-50 inline-block size-3.5"
-          style={{ backgroundColor: SALES_SOURCE_COLORS[data.salesSourceType] }}
+          style={{
+            backgroundColor:
+              SALES_SOURCE_COLORS[salesSourceData.salesSourceType],
+          }}
         />
         <span className="body-small-medium text-grey-900">
-          {data.salesSourceType}
+          {salesSourceData.salesSourceType}
         </span>
       </div>
       {/* 매출 */}
@@ -44,22 +47,23 @@ export const SalesSourceChartLegendItem = ({
             : 'justify-self-end',
         )}
       >
-        {formatNumberInTenThousands(data.revenue)} ({data.count}건)
+        {formatNumberInTenThousands(salesSourceData.revenue)} (
+        {salesSourceData.count}건)
       </span>
       {/* 변화율 */}
-      {periodType === PERIOD_PRESETS.dayWeekMonth.today && data.changeRate && (
+      {periodType === PERIOD_PRESETS.dayWeekMonth.today && (
         <span
           className={cn(
             'body-small-semibold text-brand-main justify-self-end',
-            data.changeRate < 0 && 'text-others-negative',
+            salesSourceData.changeRate < 0 && 'text-others-negative',
           )}
         >
           <object
-            data={`${CDN_BASE_URL}/assets/images/${data.changeRate >= 0 ? 'up' : 'down'}.svg`}
+            data={`${CDN_BASE_URL}/assets/images/${salesSourceData.changeRate >= 0 ? 'up' : 'down'}.svg`}
             className="inline size-4"
           />
-          {data.changeRate > 0 ? '+' : ''}
-          {data.changeRate}%p
+          {salesSourceData.changeRate > 0 ? '+' : ''}
+          {salesSourceData.changeRate}%p
         </span>
       )}
     </li>
