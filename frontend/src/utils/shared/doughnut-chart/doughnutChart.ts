@@ -31,7 +31,9 @@ export const computeChartDataWithPercentage = (
   } else if (sumPercentage > 100) {
     const difference = sumPercentage - 100;
     for (let i = 0; i < difference; i++) {
-      mappedData[i].percentage--;
+      if (mappedData[i].percentage > 0) {
+        mappedData[i].percentage--;
+      }
     }
   }
 
