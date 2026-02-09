@@ -32,8 +32,9 @@ export const NotificationDialogTrigger = () => {
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        align="end"
-        className="bg-special-card-bg rounded-300 shadow-card-floating w-70 border-none p-4 pt-4.5"
+        align="start"
+        side="left"
+        className="bg-special-card-bg rounded-300 shadow-card-floating! w-70 translate-x-[-8px] border-none p-4 pt-4.5"
       >
         <PopoverHeader className="flex justify-between">
           <PopoverTitle className="body-small-medium text-grey-900 w-fit">
