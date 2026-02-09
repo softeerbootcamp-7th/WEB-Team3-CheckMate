@@ -1,9 +1,12 @@
 import { DOUGHNUT_CHART_DEFAULT } from '@/constants/shared';
-import type { DoughnutChartItem } from '@/types/shared';
+import type {
+  DoughnutChartItem,
+  DoughtnutChartItemWithPercentage,
+} from '@/types/shared';
 
 export const computeChartDataWithPercentage = (
   chartData: DoughnutChartItem[],
-) => {
+): DoughtnutChartItemWithPercentage[] => {
   const totalValue = chartData.reduce((sum, item) => sum + item.value, 0);
   if (totalValue === 0) {
     return chartData.map((item) => ({
@@ -14,7 +17,8 @@ export const computeChartDataWithPercentage = (
   }
 
   const mappedData = chartData.map((item) => ({
-    ...item,
+    label: item.label,
+    color: item.color,
     percentage: Math.round((item.value / totalValue) * 100),
   }));
 

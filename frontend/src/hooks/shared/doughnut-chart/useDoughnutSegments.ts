@@ -1,7 +1,10 @@
 import { useCallback, useMemo, useRef } from 'react';
 
 import { DOUGHNUT_CHART_DEFAULT, RANKING_COLORS } from '@/constants/shared';
-import type { DoughnutChartItem } from '@/types/shared';
+import type {
+  DoughnutChartItem,
+  DoughtnutChartItemWithPercentage,
+} from '@/types/shared';
 import {
   computeChartDataWithPercentage,
   getAngleFromPercentage,
@@ -27,7 +30,7 @@ export const useDoughnutSegments = ({
   const segmentRefs = useRef<(SVGPathElement | null)[]>([]);
   const labelRefs = useRef<(SVGTextElement | null)[]>([]);
 
-  const chartDataWithPercentage = useMemo(
+  const chartDataWithPercentage: DoughtnutChartItemWithPercentage[] = useMemo(
     () => computeChartDataWithPercentage(chartData),
     [chartData],
   );

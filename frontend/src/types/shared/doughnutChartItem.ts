@@ -3,3 +3,9 @@ export interface DoughnutChartItem {
   label: string;
   color?: string;
 }
+
+export interface DoughtnutChartItemWithPercentage {
+  percentage: number;
+  label: string;
+  color?: string;
+}
