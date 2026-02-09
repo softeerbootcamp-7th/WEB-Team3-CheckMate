@@ -1,6 +1,5 @@
-import { PeriodSelect } from '@/components/shared';
-import { SectionTitle } from '@/components/shared/section-title/SectionTitle';
-import { PERIOD_PRESET_KEYS } from '@/constants/shared/period-select/periods';
+import { PeriodSelect, SectionTitle } from '@/components/shared';
+import { PERIOD_PRESET_KEYS } from '@/constants/shared';
 
 import { usePeriodTypeContext } from './period-type-provider';
 
