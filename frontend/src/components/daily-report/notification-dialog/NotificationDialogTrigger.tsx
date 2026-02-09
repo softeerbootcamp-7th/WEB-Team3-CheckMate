@@ -10,12 +10,13 @@ import {
   PopoverTitle,
   PopoverTrigger,
 } from '@/components/shared/shadcn-ui';
+import { NOTIFICATION_DATA } from '@/mocks/data/daily-report';
 
 import { NotificationEmpty } from './NotificationEmpty';
 import { NotificationList } from './NotificationList';
 
 export const NotificationDialogTrigger = () => {
-  const [notifications, setNotifications] = useState([1, 2, 3]); // 더미 데이터
+  const [notifications, setNotifications] = useState(NOTIFICATION_DATA); // 더미 데이터
 
   const handleDeleteAll = () => {
     setNotifications([]);
@@ -25,7 +26,7 @@ export const NotificationDialogTrigger = () => {
     <Popover>
       <PopoverTrigger asChild>
         <Button className="bg-grey-0 rounded-unlimit size-15">
-          <Badge show={true}>
+          <Badge show={notifications.length > 0}>
             <BellIcon className="size-6" />
           </Badge>
         </Button>
@@ -46,7 +47,7 @@ export const NotificationDialogTrigger = () => {
           </Button>
         </PopoverHeader>
         {notifications.length > 0 ? (
-          <NotificationList />
+          <NotificationList notifications={notifications} />
         ) : (
           <NotificationEmpty />
         )}

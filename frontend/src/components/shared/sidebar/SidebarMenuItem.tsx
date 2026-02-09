@@ -27,6 +27,7 @@ export const SidebarMenuItem = memo(({ menu }: SidebarMenuItemProps) => {
         }
         to={menu.path}
       >
+        {/* TODO 알림 존재 여부 패칭해올 것 */}
         <Badge show={menu.id === 'DAILY_REPORT'} position="top-left">
           {menu.Icon && <menu.Icon />}
         </Badge>
