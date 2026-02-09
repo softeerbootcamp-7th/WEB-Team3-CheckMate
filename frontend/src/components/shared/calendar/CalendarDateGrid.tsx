@@ -2,8 +2,7 @@ import {
   cn,
   getCurrentDate,
   isBetweenSelectedDate,
-  isEndDate,
-  isStartDate,
+  isSameDate,
 } from '@/utils/shared';
 
 import { CalendarDateCell } from './CalendarDateCell';
@@ -43,14 +42,14 @@ export const CalendarDateGrid = ({
       isNextMonth,
     });
 
-    const isStart = isStartDate({
+    const isStart = isSameDate({
       currentDate,
-      selectedStartDate,
+      selectedDate: selectedStartDate,
     });
 
-    const isEnd = isEndDate({
+    const isEnd = isSameDate({
       currentDate,
-      selectedEndDate,
+      selectedDate: selectedEndDate,
     });
 
     const isSelected = isStart || isEnd;
