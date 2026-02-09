@@ -20,3 +20,9 @@ export { ROUTE_PATHS } from './routePaths';
 export { API_BASE_URL } from './apiBaseUrl';
 
 export { EDIT_CARD_WRAPPER } from './edit-card-wrapper';
+export {
+  LINE_CHART,
+  PRIMARY_SERIES_MOCK,
+  SECONDARY_SERIES_MOCK,
+  WEEKLY_DATA,
+} from './line-chart';
