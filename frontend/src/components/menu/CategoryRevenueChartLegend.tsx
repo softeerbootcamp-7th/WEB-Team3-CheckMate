@@ -10,7 +10,7 @@ export const CategoryRevenueChartLegend = <T extends DoughnutChartItem>({
 }: CategoryRevenueChartLegendProps<T>) => {
   return (
     <ul className="flex flex-col gap-1">
-      {chartData
+      {[...chartData]
         .sort((a, b) => b.value - a.value)
         .map((data, index) => (
           <li key={data.label} className="flex justify-between">
