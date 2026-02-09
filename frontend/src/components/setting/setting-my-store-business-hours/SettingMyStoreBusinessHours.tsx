@@ -1,9 +1,8 @@
-import { useEffect } from 'react';
 import { FormProvider } from 'react-hook-form';
 
 import { StoreBusinessHoursInputGrid } from '@/components/onboarding/store-register/store-business-hours-input-section/StoreBusinessHoursInputGrid';
-import { STORE_REGISTER_FORM_FIELD } from '@/constants/onboarding/store-register';
 import { useStoreRegisterForm } from '@/hooks/onboarding/store-register';
+import { useInitializeBusinessHours } from '@/hooks/setting/useInitializeBusinessHours';
 import type { BusinessHour } from '@/types/shared';
 
 interface SettingMyStoreBusinessHoursProps {
@@ -16,15 +15,7 @@ export const SettingMyStoreBusinessHours = ({
   const { methods } = useStoreRegisterForm();
 
   // 서버값으로 RHF 폼 값을 초기화(덮어쓰기)
-  useEffect(() => {
-    if (!storeBusinessHours) {
-      return;
-    }
-    methods.setValue(
-      STORE_REGISTER_FORM_FIELD.BUSINESS_HOURS,
-      storeBusinessHours,
-    );
-  }, [storeBusinessHours, methods]);
+  useInitializeBusinessHours({ methods, storeBusinessHours });
 
   return (
     <article className="pointer-events-none flex flex-col gap-3">
