@@ -1,13 +1,19 @@
+import type { Notification } from '@/types/daily-report';
+import { formatRelativeTime } from '@/utils/shared';
+
 import { Badge } from '../../shared';
 
-export const NotificationItem = () => {
+interface NotificationItemProps {
+  notification: Notification;
+}
+export const NotificationItem = ({ notification }: NotificationItemProps) => {
   return (
     <li>
-      <p className="text-grey-900 body-small-medium">
-        1월 14일 하루 리포트가 발행되었습니다.
-      </p>
-      <Badge show={true} position="right">
-        <span className="text-grey-500 caption-large-medium">36분 전</span>
+      <p className="text-grey-900 body-small-medium">{notification.message}</p>
+      <Badge show={!notification.read} position="right">
+        <span className="text-grey-500 caption-large-medium">
+          {formatRelativeTime(new Date(notification.date))}
+        </span>
       </Badge>
     </li>
   );
