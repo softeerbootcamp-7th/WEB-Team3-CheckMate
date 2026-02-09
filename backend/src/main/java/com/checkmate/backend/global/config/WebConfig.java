@@ -26,6 +26,8 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOriginPatterns(
                         "https://check-mate.kro.kr",
                         "http://check-mate.kro.kr",
+                        "https://api-check-mate.kro.kr",
+                        "http://api-check-mate.kro.kr",
                         "https://localhost:[*]",
                         "http://localhost:[*]")
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
