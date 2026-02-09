@@ -4,6 +4,7 @@ import {
   IngredientMenuGrid,
   IngredientPaginationBar,
 } from '@/components/ingredient';
+import { Spinner } from '@/components/shared';
 import { useMenusManagement, useRegisteredMenus } from '@/hooks/ingredient';
 
 export const IngredientPage = () => {
@@ -24,10 +25,19 @@ export const IngredientPage = () => {
     handleClickPage,
   } = useMenusManagement({ menus: data?.menus ?? [] });
   if (isPending) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <Spinner className="size-10" />
+      </div>
+    );
   }
+
   if (error || !data) {
-    return <div>등록된 메뉴를 불러오지 못했습니다.</div>;
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        메뉴 정보를 불러오지 못했습니다. 다시 시도해 주세요
+      </div>
+    );
   }
 
   return (
