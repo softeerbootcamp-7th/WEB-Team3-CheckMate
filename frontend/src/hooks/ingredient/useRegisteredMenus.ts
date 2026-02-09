@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getRegisteredMenus } from '@/services/ingredient';
+import { getRegisteredMenus, ingredientKeys } from '@/services/ingredient';
 
 export const useRegisteredMenus = () => {
   const { data, isPending, error } = useQuery({
-    queryKey: ['registeredMenus'],
+    queryKey: ingredientKeys.registeredMenus(),
     queryFn: getRegisteredMenus,
   });
   return { data, isPending, error };
