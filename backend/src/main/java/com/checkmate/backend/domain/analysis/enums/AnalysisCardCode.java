@@ -68,14 +68,14 @@ public enum AnalysisCardCode {
             CardSize.SIZE_1X1),
 
     // 매출 - 현황 > 총매출
-    SLS_04_01("오늘 총매출", AnalysisCode.SLS_04, Period.TODAY, ComparePeriod.NONE),
-    SLS_04_02("이번주 총매출", AnalysisCode.SLS_04, Period.THIS_WEEK, ComparePeriod.NONE),
-    SLS_04_03("이번달 총매출", AnalysisCode.SLS_04, Period.THIS_MONTH, ComparePeriod.NONE),
+    SLS_04_01("오늘 총매출", AnalysisCode.SLS_04, Period.TODAY, ComparePeriod.NONE, null),
+    SLS_04_02("이번주 총매출", AnalysisCode.SLS_04, Period.THIS_WEEK, ComparePeriod.NONE, null),
+    SLS_04_03("이번달 총매출", AnalysisCode.SLS_04, Period.THIS_MONTH, ComparePeriod.NONE, null),
 
     // 매출 - 현황 > 할인 & 취소
-    SLS_05_01("오늘 할인 & 취소", AnalysisCode.SLS_05, Period.TODAY, ComparePeriod.NONE),
-    SLS_05_02("이번주 할인 & 취소", AnalysisCode.SLS_05, Period.THIS_WEEK, ComparePeriod.NONE),
-    SLS_05_03("이번달 할인 & 취소", AnalysisCode.SLS_05, Period.THIS_MONTH, ComparePeriod.NONE),
+    SLS_05_01("오늘 할인 & 취소", AnalysisCode.SLS_05, Period.TODAY, ComparePeriod.NONE, null),
+    SLS_05_02("이번주 할인 & 취소", AnalysisCode.SLS_05, Period.THIS_WEEK, ComparePeriod.NONE, null),
+    SLS_05_03("이번달 할인 & 취소", AnalysisCode.SLS_05, Period.THIS_MONTH, ComparePeriod.NONE, null),
 
     // 매출 - 유입 구조 > 판매유형별
     SLS_06_01(
@@ -192,9 +192,9 @@ public enum AnalysisCardCode {
             CardSize.SIZE_1X1),
 
     // 메뉴 > 카테고리별 매출
-    MNU_02_01("오늘 카테고리별 매출 랭킹", AnalysisCode.MNU_02, Period.TODAY, ComparePeriod.NONE),
-    MNU_02_02("최근 7일 카테고리별 매출 랭킹", AnalysisCode.MNU_02, Period.LAST_7_DAYS, ComparePeriod.NONE),
-    MNU_02_03("최근 30일 카테고리별 매출 랭킹", AnalysisCode.MNU_02, Period.LAST_30_DAYS, ComparePeriod.NONE),
+    MNU_02_01("오늘 카테고리별 매출 랭킹", AnalysisCode.MNU_02, Period.TODAY, ComparePeriod.NONE, null),
+    MNU_02_02("최근 7일 카테고리별 매출 랭킹", AnalysisCode.MNU_02, Period.LAST_7_DAYS, ComparePeriod.NONE, null),
+    MNU_02_03("최근 30일 카테고리별 매출 랭킹", AnalysisCode.MNU_02, Period.LAST_30_DAYS, ComparePeriod.NONE, null),
 
     // 메뉴 > 시간대별 주문
     MNU_03_01(
@@ -203,8 +203,8 @@ public enum AnalysisCardCode {
             Period.TODAY,
             ComparePeriod.NONE,
             CardSize.SIZE_1X1),
-    MNU_03_02("최근 7일 시간대별 메뉴 주문건수", AnalysisCode.MNU_03, Period.LAST_7_DAYS, ComparePeriod.NONE),
-    MNU_03_03("최근 30일 시간대별 메뉴 주문건수", AnalysisCode.MNU_03, Period.LAST_30_DAYS, ComparePeriod.NONE),
+    MNU_03_02("최근 7일 시간대별 메뉴 주문건수", AnalysisCode.MNU_03, Period.LAST_7_DAYS, ComparePeriod.NONE, null),
+    MNU_03_03("최근 30일 시간대별 메뉴 주문건수", AnalysisCode.MNU_03, Period.LAST_30_DAYS, ComparePeriod.NONE, null),
 
     // 메뉴 > 식재료
     MNU_04_01(
@@ -217,7 +217,7 @@ public enum AnalysisCardCode {
             Period.LAST_7_DAYS,
             ComparePeriod.NONE,
             CardSize.SIZE_1X1),
-    MNU_05_05("최근 14일 인기 메뉴 조합", AnalysisCode.MNU_05, Period.LAST_14_DAYS, ComparePeriod.NONE),
+    MNU_05_05("최근 14일 인기 메뉴 조합", AnalysisCode.MNU_05, Period.LAST_14_DAYS, ComparePeriod.NONE, null),
 
 
     // 날씨
@@ -253,10 +253,10 @@ public enum AnalysisCardCode {
             AnalysisCode.WTH_06,
             Period.LAST_365_DAYS,
             ComparePeriod.NONE,
-            CardSize.SIZE_1X1);
+            CardSize.SIZE_1X1),
 
     // 날씨 > 기온별 매출 분석
-    WTH_07_01("날씨 분석 (기온별)", AnalysisCode.WTH_07, Period.LAST_365_DAYS, ComparePeriod.NONE);
+    WTH_07_01("날씨 분석 (기온별)", AnalysisCode.WTH_07, Period.LAST_365_DAYS, ComparePeriod.NONE, null);
 
     private final String title;
     private final AnalysisCode metricCode;
