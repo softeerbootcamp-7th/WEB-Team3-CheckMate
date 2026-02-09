@@ -99,11 +99,11 @@ public class SseController {
     @PostMapping("/subscriptions")
     public ResponseEntity<ApiResponse<Void>> subscribe(
             @LoginMember MemberSession member,
-            @Valid @RequestBody SubscriptionTopicsRequest SubscriptionTopicsRequest) {
+            @Valid @RequestBody SubscriptionTopicsRequest subscriptionTopicsRequest) {
 
         Long storeId = member.storeId();
 
-        sseEmitterManager.subscribe(storeId, SubscriptionTopicsRequest);
+        sseEmitterManager.subscribe(storeId, subscriptionTopicsRequest);
 
         return ApiResponse.success_only(SSE_SUBSCRIBE_SUCCESS);
     }
@@ -125,11 +125,11 @@ public class SseController {
     @DeleteMapping("/subscriptions")
     public ResponseEntity<ApiResponse<Void>> unsubscribe(
             @LoginMember MemberSession member,
-            @RequestBody SubscriptionTopicsRequest SubscriptionTopicsRequest) {
+            @RequestBody SubscriptionTopicsRequest subscriptionTopicsRequest) {
 
         Long storeId = member.storeId();
 
-        sseEmitterManager.unsubscribe(storeId, SubscriptionTopicsRequest);
+        sseEmitterManager.unsubscribe(storeId, subscriptionTopicsRequest);
 
         return ApiResponse.success_only(SSE_UNSUBSCRIBE_SUCCESS);
     }
