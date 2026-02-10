@@ -61,7 +61,13 @@ export const CalendarDateGrid = ({
     });
     return (
       <CalendarDateCell
-        key={date}
+        key={
+          isPreviousMonth
+            ? `prev-${date}`
+            : isNextMonth
+              ? `next-${date}`
+              : `curr-${date}`
+        }
         date={date}
         className={cn(
           isSelected

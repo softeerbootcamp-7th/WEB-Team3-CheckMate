@@ -43,7 +43,13 @@ export const CalendarRevenueGrid = ({
 
     return (
       <CalendarRevenueCell
-        key={date}
+        key={
+          isPreviousMonth
+            ? `prev-${date}`
+            : isNextMonth
+              ? `next-${date}`
+              : `curr-${date}`
+        }
         date={date}
         revenue={20000000}
         className={cn(
