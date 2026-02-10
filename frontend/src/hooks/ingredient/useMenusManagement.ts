@@ -10,12 +10,30 @@ interface UseMenusManagementParams {
 const ITEMS_PER_PAGE = 12;
 
 export const useMenusManagement = ({ menus }: UseMenusManagementParams) => {
+  // 카테고리 별로 메뉴 관리
+  const menusByCategory = useMemo(() => {
+    const MenuMapByCategory = new Map<string, MenuInfo[]>();
+
+    menus.forEach((menu) => {
+      let categoryMenus = MenuMapByCategory.get(menu.category);
+
+      if (!categoryMenus) {
+        categoryMenus = [];
+        MenuMapByCategory.set(menu.category, categoryMenus);
+      }
+
+      categoryMenus.push(menu);
+    });
+
+    return MenuMapByCategory;
+  }, [menus]);
+
   // 카테고리 목록
   // 각 메뉴에 카테고리 정보 있다고 가정 -> 중복 제거 후 카테고리 목록 생성
   // useMemo으로 감싸서 categories 배열이 렌더링 때마다 재생성 되는 것 방지
   const categories = useMemo(
-    () => Array.from(new Set(menus.map((menu) => menu.category))),
-    [menus],
+    () => Array.from(menusByCategory.keys()),
+    [menusByCategory],
   );
 
   // 선택된 카테고리
@@ -27,9 +45,9 @@ export const useMenusManagement = ({ menus }: UseMenusManagementParams) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   // 선택된 카테고리에 해당되는 메뉴 필터링
-  const filteredMenus = menus.filter(
-    (menu) => menu.category === selectedCategory,
-  );
+  const filteredMenus = selectedCategory
+    ? (menusByCategory.get(selectedCategory) ?? [])
+    : [];
 
   // 선택된 카테고리에 해당하는 메뉴들의 전체 페이지 수
   // 카테고리에 해당하는 메뉴 데이터가 있어야 카테고리가 생성되므로 filteredMenus.length이 0일 수는 없음
