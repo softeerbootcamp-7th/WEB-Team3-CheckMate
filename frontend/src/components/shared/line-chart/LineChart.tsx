@@ -88,8 +88,8 @@ export const LineChart = ({
   const {
     svgRect,
     adjustedHeight,
-    primaryCordinate,
-    secondaryCordinate,
+    primaryCoordinate,
+    secondaryCoordinate,
     svgRef,
     xAxisRef,
   } = useLineChart({
@@ -117,7 +117,7 @@ export const LineChart = ({
         <GradientBackground
           svgRect={svgRect}
           adjustedHeight={adjustedHeight}
-          primaryCordiante={primaryCordinate}
+          primaryCordiante={primaryCoordinate}
           gradientId={backgroundGradientId}
         />
       )}
@@ -130,7 +130,7 @@ export const LineChart = ({
       )}
       {showXGuideLine && (
         <XGuideLine
-          cordinate={primaryCordinate}
+          coordinate={primaryCoordinate}
           svgRect={svgRect}
           adjustedHeight={adjustedHeight}
         />
@@ -143,14 +143,14 @@ export const LineChart = ({
             ref={xAxisRef}
           />
           <XAxisLabel
-            cordinate={primaryCordinate}
+            coordinate={primaryCoordinate}
             viewBoxHeight={viewBoxHeight}
             series={primarySeries}
           />
         </>
       )}
       <Line
-        cordinate={primaryCordinate}
+        coordinate={primaryCoordinate}
         color={primarySeries.color}
         hasGradient={hasGradient}
         gradientId={lineGradientId}
@@ -159,17 +159,20 @@ export const LineChart = ({
         series={primarySeries}
         activeTooltip={activeTooltip}
         tooltipContent={tooltipContent}
-        cordinate={primaryCordinate}
+        coordinate={primaryCoordinate}
         color={primarySeries.color}
       />
       {secondarySeries && (
         <>
-          <Line cordinate={secondaryCordinate} color={secondarySeries.color} />
+          <Line
+            coordinate={secondaryCoordinate}
+            color={secondarySeries.color}
+          />
           <Dots
             series={secondarySeries}
             activeTooltip={activeTooltip}
             tooltipContent={tooltipContent}
-            cordinate={secondaryCordinate}
+            coordinate={secondaryCoordinate}
             color={secondarySeries.color}
           />
         </>

@@ -1,13 +1,13 @@
 import { LINE_CHART } from '@/constants/shared';
 
 interface XGuideLineProps {
-  cordinate: (number | null)[][];
+  coordinate: (number | null)[][];
   svgRect: DOMRect | null;
   adjustedHeight: number;
 }
 
 export const XGuideLine = ({
-  cordinate,
+  coordinate,
   svgRect,
   adjustedHeight,
 }: XGuideLineProps) => {
@@ -17,13 +17,13 @@ export const XGuideLine = ({
 
   const { TICK_HEIGHT, GUIDE_LINE_STROKE_WIDTH } = LINE_CHART;
 
-  const xGuideLinePathD = cordinate
+  const xGuideLinePathD = coordinate
     .map(([x]) => {
       return `M ${x} 0 v ${adjustedHeight - TICK_HEIGHT / 2}`;
     })
     .join(' ');
 
-  const xGuideTickPathD = cordinate
+  const xGuideTickPathD = coordinate
     .map(([x]) => {
       return `M ${x} ${adjustedHeight - TICK_HEIGHT / 2} v ${TICK_HEIGHT}`;
     })

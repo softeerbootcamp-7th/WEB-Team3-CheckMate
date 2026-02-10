@@ -2,23 +2,23 @@ import { LINE_CHART } from '@/constants/shared';
 import { useDrawLinePath, useLineAnimation } from '@/hooks/shared';
 
 interface LineProps {
-  cordinate: (number | null)[][];
+  coordinate: (number | null)[][];
   color: string;
   hasGradient?: boolean;
   gradientId?: string;
 }
 
 export const Line = ({
-  cordinate,
+  coordinate,
   color,
   hasGradient = false,
   gradientId,
 }: LineProps) => {
   const { LINE_STROKE_WIDTH } = LINE_CHART;
 
-  const { filteredCordinate, pathD } = useDrawLinePath({ cordinate });
+  const { filteredCoordinate, pathD } = useDrawLinePath({ coordinate });
   const { lineRef } = useLineAnimation({
-    cordinateCount: filteredCordinate.length,
+    coordinateCount: filteredCoordinate.length,
     pathD,
   });
 

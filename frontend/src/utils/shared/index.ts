@@ -20,4 +20,4 @@ export {
   isSameYear,
 } from './calendar';
 export { formatNumber } from './formatNumber';
-export { getCordinate } from './line-chart';
+export { getCoordinate } from './line-chart';

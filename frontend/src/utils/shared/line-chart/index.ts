@@ -1,1 +1,1 @@
-export { getCordinate } from './getCordinate';
+export { getCoordinate } from './getCordinate';

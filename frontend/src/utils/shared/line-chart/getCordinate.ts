@@ -1,6 +1,6 @@
 import type { LineChartSeries } from '@/types/shared';
 
-export const getCordinate = ({
+export const getCoordinate = ({
   svgRect,
   adjustedHeight,
   series,

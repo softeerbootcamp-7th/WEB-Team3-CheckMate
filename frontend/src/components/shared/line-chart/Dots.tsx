@@ -7,7 +7,7 @@ interface DotsProps {
   series: LineChartSeries;
   activeTooltip: boolean;
   tooltipContent: (...args: string[]) => string;
-  cordinate: (number | null)[][];
+  coordinate: (number | null)[][];
   color: string;
 }
 
@@ -15,19 +15,19 @@ export const Dots = ({
   series,
   activeTooltip,
   tooltipContent,
-  cordinate,
+  coordinate,
   color,
 }: DotsProps) => {
   const { DOT_RADIUS } = LINE_CHART;
 
-  const filteredCordinate: number[][] = cordinate.filter(
+  const filteredCoordinate: number[][] = coordinate.filter(
     (point): point is number[] => point[1] !== null,
   );
 
   if (!activeTooltip) {
     return (
       <>
-        {filteredCordinate.map(([x, y], index) => (
+        {filteredCoordinate.map(([x, y], index) => (
           <circle
             key={index}
             cx={x}
@@ -49,7 +49,7 @@ export const Dots = ({
 
   return (
     <>
-      {filteredCordinate.map(([x, y], index) => {
+      {filteredCoordinate.map(([x, y], index) => {
         const tooltipContentText = tooltipContent(
           `${series.data.mainY[index].amount}${series.data.mainY[index].unit}`,
           `${series.data.subY[index]?.amount}${series.data.subY[index]?.unit}`,

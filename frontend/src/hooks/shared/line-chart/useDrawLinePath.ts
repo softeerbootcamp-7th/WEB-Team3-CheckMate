@@ -1,12 +1,12 @@
 interface UseDrawLinePathProps {
-  cordinate: (number | null)[][];
+  coordinate: (number | null)[][];
 }
 
-export const useDrawLinePath = ({ cordinate }: UseDrawLinePathProps) => {
-  const filteredCordinate: number[][] = cordinate.filter(
+export const useDrawLinePath = ({ coordinate }: UseDrawLinePathProps) => {
+  const filteredCoordinate: number[][] = coordinate.filter(
     (point): point is number[] => point[1] !== null,
   );
-  const pathD = filteredCordinate.reduce<string>((acc, cur, index) => {
+  const pathD = filteredCoordinate.reduce<string>((acc, cur, index) => {
     if (index === 0) {
       return `M ${cur[0]} ${cur[1]}`;
     }
@@ -14,7 +14,7 @@ export const useDrawLinePath = ({ cordinate }: UseDrawLinePathProps) => {
   }, '');
 
   return {
-    filteredCordinate,
+    filteredCoordinate,
     pathD,
   };
 };

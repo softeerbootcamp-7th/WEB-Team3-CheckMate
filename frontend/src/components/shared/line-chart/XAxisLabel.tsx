@@ -1,19 +1,19 @@
 import type { LineChartSeries } from '@/types/shared';
 
 interface XAxisLabelProps {
-  cordinate: (number | null)[][];
+  coordinate: (number | null)[][];
   viewBoxHeight: number;
   series: LineChartSeries;
 }
 
 export const XAxisLabel = ({
-  cordinate,
+  coordinate,
   viewBoxHeight,
   series,
 }: XAxisLabelProps) => {
   return (
     <g className="flex justify-between">
-      {cordinate.map(([x], index) => (
+      {coordinate.map(([x], index) => (
         <text
           key={index}
           x={x ?? 0}

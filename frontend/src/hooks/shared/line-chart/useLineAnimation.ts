@@ -1,12 +1,12 @@
 import { useLayoutEffect, useRef } from 'react';
 
 interface UseLineAnimationProps {
-  cordinateCount: number;
+  coordinateCount: number;
   pathD: string;
 }
 
 export const useLineAnimation = ({
-  cordinateCount,
+  coordinateCount,
   pathD,
 }: UseLineAnimationProps) => {
   const lineRef = useRef<SVGPathElement>(null);
@@ -15,7 +15,7 @@ export const useLineAnimation = ({
   const lineLengthRef = useRef(0);
 
   // 좌표 개수 저장
-  const cordinateCountRef = useRef(0);
+  const coordinateCountRef = useRef(0);
 
   useLayoutEffect(() => {
     if (!lineRef.current || !pathD) {
@@ -24,8 +24,8 @@ export const useLineAnimation = ({
     let rafId: number | null = null;
 
     // 좌표가 추가될 때마다 그려지는 애니메이션 적용
-    if (cordinateCountRef.current !== cordinateCount) {
-      cordinateCountRef.current = cordinateCount;
+    if (coordinateCountRef.current !== coordinateCount) {
+      coordinateCountRef.current = coordinateCount;
       const totalLineLength = lineRef.current.getTotalLength();
       lineRef.current.style.strokeDasharray = `${totalLineLength}`;
       lineRef.current.style.strokeDashoffset = `${totalLineLength - lineLengthRef.current}`;
@@ -52,7 +52,7 @@ export const useLineAnimation = ({
         cancelAnimationFrame(rafId);
       }
     };
-  }, [lineRef, pathD, cordinateCount]);
+  }, [lineRef, pathD, coordinateCount]);
 
   return {
     lineRef,
