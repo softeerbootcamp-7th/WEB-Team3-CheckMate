@@ -25,8 +25,6 @@ export const RevenueCalendar = ({
     selectedEndDate: selectedDate,
   });
 
-  const handleSelectDate = setSelectedDate;
-
   const { headerTitle, previousAriaLabel, nextAriaLabel } =
     CALENDAR_CONFIG[DATE_RANGE_PICKER_TYPE.date];
 
@@ -47,7 +45,7 @@ export const RevenueCalendar = ({
           lastWeekOfPreviousMonth={lastWeekOfPreviousMonth}
           numberOfDatesForCalendar={numberOfDatesForCalendar}
           firstWeekOfNextMonth={firstWeekOfNextMonth}
-          handleSelectDate={handleSelectDate}
+          handleSelectDate={setSelectedDate}
         />
       </div>
     </section>
