@@ -1,5 +1,6 @@
 import { ChevronLeft } from 'lucide-react';
 
+import { Button } from '@/components/shared/shadcn-ui';
 import { cn } from '@/utils/shared';
 
 interface PrevPaginationButtonProps {
@@ -11,14 +12,15 @@ export const PrevPaginationButton = ({
   handleClickPrev,
 }: PrevPaginationButtonProps) => {
   return (
-    <button
+    <Button
       onClick={handleClickPrev}
+      disabled={isFirstPage}
       className={cn(
         'rounded-unlimit bg-special-card-bg text-grey-600 size-6 cursor-pointer',
-        isFirstPage && 'text-grey-400 pointer-events-none',
+        isFirstPage && 'text-grey-400',
       )}
     >
       <ChevronLeft className="size-6" />
-    </button>
+    </Button>
   );
 };

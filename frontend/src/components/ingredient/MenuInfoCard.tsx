@@ -1,5 +1,5 @@
-import { useMenuCard } from '@/hooks/ingredient';
-import { formatPriceWithComma } from '@/utils/shared';
+import { useMenuDialog } from '@/hooks/ingredient';
+import { formatNumber } from '@/utils/shared';
 
 import { IngredientEditDialog } from './IngredientEditDialog';
 
@@ -16,7 +16,7 @@ export const MenuInfoCard = ({
   price,
   registeredIngredientCount,
 }: MenuCardProps) => {
-  const { setIsDialogOpen, isDialogOpen } = useMenuCard();
+  const { setIsDialogOpen, isDialogOpen } = useMenuDialog();
   return (
     <>
       <article
@@ -24,7 +24,9 @@ export const MenuInfoCard = ({
         onClick={() => setIsDialogOpen(true)}
       >
         <div className="text-grey-900 flex flex-col gap-1.5">
-          <span className="title-small-bold">{menuName}</span>
+          <h3 aria-label={menuName} className="title-small-bold">
+            {menuName}
+          </h3>
           {registeredIngredientCount === 0 && (
             <span className="body-small-semibold text-others-negative">
               식재료 입력 필요
@@ -33,7 +35,7 @@ export const MenuInfoCard = ({
         </div>
 
         <span className="title-medium-medium text-end">
-          {formatPriceWithComma(price)} 원
+          {formatNumber(price)} 원
         </span>
       </article>
       <IngredientEditDialog

@@ -1,3 +1,4 @@
+import { Button } from '@/components/shared/shadcn-ui';
 import { cn } from '@/utils/shared';
 
 import { NextPaginationButton } from './NextPaginationButton';
@@ -31,7 +32,7 @@ export const IngredientPaginationBar = ({
 
       <div className="flex items-center gap-2.5">
         {Array.from({ length: totalPageCount }, (_, idx) => (
-          <button
+          <Button
             key={idx}
             className={cn(
               'size-10 cursor-pointer p-2.5',
@@ -40,7 +41,7 @@ export const IngredientPaginationBar = ({
             onClick={() => handleClickPage(idx + 1)}
           >
             {idx + 1}
-          </button>
+          </Button>
         ))}
       </div>
       <NextPaginationButton
