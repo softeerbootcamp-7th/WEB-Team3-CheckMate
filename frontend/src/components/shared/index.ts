@@ -8,4 +8,5 @@ export { OnboardingLayout } from './onboarding-layout';
 export { Input } from './input';
 export { DefaultCardWrapper } from './default-card-wrapper';
 export { Spinner } from './spinner';
+export { DoughnutChart } from './doughnut-chart';
 export { MainLayout } from './main-layout';
