@@ -1,17 +1,31 @@
 package com.checkmate.backend.global.config;
 
+import com.checkmate.backend.global.auth.LoginMember;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.examples.Example;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.media.Content;
+import io.swagger.v3.oas.models.media.MediaType;
+import io.swagger.v3.oas.models.responses.ApiResponse;
+import io.swagger.v3.oas.models.responses.ApiResponses;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
+import java.util.HashMap;
+import java.util.Map;
+import org.springdoc.core.customizers.OpenApiCustomizer;
+import org.springdoc.core.utils.SpringDocUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SwaggerConfig {
+
+    static {
+        SpringDocUtils.getConfig().addAnnotationsToIgnore(LoginMember.class);
+    }
 
     @Value("${jwt.access.header}")
     private String accessTokenHeader;
@@ -68,5 +82,101 @@ public class SwaggerConfig {
                 .addServersItem(localServer)
                 .addSecurityItem(accessTokenRequirement)
                 .addSecurityItem(refreshTokenRequirement);
+    }
+
+    @Bean
+    public OpenApiCustomizer globalResponseCustomizer() {
+        return openApi ->
+                openApi.getPaths()
+                        .forEach(
+                                (path, value) ->
+                                        value.readOperations()
+                                                .forEach(
+                                                        operation -> {
+                                                            ApiResponses responses =
+                                                                    operation.getResponses();
+
+                                                            if (path.startsWith("/api")
+                                                                    || path.equals(
+                                                                            "/auth/status")) {
+                                                                addJwtAuthErrors(responses);
+                                                            }
+
+                                                            if (path.startsWith("/api/analysis")
+                                                                    || path.startsWith(
+                                                                            "/api/sse")) {
+                                                                addStoreCheckErrors(responses);
+                                                            }
+                                                        }));
+    }
+
+    private void addJwtAuthErrors(ApiResponses responses) {
+        responses.addApiResponse(
+                "401",
+                new ApiResponse()
+                        .description("액세스 토큰 관련 오류")
+                        .content(
+                                new Content()
+                                        .addMediaType(
+                                                "application/json",
+                                                new MediaType()
+                                                        .addExamples(
+                                                                "JWT_TOKEN_NOT_FOUND",
+                                                                createExample(
+                                                                        "토큰 누락",
+                                                                        "JWT 토큰이 존재하지 않습니다.",
+                                                                        "JWT_TOKEN_NOT_FOUND"))
+                                                        .addExamples(
+                                                                "EXPIRED_JWT_TOKEN",
+                                                                createExample(
+                                                                        "토큰 만료",
+                                                                        "만료된 JWT 토큰입니다.",
+                                                                        "EXPIRED_JWT_TOKEN"))
+                                                        .addExamples(
+                                                                "INVALID_JWT_SIGNATURE",
+                                                                createExample(
+                                                                        "서명 불일치",
+                                                                        "유효하지 않은 JWT 서명입니다.",
+                                                                        "INVALID_JWT_SIGNATURE"))
+                                                        .addExamples(
+                                                                "INVALID_JWT_TOKEN",
+                                                                createExample(
+                                                                        "잘못된 형식",
+                                                                        "잘못된 JWT 토큰입니다.",
+                                                                        "INVALID_JWT_TOKEN"))
+                                                        .addExamples(
+                                                                "UNSUPPORTED_JWT_TOKEN",
+                                                                createExample(
+                                                                        "지원되지 않는 토큰",
+                                                                        "지원되지 않는 JWT 토큰입니다.",
+                                                                        "UNSUPPORTED_JWT_TOKEN")))));
+    }
+
+    private void addStoreCheckErrors(ApiResponses responses) {
+        responses.addApiResponse(
+                "403",
+                new ApiResponse()
+                        .description("권한 오류: 매장 등록 상태 확인")
+                        .content(
+                                new Content()
+                                        .addMediaType(
+                                                "application/json",
+                                                new MediaType()
+                                                        .addExamples(
+                                                                "STORE_NOT_REGISTERED",
+                                                                createExample(
+                                                                        "매장 미등록",
+                                                                        "등록된 매장이 없습니다. 매장 등록 후 이용해주세요.",
+                                                                        "STORE_NOT_REGISTERED")))));
+    }
+
+    private Example createExample(String summary, String message, String errorCode) {
+        Map<String, Object> errorResponse = new HashMap<>();
+        errorResponse.put("success", false);
+        errorResponse.put("message", message);
+        errorResponse.put("errorCode", errorCode);
+        errorResponse.put("data", null);
+
+        return new Example().summary(summary).value(errorResponse);
     }
 }
