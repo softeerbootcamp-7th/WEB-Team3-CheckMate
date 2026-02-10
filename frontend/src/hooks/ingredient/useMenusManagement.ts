@@ -1,126 +1,49 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect } from 'react';
 
+import { ITEMS_PER_PAGE } from '@/constants/ingredient';
 import type { MenuInfo } from '@/types/ingredient';
+
+import { usePagination } from '../shared/usePagination';
+
+import { useCategoryMenus } from './useCategoryMenus';
 
 interface UseMenusManagementParams {
   menus: MenuInfo[];
 }
 
-// 한 페이지에 보여줄 수 있는 최대 메뉴  개수
-const ITEMS_PER_PAGE = 12;
-
 export const useMenusManagement = ({ menus }: UseMenusManagementParams) => {
-  // 카테고리 별로 메뉴 관리
-  const menusByCategory = useMemo(() => {
-    const MenuMapByCategory = new Map<string, MenuInfo[]>();
-
-    menus.forEach((menu) => {
-      let categoryMenus = MenuMapByCategory.get(menu.category);
-
-      if (!categoryMenus) {
-        categoryMenus = [];
-        MenuMapByCategory.set(menu.category, categoryMenus);
-      }
-
-      categoryMenus.push(menu);
-    });
-
-    return MenuMapByCategory;
-  }, [menus]);
-
-  // 카테고리 목록
-  // 각 메뉴에 카테고리 정보 있다고 가정 -> 중복 제거 후 카테고리 목록 생성
-  // useMemo으로 감싸서 categories 배열이 렌더링 때마다 재생성 되는 것 방지
-  const categories = useMemo(
-    () => Array.from(menusByCategory.keys()),
-    [menusByCategory],
-  );
-
-  // 선택된 카테고리
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(
-    categories[0] ?? null,
-  );
-
-  // 현재 페이지
-  const [currentPage, setCurrentPage] = useState(1);
-
-  // 선택된 카테고리에 해당되는 메뉴 필터링
-  const filteredMenus = selectedCategory
-    ? (menusByCategory.get(selectedCategory) ?? [])
-    : [];
-
-  // 선택된 카테고리에 해당하는 메뉴들의 전체 페이지 수
-  // 카테고리에 해당하는 메뉴 데이터가 있어야 카테고리가 생성되므로 filteredMenus.length이 0일 수는 없음
-  const totalPageCount = Math.ceil(filteredMenus.length / ITEMS_PER_PAGE);
-
-  // 현재 보고 있는 페이지가 양 끝단 페이지인지
-  const isFirstPage = currentPage === 1;
-  const isLastPage = currentPage === totalPageCount;
-
-  // 현재 페이지에 보여줘야 할 메뉴들의 시작 인덱스
-  // 1번째 페이지 : 0번째 요소 ~11
-  // 2번째 페이지 : 12번째 요소 ~23
-  const currentPageMenusStartIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  // 현재 페이지에 해당하는 메뉴들만 모아 리스트에 저장
-  const currentPageMenus = filteredMenus.slice(
-    currentPageMenusStartIndex,
-    currentPageMenusStartIndex + ITEMS_PER_PAGE,
-  );
-
-  // 이전 페이지 버튼 클릭 핸들러
-  const handleClickPrev = () => {
-    if (isFirstPage) {
-      return;
-    }
-    setCurrentPage((prev) => prev - 1);
-  };
-
-  // 다음 페이지 버튼 클릭 핸들러
-  const handleClickNext = () => {
-    if (isLastPage) {
-      return;
-    }
-    setCurrentPage((prev) => prev + 1);
-  };
-
-  const handleClickPage = (page: number) => {
-    setCurrentPage(page);
-  };
+  const categoryMenus = useCategoryMenus({ menus });
+  const pagination = usePagination<MenuInfo>({
+    items: categoryMenus.filteredMenus,
+    itemsPerPage: ITEMS_PER_PAGE,
+  });
 
   // 카테고리 변경 시 화면에 보여지는 페이지를 1페이지로 리셋
   useEffect(() => {
     const resetCurrentPageNumber = () => {
-      setCurrentPage(1);
+      pagination.setCurrentPage(1);
     };
     resetCurrentPageNumber();
-  }, [selectedCategory]);
+  }, [categoryMenus.selectedCategory]);
 
   // selectedCategory는 맨 처음 마운트 될 땐 null 값으로 설정됨
   // -> 서버에서 데이터 가져오면 그걸 기반으로 첫 번째 카테고리를 선택된 카테고리로 설정해줘야함
   // -> 안해주면 selectedCategory는 상태값 이기 때문에 마운트 때 설정된 null 값으로 그대로 유지됨
   useEffect(() => {
     const setFirstCategory = () => {
-      setSelectedCategory(categories[0]);
+      categoryMenus.setSelectedCategory(categoryMenus.categories[0]);
     };
     // 초기 선택된 카테고리가 없을 때, 첫 번째 카테고리로 설정
-    if (!selectedCategory && categories.length > 0) {
+    if (
+      !categoryMenus.selectedCategory &&
+      categoryMenus.categories.length > 0
+    ) {
       setFirstCategory();
     }
-  }, [categories]);
+  }, [categoryMenus.categories]);
 
   return {
-    categories,
-    selectedCategory,
-    currentPageMenus,
-    totalPageCount,
-    currentPage,
-
-    isFirstPage,
-    isLastPage,
-
-    setSelectedCategory,
-    handleClickPrev,
-    handleClickNext,
-    handleClickPage,
+    ...categoryMenus,
+    ...pagination,
   };
 };
