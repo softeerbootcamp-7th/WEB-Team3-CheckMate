@@ -8,7 +8,7 @@ export const CategorySalesCard = () => {
       className="flex h-80 flex-1 flex-col gap-12"
       title="카테고리별 매출"
     >
-      <div>카테고리별 메출 도넛차트 위치</div>
+      <div>카테고리별 매출 도넛차트 위치</div>
     </MenuAnalysisCard>
   );
 };
