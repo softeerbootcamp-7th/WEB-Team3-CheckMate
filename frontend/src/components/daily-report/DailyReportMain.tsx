@@ -11,7 +11,7 @@ export const DailyReportMain = () => {
 
   return (
     <div className="flex gap-5">
-      <div className="h-fit w-92.5">
+      <div className="h-fit w-96.5">
         <RevenueCalendar
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
