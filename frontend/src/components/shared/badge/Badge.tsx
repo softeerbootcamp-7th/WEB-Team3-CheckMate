@@ -4,7 +4,7 @@ import { cn } from '@/utils/shared';
 
 interface BadgeProps {
   show?: boolean;
-  position?: 'top-left' | 'top-right' | 'right' | 'left';
+  position?: 'top-left' | 'top-right' | 'right';
 }
 export const Badge = ({
   children,
