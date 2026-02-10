@@ -17,7 +17,7 @@ export const DailyReportContent = ({
   const { title, status_label, kpi, insights, strategies } = content;
 
   return (
-    <div className="bg-special-card-bg rounded-400 h-176.5 w-175 p-6">
+    <div className="bg-special-card-bg rounded-400 h-176.5 w-162 overflow-y-auto p-6">
       <div className="flex items-center justify-between">
         <DailyReportTitle selectedDate={selectedDate} title={title} />
         <DailyReportEvaluation status_label={status_label} />

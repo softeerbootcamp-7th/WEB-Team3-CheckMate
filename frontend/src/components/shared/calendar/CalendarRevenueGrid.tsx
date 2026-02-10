@@ -1,37 +1,31 @@
-import {
-  cn,
-  getCurrentDate,
-  isBetweenSelectedDate,
-  isSameDate,
-} from '@/utils/shared';
+import { cn, getCurrentDate, isSameDate } from '@/utils/shared';
 
-import { CalendarDateCell } from './CalendarDateCell';
+import { CalendarRevenueCell } from './CalendarRevenueCell';
 
-interface CalendarDateGridProps {
+interface CalendarRevenueGridProps {
   currentDateForCalendar: Date;
-  selectedStartDate?: Date;
-  selectedEndDate?: Date;
+  selectedDate?: Date;
   lastWeekOfPreviousMonth: number[];
   numberOfDatesForCalendar: number;
   firstWeekOfNextMonth: number[];
   handleSelectDate: (currentDate: Date) => void;
 }
 
-export const CalendarDateGrid = ({
+export const CalendarRevenueGrid = ({
   currentDateForCalendar,
-  selectedStartDate,
-  selectedEndDate,
+  selectedDate,
   lastWeekOfPreviousMonth,
   numberOfDatesForCalendar,
   firstWeekOfNextMonth,
   handleSelectDate,
-}: CalendarDateGridProps) => {
+}: CalendarRevenueGridProps) => {
   const renderDateCell = ({
     date,
     isPreviousMonth,
     isNextMonth,
   }: {
     date: number;
+    revenue?: number;
     isPreviousMonth: boolean;
     isNextMonth: boolean;
   }) => {
@@ -42,25 +36,13 @@ export const CalendarDateGrid = ({
       isNextMonth,
     });
 
-    const isStart = isSameDate({
+    const isSelected = isSameDate({
       currentDate,
-      selectedDate: selectedStartDate,
+      selectedDate,
     });
 
-    const isEnd = isSameDate({
-      currentDate,
-      selectedDate: selectedEndDate,
-    });
-
-    const isSelected = isStart || isEnd;
-
-    const isBetweenStartEndDate = isBetweenSelectedDate({
-      currentDate,
-      selectedStartDate,
-      selectedEndDate,
-    });
     return (
-      <CalendarDateCell
+      <CalendarRevenueCell
         key={
           isPreviousMonth
             ? `prev-${date}`
@@ -69,23 +51,25 @@ export const CalendarDateGrid = ({
               : `curr-${date}`
         }
         date={date}
+        revenue={20000000}
         className={cn(
-          isSelected
-            ? 'before:bg-grey-900 text-grey-50 after:bg-grey-100 before:absolute before:inset-0 before:z-2 before:rounded-[5rem] before:content-[""] after:absolute after:z-1 after:h-full after:w-1/2 after:content-[""]'
-            : (isPreviousMonth || isNextMonth) && 'text-grey-300',
-          isBetweenStartEndDate && 'bg-grey-100',
-          isStart && 'after:right-0',
-          isEnd && 'after:left-0',
+          isSelected &&
+            'before:bg-grey-900 text-grey-50 before:absolute before:z-2 before:size-6 before:-translate-y-2.5 before:rounded-full before:content-[""]',
+          (isPreviousMonth || isNextMonth) && 'text-grey-300',
         )}
         onClick={() => handleSelectDate(currentDate)}
       />
     );
   };
   return (
-    <div className="grid grid-cols-7">
+    <div className="grid grid-cols-7 gap-px">
       {/* 이전 달 */}
       {lastWeekOfPreviousMonth.map((date) =>
-        renderDateCell({ date, isPreviousMonth: true, isNextMonth: false }),
+        renderDateCell({
+          date,
+          isPreviousMonth: true,
+          isNextMonth: false,
+        }),
       )}
 
       {/* 현재 달 */}
@@ -99,7 +83,11 @@ export const CalendarDateGrid = ({
 
       {/* 다음 달 */}
       {firstWeekOfNextMonth.map((date) =>
-        renderDateCell({ date, isPreviousMonth: false, isNextMonth: true }),
+        renderDateCell({
+          date,
+          isPreviousMonth: false,
+          isNextMonth: true,
+        }),
       )}
     </div>
   );

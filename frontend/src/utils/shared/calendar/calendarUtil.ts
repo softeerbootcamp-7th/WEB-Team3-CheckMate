@@ -35,35 +35,23 @@ export const getLastDayOfMonth = (date: Date) => {
 };
 
 /**
- * @description 인자로 주어진 currentDate가 시작 날짜와 동일한지 여부를 반환
+ * @description 인자로 주어진 currentDate가 선택한 날짜와 동일한지 여부를 반환
  * @param currentDate
- * @param selectedStartDate
+ * @param selectedDate
  * @returns
  */
-export const isStartDate = ({
+export const isSameDate = ({
   currentDate,
-  selectedStartDate,
+  selectedDate,
 }: {
   currentDate: Date;
-  selectedStartDate?: Date;
+  selectedDate?: Date;
 }) => {
-  return currentDate.getTime() === selectedStartDate?.getTime();
-};
-
-/**
- * @description 인자로 주어진 currentDate가 종료 날짜와 동일한지 여부를 반환
- * @param currentDate
- * @param selectedEndDate
- * @returns
- */
-export const isEndDate = ({
-  currentDate,
-  selectedEndDate,
-}: {
-  currentDate: Date;
-  selectedEndDate?: Date;
-}) => {
-  return currentDate.getTime() === selectedEndDate?.getTime();
+  return (
+    currentDate.getFullYear() === selectedDate?.getFullYear() &&
+    currentDate.getMonth() === selectedDate?.getMonth() &&
+    currentDate.getDate() === selectedDate?.getDate()
+  );
 };
 
 /**

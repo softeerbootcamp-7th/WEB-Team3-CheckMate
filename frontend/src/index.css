@@ -147,7 +147,7 @@
 
   * {
     scrollbar-width: thin;
-    scrollbar-color: var(--color-grey-300) transparent;
+    scrollbar-color: var(--color-grey-200) transparent;
   }
 }
 
