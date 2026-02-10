@@ -1,4 +1,4 @@
-package com.checkmate.backend.global.auth.oidc;
+package com.checkmate.backend.global.auth;
 
 import com.checkmate.backend.global.exception.BadRequestException;
 import com.checkmate.backend.global.exception.InternalServerException;
