@@ -6,7 +6,7 @@ import {
 } from '@/components/menu';
 export const MenuPage = () => {
   return (
-    <div className="flex size-full flex-col gap-12 py-32.5">
+    <div className="flex h-full max-w-265 flex-col gap-12 py-32.5">
       <PopularMenuOverview />
       <MenuSalesPatternOverview />
       <IngredientConsumptionOverview />
