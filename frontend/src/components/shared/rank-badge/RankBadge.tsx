@@ -8,7 +8,7 @@ import { rankBadgeVariants } from './RankBadgeVariant';
 
 interface RankBadgeProps
   extends VariantProps<typeof rankBadgeVariants>, ComponentProps<'div'> {
-  rank: number | string;
+  rank: number;
 }
 
 export const RankBadge = ({

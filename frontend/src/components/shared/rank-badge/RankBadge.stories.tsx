@@ -10,7 +10,7 @@ const meta = {
     layout: 'centered',
   },
   argTypes: {
-    rank: { control: 'text' },
+    rank: { control: 'number' },
     variant: { control: 'select', options: ['default', 'highlight'] },
     size: { control: 'select', options: ['sm', 'md'] },
   },
