@@ -28,42 +28,21 @@ public class AverageOrderAmountProcessor implements AnalysisProcessor<SalesAnaly
     @Override
     public AnalysisResult process(SalesAnalysisContext context) {
 
-        long currentNetAmount =
+        long currentAverage =
                 Optional.ofNullable(
-                                salesAnalysisRepository.findTotalNetAmount(
+                                salesAnalysisRepository.findAverageOrderAmount(
                                         context.getStoreId(),
                                         context.getStartDate(),
                                         context.getEndDate()))
                         .orElse(0L);
-
-        long currentOrderCount =
-                Optional.ofNullable(
-                                salesAnalysisRepository.countOrders(
-                                        context.getStoreId(),
-                                        context.getStartDate(),
-                                        context.getEndDate()))
-                        .orElse(0L);
-
-        long comparisonNetAmount =
-                Optional.ofNullable(
-                                salesAnalysisRepository.findTotalNetAmount(
-                                        context.getStoreId(),
-                                        context.getComparisonStart(),
-                                        context.getComparisonEnd()))
-                        .orElse(0L);
-
-        long comparisonOrderCount =
-                Optional.ofNullable(
-                                salesAnalysisRepository.countOrders(
-                                        context.getStoreId(),
-                                        context.getComparisonStart(),
-                                        context.getComparisonEnd()))
-                        .orElse(0L);
-
-        long currentAverage = currentOrderCount == 0 ? 0 : currentNetAmount / currentOrderCount;
 
         long comparisonAverage =
-                comparisonOrderCount == 0 ? 0 : comparisonNetAmount / comparisonOrderCount;
+                Optional.ofNullable(
+                                salesAnalysisRepository.findAverageOrderAmount(
+                                        context.getStoreId(),
+                                        context.getComparisonStart(),
+                                        context.getComparisonEnd()))
+                        .orElse(0L);
 
         long difference = currentAverage - comparisonAverage;
 
