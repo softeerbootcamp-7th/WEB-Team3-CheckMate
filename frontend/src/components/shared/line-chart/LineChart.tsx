@@ -88,6 +88,9 @@ export const LineChart = ({
   const {
     svgRect,
     adjustedHeight,
+    xLabelList,
+    xCoordinate,
+    lastXCoordinate,
     primaryCoordinate,
     secondaryCoordinate,
     svgRef,
@@ -115,9 +118,8 @@ export const LineChart = ({
       />
       {hasGradient && (
         <GradientBackground
-          svgRect={svgRect}
           adjustedHeight={adjustedHeight}
-          primaryCordiante={primaryCoordinate}
+          lastXCoordinate={lastXCoordinate}
           gradientId={backgroundGradientId}
         />
       )}
@@ -130,7 +132,7 @@ export const LineChart = ({
       )}
       {showXGuideLine && (
         <XGuideLine
-          coordinate={primaryCoordinate}
+          xCoordinate={xCoordinate}
           svgRect={svgRect}
           adjustedHeight={adjustedHeight}
         />
@@ -143,9 +145,9 @@ export const LineChart = ({
             ref={xAxisRef}
           />
           <XAxisLabel
-            coordinate={primaryCoordinate}
+            xLabelList={xLabelList}
+            xCoordinate={xCoordinate}
             viewBoxHeight={viewBoxHeight}
-            series={primarySeries}
           />
         </>
       )}

@@ -1,7 +1,7 @@
 import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import type { LineChartSeries } from '@/types/shared';
-import { getCoordinate } from '@/utils/shared';
+import { getCoordinate, getXCoordinate } from '@/utils/shared';
 
 interface UseLineChartProps {
   primarySeries: LineChartSeries;
@@ -19,6 +19,20 @@ export const useLineChart = ({
 
   const svgRef = useRef<SVGSVGElement>(null);
   const xAxisRef = useRef<SVGPathElement>(null);
+
+  const xLabelList = useMemo(() => {
+    return primarySeries.data.mainX.map((datum) => datum.amount ?? '');
+  }, [primarySeries.data.mainX]);
+
+  const xCoordinate = useMemo(() => {
+    if (svgRect === null) {
+      return [];
+    }
+    return getXCoordinate({
+      svgRect,
+      xDataLength: primarySeries.data.mainX.length,
+    });
+  }, [svgRect, primarySeries.data.mainX.length]);
 
   const maximumY = useMemo(() => {
     const totalData = [
@@ -47,6 +61,18 @@ export const useLineChart = ({
       maximumY,
     });
   }, [svgRect, adjustedHeight, primarySeries, maximumY]);
+
+  const lastXCoordinate = useMemo(() => {
+    const filteredCoordinate = primaryCoordinate.filter(
+      (point): point is number[] => point[1] !== null,
+    );
+
+    if (filteredCoordinate.length === 0) {
+      return 0;
+    }
+
+    return filteredCoordinate[filteredCoordinate.length - 1][0];
+  }, [primaryCoordinate]);
 
   const secondaryCoordinate = useMemo(() => {
     if (svgRect === null || secondarySeries === undefined) {
@@ -78,6 +104,9 @@ export const useLineChart = ({
   return {
     svgRect,
     adjustedHeight,
+    xLabelList,
+    xCoordinate,
+    lastXCoordinate,
     primaryCoordinate,
     secondaryCoordinate,
     svgRef,

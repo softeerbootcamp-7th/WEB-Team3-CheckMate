@@ -1,38 +1,27 @@
+import { memo } from 'react';
+
 interface GradientBackgroundProps {
-  svgRect: DOMRect | null;
   adjustedHeight: number;
-  primaryCordiante: (number | null)[][];
+  lastXCoordinate: number;
   gradientId: string;
 }
+export const GradientBackground = memo(
+  ({
+    adjustedHeight,
+    lastXCoordinate,
+    gradientId,
+  }: GradientBackgroundProps) => {
+    return (
+      <rect
+        x={0}
+        y={0}
+        width={lastXCoordinate}
+        height={adjustedHeight}
+        fill={`url(#${gradientId})`}
+        className="transition-all duration-1000"
+      />
+    );
+  },
+);
 
-export const GradientBackground = ({
-  svgRect,
-  adjustedHeight,
-  primaryCordiante,
-  gradientId,
-}: GradientBackgroundProps) => {
-  if (svgRect === null) {
-    return null;
-  }
-
-  const filteredCordinate: number[][] = primaryCordiante.filter(
-    (point): point is number[] => point[1] !== null,
-  );
-
-  if (filteredCordinate.length === 0) {
-    return null;
-  }
-
-  const lastXCordinate = filteredCordinate[filteredCordinate.length - 1][0];
-
-  return (
-    <rect
-      x={0}
-      y={0}
-      width={lastXCordinate}
-      height={adjustedHeight}
-      fill={`url(#${gradientId})`}
-      className="transition-all duration-1000"
-    />
-  );
-};
+GradientBackground.displayName = 'GradientBackground';

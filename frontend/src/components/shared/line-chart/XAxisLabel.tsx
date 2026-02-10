@@ -1,29 +1,32 @@
-import type { LineChartSeries } from '@/types/shared';
+import { memo } from 'react';
+
+import { LINE_CHART } from '@/constants/shared';
 
 interface XAxisLabelProps {
-  coordinate: (number | null)[][];
   viewBoxHeight: number;
-  series: LineChartSeries;
+  xLabelList: (string | number)[];
+  xCoordinate: number[][];
 }
 
-export const XAxisLabel = ({
-  coordinate,
-  viewBoxHeight,
-  series,
-}: XAxisLabelProps) => {
-  return (
-    <g className="flex justify-between">
-      {coordinate.map(([x], index) => (
-        <text
-          key={index}
-          x={x ?? 0}
-          y={viewBoxHeight - 5}
-          textAnchor="middle"
-          className="text-grey-900 body-small-medium"
-        >
-          <tspan>{series.data.mainX[index].amount}</tspan>
-        </text>
-      ))}
-    </g>
-  );
-};
+export const XAxisLabel = memo(
+  ({ viewBoxHeight, xLabelList, xCoordinate }: XAxisLabelProps) => {
+    const { X_AXIS_LABEL_OFFSET } = LINE_CHART;
+    return (
+      <g className="flex justify-between">
+        {xCoordinate.map(([x], index) => (
+          <text
+            key={index}
+            x={x ?? 0}
+            y={viewBoxHeight - X_AXIS_LABEL_OFFSET}
+            textAnchor="middle"
+            className="text-grey-900 body-small-medium"
+          >
+            <tspan>{xLabelList[index]}</tspan>
+          </text>
+        ))}
+      </g>
+    );
+  },
+);
+
+XAxisLabel.displayName = 'XAxisLabel';
