@@ -1,3 +1,4 @@
+import { MENU_COMBINATION } from '@/constants/menu';
 import type { MenuCombinationRank } from '@/types/menu';
 
 import { MenuCombinationItem } from './MenuCombinationItem';
@@ -25,7 +26,9 @@ export const MenuCombinationList = ({
         </span>
         <ul className="flex flex-col gap-1">
           {combinationRank.map((combinationItem) => {
-            const isHighlight = combinationItem.rank <= 3;
+            const isHighlight =
+              combinationItem.rank <=
+              MENU_COMBINATION.HIGHLIGHT_COMBINATION_THRESHOLD;
             return (
               <MenuCombinationItem
                 key={combinationItem.rank}
