@@ -167,6 +167,18 @@
       'sidebar main' 1fr
       'sidebar footer' 6.25rem / 18.75rem 1fr;
   }
+
+  .onboarding-sidebar {
+    grid-area: sidebar;
+  }
+
+  .onboarding-main {
+    grid-area: main;
+  }
+
+  .onboarding-footer {
+    grid-area: footer;
+  }
 }
 @utility no-spinner {
   -moz-appearance: textfield;
