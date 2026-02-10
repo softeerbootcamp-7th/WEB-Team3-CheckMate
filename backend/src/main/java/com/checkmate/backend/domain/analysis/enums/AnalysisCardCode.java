@@ -7,6 +7,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum AnalysisCardCode {
 
+    /*
+     * 카드 사이즈가 null 인 경우는 실제 지표 카드가 아님. 편의상으로 구현되어 있는 것
+     * */
+
     // 매출 - 현황 > 실매출
     SLS_01_01(
             "오늘 실매출",
