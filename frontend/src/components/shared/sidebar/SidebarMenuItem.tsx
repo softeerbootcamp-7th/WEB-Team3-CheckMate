@@ -13,7 +13,7 @@ interface SidebarMenuItemProps {
 }
 export const SidebarMenuItem = memo(({ menu }: SidebarMenuItemProps) => {
   return (
-    <ul key={menu.id}>
+    <li>
       {/* 각 메뉴 선택 버튼(대시보드, 상세분석, 하루리포트, 환경설정)  */}
       <NavLink
         className={({ isActive }) =>
@@ -42,7 +42,7 @@ export const SidebarMenuItem = memo(({ menu }: SidebarMenuItemProps) => {
           ))}
         </ul>
       )}
-    </ul>
+    </li>
   );
 });
 SidebarMenuItem.displayName = 'SidebarMenuItem';
