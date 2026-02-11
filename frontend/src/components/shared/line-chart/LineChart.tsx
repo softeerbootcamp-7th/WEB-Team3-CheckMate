@@ -1,10 +1,9 @@
 import { useLineChart, useLineChartId } from '@/hooks/shared';
 import type { LineChartSeries } from '@/types/shared';
 
-import { Dots } from './Dots';
 import { GradientBackground } from './GradientBackground';
-import { Line } from './Line';
 import { LineChartGradient } from './LineChartGradient';
+import { Series } from './Series';
 import { XAxis } from './XAxis';
 import { XAxisLabel } from './XAxisLabel';
 import { XGuideLine } from './XGuideLine';
@@ -152,33 +151,24 @@ export const LineChart = ({
           />
         </>
       )}
-      <Line
+      <Series
         coordinate={primaryCoordinate}
         color={primarySeries.color}
         hasGradient={hasGradient}
         gradientId={lineGradientId}
-      />
-      <Dots
         series={primarySeries}
         activeTooltip={activeTooltip}
         tooltipContent={tooltipContent}
-        coordinate={primaryCoordinate}
-        color={primarySeries.color}
       />
+
       {secondarySeries && (
-        <>
-          <Line
-            coordinate={secondaryCoordinate}
-            color={secondarySeries.color}
-          />
-          <Dots
-            series={secondarySeries}
-            activeTooltip={activeTooltip}
-            tooltipContent={tooltipContent}
-            coordinate={secondaryCoordinate}
-            color={secondarySeries.color}
-          />
-        </>
+        <Series
+          coordinate={secondaryCoordinate}
+          color={secondarySeries.color}
+          series={secondarySeries}
+          activeTooltip={activeTooltip}
+          tooltipContent={tooltipContent}
+        />
       )}
     </svg>
   );
