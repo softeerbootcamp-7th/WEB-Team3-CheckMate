@@ -10,7 +10,7 @@ export const analysisRoutes: RouteObject = {
   children: [
     {
       index: true,
-      element: <Navigate to="sales" replace />,
+      element: <Navigate to={ROUTE_PATHS.ANALYSIS.SALES} replace />,
     },
     { path: ROUTE_PATHS.ANALYSIS.SALES, Component: SalesPage },
     { path: ROUTE_PATHS.ANALYSIS.MENU, Component: MenuPage },
