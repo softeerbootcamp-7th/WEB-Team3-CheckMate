@@ -2,18 +2,16 @@ import { Link } from 'react-router-dom';
 
 import CardsIcon from '@/assets/icons/cards.svg?react';
 import { ROUTE_PATHS } from '@/constants/shared';
+import { useDashboardTabsContext } from '@/hooks/dashboard';
 
-interface DashboardEditButtonProps {
-  tabName?: string;
-}
-export const DashboardEditButton = ({
-  tabName = '홈 대시보드', // 임시
-}: DashboardEditButtonProps) => {
+export const DashboardEditButton = () => {
+  const { tabs, currentTabIndex } = useDashboardTabsContext();
+
   return (
     <Link
       to={{
         pathname: ROUTE_PATHS.DASHBOARD.EDIT,
-        search: `?tab=${tabName}`,
+        search: `?tab=${tabs[currentTabIndex]}`,
       }}
       aria-label="현재 탭의 지표카드 편집"
       className="bg-grey-0 text-grey-700 body-medium-medium rounded-200 flex w-fit gap-200 border-none p-300 pl-250 shadow-none"
