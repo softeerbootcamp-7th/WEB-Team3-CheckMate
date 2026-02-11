@@ -1,16 +1,18 @@
 import type { LineChartSeries } from '@/types/shared';
 
+interface GetCoordinateArgs {
+  svgRect: DOMRect;
+  adjustedHeight: number;
+  series: LineChartSeries;
+  maximumY: number;
+}
+
 export const getCoordinate = ({
   svgRect,
   adjustedHeight,
   series,
   maximumY,
-}: {
-  svgRect: DOMRect;
-  adjustedHeight: number;
-  series: LineChartSeries;
-  maximumY: number;
-}): (number | null)[][] => {
+}: GetCoordinateArgs): (number | null)[][] => {
   const { width: svgWidth } = svgRect;
   const xDataLength = series.data.mainX.length;
 
