@@ -8,6 +8,7 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/shared/shadcn-ui';
+import { CDN_BASE_URL } from '@/constants/shared';
 import { cn } from '@/utils/shared';
 
 export const DashboardEditLayout = () => {
@@ -35,8 +36,9 @@ export const DashboardEditLayout = () => {
                   </Button>
                   <div className="flex h-full flex-col items-center justify-center">
                     <img
-                      src="placeholder.png"
+                      src={`${CDN_BASE_URL}/assets/images/bar_chart.svg`}
                       alt="판매유형별 매출 그래프 미니 뷰"
+                      className="size-15"
                     />
                     <p className="body-small-medium text-grey-900 mt-200 mb-100">
                       판매유형별 매출
@@ -49,7 +51,7 @@ export const DashboardEditLayout = () => {
           ))}
         </div>
       </section>
-      <section className="bg-special-card-bg w-[800px] pt-20 pr-[20px] pl-12.5">
+      <section className="bg-special-card-bg min-w-[800px] pt-20 pr-5 pl-12.5">
         <header className="flex items-center justify-between">
           <h1 className="title-large-bold text-grey-900">카드 편집</h1>
           <div>
