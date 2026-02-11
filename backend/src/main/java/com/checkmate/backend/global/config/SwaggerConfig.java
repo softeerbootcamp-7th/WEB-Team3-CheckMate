@@ -98,7 +98,9 @@ public class SwaggerConfig {
 
                                                             if (path.startsWith("/api")
                                                                     || path.equals(
-                                                                            "/auth/status")) {
+                                                                            "/auth/status")
+                                                        || path.startsWith("/auth/refresh")
+                                                            || path.startsWith("/auth/logout")) {
                                                                 addJwtAuthErrors(responses);
                                                             }
 
@@ -114,7 +116,7 @@ public class SwaggerConfig {
         responses.addApiResponse(
                 "401",
                 new ApiResponse()
-                        .description("액세스 토큰 관련 오류")
+                        .description("토큰 오류")
                         .content(
                                 new Content()
                                         .addMediaType(
@@ -173,8 +175,8 @@ public class SwaggerConfig {
     private Example createExample(String summary, String message, String errorCode) {
         Map<String, Object> errorResponse = new LinkedHashMap<>();
         errorResponse.put("success", false);
-        errorResponse.put("errorCode", errorCode);
         errorResponse.put("message", message);
+        errorResponse.put("errorCode", errorCode);
 
         return new Example().summary(summary).value(errorResponse);
     }
