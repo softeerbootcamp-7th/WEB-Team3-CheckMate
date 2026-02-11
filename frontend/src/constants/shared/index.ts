@@ -22,9 +22,4 @@ export { RANKING_COLORS, DOUGHNUT_CHART_DEFAULT } from './doughnut-chart';
 export { EDIT_CARD_WRAPPER } from './edit-card-wrapper';
 
 export { ONE_HUNDRED_MILLION, TEN_THOUSAND } from './number';
-export {
-  LINE_CHART,
-  PRIMARY_SERIES_MOCK,
-  SECONDARY_SERIES_MOCK,
-  WEEKLY_DATA,
-} from './line-chart';
+export { LINE_CHART } from './line-chart';

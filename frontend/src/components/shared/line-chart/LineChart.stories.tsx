@@ -7,7 +7,7 @@ import {
   PRIMARY_SERIES_MOCK,
   SECONDARY_SERIES_MOCK,
   WEEKLY_DATA,
-} from '@/constants/shared';
+} from '@/mocks/data';
 
 import { LineChart } from './LineChart';
 
