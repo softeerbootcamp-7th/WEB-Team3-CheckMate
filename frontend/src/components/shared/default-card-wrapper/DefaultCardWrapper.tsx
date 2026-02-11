@@ -1,13 +1,12 @@
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 
 import { ChevronRight } from 'lucide-react';
 
-import { DEFAULT_CARD_WRAPPER_SIZE } from '@/constants/shared';
 import { cn } from '@/utils/shared';
 
 import { Button } from '../shadcn-ui';
 
-interface DefaultCardWrapperProps {
+interface DefaultCardWrapperProps extends ComponentProps<'article'> {
   children: ReactNode;
   title?: string;
   hasChevronRightIcon?: boolean;
@@ -18,27 +17,32 @@ interface DefaultCardWrapperProps {
 }
 
 export const DefaultCardWrapper = ({
+  /** DefaultCardWrapper 자식 컴포넌트 */
   children,
+  /** DefaultCardWrapper 제목 */
   title,
+  /** DefaultCardWrapper 오른쪽 아이콘 여부 */
   hasChevronRightIcon = false,
+  /** DefaultCardWrapper 오른쪽 아이콘 클릭 핸들러 */
   onClickChevronRightIcon,
+  /** DefaultCardWrapper 클래스명 */
   className,
-  width = DEFAULT_CARD_WRAPPER_SIZE.width,
-  height = DEFAULT_CARD_WRAPPER_SIZE.height,
+  /** 기타 article 태그 속성들 */
+  ...props
 }: DefaultCardWrapperProps) => {
   return (
     <article
-      style={{ width, height }}
       className={cn(
-        'bg-special-card-bg rounded-400 relative flex flex-col justify-between p-5',
+        'bg-special-card-bg rounded-400 relative flex h-57 w-85 flex-col justify-between p-5',
         className,
       )}
+      {...props}
     >
       {(title || hasChevronRightIcon) && (
         <div className="text-grey-700 relative flex items-center">
           {title && <h3 className="body-medium-semibold">{title}</h3>}
           {hasChevronRightIcon && (
-            <Button className="!p-0" onClick={onClickChevronRightIcon}>
+            <Button className="p-0!" onClick={onClickChevronRightIcon}>
               <ChevronRight className="size-4" />
             </Button>
           )}

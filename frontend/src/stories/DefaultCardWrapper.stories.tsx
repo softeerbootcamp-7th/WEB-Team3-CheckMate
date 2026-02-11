@@ -13,8 +13,6 @@ const meta: Meta<typeof DefaultCardWrapper> = {
     hasChevronRightIcon: { control: 'boolean' },
     onClickChevronRightIcon: { action: 'onClickChevronRightIcon' },
     className: { control: 'text' },
-    width: { control: { type: 'number', min: 0 } },
-    height: { control: { type: 'number', min: 0 } },
     children: { control: false },
   },
 };
@@ -25,7 +23,7 @@ type Story = StoryObj<typeof DefaultCardWrapper>;
 
 const SampleChild = () => {
   return (
-    <div className="flex flex-col gap-[6px]">
+    <div className="flex flex-col gap-1.5">
       <div className="title-large-semibold break-keep">
         포장용기/소모품/배달 메뉴 노출을 점검해보세요
       </div>
