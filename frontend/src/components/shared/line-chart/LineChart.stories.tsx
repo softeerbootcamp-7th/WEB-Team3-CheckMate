@@ -52,6 +52,10 @@ const meta = {
     chartDescription: {
       control: 'text',
     },
+    xAxisType: {
+      control: 'select',
+      options: ['default', 'tick', 'right-arrow'],
+    },
   },
 } satisfies Meta<typeof LineChart>;
 
@@ -73,6 +77,7 @@ export const Default: Story = {
     tooltipContent: (mainY, subY) => `${mainY} (${subY})`,
     chartTitle: '일별 매출 꺾은선 차트',
     chartDescription: '일별 매출 꺾은선 차트 설명',
+    xAxisType: 'right-arrow',
   },
   render: (args) => (
     <TooltipProvider>
@@ -216,6 +221,7 @@ export const Realtime: Story = {
     activeTooltip: true,
     tooltipContent: (mainY, subY) => `${mainY} (${subY})`,
     yGuideLineCount: 4,
+    xAxisType: 'tick',
   },
   render: (args) => (
     <TooltipProvider>

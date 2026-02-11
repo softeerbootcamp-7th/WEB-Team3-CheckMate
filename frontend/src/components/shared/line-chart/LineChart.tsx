@@ -1,5 +1,5 @@
 import { useLineChart, useLineChartId } from '@/hooks/shared';
-import type { LineChartSeries } from '@/types/shared';
+import type { LineChartSeries, XAxisType } from '@/types/shared';
 
 import { GradientBackground } from './GradientBackground';
 import { LineChartGradient } from './LineChartGradient';
@@ -65,6 +65,10 @@ interface LineChartProps {
    * 꺾은선 차트 설명 (desc 태그 내용: 스크린 리더 접근성 시 사용)
    */
   chartDescription?: string;
+  /**
+   * X축 타입 (일반, 양쪽 세로선, 오른쪽 화살표)
+   */
+  xAxisType: XAxisType;
 }
 
 export const LineChart = ({
@@ -81,6 +85,7 @@ export const LineChart = ({
   tooltipContent = (...args: string[]) => args.join(' '),
   chartTitle,
   chartDescription,
+  xAxisType,
 }: LineChartProps) => {
   const { lineGradientId, backgroundGradientId, titleId, descId } =
     useLineChartId();
@@ -144,6 +149,7 @@ export const LineChart = ({
           <XAxis
             viewBoxWidth={viewBoxWidth}
             viewBoxHeight={viewBoxHeight}
+            axisType={xAxisType}
             ref={xAxisRef}
           />
           <XAxisLabel

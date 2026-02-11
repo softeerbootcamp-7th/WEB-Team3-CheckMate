@@ -11,4 +11,5 @@ export type {
   LineChartData,
   LineChartSeries,
   Coordinate,
+  XAxisType,
 } from './line-chart';
