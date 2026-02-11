@@ -24,7 +24,7 @@ export const MenuCombinationList = ({
         <span className="body-small-semibold text-grey-700">
           함께 가장 많이 선택된 메뉴
         </span>
-        <ul className="flex flex-col gap-1">
+        <ol className="flex flex-col gap-1">
           {combinationRank.map((combinationItem) => {
             const isHighlight =
               combinationItem.rank <=
@@ -37,7 +37,7 @@ export const MenuCombinationList = ({
               />
             );
           })}
-        </ul>
+        </ol>
       </div>
     </div>
   );
