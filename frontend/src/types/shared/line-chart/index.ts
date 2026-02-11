@@ -2,4 +2,4 @@ export type {
   LineChartDatum,
   LineChartData,
   LineChartSeries,
-} from './LineChartData';
+} from './lineChartDataType';
