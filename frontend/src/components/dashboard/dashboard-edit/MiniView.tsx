@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom';
 
-import { MiniViewCard } from './MiniViewCard';
+import { MiniViewActiveCard } from './MiniViewActiveCard';
+import { MiniViewEmptyCard } from './MiniViewEmtpyCard';
 
 export const MiniView = () => {
   const searchParams = new URLSearchParams(useLocation().search);
@@ -27,15 +28,11 @@ export const MiniView = () => {
       <div className="grid grow grid-cols-3 grid-rows-3 gap-5">
         {/* 가이드라인 */}
         {Array.from({ length: 9 }).map((_, index) => (
-          <MiniViewCard
-            key={`grid-${index}`}
-            posX={(index % 3) + 1}
-            posY={Math.floor(index / 3) + 1}
-          />
+          <MiniViewEmptyCard key={`grid-${index}`} />
         ))}
         {/* 활성 카드 */}
         {activeCard.map((card) => (
-          <MiniViewCard
+          <MiniViewActiveCard
             key={card.code}
             cardCode={card.code}
             posX={card.posX}
