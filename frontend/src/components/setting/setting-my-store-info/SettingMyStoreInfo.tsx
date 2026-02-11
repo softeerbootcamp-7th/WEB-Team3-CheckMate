@@ -22,7 +22,7 @@ export const SettingMyStoreInfo = () => {
           <div className="flex w-95 flex-col gap-12.5">
             <SettingMyStoreName storeName={data.storeName} />
             <SettingMyStoreSalesClosingTime
-              salesClosingTime={data.salesClosingTime}
+              salesClosingTime={data.salesClosingHour}
             />
           </div>
           <SettingMyStoreBusinessHours
