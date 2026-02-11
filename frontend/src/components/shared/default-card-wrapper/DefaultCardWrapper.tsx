@@ -38,7 +38,7 @@ export const DefaultCardWrapper = ({
         <div className="text-grey-700 relative flex items-center">
           {title && <h3 className="body-medium-semibold">{title}</h3>}
           {hasChevronRightIcon && (
-            <Button className="!p-0" onClick={onClickChevronRightIcon}>
+            <Button className="p-0!" onClick={onClickChevronRightIcon}>
               <ChevronRight className="size-4" />
             </Button>
           )}
