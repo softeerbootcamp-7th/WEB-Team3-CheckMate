@@ -1,4 +1,7 @@
+import { useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+
+import { DASHBOARD_METRIC_CARDS } from '@/constants/dashboard';
 
 import { MiniViewActiveCard } from './MiniViewActiveCard';
 import { MiniViewEmptyCard } from './MiniViewEmtpyCard';
@@ -7,7 +10,7 @@ export const MiniView = () => {
   const searchParams = new URLSearchParams(useLocation().search);
   const title = searchParams.get('tab') || '알 수 없음';
 
-  const activeCard = [
+  const [activeCard] = useState([
     {
       code: 'SLS_01_01',
       posX: 1,
@@ -18,7 +21,17 @@ export const MiniView = () => {
       posX: 1,
       posY: 3,
     },
-  ];
+  ]);
+
+  const emptyCellCount = useMemo(
+    () =>
+      9 -
+      activeCard.reduce((sum, card) => {
+        const { sizeX, sizeY } = DASHBOARD_METRIC_CARDS[card.code];
+        return sum + sizeX * sizeY;
+      }, 0),
+    [activeCard],
+  );
 
   return (
     <section className="flex min-w-120 grow flex-col p-6.25 pt-20">
@@ -27,7 +40,7 @@ export const MiniView = () => {
       </header>
       <div className="grid grow grid-cols-3 grid-rows-3 gap-5">
         {/* 가이드라인 */}
-        {Array.from({ length: 9 }).map((_, index) => (
+        {Array.from({ length: emptyCellCount }).map((_, index) => (
           <MiniViewEmptyCard key={`grid-${index}`} />
         ))}
         {/* 활성 카드 */}
