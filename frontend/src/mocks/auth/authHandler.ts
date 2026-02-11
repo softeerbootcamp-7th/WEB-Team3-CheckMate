@@ -29,7 +29,7 @@ const getHandler = [
         data: {
           email: 'john.doe@example.com',
           hasStore: mockDb.hasStore,
-          hasPosIntegration: true,
+          hasPosIntegration: mockDb.hasPosIntegration,
         },
       },
       {
@@ -41,7 +41,7 @@ const getHandler = [
 
 const postHandler = [
   mswHttp.post('/auth/refresh', () => {
-    HttpResponse.json<SuccessResponse<PostAuthRefreshResponseDto>>(
+    return HttpResponse.json<SuccessResponse<PostAuthRefreshResponseDto>>(
       {
         success: true,
         message: 'Success',

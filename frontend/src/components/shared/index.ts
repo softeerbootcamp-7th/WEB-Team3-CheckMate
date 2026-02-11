@@ -8,6 +8,7 @@ export { OnboardingLayout } from './onboarding-layout';
 export { Input } from './input';
 export { DefaultCardWrapper } from './default-card-wrapper';
 export { Spinner } from './spinner';
+export { RankBadge } from './rank-badge';
 export { StateWrapper } from './state-wrapper';
 export { Badge } from './badge';
 export { DoughnutChart } from './doughnut-chart';

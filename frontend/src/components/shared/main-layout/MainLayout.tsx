@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { Outlet, type UIMatch, useMatches } from 'react-router-dom';
 
 import type { RouteHandle } from '@/types/shared';
@@ -13,12 +14,16 @@ export const MainLayout = () => {
   const matches = useMatches() as UIMatch<unknown, RouteHandle>[];
   const hideSidebar = matches.some((m) => m.handle && m.handle.hideSidebar);
 
+  const mainRef = useRef<HTMLDivElement>(null);
   return (
     <div className="flex h-screen w-full">
       {!hideSidebar && <Sidebar />}
-      <main className="bg-special-dashboard-bg flex flex-1 justify-center-safe overflow-x-scroll overflow-y-scroll">
+      <main
+        ref={mainRef}
+        className="bg-special-dashboard-bg flex flex-1 justify-center-safe overflow-x-auto overflow-y-auto"
+      >
         <div className={cn(hideSidebar ? 'w-full' : 'mx-10 w-265')}>
-          <Outlet />
+          <Outlet context={{ mainRef }} />
         </div>
       </main>
     </div>

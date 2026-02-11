@@ -7,6 +7,8 @@ import com.checkmate.backend.global.auth.LoginMember;
 import com.checkmate.backend.global.auth.MemberSession;
 import com.checkmate.backend.global.response.ApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
@@ -31,13 +33,34 @@ public class IngredientController {
     @ApiResponses({
         @io.swagger.v3.oas.annotations.responses.ApiResponse(
                 responseCode = "200",
-                description = "식재료 조회에 성공했습니다."),
-        @io.swagger.v3.oas.annotations.responses.ApiResponse(
-                responseCode = "404",
-                description = "매장을 찾을 수 없습니다."),
+                description = "식재료 조회 성공",
+                content =
+                        @Content(
+                                mediaType = "application/json",
+                                examples =
+                                        @ExampleObject(
+                                                name = "성공 응답 예시",
+                                                value =
+                                                        "{\n"
+                                                                + "  \"success\": true,\n"
+                                                                + "  \"message\": \"식재료 조회에 성공했습니다.\",\n"
+                                                                + "  \"data\": [\"양파\", \"대파\", \"당근\"]\n"
+                                                                + "}"))),
         @io.swagger.v3.oas.annotations.responses.ApiResponse(
                 responseCode = "500",
-                description = "서버 내부 오류가 발생했습니다."),
+                description = "서버 내부 오류",
+                content =
+                        @Content(
+                                mediaType = "application/json",
+                                examples =
+                                        @ExampleObject(
+                                                name = "서버 오류 예시",
+                                                value =
+                                                        "{\n"
+                                                                + "  \"success\": false,\n"
+                                                                + "  \"message\": \"서버 내부 오류가 발생했습니다.\",\n"
+                                                                + "  \"errorCode\": \"INTERNAL_SERVER_ERROR\"\n"
+                                                                + "}")))
     })
     @GetMapping
     public ResponseEntity<ApiResponse<List<String>>> findIngredientBy(
