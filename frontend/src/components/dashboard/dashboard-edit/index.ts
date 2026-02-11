@@ -1,0 +1,1 @@
+export { CardEditionDialogContent } from './CardEditionDialogContent';
