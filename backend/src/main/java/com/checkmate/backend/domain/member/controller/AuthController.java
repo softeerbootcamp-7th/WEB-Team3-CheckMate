@@ -219,7 +219,17 @@ public class AuthController {
                                             name = "토큰 불일치",
                                             summary = "저장된 토큰과 다름",
                                             value =
-                                                    "{ \"success\": false, \"message\": \"저장된 리프레시 토큰과 일치하지 않습니다.\", \"errorCode\": \"REFRESH_TOKEN_MISMATCH\" }")
+                                                    "{ \"success\": false, \"message\": \"저장된 리프레시 토큰과 일치하지 않습니다.\", \"errorCode\": \"REFRESH_TOKEN_MISMATCH\" }"),
+                                    @ExampleObject(
+                                            name = "유효하지 않은 토큰",
+                                            summary = "토큰 형식이 잘못됨",
+                                            value =
+                                                    "{ \"success\": false, \"message\": \"유효하지 않은 리프레시 토큰입니다.\", \"errorCode\": \"INVALID_REFRESH_TOKEN\" }"),
+                                    @ExampleObject(
+                                            name = "토큰 만료",
+                                            summary = "리프레시 토큰 기한 만료",
+                                            value =
+                                                    "{ \"success\": false, \"message\": \"만료된 리프레시 토큰입니다.\", \"errorCode\": \"EXPIRED_REFRESH_TOKEN\" }")
                                 })),
         @io.swagger.v3.oas.annotations.responses.ApiResponse(
                 responseCode = "404",
