@@ -48,7 +48,7 @@ export const IngredientGrid = ({
           메뉴 제조에 필요한 식재료를 등록해주세요
         </div>
       ) : (
-        <div className="!body-medium-semibold grid auto-rows-[42px] grid-cols-2 gap-x-12 gap-y-6">
+        <div className="body-medium-semibold! auto-rows-10.5 grid grid-cols-2 gap-x-12 gap-y-6">
           {fields.map((field, index) => (
             <div key={field.id} className="flex h-full items-center gap-2.5">
               <IngredientMenuInput
@@ -73,7 +73,7 @@ export const IngredientGrid = ({
               />
 
               <Button
-                className="!P-0 text-grey-600 size-6"
+                className="text-grey-600 size-6 p-0!"
                 type="button"
                 onClick={() => {
                   onClickDeleteIngredient(index);

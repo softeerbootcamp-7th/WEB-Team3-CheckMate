@@ -1,5 +1,6 @@
 import { useFieldArray, useForm } from 'react-hook-form';
 
+import { DEFAULT_INGREDIENT } from '@/constants/ingredient';
 import type { IngredientFormValues } from '@/types/ingredient';
 
 interface UseIngredientFormParams {
@@ -27,9 +28,19 @@ export const useIngredientForm = ({
     return !ifAnyFieldFilled;
   };
 
+  const handleAddIngredient = () => {
+    fieldArrayMethods.append(DEFAULT_INGREDIENT);
+  };
+
+  const handleRemoveIngredient = (index: number) => {
+    fieldArrayMethods.remove(index);
+  };
+
   return {
     formMethods,
     fieldArrayMethods,
     isIngredientRowEmpty,
+    handleAddIngredient,
+    handleRemoveIngredient,
   };
 };

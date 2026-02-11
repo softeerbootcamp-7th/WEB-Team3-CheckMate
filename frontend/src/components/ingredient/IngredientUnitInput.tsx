@@ -10,6 +10,7 @@ import {
 } from '@/components/shared/shadcn-ui';
 import { INGREDIENT_UNIT } from '@/constants/ingredient';
 import type { IngredientFormValues } from '@/types/ingredient';
+import { checkValidation } from '@/utils/ingredient';
 import { cn } from '@/utils/shared';
 
 import { IngredientUnitSelectItem } from './IngredientUnitSelectItem';
@@ -33,12 +34,11 @@ export const IngredientUnitInput = ({
       control={control}
       rules={{
         validate: (currentFieldValue) => {
-          // 한 행의 모든 값 비어있으면 오류 발생 안시키고 검증 통과
-          if (isIngredientRowEmpty(index)) {
-            return true;
-          }
-          // 단위는 반드시 선택되어야 함
-          return currentFieldValue.length > 0;
+          return checkValidation({
+            isIngredientRowEmpty,
+            index,
+            currentFieldValue,
+          });
         },
       }}
       render={({ field }) => {
@@ -49,7 +49,7 @@ export const IngredientUnitInput = ({
                 formErrors.ingredients?.[index]?.unit
                   ? 'border-others-negative'
                   : 'border-transparent',
-                'bg-grey-200 rounded-150 !h-10.5 !w-19 shrink-0 gap-0 border px-250 py-200',
+                'bg-grey-200 rounded-150 h-10.5! w-19! shrink-0 gap-0 border px-250 py-200',
               )}
             >
               <div
@@ -68,13 +68,16 @@ export const IngredientUnitInput = ({
               position={'popper'}
             >
               <SelectGroup>
-                <IngredientUnitSelectItem unit={INGREDIENT_UNIT.ml} />
-                <SelectSeparator />
-                <IngredientUnitSelectItem unit={INGREDIENT_UNIT.L} />
-                <SelectSeparator />
-                <IngredientUnitSelectItem unit={INGREDIENT_UNIT.g} />
-                <SelectSeparator />
-                <IngredientUnitSelectItem unit={INGREDIENT_UNIT.kg} />
+                {Object.values(INGREDIENT_UNIT).map((unit, index) => {
+                  return (
+                    <>
+                      <IngredientUnitSelectItem unit={unit} />
+                      {index !== Object.values(INGREDIENT_UNIT).length - 1 && (
+                        <SelectSeparator />
+                      )}
+                    </>
+                  );
+                })}
               </SelectGroup>
             </SelectContent>
           </Select>

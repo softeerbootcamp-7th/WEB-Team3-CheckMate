@@ -26,7 +26,7 @@ export const IngredientEditDialogHeader = ({
 
   return (
     <DialogHeader className="flex w-full flex-row items-center justify-between self-start">
-      <DialogTitle className="!title-large-semibold text-grey-900">
+      <DialogTitle className="title-large-semibold! text-grey-900">
         {menuName}
       </DialogTitle>
       <div className="flex gap-[14px]">

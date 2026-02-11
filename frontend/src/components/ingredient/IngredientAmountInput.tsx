@@ -6,6 +6,7 @@ import type {
 
 import { Input } from '@/components/shared/shadcn-ui';
 import type { IngredientFormValues } from '@/types/ingredient';
+import { checkValidation } from '@/utils/ingredient';
 import { cn } from '@/utils/shared';
 
 interface IngredientAmountInputProps {
@@ -23,34 +24,39 @@ export const IngredientAmountInput = ({
   isIngredientRowEmpty,
   setValue,
 }: IngredientAmountInputProps) => {
+  // 용량 입력값 변경 핸들러
+  const handleAmountInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // 입력제한(5글자)있음 -> 너무 길면 입력 아예 안되도록
+    const lengthLimit = 5;
+    const slicedString = e.currentTarget.value.slice(0, lengthLimit);
+
+    // dom에 반영
+    e.currentTarget.value = slicedString;
+    //  RHF에게 변경 사항 알림
+    setValue(`ingredients.${index}.amount`, slicedString);
+  };
   return (
     <Input
       autoComplete="off"
-      maxLength={5}
+      type="number"
       {...register(`ingredients.${index}.amount`, {
         validate: (currentFieldValue) => {
-          // 한 행의 모든 값 비어있으면 오류 발생 안시키고 검증 통과
-          if (isIngredientRowEmpty(index)) {
-            return true;
-          }
-          // 용량은 반드시 입력되어야 함
-          return currentFieldValue.length > 0;
+          return checkValidation({
+            isIngredientRowEmpty,
+            index,
+            currentFieldValue,
+          });
         },
       })}
-      onInput={(e) => {
-        // 숫자만 입력되도록 실시간 필터링 -> 검증때만 입력 불가가 아니라 애초에 입력 불가능하게
-        const onlyNumbers = e.currentTarget.value.replace(/[^0-9]/g, '');
-        // dom에 반영
-        e.currentTarget.value = onlyNumbers;
-        //  RHF에게 변경 사항 알림
-        setValue(`ingredients.${index}.amount`, onlyNumbers);
+      onChange={(e) => {
+        handleAmountInputChange(e);
       }}
       placeholder="용량"
       className={cn(
         formErrors.ingredients?.[index]?.amount
           ? 'border-others-negative'
           : 'border-transparent',
-        'bg-grey-200 rounded-200 placeholder:text-grey-400 h-10.5 w-20 border p-250 text-center',
+        'no-spinner bg-grey-200 rounded-200 placeholder:text-grey-400 h-10.5 w-20 border p-250 text-center',
       )}
     />
   );

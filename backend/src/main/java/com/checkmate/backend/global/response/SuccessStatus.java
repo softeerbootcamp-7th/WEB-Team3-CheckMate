@@ -23,6 +23,7 @@ public enum SuccessStatus {
     POS_CONNECT_START(HttpStatus.OK, "POS 연동을 시작합니다."),
     STORE_DELETE_SUCCESS(HttpStatus.OK, "매장을 성공적으로 삭제했습니다."),
     POS_DELETE_SUCCESS(HttpStatus.OK, "POS를 성공적으로 삭제했습니다."),
+    STORE_INFO_FETCH_SUCCESS(HttpStatus.OK, "매장 정보 조회에 성공했습니다."),
 
     // 201
     SEND_PAY_INFO_SAVE_SUCCESS(HttpStatus.CREATED, "결제 정보 등록 성공"),
@@ -47,7 +48,18 @@ public enum SuccessStatus {
 
     /** Order */
     // 201
-    ORDER_RECEIVE_SUCCESS(HttpStatus.CREATED, "주문 수신에 성공했습니다.");
+    ORDER_RECEIVE_SUCCESS(HttpStatus.CREATED, "주문 수신에 성공했습니다."),
+
+    /** Dashboard */
+    // 200
+    DASHBOARD_GET_SUCCESS(HttpStatus.OK, "대시보드 조회에 성공했습니다."),
+    DASHBOARD_UPDATE_SUCCESS(HttpStatus.OK, "대시보드 수정에 성공했습니다."),
+    DASHBOARD_DELETE_SUCCESS(HttpStatus.OK, "대시보드 삭제에 성공했습니다."),
+    DASHBOARD_LAYOUT_UPDATE_SUCCESS(HttpStatus.OK, "대시보드 레이아웃 저장에 성공했습니다."),
+    DASHBOARD_LAYOUT_GET_SUCCESS(HttpStatus.OK, "대시보드 레이아웃 조회에 성공했습니다."),
+
+    // 201
+    DASHBOARD_CREATE_SUCCESS(HttpStatus.CREATED, "대시보드 등록에 성공했습니다.");
 
     private final HttpStatus httpStatus;
     private final String message;

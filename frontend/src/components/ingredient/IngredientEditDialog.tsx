@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 import { Dialog, DialogContent } from '@/components/shared/shadcn-ui';
 import {
   useAiIngredientRecommend,
+  useIngredientEditSubmit,
   useIngredientForm,
 } from '@/hooks/ingredient';
 import type { IngredientFormValues } from '@/types/ingredient';
@@ -53,6 +54,9 @@ export const IngredientEditDialog = ({
       unit: '',
     });
   };
+  const { onSubmit } = useIngredientEditSubmit({
+    onOpenChange,
+  });
 
   const onClickSubmit = async () =>
     //data: FormValues
@@ -79,8 +83,8 @@ export const IngredientEditDialog = ({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <FormProvider {...formMethods}>
-        <form>
-          <DialogContent className="rounded-500 flex h-175 !w-[1000px] !max-w-[1000px] flex-col gap-0 border-none bg-gray-50 p-12.5 [&>button]:hidden">
+        <DialogContent className="rounded-500 flex h-175 w-[1000px]! max-w-[1000px]! flex-col gap-0 border-none bg-gray-50 p-12.5 [&>button]:hidden">
+          <form onSubmit={formMethods.handleSubmit(onSubmit, onError)}>
             {/** 메뉴명과 취소, 저장 버튼 있는 행 */}
             <IngredientEditDialogHeader
               onClickSubmit={onClickSubmit}
@@ -109,8 +113,8 @@ export const IngredientEditDialog = ({
                 onClickDeleteIngredient={onClickDeleteIngredient}
               />
             </section>
-          </DialogContent>
-        </form>
+          </form>
+        </DialogContent>
       </FormProvider>
     </Dialog>
   );

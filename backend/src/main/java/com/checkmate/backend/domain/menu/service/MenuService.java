@@ -5,11 +5,13 @@ import static com.checkmate.backend.global.response.ErrorStatus.*;
 import com.checkmate.backend.domain.menu.dto.request.IngredientCreateRequestDTO;
 import com.checkmate.backend.domain.menu.dto.request.MenuCreateRequestDTO;
 import com.checkmate.backend.domain.menu.dto.response.MenuCategoryResponseDTO;
+import com.checkmate.backend.domain.menu.dto.response.MenuRecipeResponse;
 import com.checkmate.backend.domain.menu.dto.response.MenuResponseDTO;
 import com.checkmate.backend.domain.menu.entity.Ingredient;
 import com.checkmate.backend.domain.menu.entity.Menu;
 import com.checkmate.backend.domain.menu.entity.MenuVersion;
 import com.checkmate.backend.domain.menu.entity.Recipe;
+import com.checkmate.backend.domain.menu.enums.Unit;
 import com.checkmate.backend.domain.menu.repository.IngredientRepository;
 import com.checkmate.backend.domain.menu.repository.MenuRepository;
 import com.checkmate.backend.domain.menu.repository.MenuVersionRepository;
@@ -111,8 +113,10 @@ public class MenuService {
                 Optional.ofNullable(ingredientCreateRequestDTO.ingredients()).orElse(List.of());
 
         for (IngredientCreateRequestDTO.Ingredient dto : ingredientDTOs) {
+            Unit unit = dto.unit();
+            String baseUnit = unit.baseUnitValue();
 
-            ingredientRepository.insertIgnore(storeId, dto.name());
+            ingredientRepository.insertIgnore(storeId, dto.name(), baseUnit);
 
             Ingredient ingredient =
                     ingredientRepository
@@ -127,10 +131,13 @@ public class MenuService {
                                                 INGREDIENT_NOT_FUND_EXCEPTION);
                                     });
 
+            Integer quantity = dto.quantity();
+
             recipeRepository.save(
                     Recipe.builder()
-                            .quantity(dto.quantity())
-                            .unit(dto.unit().getValue())
+                            .quantity(quantity)
+                            .quantityNormalized(unit.normalize(quantity))
+                            .unit(unit.getValue())
                             .menuVersion(menuVersion)
                             .ingredient(ingredient)
                             .build());
@@ -180,6 +187,47 @@ public class MenuService {
 
             response.add(MenuCategoryResponseDTO.of(category, menuResponses));
         }
+
+        return response;
+    }
+
+    /** 메뉴 레시피 조회 */
+    public MenuRecipeResponse getRecipe(Long storeId, Long menuId) {
+        // 소유권 검증
+        Menu menu =
+                menuRepository
+                        .findMenuByMenuIdWithStore(menuId)
+                        .orElseThrow(
+                                () -> {
+                                    log.warn("[getRecipe][menu is not found][menuId={}]", menuId);
+                                    return new NotFoundException(MENU_NOT_FOUND_EXCEPTION);
+                                });
+
+        if (!storeId.equals(menu.getStore().getId())) {
+            log.warn(
+                    "[getRecipe][menu access denied][request storeId={}, storeId of menu= {}]",
+                    storeId,
+                    menu.getStore().getId());
+            throw new ForbiddenException(MENU_ACCESS_DENIED);
+        }
+
+        MenuVersion menuVersion =
+                menuVersionRepository
+                        .findActiveMenuVersionByMenuId(menuId)
+                        .orElseThrow(
+                                () -> {
+                                    log.warn(
+                                            "[getRecipe][active menu version not found][menuId={}]",
+                                            menuId);
+                                    return new NotFoundException(MENU_NOT_FOUND_EXCEPTION);
+                                });
+
+        List<Recipe> recipes = recipeRepository.findRecipesByMenuVersionId(menuVersion.getId());
+
+        List<MenuRecipeResponse.IngredientResponse> ingredientResponses =
+                recipes.stream().map(MenuRecipeResponse.IngredientResponse::of).toList();
+
+        MenuRecipeResponse response = MenuRecipeResponse.of(menu, ingredientResponses);
 
         return response;
     }

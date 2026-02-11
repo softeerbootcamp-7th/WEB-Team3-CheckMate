@@ -1,8 +1,8 @@
 import {
   cn,
+  getCurrentDate,
   isBetweenSelectedDate,
-  isEndDate,
-  isStartDate,
+  isSameDate,
 } from '@/utils/shared';
 
 import { CalendarDateCell } from './CalendarDateCell';
@@ -14,15 +14,7 @@ interface CalendarDateGridProps {
   lastWeekOfPreviousMonth: number[];
   numberOfDatesForCalendar: number;
   firstWeekOfNextMonth: number[];
-  handleSelectDate: ({
-    date,
-    isPreviousMonth,
-    isNextMonth,
-  }: {
-    date: number;
-    isPreviousMonth: boolean;
-    isNextMonth: boolean;
-  }) => void;
+  handleSelectDate: (currentDate: Date) => void;
 }
 
 export const CalendarDateGrid = ({
@@ -43,22 +35,21 @@ export const CalendarDateGrid = ({
     isPreviousMonth: boolean;
     isNextMonth: boolean;
   }) => {
-    const currentDate = new Date(
-      currentDateForCalendar.getFullYear(),
-      currentDateForCalendar.getMonth() +
-        (isPreviousMonth ? -1 : 0) +
-        (isNextMonth ? 1 : 0),
+    const currentDate = getCurrentDate({
       date,
-    );
-
-    const isStart = isStartDate({
-      currentDate,
-      selectedStartDate,
+      dateForCalendar: currentDateForCalendar,
+      isPreviousMonth,
+      isNextMonth,
     });
 
-    const isEnd = isEndDate({
+    const isStart = isSameDate({
       currentDate,
-      selectedEndDate,
+      selectedDate: selectedStartDate,
+    });
+
+    const isEnd = isSameDate({
+      currentDate,
+      selectedDate: selectedEndDate,
     });
 
     const isSelected = isStart || isEnd;
@@ -70,7 +61,13 @@ export const CalendarDateGrid = ({
     });
     return (
       <CalendarDateCell
-        key={date}
+        key={
+          isPreviousMonth
+            ? `prev-${date}`
+            : isNextMonth
+              ? `next-${date}`
+              : `curr-${date}`
+        }
         date={date}
         className={cn(
           isSelected
@@ -80,13 +77,7 @@ export const CalendarDateGrid = ({
           isStart && 'after:right-0',
           isEnd && 'after:left-0',
         )}
-        onClick={() =>
-          handleSelectDate({
-            date,
-            isPreviousMonth,
-            isNextMonth,
-          })
-        }
+        onClick={() => handleSelectDate(currentDate)}
       />
     );
   };
