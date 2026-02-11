@@ -8,7 +8,7 @@ import {
   WEEKLY_DATA,
 } from '@/constants/shared';
 
-import { Button } from '../shadcn-ui';
+import { Button, TooltipProvider } from '../shadcn-ui';
 
 import { LineChart } from './LineChart';
 
@@ -76,14 +76,16 @@ export const Default: Story = {
     chartDescription: '일별 매출 꺾은선 차트 설명',
   },
   render: (args) => (
-    <div
-      style={{
-        width: `${args.viewBoxWidth}px`,
-        height: `${args.viewBoxHeight}px`,
-      }}
-    >
-      <LineChart {...args} />
-    </div>
+    <TooltipProvider>
+      <div
+        style={{
+          width: `${args.viewBoxWidth}px`,
+          height: `${args.viewBoxHeight}px`,
+        }}
+      >
+        <LineChart {...args} />
+      </div>
+    </TooltipProvider>
   ),
 };
 
@@ -216,5 +218,9 @@ export const Realtime: Story = {
     tooltipContent: (mainY, subY) => `${mainY} (${subY})`,
     yGuideLineCount: 4,
   },
-  render: (args) => <RealtimeLineChart {...args} />,
+  render: (args) => (
+    <TooltipProvider>
+      <RealtimeLineChart {...args} />
+    </TooltipProvider>
+  ),
 };

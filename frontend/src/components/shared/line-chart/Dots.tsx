@@ -72,7 +72,14 @@ export const Dots = ({
                 }}
               />
             </TooltipTrigger>
-            <TooltipContent>{tooltipContentText}</TooltipContent>
+            <TooltipContent
+              side="top"
+              className="rounded-150 bg-grey-900 [&_svg]:fill-grey-900 [&_svg]:-translate-y-1 [&_svg]:rotate-0"
+            >
+              <p className="text-grey-100 caption-medium-semibold">
+                {tooltipContentText}
+              </p>
+            </TooltipContent>
           </Tooltip>
         );
       })}
