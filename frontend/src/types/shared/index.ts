@@ -6,3 +6,10 @@ export type {
   DoughtnutChartItemWithPercentage,
 } from './doughnutChartItem';
 export type { StoreInfo } from './storeInfo';
+export type {
+  LineChartDatum,
+  LineChartData,
+  LineChartSeries,
+  Coordinate,
+  XAxisType,
+} from './line-chart';
