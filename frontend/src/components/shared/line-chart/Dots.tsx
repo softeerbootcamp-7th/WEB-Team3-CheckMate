@@ -1,7 +1,10 @@
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/shared/shadcn-ui';
 import { LINE_CHART } from '@/constants/shared';
 import type { LineChartSeries } from '@/types/shared';
-
-import { Tooltip, TooltipContent, TooltipTrigger } from '../shadcn-ui';
 
 interface DotsProps {
   series: LineChartSeries;

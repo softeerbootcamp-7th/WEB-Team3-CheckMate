@@ -2,13 +2,12 @@ import { useState } from 'react';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
+import { Button, TooltipProvider } from '@/components/shared/shadcn-ui';
 import {
   PRIMARY_SERIES_MOCK,
   SECONDARY_SERIES_MOCK,
   WEEKLY_DATA,
 } from '@/constants/shared';
-
-import { Button, TooltipProvider } from '../shadcn-ui';
 
 import { LineChart } from './LineChart';
 
