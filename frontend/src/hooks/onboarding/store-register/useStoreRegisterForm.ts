@@ -52,8 +52,8 @@ export const useStoreRegisterForm = () => {
     }
 
     if (currentStep === STORE_REGISTER_STEP.STORE_BUSINESS_HOURS) {
-      const has24BusinessHour = data.businessHours.some(
-        (businessHour) => businessHour.is24,
+      const has24BusinessHour = data.businessHourRequests.some(
+        (businessHourRequest) => businessHourRequest.is24,
       );
       if (has24BusinessHour) {
         moveNextStep();
