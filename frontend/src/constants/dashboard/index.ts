@@ -10,3 +10,4 @@ export {
   type MetricItem,
 } from './dashboardMetric';
 export { DASHBOARD_METRIC_CARDS } from './dashboardMetricCards';
+export { GRID_ROW_SIZE, GRID_COL_SIZE } from './dashboardGridSize';

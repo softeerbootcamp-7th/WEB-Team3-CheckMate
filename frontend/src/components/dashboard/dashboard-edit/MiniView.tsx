@@ -1,7 +1,11 @@
 import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { DASHBOARD_METRIC_CARDS } from '@/constants/dashboard';
+import {
+  DASHBOARD_METRIC_CARDS,
+  GRID_COL_SIZE,
+  GRID_ROW_SIZE,
+} from '@/constants/dashboard';
 import { useEditCard } from '@/hooks/dashboard';
 
 import { MiniViewActiveCard } from './MiniViewActiveCard';
@@ -15,7 +19,7 @@ export const MiniView = () => {
 
   const emptyCellCount = useMemo(
     () =>
-      9 -
+      GRID_ROW_SIZE * GRID_COL_SIZE -
       cards.reduce((sum, card) => {
         const cardInfo = DASHBOARD_METRIC_CARDS[card.code];
         if (!cardInfo) {

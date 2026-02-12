@@ -2,10 +2,9 @@ import { useMemo } from 'react';
 
 import { toast } from 'sonner';
 
-import { useEditCardContext } from './useEditCardContext';
+import { GRID_COL_SIZE, GRID_ROW_SIZE } from '@/constants/dashboard';
 
-const GRID_ROW_SIZE = 3;
-const GRID_COL_SIZE = 3;
+import { useEditCardContext } from './useEditCardContext';
 
 export const useEditCard = () => {
   const { initGrid, grid, setGrid } = useEditCardContext();
