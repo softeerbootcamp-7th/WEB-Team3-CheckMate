@@ -13,3 +13,4 @@ export type {
   Coordinate,
   XAxisType,
 } from './line-chart';
+export type { EventSourceMessage } from './eventSourceMessage';
