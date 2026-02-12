@@ -14,7 +14,9 @@ public interface SalesAnalysisRepository extends JpaRepository<Order, Long> {
     /** SLS_01 (실매출) */
     @Query(
             "select sum(o.netAmount) from Order o"
-                    + " where o.store.id=:storeId and o.orderDate >= :startDate and o.orderDate < :endDate")
+                    + " where o.store.id=:storeId"
+                    + " and o.orderDate >= :startDate and o.orderDate < :endDate"
+                    + " and o.orderStatus='COMPLETE'")
     Long findTotalNetAmount(
             @Param("storeId") Long storeId,
             @Param("startDate") LocalDate startDate,
@@ -23,7 +25,9 @@ public interface SalesAnalysisRepository extends JpaRepository<Order, Long> {
     /** SLS_02 (주문건수) */
     @Query(
             "select count(o) from Order o"
-                    + " where o.store.id=:storeId and o.orderDate >= :startDate and o.orderDate < :endDate")
+                    + " where o.store.id=:storeId"
+                    + " and o.orderDate >= :startDate and o.orderDate < :endDate"
+                    + " and o.orderStatus='COMPLETE'")
     Long countOrders(
             @Param("storeId") Long storeId,
             @Param("startDate") LocalDate startDate,
@@ -31,12 +35,13 @@ public interface SalesAnalysisRepository extends JpaRepository<Order, Long> {
 
     /** SLS_03 (건당 평균가) */
     @Query(
-            "select case when count(o) = 0 then 0.0 "
-                    + "else (sum(o.netAmount)  / count(o)) end "
-                    + "from Order o "
-                    + "where o.store.id = :storeId "
-                    + "and o.orderDate >= :startDate "
-                    + "and o.orderDate < :endDate")
+            "select case when count(o) = 0 then 0.0"
+                    + " else (sum(o.netAmount)  / count(o)) end"
+                    + " from Order o"
+                    + " where o.store.id = :storeId"
+                    + " and o.orderDate >= :startDate"
+                    + " and o.orderDate < :endDate"
+                    + " and o.orderStatus='COMPLETE'")
     Long findAverageOrderAmount(
             @Param("storeId") Long storeId,
             @Param("startDate") LocalDate startDate,
@@ -67,7 +72,9 @@ public interface SalesAnalysisRepository extends JpaRepository<Order, Long> {
     @Query(
             "select sum(o.netAmount)"
                     + " from Order o"
-                    + " where o.store.id=:storeId and o.orderDate >= :startDate and o.orderDate < :endDate and o.orderStatus = 'CANCEL'")
+                    + " where o.store.id=:storeId"
+                    + " and o.orderDate >= :startDate and o.orderDate < :endDate"
+                    + " and o.orderStatus = 'CANCEL'")
     Long findCanceledAmount(
             @Param("storeId") Long storeId,
             @Param("startDate") LocalDate startDate,
@@ -77,7 +84,9 @@ public interface SalesAnalysisRepository extends JpaRepository<Order, Long> {
     @Query(
             "select new com.checkmate.backend.domain.analysis.dto.projection.sales.SalesByTypeProjection (o.salesType, sum(o.netAmount), count(o)) "
                     + " from Order o"
-                    + " where o.store.id=:storeId and o.orderDate >= :startDate and o.orderDate < :endDate"
+                    + " where o.store.id=:storeId"
+                    + " and o.orderDate >= :startDate and o.orderDate < :endDate"
+                    + " and o.orderStatus='COMPLETE'"
                     + " group by o.salesType"
                     + " order by sum(o.netAmount) desc")
     List<SalesByTypeProjection> findSalesBySalesType(
@@ -89,7 +98,9 @@ public interface SalesAnalysisRepository extends JpaRepository<Order, Long> {
     @Query(
             "select new com.checkmate.backend.domain.analysis.dto.projection.sales.SalesByOrderChannelProjection(o.orderChannel, sum(o.netAmount), count(o)) "
                     + " from Order o"
-                    + " where o.store.id=:storeId and o.orderDate >= :startDate and o.orderDate < :endDate"
+                    + " where o.store.id=:storeId"
+                    + " and o.orderDate >= :startDate and o.orderDate < :endDate"
+                    + " and o.orderStatus='COMPLETE'"
                     + " group by o.orderChannel"
                     + " order by sum(o.netAmount) desc")
     List<SalesByOrderChannelProjection> findSalesByOrderChannel(
@@ -101,7 +112,9 @@ public interface SalesAnalysisRepository extends JpaRepository<Order, Long> {
     @Query(
             "select new com.checkmate.backend.domain.analysis.dto.projection.sales.SalesByPayMethodProjection(o.paymentMethod, sum(o.netAmount), count(o)) "
                     + " from Order o"
-                    + " where o.store.id=:storeId and o.orderDate >= :startDate and o.orderDate < :endDate"
+                    + " where o.store.id=:storeId"
+                    + " and o.orderDate >= :startDate and o.orderDate < :endDate"
+                    + " and o.orderStatus='COMPLETE'"
                     + " group by o.paymentMethod"
                     + " order by sum(o.netAmount) desc")
     List<SalesByPayMethodProjection> findSalesByPaymentMethod(
@@ -113,7 +126,9 @@ public interface SalesAnalysisRepository extends JpaRepository<Order, Long> {
     @Query(
             "select new com.checkmate.backend.domain.analysis.dto.projection.sales.SalesTrendProjection(sum(o.netAmount), count(o)) "
                     + " from Order o"
-                    + " where o.store.id=:storeId and o.orderDate >= :startDate and o.orderDate < :endDate")
+                    + " where o.store.id=:storeId"
+                    + " and o.orderDate >= :startDate and o.orderDate < :endDate"
+                    + " and o.orderStatus='COMPLETE'")
     Optional<SalesTrendProjection> findSalesTrend(
             @Param("storeId") Long storeId,
             @Param("startDate") LocalDate startDate,
