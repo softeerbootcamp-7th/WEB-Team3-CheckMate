@@ -38,15 +38,14 @@ public class DetailAnalysisController {
                         @Content(
                                 mediaType = "application/json",
                                 examples =
-                                @ExampleObject(
-                                        name = "성공 응답 예시",
-                                        value = "{\n"
-                                                + "  \"success\": true,\n"
-                                                + "  \"message\": \"지표 카드 조회에 성공했습니다.\",\n"
-                                                + "  \"data\": {}\n"
-                                                + "}"
-                                )
-                        )),
+                                        @ExampleObject(
+                                                name = "성공 응답 예시",
+                                                value =
+                                                        "{\n"
+                                                                + "  \"success\": true,\n"
+                                                                + "  \"message\": \"지표 카드 조회에 성공했습니다.\",\n"
+                                                                + "  \"data\": {}\n"
+                                                                + "}"))),
         @io.swagger.v3.oas.annotations.responses.ApiResponse(
                 responseCode = "400",
                 description = "지원하지 않는 지표 카드 ID입니다.",
