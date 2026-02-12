@@ -74,7 +74,7 @@ export const IngredientEditDialog = ({
         {/** w-250, max-w-250 이렇게 tailwind 스타일로 하면 width 속성 적용 안됨. w-250은 tailwind에 없음 */}
         <DialogContent className="rounded-500 h-175 w-[1000px]! max-w-[1000px]! gap-0 border-none bg-gray-50 p-12.5 [&>button]:hidden">
           <form
-            className="flex h-full flex-col"
+            className="flex h-full min-h-0 flex-col"
             onSubmit={formMethods.handleSubmit(onSubmit, onError)}
           >
             {/** 메뉴명과 취소, 저장 버튼 있는 행 */}
