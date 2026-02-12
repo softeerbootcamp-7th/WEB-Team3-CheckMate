@@ -8,6 +8,6 @@ export interface EventSourceMessage {
   data: string;
   // EventSource 객체의 마지막 이벤트 ID 값 설정
   id: string;
-  //
+  // 몇 초 후 재시도할지
   retry?: number;
 }
