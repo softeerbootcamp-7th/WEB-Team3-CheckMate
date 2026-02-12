@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { DASHBOARD_METRIC_CARDS } from '@/constants/dashboard';
 
 import { MiniViewActiveCard } from './MiniViewActiveCard';
-import { MiniViewEmptyCard } from './MiniViewEmtpyCard';
+import { MiniViewEmptyCard } from './MiniViewEmptyCard';
 
 export const MiniView = () => {
   const searchParams = new URLSearchParams(useLocation().search);
