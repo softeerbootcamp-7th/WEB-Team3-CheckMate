@@ -7,7 +7,6 @@ export { DAY_OF_WEEK_LIST, CALENDAR_CONFIG } from './calendar';
 
 export { SIDEBAR_ITEMS } from './sidebarItems';
 
-export { DEFAULT_CARD_WRAPPER_SIZE } from './default-card-wrapper';
 export {
   PERIOD_PRESETS,
   PERIOD_PRESET_KEYS,
@@ -24,3 +23,4 @@ export { EDIT_CARD_WRAPPER } from './edit-card-wrapper';
 
 export { ONE_HUNDRED_MILLION, TEN_THOUSAND } from './number';
 export { TOAST_DEFAULT } from './toast';
+export { LINE_CHART } from './line-chart';
