@@ -1,7 +1,9 @@
 package com.checkmate.backend.domain.order.repository;
 
+import com.checkmate.backend.domain.analysis.dto.projection.sales.SalesByTypeProjection;
 import com.checkmate.backend.domain.order.entity.Order;
 import java.time.LocalDate;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -35,6 +37,18 @@ public interface SalesAnalysisRepository extends JpaRepository<Order, Long> {
                     + "and o.orderDate >= :startDate "
                     + "and o.orderDate < :endDate")
     Long findAverageOrderAmount(
+            @Param("storeId") Long storeId,
+            @Param("startDate") LocalDate startDate,
+            @Param("endDate") LocalDate endDate);
+
+    /** SLS_06 (판매유형별 매출) */
+    @Query(
+            "select new com.checkmate.backend.domain.analysis.dto.projection.sales.SalesByTypeProjection (o.salesType, sum(o.netAmount), count(o)) "
+                    + " from Order o"
+                    + " where o.store.id=:storeId and o.orderDate >= :startDate and o.orderDate < :endDate"
+                    + " group by o.salesType"
+                    + " order by sum(o.netAmount) desc")
+    List<SalesByTypeProjection> findSalesBySalesType(
             @Param("storeId") Long storeId,
             @Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate);
