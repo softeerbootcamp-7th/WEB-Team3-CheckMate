@@ -1,7 +1,6 @@
 package com.checkmate.backend.domain.analysis.processor.sales;
 
 import com.checkmate.backend.domain.analysis.context.SalesAnalysisContext;
-import com.checkmate.backend.domain.analysis.dto.SalesByType;
 import com.checkmate.backend.domain.analysis.dto.projection.sales.SalesByTypeProjection;
 import com.checkmate.backend.domain.analysis.dto.response.AnalysisResponse;
 import com.checkmate.backend.domain.analysis.dto.response.sales.DashboardTodaySalesByTypeResponse;
@@ -10,7 +9,6 @@ import com.checkmate.backend.domain.analysis.dto.response.sales.SalesByTypeItem;
 import com.checkmate.backend.domain.analysis.dto.response.sales.SalesInsight;
 import com.checkmate.backend.domain.analysis.enums.AnalysisCardCode;
 import com.checkmate.backend.domain.analysis.processor.AnalysisProcessor;
-import com.checkmate.backend.domain.order.enums.SalesType;
 import com.checkmate.backend.domain.order.repository.SalesAnalysisRepository;
 import java.util.*;
 import lombok.RequiredArgsConstructor;
@@ -37,8 +35,6 @@ public class TodaySalesByTypeProcessor implements AnalysisProcessor<SalesAnalysi
                 salesAnalysisRepository.findSalesBySalesType(
                         context.getStoreId(), context.getStartDate(), context.getEndDate());
 
-        List<SalesByType> current = toItemList(currentProjections);
-
         // 비교 기간 조회
         List<SalesByTypeProjection> comparisonProjections =
                 salesAnalysisRepository.findSalesBySalesType(
@@ -46,15 +42,13 @@ public class TodaySalesByTypeProcessor implements AnalysisProcessor<SalesAnalysi
                         context.getComparisonStart(),
                         context.getComparisonEnd());
 
-        List<SalesByType> comparison = toItemList(comparisonProjections);
-
-        long currentTotalNetAmount = totalNetAmount(current);
-        long comparisonTotalNetAmount = totalNetAmount(comparison);
+        long currentTotalNetAmount = totalNetAmount(currentProjections);
+        long comparisonTotalNetAmount = totalNetAmount(comparisonProjections);
 
         // Map<SalesType, Share> 생성
-        Map<SalesType, Double> currentShareMap = new EnumMap<>(SalesType.class);
+        Map<String, Double> currentShareMap = new HashMap<>();
 
-        for (SalesByType item : current) {
+        for (SalesByTypeProjection item : currentProjections) {
             double share =
                     currentTotalNetAmount == 0
                             ? 0.0
@@ -62,9 +56,9 @@ public class TodaySalesByTypeProcessor implements AnalysisProcessor<SalesAnalysi
             currentShareMap.put(item.salesType(), share);
         }
 
-        Map<SalesType, Double> comparisonShareMap = new EnumMap<>(SalesType.class);
+        Map<String, Double> comparisonShareMap = new HashMap<>();
 
-        for (SalesByType item : comparison) {
+        for (SalesByTypeProjection item : comparisonProjections) {
             double share =
                     comparisonTotalNetAmount == 0
                             ? 0.0
@@ -73,10 +67,12 @@ public class TodaySalesByTypeProcessor implements AnalysisProcessor<SalesAnalysi
         }
 
         // TopType: 실매출이 가장 높은 SalesType
-        SalesByType topTypeItem =
-                current.stream().max(Comparator.comparing(SalesByType::netAmount)).orElse(null);
+        SalesByTypeProjection topTypeItem =
+                currentProjections.stream()
+                        .max(Comparator.comparing(SalesByTypeProjection::netAmount))
+                        .orElse(null);
 
-        SalesType topType = topTypeItem == null ? null : topTypeItem.salesType();
+        String topType = topTypeItem == null ? null : topTypeItem.salesType();
 
         // TopShare = 해당 TopType의 매출 비중 (share)
         double topShare = topType == null ? 0 : currentShareMap.get(topType);
@@ -89,7 +85,7 @@ public class TodaySalesByTypeProcessor implements AnalysisProcessor<SalesAnalysi
 
         SalesInsight insight =
                 new SalesInsight(
-                        topType.getValue(),
+                        topType,
                         round(topShare),
                         round(deltaShare),
                         Math.abs(deltaShare) >= 3, // 변화 문구 조건
@@ -98,7 +94,7 @@ public class TodaySalesByTypeProcessor implements AnalysisProcessor<SalesAnalysi
 
         // 판매 유형별 리스트
         List<SalesByTypeItem> items =
-                current.stream()
+                currentProjections.stream()
                         .map(
                                 item -> {
                                     double currentShare = currentShareMap.get(item.salesType());
@@ -123,30 +119,8 @@ public class TodaySalesByTypeProcessor implements AnalysisProcessor<SalesAnalysi
                 context.getAnalysisCardCode(), dashboardResponse, detailResponse);
     }
 
-    private List<SalesByType> toItemList(List<SalesByTypeProjection> projections) {
-
-        List<SalesByType> result = new ArrayList<>();
-
-        for (SalesByTypeProjection p : projections) {
-
-            SalesType salesType = SalesType.fromValue(p.salesType());
-
-            if (salesType == null) {
-                log.warn("[TodaySalesByTypeProcessor] Unknown salesType = {}", p.salesType());
-                continue;
-            }
-
-            long amount = Optional.ofNullable(p.netAmount()).orElse(0L);
-            long count = Optional.ofNullable(p.orderCount()).orElse(0L);
-
-            result.add(new SalesByType(salesType, amount, count));
-        }
-
-        return result;
-    }
-
-    private long totalNetAmount(List<SalesByType> list) {
-        return list.stream().mapToLong(SalesByType::netAmount).sum();
+    private long totalNetAmount(List<SalesByTypeProjection> list) {
+        return list.stream().mapToLong(SalesByTypeProjection::netAmount).sum();
     }
 
     /** 소수점 1자리까지 반올림 */

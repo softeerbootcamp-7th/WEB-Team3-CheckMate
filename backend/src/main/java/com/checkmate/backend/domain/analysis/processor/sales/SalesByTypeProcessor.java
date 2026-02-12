@@ -1,14 +1,12 @@
 package com.checkmate.backend.domain.analysis.processor.sales;
 
 import com.checkmate.backend.domain.analysis.context.SalesAnalysisContext;
-import com.checkmate.backend.domain.analysis.dto.SalesByType;
 import com.checkmate.backend.domain.analysis.dto.projection.sales.SalesByTypeProjection;
 import com.checkmate.backend.domain.analysis.dto.response.AnalysisResponse;
 import com.checkmate.backend.domain.analysis.dto.response.sales.SalesByTypeItem;
 import com.checkmate.backend.domain.analysis.dto.response.sales.SalesByTypeResponse;
 import com.checkmate.backend.domain.analysis.enums.AnalysisCardCode;
 import com.checkmate.backend.domain.analysis.processor.AnalysisProcessor;
-import com.checkmate.backend.domain.order.enums.SalesType;
 import com.checkmate.backend.domain.order.repository.SalesAnalysisRepository;
 import java.util.*;
 import lombok.RequiredArgsConstructor;
@@ -36,14 +34,12 @@ public class SalesByTypeProcessor implements AnalysisProcessor<SalesAnalysisCont
                 salesAnalysisRepository.findSalesBySalesType(
                         context.getStoreId(), context.getStartDate(), context.getEndDate());
 
-        List<SalesByType> current = toItemList(currentProjections);
-
-        long currentTotalNetAmount = totalNetAmount(current);
+        long currentTotalNetAmount = totalNetAmount(currentProjections);
 
         // Map<SalesType, Share> 생성
-        Map<SalesType, Double> currentShareMap = new EnumMap<>(SalesType.class);
+        Map<String, Double> currentShareMap = new HashMap<>();
 
-        for (SalesByType item : current) {
+        for (SalesByTypeProjection item : currentProjections) {
             double share =
                     currentTotalNetAmount == 0
                             ? 0.0
@@ -53,7 +49,7 @@ public class SalesByTypeProcessor implements AnalysisProcessor<SalesAnalysisCont
 
         // 판매 유형별 리스트
         List<SalesByTypeItem> items =
-                current.stream()
+                currentProjections.stream()
                         .map(
                                 item -> {
                                     double currentShare = currentShareMap.get(item.salesType());
@@ -72,30 +68,8 @@ public class SalesByTypeProcessor implements AnalysisProcessor<SalesAnalysisCont
         return new AnalysisResponse(context.getAnalysisCardCode(), response, response);
     }
 
-    private List<SalesByType> toItemList(List<SalesByTypeProjection> projections) {
-
-        List<SalesByType> result = new ArrayList<>();
-
-        for (SalesByTypeProjection p : projections) {
-
-            SalesType salesType = SalesType.fromValue(p.salesType());
-
-            if (salesType == null) {
-                log.warn("[TodaySalesByTypeProcessor] Unknown salesType = {}", p.salesType());
-                continue;
-            }
-
-            long amount = Optional.ofNullable(p.netAmount()).orElse(0L);
-            long count = Optional.ofNullable(p.orderCount()).orElse(0L);
-
-            result.add(new SalesByType(salesType, amount, count));
-        }
-
-        return result;
-    }
-
-    private long totalNetAmount(List<SalesByType> list) {
-        return list.stream().mapToLong(SalesByType::netAmount).sum();
+    private long totalNetAmount(List<SalesByTypeProjection> list) {
+        return list.stream().mapToLong(SalesByTypeProjection::netAmount).sum();
     }
 
     /** 소수점 1자리까지 반올림 */

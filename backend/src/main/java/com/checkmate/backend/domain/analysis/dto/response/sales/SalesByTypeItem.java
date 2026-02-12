@@ -1,11 +1,9 @@
 package com.checkmate.backend.domain.analysis.dto.response.sales;
 
-import com.checkmate.backend.domain.order.enums.SalesType;
-
 public record SalesByTypeItem(
 
         // 판매 유형 (홀 / 포장 / 배달 등)
-        SalesType salesType,
+        String salesType,
 
         // 해당 판매 유형의 실매출 금액
         long salesAmount,
