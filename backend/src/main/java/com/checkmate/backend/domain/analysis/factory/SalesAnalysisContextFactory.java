@@ -95,9 +95,10 @@ public class SalesAnalysisContextFactory implements AnalysisContextFactory {
 
                 /*
                  * SLS_06_02 (이번주 판매유형별 매출)
+                 * SLS_07_02 (이번주 주문수단별 매출)
                  * */
 
-            case SLS_06_02 -> {
+            case SLS_06_02, SLS_07_02 -> {
                 LocalDate start = today.with(DayOfWeek.MONDAY);
                 LocalDate end = today.plusDays(1);
 
@@ -107,9 +108,10 @@ public class SalesAnalysisContextFactory implements AnalysisContextFactory {
 
                 /*
                  * SLS_06_03 (이번달 판매유형별 매출)
+                 * SLS_07_03 (이번달 주문수단별 매출)
                  * */
 
-            case SLS_06_03 -> {
+            case SLS_06_03, SLS_07_03 -> {
                 LocalDate start = today.withDayOfMonth(1);
                 LocalDate end = today.plusDays(1);
 
