@@ -18,6 +18,7 @@ interface StackBarProps {
   height: number;
   radius?: number;
   hasAnimation?: boolean;
+  activeTooltip?: boolean;
   tooltipContent?: (...args: string[]) => string;
 }
 
@@ -29,6 +30,7 @@ export const StackBar = ({
   height,
   radius = Math.min(height, width, 4),
   hasAnimation = true,
+  activeTooltip = true,
   tooltipContent,
 }: StackBarProps) => {
   // 마운트 시 등장 애니메이션: 아래에서 위로 올라오기(scaley 0 -> 1)
@@ -68,7 +70,8 @@ export const StackBar = ({
               hasInitAnimation={false} // 그룹 전체에 애니메이션이 있으므로 개별 Bar는 끔
               hasMoveAnimation={true}
               hasGradient={false}
-              activeTooltip={true}
+              activeTooltip={activeTooltip}
+              isOnHoverColorChange={false}
               tooltipContentText={
                 getTooltipContent({
                   tooltipContent,
