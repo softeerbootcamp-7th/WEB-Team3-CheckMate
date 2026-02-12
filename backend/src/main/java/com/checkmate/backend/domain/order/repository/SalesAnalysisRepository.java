@@ -69,10 +69,10 @@ public interface SalesAnalysisRepository extends JpaRepository<Order, Long> {
 
     /** SLS_08 (결제수단별 매출) */
     @Query(
-            "select new com.checkmate.backend.domain.analysis.dto.projection.sales.SalesByPayMethodProjection(o.orderChannel, sum(o.netAmount), count(o)) "
+            "select new com.checkmate.backend.domain.analysis.dto.projection.sales.SalesByPayMethodProjection(o.paymentMethod, sum(o.netAmount), count(o)) "
                     + " from Order o"
                     + " where o.store.id=:storeId and o.orderDate >= :startDate and o.orderDate < :endDate"
-                    + " group by o.orderChannel"
+                    + " group by o.paymentMethod"
                     + " order by sum(o.netAmount) desc")
     List<SalesByPayMethodProjection> findSalesByPaymentMethod(
             @Param("storeId") Long storeId,
