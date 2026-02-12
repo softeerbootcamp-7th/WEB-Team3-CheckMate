@@ -102,7 +102,7 @@ public class SalesAnalysisContextFactory implements AnalysisContextFactory {
                  * SLS_08_02 (이번주 결제수단별 매출)
                  * */
 
-            case SLS_04_02, SLS_05_02, SLS_06_02, SLS_07_02 -> {
+            case SLS_04_02, SLS_05_02, SLS_06_02, SLS_07_02, SLS_08_02 -> {
                 LocalDate start = today.with(DayOfWeek.MONDAY);
                 LocalDate end = today.plusDays(1);
 
@@ -116,7 +116,7 @@ public class SalesAnalysisContextFactory implements AnalysisContextFactory {
                  * SLS_08_03 (이번달 결제수단별 매출)
                  * */
 
-            case SLS_06_03, SLS_07_03 -> {
+            case SLS_06_03, SLS_07_03, SLS_08_03 -> {
                 LocalDate start = today.withDayOfMonth(1);
                 LocalDate end = today.plusDays(1);
 
@@ -200,5 +200,11 @@ public class SalesAnalysisContextFactory implements AnalysisContextFactory {
 
             default -> null;
         };
+    }
+
+    @Override
+    public AnalysisContext create(
+            AnalysisCardCode analysisCardCode, Long storeId, LocalDate start, LocalDate end) {
+        return new SalesAnalysisContext(storeId, analysisCardCode, start, end, null, null);
     }
 }
