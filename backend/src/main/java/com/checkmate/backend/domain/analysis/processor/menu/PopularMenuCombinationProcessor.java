@@ -2,8 +2,8 @@ package com.checkmate.backend.domain.analysis.processor.menu;
 
 import com.checkmate.backend.domain.analysis.context.MenuAnalysisContext;
 import com.checkmate.backend.domain.analysis.dto.OrderMenus;
-import com.checkmate.backend.domain.analysis.dto.projection.MenuIdNameProjection;
-import com.checkmate.backend.domain.analysis.dto.projection.OrderMenusProjection;
+import com.checkmate.backend.domain.analysis.dto.projection.menu.MenuIdNameProjection;
+import com.checkmate.backend.domain.analysis.dto.projection.menu.OrderMenusProjection;
 import com.checkmate.backend.domain.analysis.dto.response.AnalysisResponse;
 import com.checkmate.backend.domain.analysis.dto.response.menu.PopularMenuCombinationResponse;
 import com.checkmate.backend.domain.analysis.enums.AnalysisCardCode;
