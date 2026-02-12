@@ -129,7 +129,7 @@ export const sseClient = (
       headers.set('Accept', DEFAULT_SSE_CONTENT_TYPE);
     }
 
-    let currentRequestAbortController: AbortController;
+    let currentRequestAbortController: AbortController = new AbortController();
 
     const onVisibilitychange = () => {
       currentRequestAbortController.abort();
