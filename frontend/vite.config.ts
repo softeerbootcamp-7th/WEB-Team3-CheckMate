@@ -21,6 +21,8 @@ const httpsConfig = {
   cert: fs.readFileSync(path.resolve(__dirname, 'localhost.pem')),
 };
 
+const isHttpsPreview = process.env.HTTPS_PREVIEW === 'true';
+
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
   plugins: [
@@ -69,7 +71,7 @@ export default defineConfig({
     ],
   },
   server: {
-    https: httpsConfig,
+    https: isHttpsPreview ? httpsConfig : undefined,
   },
   preview: {
     port: 5173,
