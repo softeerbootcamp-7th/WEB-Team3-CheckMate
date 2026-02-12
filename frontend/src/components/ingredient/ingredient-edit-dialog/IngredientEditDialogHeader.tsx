@@ -4,8 +4,7 @@ import { DialogHeader, DialogTitle } from '@/components/shared/shadcn-ui';
 import type { IngredientFormValues } from '@/types/ingredient';
 import { cn } from '@/utils/shared';
 
-import { Button } from '../shared/shadcn-ui';
-
+import { Button } from '../../shared/shadcn-ui';
 interface IngredientEditDialogHeaderProps {
   onClickCancel: () => void;
   menuName: string;
@@ -24,7 +23,7 @@ export const IngredientEditDialogHeader = ({
       <DialogTitle className="title-large-semibold! text-grey-900">
         {menuName}
       </DialogTitle>
-      <div className="flex gap-[14px]">
+      <div className="flex gap-3.5">
         <Button
           type="button"
           className="body-medium-semibold w-20 border-none px-350 py-200 focus:ring-0"
