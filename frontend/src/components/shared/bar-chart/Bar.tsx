@@ -1,11 +1,14 @@
 import { useId, useRef } from 'react';
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/shared/shadcn-ui';
 import { BAR_CHART } from '@/constants/shared';
 import { useDrawBarPath } from '@/hooks/shared';
 import { useBarInitAnimation } from '@/hooks/shared';
 import { usePathDAnimation } from '@/hooks/shared';
-
-import { Tooltip, TooltipContent, TooltipTrigger } from '../shadcn-ui';
 
 interface BarProps {
   barMiddleX: number; // 바 정중앙 x 좌표

@@ -14,8 +14,11 @@ export const getBarSegmentInfoList = ({
   totalAmount,
 }: GetBarSegmentInfoListParams) => {
   // 스택 내부 데이터를 금액 기준으로 내림차순 정렬
-  stackBarData.sort((a, b) => Number(b.amount) - Number(a.amount));
-  return stackBarData.reduce<{
+  const sortedStackBarData = [...stackBarData].sort(
+    (a, b) => Number(b.amount) - Number(a.amount),
+  );
+
+  return sortedStackBarData.reduce<{
     percentage: number; // 앞에서 부터 누적된 퍼센트
     barSegmentInfoList: {
       y: number;
@@ -28,7 +31,7 @@ export const getBarSegmentInfoList = ({
     (acc, segment, index) => {
       const amount = Number(segment.amount) || 0;
       if (index > STACK_BAR_CHART.TOP_RANK) {
-        return acc; // 4번째 데이터부터는 기타로 묶이므로 무시
+        return acc; // 4번째 데이터부터는 앞에서 기타로 묶였으므로 건너뛰어야함
       }
 
       // 현재 조각 바의 상단 중간 y 좌표

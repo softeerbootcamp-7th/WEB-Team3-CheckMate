@@ -1,12 +1,16 @@
+import {
+  XAxis,
+  XAxisLabel,
+  XGuideLine,
+  YGuideLine,
+} from '@/components/shared/line-chart';
 import { useBarChart } from '@/hooks/shared';
 import { useBarChartId } from '@/hooks/shared';
 import type { XAxisType } from '@/types/shared';
 import type { AllBarChartSeries } from '@/types/shared';
 
-import { XAxis, XAxisLabel, XGuideLine, YGuideLine } from '../line-chart';
-
 import { BarSeries } from './BarSeries';
-/**s
+/**
  * @description 막대 차트 컴포넌트 (자세한 사용법은 스토리북 문서 참고)
  */
 interface BarChartProps {
