@@ -10,3 +10,4 @@ export {
   type MetricItem,
 } from './dashboardMetric';
 export { DASHBOARD_METRIC_CARDS } from './dashboardMetricCards';
+export { type MetricCardCode } from './dashboardMetricCards';
