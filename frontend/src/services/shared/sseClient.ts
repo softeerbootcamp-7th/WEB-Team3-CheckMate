@@ -122,6 +122,7 @@ export const sseClient = (
   return new Promise<void>((resolve, reject) => {
     const headers = new Headers({
       ...customHeaders,
+      Authorization: `Bearer ${authToken.get()}`,
     });
 
     if (!headers.has('Accept')) {
