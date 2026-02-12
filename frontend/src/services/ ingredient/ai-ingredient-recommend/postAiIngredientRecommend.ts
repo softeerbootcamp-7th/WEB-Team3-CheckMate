@@ -8,7 +8,7 @@ import type {
 export const postAiIngredientRecommend = async (
   dto: PostAiIngredientRecommendRequestDto,
 ) => {
-  // 2초 딜레이 줘서 로딩 중(스켈레톤 UI) 보이게
+  // 2초 딜레이 줘서 로딩 중(스켈레톤 UI) 보이게 -> 나중에 삭제해야함
   await new Promise((resolve) => setTimeout(resolve, 2000));
 
   // 오류 발생하면 tanstack query에서 자동으로 잡아 onError 콜백으로 넘긴다 -> try catch 불필요
