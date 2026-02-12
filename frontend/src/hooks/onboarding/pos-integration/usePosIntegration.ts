@@ -6,6 +6,8 @@ import { postPosIntegration } from '@/services/onboarding/pos-integration';
 import { sseClient } from '@/services/shared';
 import type { EventSourceMessage } from '@/types/shared';
 
+const POS_INTEGRATION_TIMEOUT = 5000;
+
 export const usePosIntegration = () => {
   const [event, setEvent] = useState<EventSourceMessage | null>(null);
 
@@ -19,13 +21,16 @@ export const usePosIntegration = () => {
       onmessage: (message) => {
         setEvent(message);
       },
+      onerror: (error) => {
+        console.error({ error });
+      },
       signal: abortController.signal,
     });
 
     // 5초 뒤 포스 연동 요청
     const timeout = setTimeout(() => {
       mutate();
-    }, 5000);
+    }, POS_INTEGRATION_TIMEOUT);
 
     return () => {
       abortController.abort();
