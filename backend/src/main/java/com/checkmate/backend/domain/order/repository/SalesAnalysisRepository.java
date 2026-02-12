@@ -3,9 +3,11 @@ package com.checkmate.backend.domain.order.repository;
 import com.checkmate.backend.domain.analysis.dto.projection.sales.SalesByOrderChannelProjection;
 import com.checkmate.backend.domain.analysis.dto.projection.sales.SalesByPayMethodProjection;
 import com.checkmate.backend.domain.analysis.dto.projection.sales.SalesByTypeProjection;
+import com.checkmate.backend.domain.analysis.dto.projection.sales.SalesTrendProjection;
 import com.checkmate.backend.domain.order.entity.Order;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -75,6 +77,16 @@ public interface SalesAnalysisRepository extends JpaRepository<Order, Long> {
                     + " group by o.paymentMethod"
                     + " order by sum(o.netAmount) desc")
     List<SalesByPayMethodProjection> findSalesByPaymentMethod(
+            @Param("storeId") Long storeId,
+            @Param("startDate") LocalDate startDate,
+            @Param("endDate") LocalDate endDate);
+
+    /** SLS_09_04 (일별 매출 추이) SLS_10_07 (주별 매출 추이) SLS_11_07 (월별 매출 추이) SLS_12_01 (연별 매출 추이) */
+    @Query(
+            "select new com.checkmate.backend.domain.analysis.dto.projection.sales.SalesTrendProjection(sum(o.netAmount), count(o)) "
+                    + " from Order o"
+                    + " where o.store.id=:storeId and o.orderDate >= :startDate and o.orderDate < :endDate")
+    Optional<SalesTrendProjection> findSalesTrend(
             @Param("storeId") Long storeId,
             @Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate);
