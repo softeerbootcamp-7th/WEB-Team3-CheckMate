@@ -28,7 +28,7 @@ public class SalesAnalysisContextFactory implements AnalysisContextFactory {
                  * SLS_03_01 (오늘 건당 평균가)
                  * */
 
-            case SLS_01_01, SLS_02_01, SLS_03_01 -> {
+            case SLS_01_01, SLS_02_01, SLS_03_01, SLS_06_01 -> {
                 LocalDate start = today;
                 LocalDate end = today.plusDays(1);
 
@@ -89,6 +89,30 @@ public class SalesAnalysisContextFactory implements AnalysisContextFactory {
                         end,
                         comparisonStart,
                         comparisonEnd);
+            }
+
+                /*
+                 * SLS_06_02 (이번주 판매유형별 매출)
+                 * */
+
+            case SLS_06_02 -> {
+                LocalDate start = today.with(DayOfWeek.MONDAY);
+                LocalDate end = today.plusDays(1);
+
+                yield new SalesAnalysisContext(
+                        event.storeId(), analysisCardCode, start, end, null, null);
+            }
+
+                /*
+                 * SLS_06_03 (이번달 판매유형별 매출)
+                 * */
+
+            case SLS_06_03 -> {
+                LocalDate start = today.withDayOfMonth(1);
+                LocalDate end = today.plusDays(1);
+
+                yield new SalesAnalysisContext(
+                        event.storeId(), analysisCardCode, start, end, null, null);
             }
 
             default -> null;
