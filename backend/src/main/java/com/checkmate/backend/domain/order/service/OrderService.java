@@ -35,6 +35,7 @@ public class OrderService {
 
     @Transactional
     public void receivePosOrder(Long storeId, ReceiptRequestDTO receiptRequestDTO) {
+        // TODO 메뉴 소유자 검증
         Store store =
                 storeRepository
                         .findById(storeId)
@@ -103,7 +104,7 @@ public class OrderService {
         orderItemRepository.saveAll(orderItems);
 
         // 이벤트 발행
-        applicationEventPublisher.publishEvent(new OrderCreatedEvent(storeId, order.getId()));
+        applicationEventPublisher.publishEvent(new OrderCreatedEvent(storeId));
     }
 
     private int calculate2HourSlot(LocalDateTime orderedAt) {
