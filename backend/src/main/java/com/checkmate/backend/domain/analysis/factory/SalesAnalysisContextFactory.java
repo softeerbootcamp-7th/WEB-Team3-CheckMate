@@ -122,6 +122,54 @@ public class SalesAnalysisContextFactory implements AnalysisContextFactory {
                         event.storeId(), analysisCardCode, start, end, null, null);
             }
 
+                /*
+                 * SLS_09_04 (일별 매출 추이)
+                 * */
+
+            case SLS_09_04 -> {
+                LocalDate start = today.minusDays(7);
+                LocalDate end = today.plusDays(1);
+
+                yield new SalesAnalysisContext(
+                        event.storeId(), analysisCardCode, start, end, null, null);
+            }
+
+                /*
+                 * SLS_10_07 (주별 매출 추이)
+                 * */
+
+            case SLS_10_07 -> {
+                LocalDate start = today.minusWeeks(8);
+                LocalDate end = today.plusDays(1);
+
+                yield new SalesAnalysisContext(
+                        event.storeId(), analysisCardCode, start, end, null, null);
+            }
+
+                /*
+                 * SLS_11_07 (월별 매출 추이)
+                 * */
+
+            case SLS_11_07 -> {
+                LocalDate start = today.minusMonths(6);
+                LocalDate end = today.plusDays(1);
+
+                yield new SalesAnalysisContext(
+                        event.storeId(), analysisCardCode, start, end, null, null);
+            }
+
+                /*
+                 * SLS_12_01 (연별 매출 추이)
+                 * */
+
+            case SLS_12_01 -> {
+                LocalDate start = today.minusYears(3);
+                LocalDate end = today.plusDays(1);
+
+                yield new SalesAnalysisContext(
+                        event.storeId(), analysisCardCode, start, end, null, null);
+            }
+
             default -> null;
         };
     }
