@@ -89,7 +89,7 @@ public class TodaySalesByOrderChannelProcessor implements AnalysisProcessor<Sale
                         topShare >= 60 // 집중 문구 조건
                         );
 
-        // 판매 유형별 리스트
+        // 주문수단별 리스트
         List<SalesByOrderChannelItem> items =
                 currentProjections.stream()
                         .map(

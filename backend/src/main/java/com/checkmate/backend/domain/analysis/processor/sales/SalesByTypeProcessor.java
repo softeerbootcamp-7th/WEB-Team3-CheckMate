@@ -85,7 +85,7 @@ public class SalesByTypeProcessor implements AnalysisProcessor<SalesAnalysisCont
                 continue;
             }
 
-            long amount = Optional.ofNullable(p.totalNetAmount()).orElse(0L);
+            long amount = Optional.ofNullable(p.netAmount()).orElse(0L);
             long count = Optional.ofNullable(p.orderCount()).orElse(0L);
 
             result.add(new SalesByType(salesType, amount, count));
