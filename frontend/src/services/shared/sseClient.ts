@@ -92,7 +92,7 @@ interface SseClientOptions extends RequestInit {
 
   /**
    * request 생성, 메세지 처리, 콜백 실행 등에서 에러가 발생 시 호출됨
-   * retry 로직을 설계하는 것이 좋음: 치명적 에러는 rethrow, 그렇지 않으면 interval을 반화하여 마지막으로 수신한 event에 대해 자동으로 retry를 수행할 수 있음
+   * retry 로직을 설계하는 것이 좋음: 치명적 에러는 rethrow, 그렇지 않으면 interval을 반환하여 마지막으로 수신한 event에 대해 자동으로 retry를 수행할 수 있음
    * 정의하지 않을 시 1초 후 retry를 수행
    */
   // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
