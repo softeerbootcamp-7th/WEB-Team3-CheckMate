@@ -1,3 +1,5 @@
+import { useCallback } from 'react';
+
 import { XIcon } from 'lucide-react';
 
 import { PeriodTag } from '@/components/shared';
@@ -19,13 +21,16 @@ export const MiniViewActiveCard = ({
   const { removeCard } = useEditCard();
   const card = DASHBOARD_METRIC_CARDS[cardCode];
 
+  const handleRemove = useCallback(
+    () => removeCard(cardCode),
+    [removeCard, cardCode],
+  );
+
   if (!card) {
     // 카드 정보가 없는 경우 렌더링하지 않음
     return null;
   }
   const { label, type, period, sizeX, sizeY } = card;
-
-  const handleRemove = () => removeCard(cardCode);
 
   return (
     <div

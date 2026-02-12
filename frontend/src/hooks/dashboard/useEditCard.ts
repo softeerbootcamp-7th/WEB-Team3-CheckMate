@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { toast } from 'sonner';
 
@@ -9,21 +9,19 @@ import { useEditCardContext } from './useEditCardContext';
 export const useEditCard = () => {
   const { initGrid, grid, setGrid } = useEditCardContext();
 
-  const isAvailablePosition = (
-    x: number,
-    y: number,
-    sizeX: number,
-    sizeY: number,
-  ): boolean => {
-    for (let r = y; r < y + sizeY; r++) {
-      for (let c = x; c < x + sizeX; c++) {
-        if (r > GRID_ROW_SIZE || c > GRID_COL_SIZE || grid[r][c] !== '') {
-          return false;
+  const isAvailablePosition = useCallback(
+    (x: number, y: number, sizeX: number, sizeY: number): boolean => {
+      for (let r = y; r < y + sizeY; r++) {
+        for (let c = x; c < x + sizeX; c++) {
+          if (r > GRID_ROW_SIZE || c > GRID_COL_SIZE || grid[r][c] !== '') {
+            return false;
+          }
         }
       }
-    }
-    return true;
-  };
+      return true;
+    },
+    [grid],
+  );
 
   const isDirty = useMemo((): boolean => {
     for (let r = 1; r <= GRID_ROW_SIZE; r++) {
@@ -36,56 +34,62 @@ export const useEditCard = () => {
     return false;
   }, [grid, initGrid]);
 
-  const getFirstAvailablePosition = (
-    sizeX: number,
-    sizeY: number,
-  ): { x: number; y: number } => {
-    for (let r = 1; r <= GRID_ROW_SIZE; r++) {
-      for (let c = 1; c <= GRID_COL_SIZE; c++) {
-        if (isAvailablePosition(c, r, sizeX, sizeY)) {
-          return { x: c, y: r };
-        }
-      }
-    }
-    return { x: -1, y: -1 };
-  };
-
-  const addCard = (code: string, sizeX: number, sizeY: number) => {
-    const position = getFirstAvailablePosition(sizeX, sizeY);
-    if (position.x === -1 && position.y === -1) {
-      toast('카드를 놓을 공간이 없어요.', {
-        duration: 3500,
-        className:
-          'bg-grey-900! text-grey-50! border-none! body-small-semibold! ',
-        position: 'bottom-center',
-      });
-      return;
-    }
-
-    setGrid((prev) => {
-      const newGrid = prev.map((row) => [...row]);
-      for (let r = position.y; r < position.y + sizeY; r++) {
-        for (let c = position.x; c < position.x + sizeX; c++) {
-          newGrid[r][c] = code;
-        }
-      }
-      return newGrid;
-    });
-  };
-
-  const removeCard = (code: string) => {
-    setGrid((prev) => {
-      const newGrid = prev.map((row) => [...row]);
+  const getFirstAvailablePosition = useCallback(
+    (sizeX: number, sizeY: number): { x: number; y: number } => {
       for (let r = 1; r <= GRID_ROW_SIZE; r++) {
         for (let c = 1; c <= GRID_COL_SIZE; c++) {
-          if (newGrid[r][c] === code) {
-            newGrid[r][c] = '';
+          if (isAvailablePosition(c, r, sizeX, sizeY)) {
+            return { x: c, y: r };
           }
         }
       }
-      return newGrid;
-    });
-  };
+      return { x: -1, y: -1 };
+    },
+    [isAvailablePosition],
+  );
+
+  const addCard = useCallback(
+    (code: string, sizeX: number, sizeY: number) => {
+      const position = getFirstAvailablePosition(sizeX, sizeY);
+      if (position.x === -1 && position.y === -1) {
+        toast('카드를 놓을 공간이 없어요.', {
+          duration: 3500,
+          className:
+            'bg-grey-900! text-grey-50! border-none! body-small-semibold! ',
+          position: 'bottom-center',
+        });
+        return;
+      }
+
+      setGrid((prev) => {
+        const newGrid = prev.map((row) => [...row]);
+        for (let r = position.y; r < position.y + sizeY; r++) {
+          for (let c = position.x; c < position.x + sizeX; c++) {
+            newGrid[r][c] = code;
+          }
+        }
+        return newGrid;
+      });
+    },
+    [getFirstAvailablePosition, setGrid],
+  );
+
+  const removeCard = useCallback(
+    (code: string) => {
+      setGrid((prev) => {
+        const newGrid = prev.map((row) => [...row]);
+        for (let r = 1; r <= GRID_ROW_SIZE; r++) {
+          for (let c = 1; c <= GRID_COL_SIZE; c++) {
+            if (newGrid[r][c] === code) {
+              newGrid[r][c] = '';
+            }
+          }
+        }
+        return newGrid;
+      });
+    },
+    [setGrid],
+  );
 
   // const printGrid = (gridToPrint: string[][]) => {
   //   let rowStr = '';
