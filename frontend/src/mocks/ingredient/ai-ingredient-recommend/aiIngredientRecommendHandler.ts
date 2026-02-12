@@ -5,7 +5,9 @@ import type { SuccessResponse } from '@/services/shared';
 import type { PostAiIngredientRecommendResponseDto } from '@/types/ingredient';
 
 export const aiIngredientRecommendHandler = [
-  mswHttp.post('/api/ingredient/ai-ingredient-recommend', () => {
+  mswHttp.post('/api/ingredient/ai-ingredient-recommend', async () => {
+    // 2초 딜레이 줘서 로딩 중(스켈레톤 UI) 보이게 -> 나중에 삭제해야함
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     return HttpResponse.json<
       SuccessResponse<PostAiIngredientRecommendResponseDto>
     >(

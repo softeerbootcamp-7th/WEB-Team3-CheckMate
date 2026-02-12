@@ -8,7 +8,6 @@ export const handlers = [
   ...storeRegisterHandler,
   ...aiIngredientRecommendHandler,
   ...authHandler,
-  ...authHandler,
   ...settingHandler,
   ...ingredientHandler,
 ];
