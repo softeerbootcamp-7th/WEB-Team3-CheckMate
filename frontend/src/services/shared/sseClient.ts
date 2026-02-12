@@ -122,9 +122,6 @@ export const sseClient = (
   return new Promise<void>((resolve, reject) => {
     const headers = new Headers({
       ...customHeaders,
-      'Content-Type': 'text/event-stream',
-      Authorization: `Bearer ${authToken.get()}`,
-      'cache-control': 'no-cache',
     });
 
     if (!headers.has('Accept')) {
@@ -176,8 +173,9 @@ export const sseClient = (
         const response = await fetch(apiPath, {
           ...rest,
           headers,
-          signal: currentRequestAbortController.signal,
           credentials: 'include',
+          cache: 'no-store',
+          signal: currentRequestAbortController.signal,
         });
 
         await onopen(response);
