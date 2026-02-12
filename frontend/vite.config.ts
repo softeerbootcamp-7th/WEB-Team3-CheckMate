@@ -16,68 +16,62 @@ const dirname =
     ? __dirname
     : path.dirname(fileURLToPath(import.meta.url));
 
+const httpsConfig = {
+  key: fs.readFileSync(path.resolve(__dirname, 'localhost-key.pem')),
+  cert: fs.readFileSync(path.resolve(__dirname, 'localhost.pem')),
+};
+
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
-export default defineConfig(({ mode }) => {
-  // const env = loadEnv(mode, process.cwd(), '');
-  const isDevelopment = mode === 'development';
-  // const apiUrl = env.VITE_API_URL;
-  return {
-    plugins: [
-      react(),
-      tailwindcss(),
-      svgr({
-        svgrOptions: {
-          // 모든 SVG 내부의 특정 색상을 currentColor로 변환
-          replaceAttrValues: {
-            '#797A7D': 'currentColor',
-          },
+export default defineConfig({
+  plugins: [
+    react(),
+    tailwindcss(),
+    svgr({
+      svgrOptions: {
+        // 모든 SVG 내부의 특정 색상을 currentColor로 변환
+        replaceAttrValues: {
+          '#797A7D': 'currentColor',
         },
-      }),
-    ],
-    resolve: {
-      alias: {
-        '@': path.resolve(__dirname, './src'),
       },
+    }),
+  ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
     },
-    test: {
-      projects: [
-        {
-          extends: true,
-          plugins: [
-            // The plugin will run tests for the stories defined in your Storybook config
-            // See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
-            storybookTest({
-              configDir: path.join(dirname, '.storybook'),
-            }),
-          ],
-          test: {
-            name: 'storybook',
-            browser: {
-              enabled: true,
-              headless: true,
-              provider: playwright({}),
-              instances: [
-                {
-                  browser: 'chromium',
-                },
-              ],
-            },
-            setupFiles: ['.storybook/vitest.setup.ts'],
+  },
+  test: {
+    projects: [
+      {
+        extends: true,
+        plugins: [
+          // The plugin will run tests for the stories defined in your Storybook config
+          // See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
+          storybookTest({
+            configDir: path.join(dirname, '.storybook'),
+          }),
+        ],
+        test: {
+          name: 'storybook',
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: playwright({}),
+            instances: [
+              {
+                browser: 'chromium',
+              },
+            ],
           },
+          setupFiles: ['.storybook/vitest.setup.ts'],
         },
-      ],
-    },
-    server: {
-      https: isDevelopment
-        ? {
-            key: fs.readFileSync(path.resolve(__dirname, 'localhost-key.pem')),
-            cert: fs.readFileSync(path.resolve(__dirname, 'localhost.pem')),
-          }
-        : undefined,
-      historyApiFallback: true,
-    },
-    preview: {
-      port: 5173,
-    },
-  };
+      },
+    ],
+  },
+  server: {
+    https: httpsConfig,
+  },
+  preview: {
+    port: 5173,
+  },
 });
