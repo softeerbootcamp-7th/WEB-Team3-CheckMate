@@ -1,4 +1,4 @@
-package com.checkmate.backend.domain.analysis.dto.projection;
+package com.checkmate.backend.domain.analysis.dto.projection.menu;
 
 /** MNU_01(메뉴별 매출 랭킹) */
 public record MenuSalesProjection(

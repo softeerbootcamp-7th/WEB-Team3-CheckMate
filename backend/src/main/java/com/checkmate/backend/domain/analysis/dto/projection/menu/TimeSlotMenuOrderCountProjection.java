@@ -1,4 +1,4 @@
-package com.checkmate.backend.domain.analysis.dto.projection;
+package com.checkmate.backend.domain.analysis.dto.projection.menu;
 
 /** MNU_03 (시간대별 메뉴 주문건수) */
 public record TimeSlotMenuOrderCountProjection(
