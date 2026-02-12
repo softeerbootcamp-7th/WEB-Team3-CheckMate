@@ -31,7 +31,7 @@ public class MenuAnalysisContextFactory implements AnalysisContextFactory {
                  * MNU_04_01 (오늘 식재료 소진량)
                  * */
 
-            case MNU_01_01, MNU_02_01, MNU_03_01 ->
+            case MNU_01_01, MNU_02_01, MNU_03_01, MNU_04_01 ->
                     new MenuAnalysisContext(
                             event.storeId(), analysisCardCode, today, today.plusDays(1));
 
