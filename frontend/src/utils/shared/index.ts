@@ -1,14 +1,18 @@
 export { cn } from './lib';
 export type { ValueOf } from './valueOf';
+export {
+  formatDateYYYYMMDD,
+  formatDateYYYYMM,
+  formatDateLocalized,
+} from './formatDate';
+export { formatRelativeTime } from './formatTime';
 export type { DeepValueOf } from './deepValueOf';
-export { formatDateYYYYMMDD, formatDateYYYYMM } from './formatDate';
 export {
   getNumberOfDate,
   getFirstDayOfMonth,
   getLastDayOfMonth,
   isBetweenSelectedDate,
-  isStartDate,
-  isEndDate,
+  isSameDate,
   getCurrentDate,
   getMondayOfWeek,
   getSundayOfWeek,
@@ -20,7 +24,9 @@ export {
   getLastDateOfYear,
   isSameYear,
 } from './calendar';
+export { formatPriceWithComma } from './formatPriceWithComma';
 export { formatNumber, formatNumberInTenThousands } from './formatNumber';
+export { getXCoordinate, filterCoordinate } from './line-chart';
 
 export {
   computeChartDataWithPercentage,
@@ -31,3 +37,10 @@ export {
 } from './doughnut-chart';
 
 export { createPeriodTypeProvider } from './period-select';
+export { getCoordinate } from './getCoordinate';
+export {
+  getBarSegmentInfoList,
+  checkIsStackBarChart,
+  getTooltipContent,
+  getStackTotalAmount,
+} from './bar-chart';

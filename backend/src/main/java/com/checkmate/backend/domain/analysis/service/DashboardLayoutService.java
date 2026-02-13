@@ -48,6 +48,14 @@ public class DashboardLayoutService {
     }
 
     private void validateLayoutRequests(List<LayoutUpdateRequest> requests) {
+        // 실제 카드가 아닌 카드 코드 검증
+        requests.forEach(
+                request -> {
+                    if (request.cardCode().getCardSize() == null) {
+                        throw new BadRequestException(ErrorStatus.INVALID_CARD_TYPE);
+                    }
+                });
+
         // 카드 종류 중복 검증
         long uniqueCards = requests.stream().map(LayoutUpdateRequest::cardCode).distinct().count();
         if (uniqueCards != requests.size()) {

@@ -7,6 +7,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum AnalysisCardCode {
 
+    /*
+     * 카드 사이즈가 null 인 경우는 실제 지표 카드가 아님. 편의상으로 구현되어 있는 것
+     * */
+
     // 매출 - 현황 > 실매출
     SLS_01_01(
             "오늘 실매출",
@@ -143,19 +147,19 @@ public enum AnalysisCardCode {
             AnalysisCode.SLS_09,
             Period.LAST_7_DAYS,
             ComparePeriod.NONE,
-            CardSize.SIZE_1X1),
+            CardSize.SIZE_3X1),
     SLS_10_07(
             "주별 매출 추이",
             AnalysisCode.SLS_10,
             Period.LAST_8_WEEKS,
             ComparePeriod.NONE,
-            CardSize.SIZE_1X1),
+            CardSize.SIZE_3X1),
     SLS_11_07(
             "월별 매출 추이",
             AnalysisCode.SLS_11,
             Period.LAST_6_MONTHS,
             ComparePeriod.NONE,
-            CardSize.SIZE_1X1),
+            CardSize.SIZE_3X1),
 
     // 매출 - 패턴
     SLS_13_01(
