@@ -6,7 +6,6 @@ import {
   type MetricCardCode,
 } from '@/constants/dashboard';
 import { useEditCard } from '@/hooks/dashboard';
-import { formatNumber } from '@/utils/shared';
 
 interface CardEditViewCardProps {
   cardCode: MetricCardCode;
@@ -25,7 +24,7 @@ export const CardEditViewCard = ({ cardCode }: CardEditViewCardProps) => {
   }, [removeCard, cardCode]);
 
   const isAdded = useMemo(
-    () => cards.some((c) => c.code === cardCode),
+    () => cards.some((c) => c.cardCode === cardCode),
     [cards, cardCode],
   );
 
@@ -53,18 +52,6 @@ export const CardEditViewCard = ({ cardCode }: CardEditViewCardProps) => {
         {type}
         <br />
         {sizeX} x {sizeY}
-        <div className="flex w-75 flex-col items-start justify-start gap-1">
-          <span className="flex items-center gap-1">
-            <span className="title-medium-semibold text-grey-900">
-              {formatNumber(295600)}
-            </span>
-            <span className="title-medium-semibold text-grey-900">원</span>
-          </span>
-          <span className="whitespace-pre">
-            {`지난주 월요일\n이 시간보다`}
-            <strong className="text-brand-main ml-1">5% 늘었어요</strong>
-          </span>
-        </div>
       </EditCardWrapper>
     </li>
   );

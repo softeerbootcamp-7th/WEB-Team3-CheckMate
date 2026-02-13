@@ -4,12 +4,15 @@ import { XIcon } from 'lucide-react';
 
 import { PeriodTag } from '@/components/shared';
 import { Button } from '@/components/shared/shadcn-ui';
-import { DASHBOARD_METRIC_CARDS } from '@/constants/dashboard';
+import {
+  DASHBOARD_METRIC_CARDS,
+  type MetricCardCode,
+} from '@/constants/dashboard';
 import { CDN_BASE_URL } from '@/constants/shared/cdnBaseUrl';
 import { useEditCard } from '@/hooks/dashboard';
 
 interface MiniViewActiveCardProps {
-  cardCode: string;
+  cardCode: MetricCardCode;
   posX: number;
   posY: number;
 }

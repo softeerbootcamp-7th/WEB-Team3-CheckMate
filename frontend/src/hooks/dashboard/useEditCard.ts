@@ -2,7 +2,12 @@ import { useCallback, useMemo } from 'react';
 
 import { toast } from 'sonner';
 
-import { GRID_COL_SIZE, GRID_ROW_SIZE } from '@/constants/dashboard';
+import {
+  GRID_COL_SIZE,
+  GRID_ROW_SIZE,
+  type MetricCardCode,
+} from '@/constants/dashboard';
+import type { DashboardCard } from '@/types/dashboard';
 
 import { useEditCardContext } from './useEditCardContext';
 
@@ -13,7 +18,7 @@ export const useEditCard = () => {
     (x: number, y: number, sizeX: number, sizeY: number): boolean => {
       for (let r = y; r < y + sizeY; r++) {
         for (let c = x; c < x + sizeX; c++) {
-          if (r > GRID_ROW_SIZE || c > GRID_COL_SIZE || grid[r][c] !== '') {
+          if (r > GRID_ROW_SIZE || c > GRID_COL_SIZE || grid[r][c] !== null) {
             return false;
           }
         }
@@ -49,7 +54,7 @@ export const useEditCard = () => {
   );
 
   const addCard = useCallback(
-    (code: string, sizeX: number, sizeY: number) => {
+    (code: MetricCardCode, sizeX: number, sizeY: number) => {
       const position = getFirstAvailablePosition(sizeX, sizeY);
       if (position.x === -1 && position.y === -1) {
         toast('카드를 놓을 공간이 없어요.', {
@@ -75,13 +80,13 @@ export const useEditCard = () => {
   );
 
   const removeCard = useCallback(
-    (code: string) => {
+    (code: MetricCardCode) => {
       setGrid((prev) => {
         const newGrid = prev.map((row) => [...row]);
         for (let r = 1; r <= GRID_ROW_SIZE; r++) {
           for (let c = 1; c <= GRID_COL_SIZE; c++) {
             if (newGrid[r][c] === code) {
-              newGrid[r][c] = '';
+              newGrid[r][c] = null;
             }
           }
         }
@@ -95,7 +100,7 @@ export const useEditCard = () => {
   //   let rowStr = '';
   //   for (let r = 1; r <= GRID_ROW_SIZE; r++) {
   //     for (let c = 1; c <= GRID_COL_SIZE; c++) {
-  //       rowStr += gridToPrint[r][c] === '' ? '[ ]' : `[${gridToPrint[r][c]}]`;
+  //       rowStr += gridToPrint[r][c] === null ? '[ ]' : `[${gridToPrint[r][c]}]`;
   //     }
   //     rowStr += '\n';
   //   }
@@ -103,13 +108,13 @@ export const useEditCard = () => {
   // };
 
   const cards = useMemo(() => {
-    const cardList: { code: string; rowNo: number; colNo: number }[] = [];
+    const cardList: DashboardCard[] = [];
     const cardSet = new Set<string>();
     for (let r = 1; r <= GRID_ROW_SIZE; r++) {
       for (let c = 1; c <= GRID_COL_SIZE; c++) {
         const code = grid[r][c];
-        if (code !== '' && !cardSet.has(code)) {
-          cardList.push({ code, rowNo: r, colNo: c });
+        if (code !== null && !cardSet.has(code)) {
+          cardList.push({ cardCode: code, rowNo: r, colNo: c });
           cardSet.add(code);
         }
       }
@@ -121,7 +126,7 @@ export const useEditCard = () => {
     let count = 0;
     for (let r = 1; r <= GRID_ROW_SIZE; r++) {
       for (let c = 1; c <= GRID_COL_SIZE; c++) {
-        if (grid[r][c] === '') {
+        if (grid[r][c] === null) {
           count++;
         }
       }

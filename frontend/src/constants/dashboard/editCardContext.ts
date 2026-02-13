@@ -1,9 +1,11 @@
 import { createContext, type Dispatch, type SetStateAction } from 'react';
 
+import type { MetricCardCode } from './dashboardMetricCards';
+
 interface EditCardContextType {
-  initGrid: string[][];
-  grid: string[][];
-  setGrid: Dispatch<SetStateAction<string[][]>>;
+  initGrid: (MetricCardCode | null)[][];
+  grid: (MetricCardCode | null)[][];
+  setGrid: Dispatch<SetStateAction<(MetricCardCode | null)[][]>>;
 }
 
 export const EditCardContext = createContext<EditCardContextType | undefined>(

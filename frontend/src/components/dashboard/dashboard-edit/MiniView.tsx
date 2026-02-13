@@ -23,8 +23,8 @@ export const MiniView = () => {
         {/* 활성 카드 */}
         {cards.map((card) => (
           <MiniViewActiveCard
-            key={`mini-${card.code}`}
-            cardCode={card.code}
+            key={`mini-${card.cardCode}`}
+            cardCode={card.cardCode}
             posX={card.colNo}
             posY={card.rowNo}
           />
