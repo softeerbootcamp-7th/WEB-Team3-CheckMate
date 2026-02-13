@@ -6,7 +6,7 @@ import com.checkmate.backend.domain.report.dto.ReportTask;
 import com.checkmate.backend.domain.report.dto.projection.KpiTodayProjection;
 import com.checkmate.backend.domain.report.dto.projection.StatsDtoProjection;
 import com.checkmate.backend.domain.report.enums.WeekStage;
-import com.checkmate.backend.domain.report.repository.MockInterfaceRepository;
+import com.checkmate.backend.domain.report.repository.MockRepository;
 import com.checkmate.backend.domain.store.entity.Store;
 import com.checkmate.backend.domain.store.repository.StoreRepository;
 import java.time.LocalDateTime;
@@ -33,7 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ReportQueryService {
 
     private final ReportAnalysisRepository reportAnalysisRepository;
-    private final MockInterfaceRepository mockRepository;
+    private final MockRepository mockRepository;
     private final StoreRepository storeRepository;
 
     /**
