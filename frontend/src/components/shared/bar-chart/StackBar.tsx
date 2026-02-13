@@ -71,7 +71,7 @@ export const StackBar = ({
               hasMoveAnimation={true}
               hasGradient={false}
               activeTooltip={activeTooltip}
-              isOnHoverColorChange={false}
+              barColorChangeOnHover={false}
               tooltipContentText={
                 getTooltipContent({
                   tooltipContent,

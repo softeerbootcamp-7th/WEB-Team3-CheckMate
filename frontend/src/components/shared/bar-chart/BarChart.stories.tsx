@@ -77,6 +77,8 @@ export const Default: Story = {
     chartTitle: '일별 매출 꺾은선 차트',
     chartDescription: '일별 매출 꺾은선 차트 설명',
     xAxisType: 'right-arrow',
+    activeLastData: true,
+    barColorChangeOnHover: true,
   },
   render: (args) => (
     <TooltipProvider>
@@ -106,6 +108,8 @@ export const StackBar: Story = {
     chartTitle: '일별 매출 꺾은선 차트',
     chartDescription: '일별 매출 꺾은선 차트 설명',
     xAxisType: 'right-arrow',
+    activeLastData: true,
+    barColorChangeOnHover: true,
   },
   render: (args) => (
     <TooltipProvider>

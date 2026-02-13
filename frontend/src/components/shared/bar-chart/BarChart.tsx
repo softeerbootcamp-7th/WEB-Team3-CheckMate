@@ -75,6 +75,10 @@ interface BarChartProps {
    * 가장 우측 막대 바 색상 강조할 것인지 여부
    */
   activeLastData?: boolean;
+  /**
+   * 바 호버 시 색상 변경할 건지
+   */
+  barColorChangeOnHover?: boolean;
 }
 
 export const BarChart = ({
@@ -93,6 +97,7 @@ export const BarChart = ({
   hasBarLabel = true,
   xAxisType,
   activeLastData = true,
+  barColorChangeOnHover = true,
 }: BarChartProps) => {
   const { titleId, descId } = useBarChartId();
 
@@ -167,6 +172,7 @@ export const BarChart = ({
         hasXAxis={hasXAxis}
         hasBarLabel={hasBarLabel}
         activeLastData={activeLastData}
+        barColorChangeOnHover={barColorChangeOnHover}
       />
     </svg>
   );
