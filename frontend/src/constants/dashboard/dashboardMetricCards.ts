@@ -21,44 +21,7 @@ interface MetricCard {
   sizeY: number; // 세로 크기 (기본값 1)
 }
 
-export type MetricCardCode =
-  | 'WTH_01_01'
-  | 'WTH_02_01'
-  | 'WTH_03_04'
-  | 'WTH_04_07'
-  | 'WTH_05_07'
-  | 'WTH_06_07'
-  | 'SLS_01_01'
-  | 'SLS_01_02'
-  | 'SLS_01_03'
-  | 'SLS_02_01'
-  | 'SLS_02_02'
-  | 'SLS_02_03'
-  | 'SLS_03_01'
-  | 'SLS_03_02'
-  | 'SLS_03_03'
-  | 'SLS_06_01'
-  | 'SLS_06_02'
-  | 'SLS_06_03'
-  | 'SLS_07_01'
-  | 'SLS_07_02'
-  | 'SLS_07_03'
-  | 'SLS_08_01'
-  | 'SLS_08_02'
-  | 'SLS_08_03'
-  | 'SLS_09_04'
-  | 'SLS_10_07'
-  | 'SLS_11_07'
-  | 'SLS_13_01'
-  | 'SLS_14_06'
-  | 'MNU_01_01'
-  | 'MNU_01_04'
-  | 'MNU_01_05'
-  | 'MNU_03_01'
-  | 'MNU_04_01'
-  | 'MNU_05_04';
-
-export const DASHBOARD_METRIC_CARDS: Record<MetricCardCode, MetricCard> = {
+export const DASHBOARD_METRIC_CARDS = {
   SLS_01_01: {
     code: 'SLS_01_01',
     label: '오늘 실매출',
@@ -339,4 +302,10 @@ export const DASHBOARD_METRIC_CARDS: Record<MetricCardCode, MetricCard> = {
     sizeX: 1,
     sizeY: 1,
   },
-} as const;
+} as const satisfies Record<string, MetricCard>;
+
+export type MetricCardCode = keyof typeof DASHBOARD_METRIC_CARDS;
+
+export const isMetricCardCode = (code: string): code is MetricCardCode => {
+  return code in DASHBOARD_METRIC_CARDS;
+};
