@@ -53,8 +53,26 @@ export const useEditCard = () => {
     [isAvailablePosition],
   );
 
+  const isAdded = useCallback(
+    (cardCode: MetricCardCode): boolean => {
+      for (let r = 1; r <= GRID_ROW_SIZE; r++) {
+        for (let c = 1; c <= GRID_COL_SIZE; c++) {
+          if (grid[r][c] === cardCode) {
+            return true;
+          }
+        }
+      }
+      return false;
+    },
+    [grid],
+  );
+
   const addCard = useCallback(
     (code: MetricCardCode, sizeX: number, sizeY: number) => {
+      if (isAdded(code)) {
+        return;
+      }
+
       const position = getFirstAvailablePosition(sizeX, sizeY);
       if (position.x === -1 && position.y === -1) {
         toast('카드를 놓을 공간이 없어요.', {
@@ -76,7 +94,7 @@ export const useEditCard = () => {
         return newGrid;
       });
     },
-    [getFirstAvailablePosition, setGrid],
+    [getFirstAvailablePosition, isAdded, setGrid],
   );
 
   const removeCard = useCallback(
@@ -141,5 +159,6 @@ export const useEditCard = () => {
     removeCard,
     cards,
     emptyCellCount,
+    isAdded,
   };
 };

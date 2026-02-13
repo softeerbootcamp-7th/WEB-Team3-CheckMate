@@ -11,22 +11,19 @@ interface CardEditViewCardProps {
   cardCode: MetricCardCode;
 }
 export const CardEditViewCard = ({ cardCode }: CardEditViewCardProps) => {
-  const { addCard, removeCard, cards } = useEditCard();
+  const { addCard, removeCard, isAdded } = useEditCard();
 
   const card = useMemo(() => DASHBOARD_METRIC_CARDS[cardCode], [cardCode]);
 
+  const memoisedIsAdded = useMemo(() => isAdded(cardCode), [isAdded, cardCode]);
+
   const handleAddCard = useCallback(() => {
-    addCard(cardCode, card.sizeX, card.sizeY);
-  }, [addCard, cardCode, card]);
+    addCard(cardCode, 1, 1);
+  }, [addCard, cardCode]);
 
   const handleDeleteCard = useCallback(() => {
     removeCard(cardCode);
   }, [removeCard, cardCode]);
-
-  const isAdded = useMemo(
-    () => cards.some((c) => c.cardCode === cardCode),
-    [cards, cardCode],
-  );
 
   if (!card) {
     return null; // 카드 정보가 없는 경우 렌더링하지 않음
@@ -35,9 +32,9 @@ export const CardEditViewCard = ({ cardCode }: CardEditViewCardProps) => {
   const { code, label, type, period, sizeX, sizeY } = card;
 
   return (
-    <li style={{ gridColumn: `span ${1}` }}>
+    <li style={{ gridColumn: `span ${sizeX}` }}>
       <EditCardWrapper
-        isAdded={isAdded}
+        isAdded={memoisedIsAdded}
         period={period}
         className="min-w-full"
         sizeX={sizeX}
