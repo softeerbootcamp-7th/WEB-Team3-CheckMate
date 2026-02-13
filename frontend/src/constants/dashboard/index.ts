@@ -10,9 +10,11 @@ export {
   type MetricItem,
   type MetricTabs,
   type ExtractCardCodes,
+  type ExtractCardCodesFromSection,
 } from './dashboardMetric';
 export {
   DASHBOARD_METRIC_CARDS,
   isMetricCardCode,
   type MetricCardCode,
 } from './dashboardMetricCards';
+export { METRIC_TREND, type MetricTrend } from './metricTrend';
