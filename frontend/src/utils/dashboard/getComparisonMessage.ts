@@ -57,21 +57,21 @@ export const getComparisonMessage = ({
     case PERIOD_PRESETS.dayWeekMonth.thisWeek:
       if (metricTrend === METRIC_TREND.SAME) {
         return {
-          commonText: `${PERIOD_TEXT[periodType]} 이맘때와 ${METRIC_TRED_TEXT[metricTrend]}`,
+          commonText: `${PERIOD_TEXT[periodType]}와 ${METRIC_TRED_TEXT[metricTrend]}`,
         };
       }
       return {
-        commonText: `${PERIOD_TEXT[periodType]} 이맘때보다 `,
+        commonText: `${PERIOD_TEXT[periodType]}보다 `,
         highlightText: `${comparisonAmount}${unit} ${METRIC_TRED_TEXT[metricTrend]}`,
       };
     case PERIOD_PRESETS.dayWeekMonth.thisMonth:
       if (metricTrend === METRIC_TREND.SAME) {
         return {
-          commonText: `${PERIOD_TEXT[periodType]} 이맘때와 ${METRIC_TRED_TEXT[metricTrend]}`,
+          commonText: `${PERIOD_TEXT[periodType]}와 ${METRIC_TRED_TEXT[metricTrend]}`,
         };
       }
       return {
-        commonText: `${PERIOD_TEXT[periodType]} 이맘때보다 `,
+        commonText: `${PERIOD_TEXT[periodType]}보다 `,
         highlightText: `${comparisonAmount}${unit} ${METRIC_TRED_TEXT[metricTrend]}`,
       };
     default:
