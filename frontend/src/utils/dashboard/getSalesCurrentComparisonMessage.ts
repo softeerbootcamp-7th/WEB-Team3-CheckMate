@@ -3,7 +3,7 @@ import { DAY_OF_WEEK_LIST, PERIOD_PRESETS } from '@/constants/shared';
 
 import { formatNumber, type ValueOf } from '../shared';
 
-interface GetComparisonMessageArgs {
+interface GetSalesCurrentComparisonMessageArgs {
   periodType: ValueOf<typeof PERIOD_PRESETS.dayWeekMonth>;
   hasPreviousData: boolean;
   metricTrend: MetricTrend;
@@ -12,14 +12,14 @@ interface GetComparisonMessageArgs {
   unit: string;
 }
 
-export const getComparisonMessage = ({
+export const getSalesCurrentComparisonMessage = ({
   periodType,
   hasPreviousData,
   metricTrend,
   metricLabel,
   comparisonAmount,
   unit,
-}: GetComparisonMessageArgs): {
+}: GetSalesCurrentComparisonMessageArgs): {
   commonText: string;
   highlightText?: string;
 } => {

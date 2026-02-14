@@ -5,7 +5,10 @@ import {
 } from '@/constants/dashboard';
 import { REAL_SALES, SALES_UNIT } from '@/constants/sales';
 import type { GetRealTimeSalesResponseDto } from '@/types/sales';
-import { getComparisonMessage, getMetricTrend } from '@/utils/dashboard';
+import {
+  getMetricTrend,
+  getSalesCurrentComparisonMessage,
+} from '@/utils/dashboard';
 import type { Nullable } from '@/utils/shared';
 
 import { CurrentSalesContent } from './CurrentSalesContent';
@@ -43,7 +46,7 @@ export const RealSalesContent = ({
     maxValue: MAX_CHANGE_RATE,
   });
 
-  const { commonText, highlightText } = getComparisonMessage({
+  const { commonText, highlightText } = getSalesCurrentComparisonMessage({
     periodType,
     hasPreviousData,
     metricTrend,

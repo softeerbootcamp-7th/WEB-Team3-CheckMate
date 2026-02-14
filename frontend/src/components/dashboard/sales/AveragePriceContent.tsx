@@ -5,7 +5,10 @@ import {
 } from '@/constants/dashboard';
 import { AVERAGE_PRICE, SALES_UNIT } from '@/constants/sales';
 import type { GetAveragePriceResponseDto } from '@/types/sales';
-import { getComparisonMessage, getMetricTrend } from '@/utils/dashboard';
+import {
+  getMetricTrend,
+  getSalesCurrentComparisonMessage,
+} from '@/utils/dashboard';
 import type { Nullable } from '@/utils/shared';
 
 import { CurrentSalesContent } from './CurrentSalesContent';
@@ -41,7 +44,7 @@ export const AveragePriceContent = ({
     minValue: MIN_CHANGE_RATE,
     maxValue: MAX_CHANGE_RATE,
   });
-  const { commonText, highlightText } = getComparisonMessage({
+  const { commonText, highlightText } = getSalesCurrentComparisonMessage({
     periodType,
     hasPreviousData,
     metricTrend,
