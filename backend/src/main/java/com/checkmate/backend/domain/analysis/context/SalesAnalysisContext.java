@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 public class SalesAnalysisContext extends AnalysisContext {
 
-    private final LocalDate anchor;
+    private final LocalDateTime anchor;
     private final LocalDate comparisonStart;
     private final LocalDate comparisonEnd;
 
