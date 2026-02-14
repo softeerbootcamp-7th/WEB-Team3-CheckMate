@@ -19,7 +19,7 @@ public class SalesAnalysisContextFactory implements AnalysisContextFactory {
 
     @Override
     public AnalysisContext create(AnalysisCardCode analysisCardCode, OrderCreatedEvent event) {
-        LocalDateTime anchor = LocalDateTime.now();
+        LocalDateTime anchor = event.anchor();
         LocalDate today = anchor.toLocalDate();
 
         return switch (analysisCardCode) {
