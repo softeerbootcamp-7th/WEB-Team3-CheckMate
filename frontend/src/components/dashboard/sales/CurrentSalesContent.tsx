@@ -90,7 +90,6 @@ const CurrentSalesContentComparisonMessage = ({
       {changeRateMessage && (
         <strong
           className={cn(
-            'ml-1',
             metricTrend === METRIC_TREND.UP && 'text-brand-main',
             metricTrend === METRIC_TREND.DOWN && 'text-others-negative',
             metricTrend === METRIC_TREND.SAME && 'text-grey-500',
