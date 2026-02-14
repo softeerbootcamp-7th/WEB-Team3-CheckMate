@@ -26,9 +26,12 @@ public class SalesAnalysisContextFactory implements AnalysisContextFactory {
                  * SLS_01_01 (오늘 실매출)
                  * SLS_02_01 (오늘 주문건수)
                  * SLS_03_01 (오늘 건당 평균가)
+                 * SLS_06_01 (오늘 판매유형별 매출)
+                 * SLS_07_01 (오늘 주문수단별 매출)
+                 * SLS_08_01 (오늘 결제수단별 매출)
                  * */
 
-            case SLS_01_01, SLS_02_01, SLS_03_01 -> {
+            case SLS_01_01, SLS_02_01, SLS_03_01, SLS_06_01, SLS_07_01, SLS_08_01 -> {
                 LocalDate start = today;
                 LocalDate end = today.plusDays(1);
 
@@ -91,7 +94,117 @@ public class SalesAnalysisContextFactory implements AnalysisContextFactory {
                         comparisonEnd);
             }
 
+                /*
+                 * SLS_04_02 (이번주 총매출)
+                 * SLS_05_02 (이번주 할인 & 취소)
+                 * SLS_06_02 (이번주 판매유형별 매출)
+                 * SLS_07_02 (이번주 주문수단별 매출)
+                 * SLS_08_02 (이번주 결제수단별 매출)
+                 * */
+
+            case SLS_04_02, SLS_05_02, SLS_06_02, SLS_07_02, SLS_08_02 -> {
+                LocalDate start = today.with(DayOfWeek.MONDAY);
+                LocalDate end = today.plusDays(1);
+
+                yield new SalesAnalysisContext(
+                        event.storeId(), analysisCardCode, start, end, null, null);
+            }
+
+                /*
+                 * SLS_06_03 (이번달 판매유형별 매출)
+                 * SLS_07_03 (이번달 주문수단별 매출)
+                 * SLS_08_03 (이번달 결제수단별 매출)
+                 * */
+
+            case SLS_06_03, SLS_07_03, SLS_08_03 -> {
+                LocalDate start = today.withDayOfMonth(1);
+                LocalDate end = today.plusDays(1);
+
+                yield new SalesAnalysisContext(
+                        event.storeId(), analysisCardCode, start, end, null, null);
+            }
+
+                /*
+                 * SLS_09_04 (일별 매출 추이)
+                 * */
+
+            case SLS_09_04 -> {
+                LocalDate start = today.minusDays(7);
+                LocalDate end = today.plusDays(1);
+
+                yield new SalesAnalysisContext(
+                        event.storeId(), analysisCardCode, start, end, null, null);
+            }
+
+                /*
+                 * SLS_10_07 (주별 매출 추이)
+                 * */
+
+            case SLS_10_07 -> {
+                LocalDate start = today.minusWeeks(8);
+                LocalDate end = today.plusDays(1);
+
+                yield new SalesAnalysisContext(
+                        event.storeId(), analysisCardCode, start, end, null, null);
+            }
+
+                /*
+                 * SLS_11_07 (월별 매출 추이)
+                 * */
+
+            case SLS_11_07 -> {
+                LocalDate start = today.minusMonths(6);
+                LocalDate end = today.plusDays(1);
+
+                yield new SalesAnalysisContext(
+                        event.storeId(), analysisCardCode, start, end, null, null);
+            }
+
+                /*
+                 * SLS_12_01 (연별 매출 추이)
+                 * */
+
+            case SLS_12_01 -> {
+                LocalDate start = today.minusYears(3);
+                LocalDate end = today.plusDays(1);
+
+                yield new SalesAnalysisContext(
+                        event.storeId(), analysisCardCode, start, end, null, null);
+            }
+
+                /*
+                 * SLS_04_01 (오늘 총매출)
+                 * SLS_05_01 (오늘 할인 & 취소)
+                 * */
+
+            case SLS_04_01, SLS_05_01 -> {
+                LocalDate start = today;
+                LocalDate end = today.plusDays(1);
+
+                yield new SalesAnalysisContext(
+                        event.storeId(), analysisCardCode, start, end, null, null);
+            }
+
+                /*
+                 * SLS_04_03 (이번달 총매출)
+                 * SLS_05_03 (이번달 할인 & 취소)
+                 * */
+
+            case SLS_04_03, SLS_05_03 -> {
+                LocalDate start = today.withDayOfMonth(1);
+                LocalDate end = today.plusDays(1);
+
+                yield new SalesAnalysisContext(
+                        event.storeId(), analysisCardCode, start, end, null, null);
+            }
+
             default -> null;
         };
+    }
+
+    @Override
+    public AnalysisContext create(
+            AnalysisCardCode analysisCardCode, Long storeId, LocalDate start, LocalDate end) {
+        return new SalesAnalysisContext(storeId, analysisCardCode, start, end, null, null);
     }
 }

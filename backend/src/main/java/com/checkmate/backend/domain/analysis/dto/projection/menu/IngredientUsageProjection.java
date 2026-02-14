@@ -1,4 +1,4 @@
-package com.checkmate.backend.domain.analysis.dto.projection;
+package com.checkmate.backend.domain.analysis.dto.projection.menu;
 
 /** MNU_04 (식자재 소진량) */
 public record IngredientUsageProjection(

@@ -160,6 +160,7 @@ public enum AnalysisCardCode {
             Period.LAST_6_MONTHS,
             ComparePeriod.NONE,
             CardSize.SIZE_3X1),
+    SLS_12_01("연별 매출 추이", AnalysisCode.SLS_12, Period.LAST_3_YEARS, ComparePeriod.NONE, null),
 
     // 매출 - 패턴
     SLS_13_01(
