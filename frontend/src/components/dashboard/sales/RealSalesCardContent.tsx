@@ -10,15 +10,6 @@ import type { Nullable } from '@/utils/shared';
 
 import { CurrentSalesContent } from './CurrentSalesContent';
 
-type RealSalesCardCodes = ExtractCardCodes<
-  typeof DASHBOARD_METRICS.SALES.sections.CURRENT_SALES.items.REAL_SALES
->;
-
-interface RealSalesCardContentProps extends Nullable<GetRealTimeSalesResponseDto> {
-  cardCode: RealSalesCardCodes;
-  className?: string;
-}
-
 const {
   METRIC_LABEL,
   MIN_CHANGE_RATE,
@@ -27,6 +18,15 @@ const {
   EXAMPLE_CHANGE_RATE,
   EXAMPLE_HAS_PREVIOUS_DATA,
 } = REAL_SALES;
+
+type RealSalesCardCodes = ExtractCardCodes<
+  typeof DASHBOARD_METRICS.SALES.sections.CURRENT_SALES.items.REAL_SALES
+>;
+
+interface RealSalesCardContentProps extends Nullable<GetRealTimeSalesResponseDto> {
+  cardCode: RealSalesCardCodes;
+  className?: string;
+}
 
 export const RealSalesCardContent = ({
   cardCode,
