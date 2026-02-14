@@ -24,6 +24,7 @@ public class TodaySalesByOrderChannelProcessor implements AnalysisProcessor<Sale
         return AnalysisCardCode.SLS_07_01 == analysisCardCode;
     }
 
+    // TODO: 다른 애들도 insight
     @Override
     public AnalysisResponse process(SalesAnalysisContext context) {
 
