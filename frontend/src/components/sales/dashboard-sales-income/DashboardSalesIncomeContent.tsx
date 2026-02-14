@@ -1,9 +1,14 @@
 import type { ReactNode } from 'react';
 
-import type { PERIOD_PRESETS } from '@/constants/shared';
+import { DoughnutChart } from '@/components/shared';
+import { PERIOD_PRESETS } from '@/constants/shared';
+import type { SalesSource } from '@/types/sales';
 import type { SalesIncomeStructureInsight } from '@/types/sales/salesIncomeStructureInsight';
+import type { DoughnutChartItem } from '@/types/shared';
 import { getSalesIncomeStructureComparisionMessage } from '@/utils/dashboard';
 import { cn, type ValueOf } from '@/utils/shared';
+
+import { SalesSourceChartLegend } from '../sales-source';
 
 interface DashboardSalesIncomeContentProps {
   className?: string;
@@ -65,5 +70,42 @@ export const DashboardSalesIncomeContentComparisonMessage = ({
   );
 };
 
+interface DashboardSalesIncomeContentDoughnutChartProps {
+  periodType: ValueOf<typeof PERIOD_PRESETS.dayWeekMonth>;
+  chartData: DoughnutChartItem[];
+  salesSourceData: SalesSource[];
+  title: string;
+}
+
+export const DashboardSalesIncomeContentDoughnutChart = ({
+  periodType,
+  chartData,
+  salesSourceData,
+  title,
+}: DashboardSalesIncomeContentDoughnutChartProps) => {
+  return (
+    <div
+      className={cn(
+        'flex w-full flex-col items-center justify-center',
+        periodType === PERIOD_PRESETS.dayWeekMonth.today
+          ? // 최근 7일 텍스트 높이만큼 gap 조절
+            'gap-[calc(46px-17.7px)]'
+          : 'gap-11.5',
+      )}
+    >
+      <div className="h-45 w-45">
+        <DoughnutChart title={title} chartData={chartData} />
+      </div>
+      <SalesSourceChartLegend
+        salesSourceData={salesSourceData}
+        periodType={periodType}
+      />
+    </div>
+  );
+};
+
 DashboardSalesIncomeContent.ComparisonMessage =
   DashboardSalesIncomeContentComparisonMessage;
+
+DashboardSalesIncomeContent.DoughnutChart =
+  DashboardSalesIncomeContentDoughnutChart;

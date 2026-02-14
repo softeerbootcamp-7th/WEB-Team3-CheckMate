@@ -1,4 +1,3 @@
-import { DoughnutChart } from '@/components/shared';
 import {
   DASHBOARD_METRIC_CARDS,
   type DASHBOARD_METRICS,
@@ -9,11 +8,8 @@ import {
   SALES_SOURCE_COLORS,
   SALES_TYPE,
 } from '@/constants/sales';
-import { PERIOD_PRESETS } from '@/constants/shared';
 import type { GetIncomStructureBySalesTypeResponseDto } from '@/types/sales';
-import { assertNever, cn, type Nullable } from '@/utils/shared';
-
-import { SalesSourceChartLegend } from '../sales-source';
+import { assertNever, type Nullable } from '@/utils/shared';
 
 import { DashboardSalesIncomeContent } from './DashboardSalesIncomeContent';
 
@@ -40,7 +36,7 @@ export const SalesTypeContent = ({
 }: SalesTypeContentProps) => {
   const periodType = DASHBOARD_METRIC_CARDS[cardCode].period;
 
-  const salesSourceData = (items ?? EXAMPLE_SALES_SOURCE_DATA).map((item) => {
+  const salesTypeData = (items ?? EXAMPLE_SALES_SOURCE_DATA).map((item) => {
     if (!isSalesSourceType(item.salesType)) {
       return assertNever(
         item.salesType as never,
@@ -55,7 +51,7 @@ export const SalesTypeContent = ({
     };
   });
 
-  const chartData = salesSourceData.map((data) => ({
+  const chartData = salesTypeData.map((data) => ({
     label: data.salesSourceType,
     value: data.revenue,
     color: SALES_SOURCE_COLORS[data.salesSourceType],
@@ -69,23 +65,12 @@ export const SalesTypeContent = ({
         topShare={insight?.topShare ?? EXAMPLE_TOP_SHARE}
         deltaShare={insight?.deltaShare ?? EXAMPLE_DELTA_SHARE}
       />
-      <div
-        className={cn(
-          'flex w-full flex-col items-center justify-center',
-          periodType === PERIOD_PRESETS.dayWeekMonth.today
-            ? // 최근 7일 텍스트 높이만큼 gap 조절
-              'gap-[calc(46px-17.7px)]'
-            : 'gap-11.5',
-        )}
-      >
-        <div className="h-45 w-45">
-          <DoughnutChart title={DOUGHNUT_CHART_TITLE} chartData={chartData} />
-        </div>
-        <SalesSourceChartLegend
-          salesSourceData={salesSourceData}
-          periodType={periodType}
-        />
-      </div>
+      <DashboardSalesIncomeContent.DoughnutChart
+        periodType={periodType}
+        chartData={chartData}
+        salesSourceData={salesTypeData}
+        title={DOUGHNUT_CHART_TITLE}
+      />
     </DashboardSalesIncomeContent>
   );
 };
