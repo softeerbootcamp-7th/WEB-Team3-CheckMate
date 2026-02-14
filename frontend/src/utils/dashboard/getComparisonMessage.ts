@@ -1,0 +1,82 @@
+import { METRIC_TREND, type MetricTrend } from '@/constants/dashboard';
+import { DAY_OF_WEEK_LIST, PERIOD_PRESETS } from '@/constants/shared';
+
+import type { ValueOf } from '../shared';
+
+interface GetComparisonMessageArgs {
+  periodType: ValueOf<typeof PERIOD_PRESETS.dayWeekMonth>;
+  hasPreviousData: boolean;
+  metricTrend: MetricTrend;
+  metricLabel: string;
+  comparisonAmount: number;
+  unit: string;
+}
+
+export const getComparisonMessage = ({
+  periodType,
+  hasPreviousData,
+  metricTrend,
+  metricLabel,
+  comparisonAmount,
+  unit,
+}: GetComparisonMessageArgs): {
+  commonText: string;
+  highlightText?: string;
+} => {
+  const weekday = DAY_OF_WEEK_LIST[new Date().getDay()];
+
+  const PERIOD_TEXT = {
+    [PERIOD_PRESETS.dayWeekMonth.today]: `지난주 ${weekday}요일`,
+    [PERIOD_PRESETS.dayWeekMonth.thisWeek]: `지난주 이맘때`,
+    [PERIOD_PRESETS.dayWeekMonth.thisMonth]: `지난달 이맘때`,
+  };
+
+  if (!hasPreviousData) {
+    return {
+      commonText: `${PERIOD_TEXT[periodType]}에는 ${metricLabel}이 거의 없었어요.`,
+    };
+  }
+
+  const METRIC_TRED_TEXT = {
+    [METRIC_TREND.UP]: '늘었어요.',
+    [METRIC_TREND.DOWN]: '줄었어요.',
+    [METRIC_TREND.SAME]: '비슷해요.',
+  };
+
+  switch (periodType) {
+    case PERIOD_PRESETS.dayWeekMonth.today:
+      if (metricTrend === METRIC_TREND.SAME) {
+        return {
+          commonText: `${PERIOD_TEXT[periodType]} 이 시간과 ${METRIC_TRED_TEXT[metricTrend]}`,
+        };
+      }
+      return {
+        commonText: `${PERIOD_TEXT[periodType]} 이 시간보다 `,
+        highlightText: `${comparisonAmount}${unit} ${METRIC_TRED_TEXT[metricTrend]}`,
+      };
+    case PERIOD_PRESETS.dayWeekMonth.thisWeek:
+      if (metricTrend === METRIC_TREND.SAME) {
+        return {
+          commonText: `${PERIOD_TEXT[periodType]} 이맘때와 ${METRIC_TRED_TEXT[metricTrend]}`,
+        };
+      }
+      return {
+        commonText: `${PERIOD_TEXT[periodType]} 이맘때보다 `,
+        highlightText: `${comparisonAmount}${unit} ${METRIC_TRED_TEXT[metricTrend]}`,
+      };
+    case PERIOD_PRESETS.dayWeekMonth.thisMonth:
+      if (metricTrend === METRIC_TREND.SAME) {
+        return {
+          commonText: `${PERIOD_TEXT[periodType]} 이맘때와 ${METRIC_TRED_TEXT[metricTrend]}`,
+        };
+      }
+      return {
+        commonText: `${PERIOD_TEXT[periodType]} 이맘때보다 `,
+        highlightText: `${comparisonAmount}${unit} ${METRIC_TRED_TEXT[metricTrend]}`,
+      };
+    default:
+      return {
+        commonText: `${PERIOD_TEXT[periodType]}에는 ${metricLabel}이 거의 없었어요.`,
+      };
+  }
+};
