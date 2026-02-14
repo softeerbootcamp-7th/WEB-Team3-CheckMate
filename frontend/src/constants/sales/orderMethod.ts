@@ -1,28 +1,28 @@
 export const ORDER_METHOD = {
-  EXAMPLE_TOP_TYPE: 'POS',
-  EXAMPLE_TOP_SHARE: 30,
-  EXAMPLE_DELTA_SHARE: 10,
+  EXAMPLE_TOP_TYPE: '키오스크',
+  EXAMPLE_TOP_SHARE: 50,
+  EXAMPLE_DELTA_SHARE: 4,
   EXAMPLE_ORDER_METHOD_DATA: [
     {
       orderChannel: 'POS',
       salesAmount: 2371000,
       orderCount: 26,
       share: 25,
-      deltaShare: 4.4,
+      deltaShare: 2.4,
     },
     {
       orderChannel: '키오스크',
       salesAmount: 5329000,
       orderCount: 53,
       share: 25,
-      deltaShare: -5.2,
+      deltaShare: 4,
     },
     {
       orderChannel: '배달앱',
       salesAmount: 1986000,
       orderCount: 19,
       share: 25,
-      deltaShare: 2.3,
+      deltaShare: -5.2,
     },
     {
       orderChannel: '기타',
