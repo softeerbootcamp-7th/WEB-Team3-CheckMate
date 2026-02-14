@@ -1,3 +1,3 @@
 export type { GetRealTimeSalesResponseDto } from './getRealTimeSalesDto';
-export type { GetOptionCountResponseDto } from './getOptionCountDto';
+export type { GetOrderCountResponseDto } from './getOrderCountDto';
 export type { GetAveragePriceResponseDto } from './getAveragePriceDto';
