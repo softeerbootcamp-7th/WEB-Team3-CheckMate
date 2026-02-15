@@ -12,7 +12,7 @@ import { DashboardRankingContent } from './DashboardRankingContent';
 
 // dto를 대시보드의 메뉴 매출 랭킹 카드 UI에서 사용하는 데이터 형태로 변환
 interface GetDashboardMenuRankItemsParams {
-  items: MenuSales[];
+  items: MenuSales[] | null;
 }
 const getDashboardMenuRankItems = ({
   items,

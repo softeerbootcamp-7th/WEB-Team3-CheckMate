@@ -12,7 +12,7 @@ import { DashboardRankingContent } from './DashboardRankingContent';
 
 // dto를 대시보드의 식재료 소진량 랭킹 카드 UI에서 사용하는 데이터 형태로 변환
 interface GetDashboardIngredientRankItemsParams {
-  items: IngredientUsage[];
+  items: IngredientUsage[] | null;
 }
 const getDashboardIngredientRankItems = ({
   items,
