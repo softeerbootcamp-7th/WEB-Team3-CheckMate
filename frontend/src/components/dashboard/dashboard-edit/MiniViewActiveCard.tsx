@@ -13,15 +13,17 @@ import { useEditCard } from '@/hooks/dashboard';
 
 interface MiniViewActiveCardProps {
   cardCode: MetricCardCode;
-  posX: number;
-  posY: number;
+  colNo: number;
+  rowNo: number;
 }
 export const MiniViewActiveCard = ({
   cardCode,
-  posX,
-  posY,
+  colNo,
+  rowNo,
 }: MiniViewActiveCardProps) => {
   const { removeCard } = useEditCard();
+  const { getGridPosition, getGridCardSize } = useGridCellSize();
+
   const card = DASHBOARD_METRIC_CARDS[cardCode];
 
   const handleRemove = useCallback(
@@ -35,15 +37,20 @@ export const MiniViewActiveCard = ({
   }
   const { label, type, period, sizeX, sizeY } = card;
 
+  const { rowPx, colPx } = getGridPosition(rowNo, colNo);
+  const { widthPx, heightPx } = getGridCardSize(sizeX, sizeY);
+
   return (
     <div
       className="rounded-400 bg-grey-0 relative border-none"
       style={{
-        gridColumn: `${posX} / span ${sizeX}`,
-        gridRow: `${posY} / span ${sizeY}`,
+        left: colPx,
+        top: rowPx,
+        width: widthPx,
+        height: heightPx,
       }}
     >
-      <div className="flex h-full flex-col items-center justify-center">
+      <div className="relative flex h-full flex-col items-center justify-center">
         <img
           src={`${CDN_BASE_URL}/assets/images/${type}.svg`}
           alt={`${label} 미니 뷰`}

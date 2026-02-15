@@ -23,14 +23,16 @@ export const MiniView = () => {
         </div>
 
         {/* 활성 카드 */}
-        {(tempLayout || placedCards).map((card) => (
-          <MiniViewActiveCard
-            key={`mini-${card.cardCode}`}
-            cardCode={card.cardCode}
-            posX={card.colNo}
-            posY={card.rowNo}
-          />
-        ))}
+        {(tempLayout || placedCards).map((card) => {
+          return (
+            <MiniViewActiveCard
+              key={`mini-${card.cardCode}`}
+              cardCode={card.cardCode}
+              colNo={card.colNo}
+              rowNo={card.rowNo}
+            />
+          );
+        })}
       </div>
     </section>
   );
