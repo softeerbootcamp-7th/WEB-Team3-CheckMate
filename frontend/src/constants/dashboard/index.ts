@@ -17,3 +17,7 @@ export {
   isMetricCardCode,
   type MetricCardCode,
 } from './dashboardMetricCards';
+export {
+  DASHBOARD_EDIT_AREA,
+  type DashboardEditArea,
+} from './dashboardEditArea';

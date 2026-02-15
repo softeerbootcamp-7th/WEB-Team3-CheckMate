@@ -6,6 +6,7 @@ import {
   type MetricCardCode,
 } from '@/constants/dashboard';
 import { EditCardContext } from '@/constants/dashboard/editCardContext';
+import type { DashboardCard, DragState, GhostState } from '@/types/dashboard';
 
 const EMPTY_GRID: (MetricCardCode | null)[][] = Array.from(
   { length: GRID_ROW_SIZE + 1 },
@@ -13,11 +14,34 @@ const EMPTY_GRID: (MetricCardCode | null)[][] = Array.from(
 );
 
 export const EditCardProvider = ({ children }: PropsWithChildren) => {
-  const initGrid = EMPTY_GRID; // TODO: 초기 그리드 상태 서버에서 받아오기
+  // TODO: 초기 그리드 상태 서버에서 받아오기
+  const initGrid = EMPTY_GRID;
+
+  // 카드 그리드 상태
   const [grid, setGrid] = useState<(MetricCardCode | null)[][]>(EMPTY_GRID);
 
+  // 드래그앤드랍 관련 상태
+  const [dragState, setDragState] = useState<DragState | null>(null);
+  const [ghost, setGhost] = useState<GhostState | null>(null);
+  const [tempLayout, setTempLayout] = useState<DashboardCard[] | null>(null);
+  const [isOverList, setIsOverList] = useState(false);
+
   return (
-    <EditCardContext.Provider value={{ initGrid, grid, setGrid }}>
+    <EditCardContext.Provider
+      value={{
+        initGrid,
+        grid,
+        setGrid,
+        dragState,
+        setDragState,
+        ghost,
+        setGhost,
+        tempLayout,
+        setTempLayout,
+        isOverList,
+        setIsOverList,
+      }}
+    >
       {children}
     </EditCardContext.Provider>
   );

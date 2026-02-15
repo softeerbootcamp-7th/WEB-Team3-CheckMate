@@ -1,1 +1,1 @@
-export type { DashboardCard } from './dashboardCard';
+export type { DashboardCard, DragState, GhostState } from './dashboardCard';
