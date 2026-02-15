@@ -7,7 +7,7 @@ export interface IngredientUsage {
   baseUnit: string;
 }
 
-// 백엔드에서 보내주는 식자재별 소진량 DTO -> 매출별 랭킹에 사용
+// 백엔드에서 보내주는 식자재별 소진량 DTO -> 식자재별 소진량 랭킹에 사용
 export interface GetIngredientUsageRankingResponseDto {
   items: IngredientUsage[];
 }
