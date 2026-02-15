@@ -3,4 +3,5 @@ export {
   getSalesPatternPeaktimeMessage,
   getSalesCurrentComparisonMessage,
   getSalesIncomeStructureComparisionMessage,
+  createPeakTimeSeries,
 } from './dashboard';
