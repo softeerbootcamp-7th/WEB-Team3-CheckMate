@@ -1,10 +1,25 @@
 import { useNavigate } from 'react-router-dom';
 
 import { DefaultCardWrapper } from '@/components/shared';
-import { DASHBOARD_METRIC_CARDS } from '@/constants/dashboard';
+import {
+  DASHBOARD_METRIC_CARDS,
+  DASHBOARD_METRICS,
+  type ExtractCardCodes,
+} from '@/constants/dashboard';
 
-export const DashboardMenuOrderCount = () => {
-  const cardCode = 'MNU_03_01';
+type TimeBasedMenuOrderCountCardCode = ExtractCardCodes<
+  typeof DASHBOARD_METRICS.MENU.sections.MENU_SALES_PATTERN.items.TIME_BASED_MENU_ORDER_COUNT
+>;
+
+// 메뉴분석 > 시간대별 메뉴 주문건수 가장 많은 메뉴
+interface DashboardMenuOrderCountProps {
+  cardCode: TimeBasedMenuOrderCountCardCode;
+}
+
+// 메뉴 주문건수
+export const DashboardMenuOrderCount = ({
+  cardCode,
+}: DashboardMenuOrderCountProps) => {
   const cardInfo = DASHBOARD_METRIC_CARDS[cardCode];
 
   const navigate = useNavigate();
