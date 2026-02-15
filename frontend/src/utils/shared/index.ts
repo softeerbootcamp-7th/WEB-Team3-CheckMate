@@ -45,4 +45,7 @@ export {
   checkIsStackBarChart,
   getTooltipContent,
   getStackTotalAmount,
+  getBarHeight,
+  getBarWidth,
+  getLabelContentText,
 } from './bar-chart';
