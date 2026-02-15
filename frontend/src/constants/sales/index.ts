@@ -19,4 +19,4 @@ export {
   PAYMENT_METHOD,
   SALES_TYPE,
 } from './dashboard-sales-income';
-export { PEAK_TIME } from './dashboard-sales-pattern';
+export { PEAK_TIME, SALES_BY_DAY } from './dashboard-sales-pattern';
