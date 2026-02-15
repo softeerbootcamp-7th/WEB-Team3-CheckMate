@@ -4,7 +4,7 @@ import { DoughnutChart } from '@/components/shared';
 import { PERIOD_PRESETS } from '@/constants/shared';
 import type { SalesIncomeStructureInsight, SalesSource } from '@/types/sales';
 import type { DoughnutChartItem } from '@/types/shared';
-import { getSalesIncomeStructureComparisionMessage } from '@/utils/sales';
+import { getSalesIncomeStructureComparisonMessage } from '@/utils/sales';
 import { cn, type ValueOf } from '@/utils/shared';
 
 import { SalesSourceChartLegend } from '../sales-source';
@@ -43,7 +43,7 @@ export const DashboardSalesIncomeContentComparisonMessage = ({
   topShare,
   deltaShare,
 }: DashboardSalesIncomeContentComparisonMessageProps) => {
-  const comparisonMessageTokens = getSalesIncomeStructureComparisionMessage({
+  const comparisonMessageTokens = getSalesIncomeStructureComparisonMessage({
     periodType,
     topType,
     topShare,

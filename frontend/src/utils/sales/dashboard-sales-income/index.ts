@@ -1,1 +1,1 @@
-export { getSalesIncomeStructureComparisionMessage } from './getSalesIncomeStructureComparisionMessage';
+export { getSalesIncomeStructureComparisonMessage } from './getSalesIncomeStructureComparisonMessage';

@@ -6,19 +6,19 @@ import { createMessageToken, type MessageToken } from '../dashboard';
 
 const DELTA_SHARE_THRESHOLD = 3;
 
-interface GetSalesIncomeStructureComparisionMessageArgs extends Omit<
+interface GetSalesIncomeStructureComparisonMessageArgs extends Omit<
   SalesIncomeStructureInsight,
   'showDeltaText' | 'showFocusText'
 > {
   periodType: ValueOf<typeof PERIOD_PRESETS.dayWeekMonth>;
 }
 
-export const getSalesIncomeStructureComparisionMessage = ({
+export const getSalesIncomeStructureComparisonMessage = ({
   periodType,
   topType,
   topShare,
   deltaShare,
-}: GetSalesIncomeStructureComparisionMessageArgs): MessageToken[] => {
+}: GetSalesIncomeStructureComparisonMessageArgs): MessageToken[] => {
   if (
     periodType === PERIOD_PRESETS.dayWeekMonth.today &&
     Math.abs(deltaShare) >= DELTA_SHARE_THRESHOLD

@@ -5,4 +5,4 @@ export {
   getSalesPatternByDayMessage,
 } from './dashboard-sales-pattern';
 export { getSalesCurrentComparisonMessage } from './dashboard-current-sales';
-export { getSalesIncomeStructureComparisionMessage } from './dashboard-sales-income';
+export { getSalesIncomeStructureComparisonMessage } from './dashboard-sales-income';
