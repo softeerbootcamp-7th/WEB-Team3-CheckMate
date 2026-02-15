@@ -75,7 +75,7 @@ export const MiniViewActiveCard = ({
         <img
           src={`${CDN_BASE_URL}/assets/images/${type}.svg`}
           alt={`${label} 미니 뷰`}
-          className="size-15"
+          draggable={false}
         />
         <p className="body-small-medium text-grey-900 mt-200 mb-100">{label}</p>
         <PeriodTag isAdded period={period} />
