@@ -44,7 +44,7 @@ export const OrderCountContent = ({
     maxValue: MAX_CHANGE_RATE,
   });
 
-  const { commonText, highlightText } = getSalesCurrentComparisonMessage({
+  const comparisonMessageTokens = getSalesCurrentComparisonMessage({
     periodType,
     hasPreviousData,
     metricTrend,
@@ -57,9 +57,7 @@ export const OrderCountContent = ({
       <CurrentSalesContent.TrendBadge trend={metricTrend} />
       <CurrentSalesContent.Amount amount={orderCount} unit={SALES_UNIT.ORDER} />
       <CurrentSalesContent.ComparisonMessage
-        comparisonMessage={commonText}
-        changeRateMessage={highlightText}
-        metricTrend={metricTrend}
+        comparisonMessageTokens={comparisonMessageTokens}
       />
     </CurrentSalesContent>
   );

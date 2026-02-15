@@ -2,6 +2,7 @@ import { type ReactNode, useMemo } from 'react';
 
 import { METRIC_TREND, type MetricTrend } from '@/constants/dashboard';
 import { CDN_BASE_URL } from '@/constants/shared';
+import type { MessageToken } from '@/utils/sales/dashboard/createMessageToken';
 import { cn, formatNumber } from '@/utils/shared';
 
 interface CurrentSalesContentProps {
@@ -63,7 +64,7 @@ const CurrentSalesContentAmount = ({
 }: CurrentSalesContentAmountProps) => {
   return (
     <span className={cn('flex items-center gap-1', className)}>
-      <span className="title-medium-semibold text-grey-900">
+      <span className="headline-medium-bold text-grey-900">
         {formatNumber(amount)}
       </span>
       <span className="title-medium-semibold text-grey-900">{unit}</span>
@@ -72,31 +73,30 @@ const CurrentSalesContentAmount = ({
 };
 
 interface CurrentSalesContentComparisonMessageProps {
-  comparisonMessage: string;
-  changeRateMessage?: string;
-  metricTrend: MetricTrend;
+  comparisonMessageTokens: MessageToken[];
   className?: string;
 }
 
 const CurrentSalesContentComparisonMessage = ({
-  comparisonMessage,
-  changeRateMessage,
-  metricTrend,
+  comparisonMessageTokens,
   className,
 }: CurrentSalesContentComparisonMessageProps) => {
   return (
-    <p className={cn('flex flex-col', className)}>
-      {comparisonMessage}
-      {changeRateMessage && (
-        <strong
-          className={cn(
-            metricTrend === METRIC_TREND.UP && 'text-brand-main',
-            metricTrend === METRIC_TREND.DOWN && 'text-others-negative',
-            metricTrend === METRIC_TREND.SAME && 'text-grey-500',
-          )}
-        >
-          {changeRateMessage}
-        </strong>
+    <p className={cn('title-large-semibold', className)}>
+      {comparisonMessageTokens.map(
+        ({ text, isHighlight, highlightColor }, index) => {
+          return (
+            <span
+              key={index}
+              className={cn(
+                'text-grey-900 break-keep whitespace-pre-wrap',
+                isHighlight && highlightColor,
+              )}
+            >
+              {text}
+            </span>
+          );
+        },
       )}
     </p>
   );

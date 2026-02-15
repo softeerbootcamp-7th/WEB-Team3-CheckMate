@@ -52,19 +52,21 @@ export const DashboardSalesIncomeContentComparisonMessage = ({
 
   return (
     <p className="title-large-semibold w-full min-w-0">
-      {comparisonMessageTokens.map(({ text, isHighlight }, index) => {
-        return (
-          <span
-            key={index}
-            className={cn(
-              'break-keep whitespace-pre-wrap',
-              isHighlight ? 'text-brand-main' : 'text-grey-900',
-            )}
-          >
-            {text}
-          </span>
-        );
-      })}
+      {comparisonMessageTokens.map(
+        ({ text, isHighlight, highlightColor }, index) => {
+          return (
+            <span
+              key={index}
+              className={cn(
+                'text-grey-900 break-keep whitespace-pre-wrap',
+                isHighlight && highlightColor,
+              )}
+            >
+              {text}
+            </span>
+          );
+        },
+      )}
     </p>
   );
 };

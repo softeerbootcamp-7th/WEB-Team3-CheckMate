@@ -42,7 +42,7 @@ export const AveragePriceContent = ({
     minValue: MIN_CHANGE_RATE,
     maxValue: MAX_CHANGE_RATE,
   });
-  const { commonText, highlightText } = getSalesCurrentComparisonMessage({
+  const comparisonMessageTokens = getSalesCurrentComparisonMessage({
     periodType,
     hasPreviousData,
     metricTrend,
@@ -58,9 +58,7 @@ export const AveragePriceContent = ({
         unit={SALES_UNIT.WON}
       />
       <CurrentSalesContent.ComparisonMessage
-        comparisonMessage={commonText}
-        changeRateMessage={highlightText}
-        metricTrend={metricTrend}
+        comparisonMessageTokens={comparisonMessageTokens}
       />
     </CurrentSalesContent>
   );
