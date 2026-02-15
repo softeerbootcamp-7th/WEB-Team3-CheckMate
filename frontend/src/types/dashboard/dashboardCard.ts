@@ -6,9 +6,9 @@ export interface DashboardCard {
   colNo: number;
 }
 export interface DragState {
-  source: DashboardEditArea;
-  item: DashboardCard;
-  offset: { x: number; y: number };
+  sourceArea: DashboardEditArea;
+  draggingCard: DashboardCard;
+  centerOffset: { x: number; y: number };
 }
 export interface GhostState {
   rowNo: number;
