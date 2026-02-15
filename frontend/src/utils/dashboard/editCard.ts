@@ -133,12 +133,13 @@ export const getConflictingCards = (
     const ghostCardDef = DASHBOARD_METRIC_CARDS[ghostCard.cardCode];
 
     return isOverlapping(
-      ghostCard.colNo,
+      // row, col, sizeX, sizeY
       ghostCard.rowNo,
+      ghostCard.colNo,
       ghostCardDef.sizeX,
       ghostCardDef.sizeY,
-      c.colNo,
       c.rowNo,
+      c.colNo,
       cDef.sizeX,
       cDef.sizeY,
     );
