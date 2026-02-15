@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/reports")
 @Slf4j
+@Validated
 public class ReportController {
 
     private final ReportService reportService;
@@ -119,7 +120,6 @@ public class ReportController {
                                                         """)))
     })
     @GetMapping("/calendar")
-    @Validated
     public ResponseEntity<ApiResponse<CalendarResponse>> getCalendar(
             @LoginMember MemberSession member,
             @RequestParam(name = "year")
