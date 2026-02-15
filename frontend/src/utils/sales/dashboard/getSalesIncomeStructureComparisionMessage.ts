@@ -1,14 +1,10 @@
 import { PERIOD_PRESETS } from '@/constants/shared';
 import type { SalesIncomeStructureInsight } from '@/types/sales/salesIncomeStructureInsight';
+import { formatNumber, type ValueOf } from '@/utils/shared';
 
-import { formatNumber, type ValueOf } from '../shared';
+import { createMessageToken, type MessageToken } from './createMessageToken';
 
-const createMessageToken = (text: string, isHighlight?: boolean) => {
-  return {
-    text,
-    isHighlight,
-  };
-};
+const DELTA_SHARE_THRESHOLD = 3;
 
 interface GetSalesIncomeStructureComparisionMessageArgs extends Omit<
   SalesIncomeStructureInsight,
@@ -17,19 +13,12 @@ interface GetSalesIncomeStructureComparisionMessageArgs extends Omit<
   periodType: ValueOf<typeof PERIOD_PRESETS.dayWeekMonth>;
 }
 
-interface GetSalesIncomeStructureComparisionMessageResult {
-  text: string;
-  isHighlight?: boolean;
-}
-
-const DELTA_SHARE_THRESHOLD = 3;
-
 export const getSalesIncomeStructureComparisionMessage = ({
   periodType,
   topType,
   topShare,
   deltaShare,
-}: GetSalesIncomeStructureComparisionMessageArgs): GetSalesIncomeStructureComparisionMessageResult[] => {
+}: GetSalesIncomeStructureComparisionMessageArgs): MessageToken[] => {
   if (
     periodType === PERIOD_PRESETS.dayWeekMonth.today &&
     Math.abs(deltaShare) >= DELTA_SHARE_THRESHOLD
