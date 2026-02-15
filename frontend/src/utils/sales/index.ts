@@ -1,6 +1,6 @@
 export { getPeriodComparisonMessage } from './sales-overview';
 export {
-  getSalesPatternPeaktimeMessage,
+  getSalesPatternPeakTimeMessage,
   createPeakTimeSeries,
   getSalesPatternByDayMessage,
 } from './dashboard-sales-pattern';

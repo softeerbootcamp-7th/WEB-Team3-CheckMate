@@ -2,17 +2,17 @@ import type { GetDashboardPeakTimeResponseDto } from '@/types/sales';
 
 import { createMessageToken, type MessageToken } from '../dashboard';
 
-interface GetSalesPatternPeaktimeMessageArgs {
+interface GetSalesPatternPeakTimeMessageArgs {
   todayPeak: GetDashboardPeakTimeResponseDto['todayPeak'];
   comparisonPeak: GetDashboardPeakTimeResponseDto['comparisonPeak'];
   beforeComparisonPeak: GetDashboardPeakTimeResponseDto['beforeComparisonPeak'];
 }
 
-export const getSalesPatternPeaktimeMessage = ({
+export const getSalesPatternPeakTimeMessage = ({
   todayPeak,
   comparisonPeak,
   beforeComparisonPeak,
-}: GetSalesPatternPeaktimeMessageArgs): MessageToken[] => {
+}: GetSalesPatternPeakTimeMessageArgs): MessageToken[] => {
   if (beforeComparisonPeak) {
     return [
       createMessageToken('오늘은 '),

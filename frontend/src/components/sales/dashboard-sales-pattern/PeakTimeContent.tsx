@@ -5,7 +5,7 @@ import { DAY_OF_WEEK_LIST } from '@/constants/shared';
 import type { GetDetailPeakTimeResponseDto } from '@/types/sales';
 import {
   createPeakTimeSeries,
-  getSalesPatternPeaktimeMessage,
+  getSalesPatternPeakTimeMessage,
 } from '@/utils/sales';
 import { cn } from '@/utils/shared';
 
@@ -30,7 +30,7 @@ export const PeakTimeContent = ({
     beforeComparisonPeak,
   } = peakTimeData;
 
-  const peakTimeBriefingMessage = getSalesPatternPeaktimeMessage({
+  const peakTimeBriefingMessage = getSalesPatternPeakTimeMessage({
     todayPeak,
     comparisonPeak,
     beforeComparisonPeak,
