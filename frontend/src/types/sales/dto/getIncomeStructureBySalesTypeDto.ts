@@ -11,7 +11,7 @@ interface SalesTypeItem {
   deltaShare: number;
 }
 
-export interface GetIncomStructureBySalesTypeResponseDto {
+export interface GetIncomeStructureBySalesTypeResponseDto {
   insight: SalesIncomeStructureInsight;
   items: SalesTypeItem[];
 }

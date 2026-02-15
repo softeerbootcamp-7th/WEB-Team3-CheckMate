@@ -3,10 +3,10 @@ import type {
   SalesIncomeStructureTopType,
 } from '../dashboard-sales-income';
 
-interface OrderMethodItem {
-  orderChannel: Extract<
+interface PaymentMethodItem {
+  payMethod: Extract<
     SalesIncomeStructureTopType,
-    'POS' | '키오스크' | '배달앱' | '기타'
+    '카드' | '현금' | '간편결제' | '기타'
   >;
   salesAmount: number;
   orderCount: number;
@@ -14,7 +14,7 @@ interface OrderMethodItem {
   deltaShare: number;
 }
 
-export interface GetIncomStructureByOrderMethodResponseDto {
+export interface GetIncomeStructureByPaymentMethodResponseDto {
   insight: SalesIncomeStructureInsight;
-  items: OrderMethodItem[];
+  items: PaymentMethodItem[];
 }

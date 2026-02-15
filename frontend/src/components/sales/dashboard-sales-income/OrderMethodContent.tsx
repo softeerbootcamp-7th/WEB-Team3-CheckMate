@@ -4,7 +4,7 @@ import {
   type ExtractCardCodes,
 } from '@/constants/dashboard';
 import { ORDER_METHOD, SALES_SOURCE_COLORS } from '@/constants/sales';
-import type { GetIncomStructureByOrderMethodResponseDto } from '@/types/sales';
+import type { GetIncomeStructureByOrderMethodResponseDto } from '@/types/sales';
 
 import { DashboardSalesIncomeContent } from './DashboardSalesIncomeContent';
 
@@ -14,7 +14,7 @@ type OrderMethodCardCodes = ExtractCardCodes<
   typeof DASHBOARD_METRICS.SALES.sections.INCOME_STRUCTURE.items.ORDER_METHOD
 >;
 
-interface OrderMethodContentProps extends GetIncomStructureByOrderMethodResponseDto {
+interface OrderMethodContentProps extends GetIncomeStructureByOrderMethodResponseDto {
   cardCode: OrderMethodCardCodes;
 }
 

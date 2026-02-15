@@ -4,7 +4,7 @@ import {
   type ExtractCardCodes,
 } from '@/constants/dashboard';
 import { PAYMENT_METHOD, SALES_SOURCE_COLORS } from '@/constants/sales';
-import type { GetIncomStructureByPaymentMethodResponseDto } from '@/types/sales';
+import type { GetIncomeStructureByPaymentMethodResponseDto } from '@/types/sales';
 
 import { DashboardSalesIncomeContent } from './DashboardSalesIncomeContent';
 
@@ -14,7 +14,7 @@ type PaymentMethodCardCodes = ExtractCardCodes<
   typeof DASHBOARD_METRICS.SALES.sections.INCOME_STRUCTURE.items.PAYMENT_METHOD
 >;
 
-interface PaymentMethodContentProps extends GetIncomStructureByPaymentMethodResponseDto {
+interface PaymentMethodContentProps extends GetIncomeStructureByPaymentMethodResponseDto {
   cardCode: PaymentMethodCardCodes;
 }
 
