@@ -26,7 +26,7 @@ export const CardEditView = () => {
 
   return (
     <section
-      className="bg-special-card-bg relative flex h-full w-[800px] shrink-0 flex-col pt-20 pr-5 pl-12.5"
+      className="bg-special-card-bg relative flex h-full w-[800px] shrink-0 flex-col pt-20 pr-5 pl-12.5 select-none"
       onDragEnter={handleListDragEnter}
       onDragOver={(e) => e.preventDefault()}
       onDragLeave={handleListDragLeave}
