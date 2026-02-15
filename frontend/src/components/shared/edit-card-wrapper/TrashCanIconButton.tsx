@@ -1,6 +1,6 @@
 import { Trash2 } from 'lucide-react';
 
-import { Button } from '../shadcn-ui';
+import { Button } from '@/components/shared/shadcn-ui';
 
 // 대시보드 편집 용 패널의 우측 위 쓰래기통 버튼
 interface TrashCanIconButtonProps {
