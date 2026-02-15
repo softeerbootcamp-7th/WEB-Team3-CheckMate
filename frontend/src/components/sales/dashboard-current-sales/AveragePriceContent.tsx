@@ -1,6 +1,6 @@
 import {
   DASHBOARD_METRIC_CARDS,
-  type DASHBOARD_METRICS,
+  DASHBOARD_METRICS,
   type ExtractCardCodes,
 } from '@/constants/dashboard';
 import { AVERAGE_PRICE, SALES_UNIT } from '@/constants/sales';

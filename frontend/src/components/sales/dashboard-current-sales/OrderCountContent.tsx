@@ -1,6 +1,6 @@
 import {
   DASHBOARD_METRIC_CARDS,
-  type DASHBOARD_METRICS,
+  DASHBOARD_METRICS,
   type ExtractCardCodes,
 } from '@/constants/dashboard';
 import { ORDER_COUNT, SALES_UNIT } from '@/constants/sales';
