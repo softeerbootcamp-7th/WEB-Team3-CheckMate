@@ -58,7 +58,7 @@ public class ReportWorker {
                             : promptProvider.getPrompt(PromptProvider.PromptType.MONTHLY_REPORT);
             String llmResponse = llmClient.ask(template, buildPrompt(data));
 
-            saveReportResult(task, llmResponse);
+            saveReportResult(task, data, llmResponse);
 
             redisTemplate.opsForList().remove(PROCESSING_KEY, 1, rawTask);
             log.info("리포트 생성 완료: 매장 {}", task.storeId());
@@ -76,7 +76,7 @@ public class ReportWorker {
         }
     }
 
-    private void saveReportResult(ReportTask task, String llmResponse)
+    private void saveReportResult(ReportTask task, ReportData data, String llmResponse)
             throws JsonProcessingException {
         // LLM 응답 파싱
         JsonNode root = objectMapper.readTree(llmResponse);
@@ -116,8 +116,11 @@ public class ReportWorker {
                         .targetDate(task.targetDate())
                         .title(root.path("title").asText())
                         .statusLabel(root.path("statusLabel").asText())
+                        .netSales(data.kpiToday().netSales())
                         .netSalesSummary(kpi.path("netSales").asText())
+                        .orderCount(data.kpiToday().orders())
                         .ordersSummary(kpi.path("orders").asText())
+                        .aov(data.kpiToday().aov())
                         .aovSummary(kpi.path("aov").asText())
                         .insights(insights) // 변환된 리스트 주입
                         .strategies(strategies) // 리스트 주입

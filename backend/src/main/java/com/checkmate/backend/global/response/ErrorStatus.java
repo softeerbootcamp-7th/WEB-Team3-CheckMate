@@ -93,7 +93,12 @@ public enum ErrorStatus {
 
     /** Analysis */
     // 400
-    UNSUPPORTED_ANALYSIS_CARD(HttpStatus.BAD_REQUEST, "지원하지 않는 지표 카드 ID입니다.");
+    UNSUPPORTED_ANALYSIS_CARD(HttpStatus.BAD_REQUEST, "지원하지 않는 지표 카드 ID입니다."),
+
+    /** Report */
+    // 404
+    REPORT_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 날짜의 리포트를 찾을 수 없습니다.");
+    ;
 
     private final HttpStatus httpStatus;
     private final String message;
