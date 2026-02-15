@@ -1,7 +1,9 @@
+import type { GetIngredientUsageRankingResponseDto } from '@/types/menu/dto';
+
 // 편집 패널에서 보여질 데이터 -> 메뉴별 매출 랭킹 카드
 export const INGREDIENT_USAGE_RANKING = {
   EXAMPLE_HAS_INGREDIENT: true,
-  EXAMPLE_ITEMS: [
+  EXAMPLE_INGREDIENT_USAGE_RANKING_ITEMS: [
     {
       ingredientName: '우유',
       totalQuantity: 3921,
@@ -27,5 +29,5 @@ export const INGREDIENT_USAGE_RANKING = {
       totalQuantity: 4,
       baseUnit: 'kg',
     },
-  ],
+  ] as const satisfies GetIngredientUsageRankingResponseDto['items'],
 } as const;

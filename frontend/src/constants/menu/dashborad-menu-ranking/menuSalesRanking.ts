@@ -1,6 +1,8 @@
+import type { GetMenuSalesRankingResponseDto } from '@/types/menu/dto';
+
 // 편집 패널에서 보여질 데이터 -> 메뉴별 매출 랭킹 카드
 export const MENU_SALES_RANKING = {
-  EXAMPLE_ITEMS: [
+  EXAMPLE_MENU_SALES_RANKING_ITEMS: [
     {
       menuName: '아메리카노(ICE)',
       totalSalesAmount: 1500000,
@@ -26,5 +28,5 @@ export const MENU_SALES_RANKING = {
       totalSalesAmount: 400000,
       orderCount: 90,
     },
-  ],
+  ] as const satisfies GetMenuSalesRankingResponseDto['items'],
 } as const;

@@ -7,6 +7,8 @@ import {
 } from '@/constants/dashboard';
 import { useEditCard } from '@/hooks/dashboard';
 
+import { EditCardContent } from './EditCardContent';
+
 interface CardEditViewCardProps {
   cardCode: MetricCardCode;
 }
