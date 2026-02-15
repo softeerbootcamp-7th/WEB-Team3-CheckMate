@@ -9,6 +9,7 @@ import type {
 import type { Nullable } from '@/utils/shared';
 
 import { DashboardRankingContent } from './DashboardRankingContent';
+import { IngredientUnregisteredContent } from './IngredientUnregisteredContent';
 
 // dto를 대시보드의 식재료 소진량 랭킹 카드 UI에서 사용하는 데이터 형태로 변환
 interface GetDashboardIngredientRankItemsParams {
@@ -42,6 +43,7 @@ const getDashboardIngredientRankItems = ({
 };
 
 // 편집 패널에서 보여질 데이터
+const EXAMPLE_HAS_INGREDIENT = true;
 const EXAMPLE_INGREDIENT_USAGE = [
   {
     ingredientName: '우유',
@@ -70,6 +72,7 @@ interface IngredientUsageRankingCardContentProps extends Nullable<GetIngredientU
 }
 
 export const IngredientUsageRankingCardContent = ({
+  hasIngredient = EXAMPLE_HAS_INGREDIENT,
   items = EXAMPLE_INGREDIENT_USAGE,
 }: IngredientUsageRankingCardContentProps) => {
   // dto -> 대시보드의 메뉴>식재료 소진량 랭킹 카드 UI 데이터 형태로 변환
@@ -77,6 +80,10 @@ export const IngredientUsageRankingCardContent = ({
     () => getDashboardIngredientRankItems({ items }),
     [items],
   );
+  // 등록된 식재료가 없는 경우 카드 내용
+  if (!hasIngredient) {
+    return <IngredientUnregisteredContent />;
+  }
   // tHeadLabels를 통해 테이블 각 열의 이름을 지정
   return (
     <DashboardRankingContent tHeadLabels={['순위', '식재료명', '소진량']}>
