@@ -8,4 +8,9 @@ export {
   RealSalesContent,
 } from './dashboard-current-sales';
 export { DashboardSalesIncomeContent } from './dashboard-sales-income';
-export { SalesTypeContent, OrderMethodContent } from './dashboard-sales-income';
+export {
+  SalesTypeContent,
+  OrderMethodContent,
+  PaymentMethodContent,
+} from './dashboard-sales-income';
+export { PeakTimeContent, SalesByDayContent } from './dashboard-sales-pattern';
