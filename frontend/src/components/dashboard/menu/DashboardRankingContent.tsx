@@ -26,7 +26,7 @@ export const DashboardRankingContent = ({
     >
       <colgroup>
         <col className="w-7" />
-        <col className="w-26" />
+        <col className="w-30" />
         <col className="w-auto" />
       </colgroup>
       <thead>

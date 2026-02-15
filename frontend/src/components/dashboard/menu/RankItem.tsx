@@ -29,14 +29,12 @@ export const RankItem = ({
         />
       </td>
       <td>
-        <span className="body-medium-semibold min-w-5 truncate">
-          {itemName}
-        </span>
+        <span className="body-medium-semibold block truncate">{itemName}</span>
       </td>
 
-      <td className="text-grey-600 flex w-full justify-end">
+      <td className="text-grey-600 flex justify-end gap-1">
         <span className="truncate">{formatNumber(totalAmount)}</span>
-        <span>&nbsp;{unit}</span>
+        <span>{unit}</span>
       </td>
     </tr>
   );
