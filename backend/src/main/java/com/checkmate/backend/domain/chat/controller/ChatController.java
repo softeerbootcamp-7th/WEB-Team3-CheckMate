@@ -44,30 +44,44 @@ public class ChatController {
                                         @ExampleObject(
                                                 value =
                                                         """
-                                            {
-                                              "success": true,
-                                              "message": "AI 응답 생성에 성공했습니다.",
-                                              "data": {
-                                                "answer": "오늘은 평소보다 객단가가 높네요! 인기 메뉴인 세트 A의 판매 비중이 늘어난 덕분이에요. 내일은 이 세트 메뉴를 상단에 배치해보는 건 어떨까요?"
-                                              }
-                                            }
-                                            """))),
+                                {
+                                  "success": true,
+                                  "message": "AI 응답 생성에 성공했습니다.",
+                                  "data": {
+                                    "answer": "오늘은 평소보다 객단가가 높네요! 인기 메뉴인 세트 A의 판매 비중이 늘어난 덕분이에요. 내일은 이 세트 메뉴를 상단에 배치해보는 건 어떨까요?"
+                                  }
+                                }
+                                """))),
         @io.swagger.v3.oas.annotations.responses.ApiResponse(
                 responseCode = "500",
-                description = "LLM 서비스 연동 실패",
+                description = "서버 내부 오류 (LLM 연동 및 데이터 파싱 실패)",
                 content =
                         @Content(
                                 mediaType = "application/json",
-                                examples =
-                                        @ExampleObject(
-                                                value =
-                                                        """
+                                examples = {
+                                    @ExampleObject(
+                                            name = "외부 API 호출 실패",
+                                            summary = "Gemini API 호출 중 오류 발생",
+                                            value =
+                                                    """
                                             {
                                               "success": false,
-                                              "message": "AI 응답을 생성하는 중 오류가 발생했습니다.",
-                                              "errorCode": "LLM_CLIENT_ERROR"
+                                              "message": "외부 서비스 호출 중 오류가 발생했습니다.",
+                                              "errorCode": "EXTERNAL_API_ERROR"
                                             }
-                                            """)))
+                                            """),
+                                    @ExampleObject(
+                                            name = "데이터 파싱 실패",
+                                            summary = "AI 응답 결과 추출 실패",
+                                            value =
+                                                    """
+                                            {
+                                              "success": false,
+                                              "message": "AI 응답 데이터를 추출하는 데 실패했습니다.",
+                                              "errorCode": "AI_RESPONSE_PARSE_FAILED"
+                                            }
+                                            """)
+                                }))
     })
     @PostMapping
     public ResponseEntity<ApiResponse<ChatResponse>> getChatResponse(
