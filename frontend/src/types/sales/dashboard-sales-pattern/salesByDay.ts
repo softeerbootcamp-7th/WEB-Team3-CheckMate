@@ -1,10 +1,12 @@
+type Day = '월' | '화' | '수' | '목' | '금' | '토' | '일';
+
 export interface SalesByDaySummary {
-  topDay: string;
+  topDay: Day;
   isSignificant: boolean;
 }
 
 export interface SalesByDayItem {
-  day: string;
+  day: Day;
   avgNetAmount: number;
   orderCount: number;
 }
