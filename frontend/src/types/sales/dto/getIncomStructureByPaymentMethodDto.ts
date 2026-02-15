@@ -1,7 +1,7 @@
 import type {
   SalesIncomeStructureInsight,
   SalesIncomeStructureTopType,
-} from '../salesIncomeStructureInsight';
+} from '../dashboard-sales-income';
 
 interface PaymentMethodItem {
   payMethod: Extract<

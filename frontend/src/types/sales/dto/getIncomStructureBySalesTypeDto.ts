@@ -1,7 +1,7 @@
 import type {
   SalesIncomeStructureInsight,
   SalesIncomeStructureTopType,
-} from '../salesIncomeStructureInsight';
+} from '../dashboard-sales-income';
 
 interface SalesTypeItem {
   salesType: Extract<SalesIncomeStructureTopType, '홀' | '포장' | '배달'>;

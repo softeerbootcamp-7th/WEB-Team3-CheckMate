@@ -1,9 +1,7 @@
-import type { GetDetailPeakTimeResponseDto } from '@/types/sales';
+import type { PeakTimeItem } from '@/types/sales';
 
 export const createPeakTimeSeries = (
-  items:
-    | GetDetailPeakTimeResponseDto['todayItems']
-    | GetDetailPeakTimeResponseDto['week4Items'],
+  items: PeakTimeItem[],
   color: string,
   mainXUnit: string = '',
   mainYUnit: string = '',

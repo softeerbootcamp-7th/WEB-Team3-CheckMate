@@ -1,5 +1,5 @@
 import { PERIOD_PRESETS } from '@/constants/shared';
-import type { SalesIncomeStructureInsight } from '@/types/sales/salesIncomeStructureInsight';
+import type { SalesIncomeStructureInsight } from '@/types/sales/dashboard-sales-income/salesIncomeStructureInsight';
 import { formatNumber, type ValueOf } from '@/utils/shared';
 
 import { createMessageToken, type MessageToken } from '../dashboard';
