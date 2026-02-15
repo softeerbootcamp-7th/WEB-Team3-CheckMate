@@ -1,7 +1,13 @@
-import type { SalesIncomeStructureInsight } from '../salesIncomeStructureInsight';
+import type {
+  SalesIncomeStructureInsight,
+  SalesIncomeStructureTopType,
+} from '../salesIncomeStructureInsight';
 
 interface OrderMethodItem {
-  orderChannel: string;
+  orderChannel: Extract<
+    SalesIncomeStructureTopType,
+    'POS' | '키오스크' | '배달앱' | '기타'
+  >;
   salesAmount: number;
   orderCount: number;
   share: number;

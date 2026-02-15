@@ -1,7 +1,10 @@
-import type { SalesIncomeStructureInsight } from '../salesIncomeStructureInsight';
+import type {
+  SalesIncomeStructureInsight,
+  SalesIncomeStructureTopType,
+} from '../salesIncomeStructureInsight';
 
 interface SalesTypeItem {
-  salesType: string;
+  salesType: Extract<SalesIncomeStructureTopType, '홀' | '포장' | '배달'>;
   salesAmount: number;
   orderCount: number;
   share: number;

@@ -3,13 +3,9 @@ import {
   type DASHBOARD_METRICS,
   type ExtractCardCodes,
 } from '@/constants/dashboard';
-import {
-  isSalesSourceType,
-  PAYMENT_METHOD,
-  SALES_SOURCE_COLORS,
-} from '@/constants/sales';
+import { PAYMENT_METHOD, SALES_SOURCE_COLORS } from '@/constants/sales';
 import type { GetIncomStructureByPaymentMethodResponseDto } from '@/types/sales';
-import { assertNever, type Nullable } from '@/utils/shared';
+import { type Nullable } from '@/utils/shared';
 
 import { DashboardSalesIncomeContent } from './DashboardSalesIncomeContent';
 
@@ -37,20 +33,12 @@ export const PaymentMethodContent = ({
   const periodType = DASHBOARD_METRIC_CARDS[cardCode].period;
 
   const paymentMethodData = (items ?? EXAMPLE_PAYMENT_METHOD_DATA).map(
-    (item) => {
-      if (!isSalesSourceType(item.payMethod)) {
-        return assertNever(
-          item.payMethod as never,
-          `${item.payMethod}는 유효하지 않은 결제수단입니다.`,
-        );
-      }
-      return {
-        salesSourceType: item.payMethod,
-        revenue: item.salesAmount,
-        count: item.orderCount,
-        changeRate: item.deltaShare,
-      };
-    },
+    (item) => ({
+      salesSourceType: item.payMethod,
+      revenue: item.salesAmount,
+      count: item.orderCount,
+      changeRate: item.deltaShare,
+    }),
   );
 
   const chartData = paymentMethodData.map((data) => ({

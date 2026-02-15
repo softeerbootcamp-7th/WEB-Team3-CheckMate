@@ -3,13 +3,9 @@ import {
   type DASHBOARD_METRICS,
   type ExtractCardCodes,
 } from '@/constants/dashboard';
-import {
-  isSalesSourceType,
-  SALES_SOURCE_COLORS,
-  SALES_TYPE,
-} from '@/constants/sales';
+import { SALES_SOURCE_COLORS, SALES_TYPE } from '@/constants/sales';
 import type { GetIncomStructureBySalesTypeResponseDto } from '@/types/sales';
-import { assertNever, type Nullable } from '@/utils/shared';
+import { type Nullable } from '@/utils/shared';
 
 import { DashboardSalesIncomeContent } from './DashboardSalesIncomeContent';
 
@@ -36,20 +32,12 @@ export const SalesTypeContent = ({
 }: SalesTypeContentProps) => {
   const periodType = DASHBOARD_METRIC_CARDS[cardCode].period;
 
-  const salesTypeData = (items ?? EXAMPLE_SALES_SOURCE_DATA).map((item) => {
-    if (!isSalesSourceType(item.salesType)) {
-      return assertNever(
-        item.salesType as never,
-        `${item.salesType}는 유효하지 않은 판매 유형입니다.`,
-      );
-    }
-    return {
-      salesSourceType: item.salesType,
-      revenue: item.salesAmount,
-      count: item.orderCount,
-      changeRate: item.deltaShare,
-    };
-  });
+  const salesTypeData = (items ?? EXAMPLE_SALES_SOURCE_DATA).map((item) => ({
+    salesSourceType: item.salesType,
+    revenue: item.salesAmount,
+    count: item.orderCount,
+    changeRate: item.deltaShare,
+  }));
 
   const chartData = salesTypeData.map((data) => ({
     label: data.salesSourceType,

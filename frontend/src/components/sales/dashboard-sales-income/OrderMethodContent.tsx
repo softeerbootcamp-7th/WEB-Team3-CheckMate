@@ -3,13 +3,9 @@ import {
   type DASHBOARD_METRICS,
   type ExtractCardCodes,
 } from '@/constants/dashboard';
-import {
-  isSalesSourceType,
-  ORDER_METHOD,
-  SALES_SOURCE_COLORS,
-} from '@/constants/sales';
+import { ORDER_METHOD, SALES_SOURCE_COLORS } from '@/constants/sales';
 import type { GetIncomStructureByOrderMethodResponseDto } from '@/types/sales';
-import { assertNever, type Nullable } from '@/utils/shared';
+import { type Nullable } from '@/utils/shared';
 
 import { DashboardSalesIncomeContent } from './DashboardSalesIncomeContent';
 
@@ -36,20 +32,12 @@ export const OrderMethodContent = ({
 }: OrderMethodContentProps) => {
   const periodType = DASHBOARD_METRIC_CARDS[cardCode].period;
 
-  const orderMethodData = (items ?? EXAMPLE_ORDER_METHOD_DATA).map((item) => {
-    if (!isSalesSourceType(item.orderChannel)) {
-      return assertNever(
-        item.orderChannel as never,
-        `${item.orderChannel}는 유효하지 않은 주문수단입니다.`,
-      );
-    }
-    return {
-      salesSourceType: item.orderChannel,
-      revenue: item.salesAmount,
-      count: item.orderCount,
-      changeRate: item.deltaShare,
-    };
-  });
+  const orderMethodData = (items ?? EXAMPLE_ORDER_METHOD_DATA).map((item) => ({
+    salesSourceType: item.orderChannel,
+    revenue: item.salesAmount,
+    count: item.orderCount,
+    changeRate: item.deltaShare,
+  }));
 
   const chartData = orderMethodData.map((data) => ({
     label: data.salesSourceType,
