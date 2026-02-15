@@ -1,7 +1,10 @@
 import type { SalesByDayItem } from '@/types/sales';
 
 export const SALES_BY_DAY = {
-  EXAMPLE_TOP_DAY: '금',
+  CHART_X_UNIT: '요일',
+  CHART_Y_UNIT: '원',
+  CHART_COLOR: 'black',
+  EXAMPLE_TOP_DAY: '금' as const,
   EXAMPLE_IS_SIGNIFICANT: false,
   EXAMPLE_SALES_BY_DAY_ITEMS: [
     {
