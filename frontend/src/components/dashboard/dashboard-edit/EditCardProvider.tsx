@@ -1,24 +1,15 @@
 import { type PropsWithChildren, useRef, useState } from 'react';
 
-import {
-  GRID_COL_SIZE,
-  GRID_ROW_SIZE,
-  type MetricCardCode,
-} from '@/constants/dashboard';
 import { EditCardContext } from '@/constants/dashboard/editCardContext';
 import type { DashboardCard, DragState, GhostState } from '@/types/dashboard';
 
-const EMPTY_GRID: (MetricCardCode | null)[][] = Array.from(
-  { length: GRID_ROW_SIZE + 1 },
-  () => Array.from({ length: GRID_COL_SIZE + 1 }, () => null),
-);
-
 export const EditCardProvider = ({ children }: PropsWithChildren) => {
   // TODO: 초기 그리드 상태 서버에서 받아오기
-  const initGrid = EMPTY_GRID;
+  const initPlacedCards: DashboardCard[] = [];
 
   // 카드 그리드 상태
-  const [grid, setGrid] = useState<(MetricCardCode | null)[][]>(EMPTY_GRID);
+  const [placedCards, setPlacedCards] =
+    useState<DashboardCard[]>(initPlacedCards);
 
   // 드래그앤드랍 관련 상태
   const [dragState, setDragState] = useState<DragState | null>(null);
@@ -31,9 +22,9 @@ export const EditCardProvider = ({ children }: PropsWithChildren) => {
   return (
     <EditCardContext.Provider
       value={{
-        initGrid,
-        grid,
-        setGrid,
+        initPlacedCards,
+        placedCards,
+        setPlacedCards,
         gridRef,
         dragState,
         setDragState,

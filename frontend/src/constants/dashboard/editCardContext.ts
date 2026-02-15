@@ -7,13 +7,11 @@ import {
 
 import type { DashboardCard, DragState, GhostState } from '@/types/dashboard';
 
-import type { MetricCardCode } from './dashboardMetricCards';
-
 interface EditCardContextType {
-  initGrid: (MetricCardCode | null)[][];
+  initPlacedCards: DashboardCard[];
 
-  grid: (MetricCardCode | null)[][];
-  setGrid: Dispatch<SetStateAction<(MetricCardCode | null)[][]>>;
+  placedCards: DashboardCard[];
+  setPlacedCards: Dispatch<SetStateAction<DashboardCard[]>>;
 
   gridRef: RefObject<HTMLDivElement | null>;
 
