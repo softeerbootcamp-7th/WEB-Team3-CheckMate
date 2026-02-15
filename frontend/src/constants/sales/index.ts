@@ -8,10 +8,15 @@ export { SALES_UNIT } from './salesUnit';
 export {
   BRIEFING_MESSAGE_HIGHLIGHT_COLOR,
   type BriefingMessageHighlightColor,
+} from './dashboard';
+export {
   AVERAGE_PRICE,
   ORDER_COUNT,
   REAL_SALES,
+} from './dashboard-current-sales';
+export {
   ORDER_METHOD,
   PAYMENT_METHOD,
   SALES_TYPE,
-} from './dashboard';
+} from './dashboard-sales-income';
+export { PEAK_TIME } from './dashboard-sales-pattern';
