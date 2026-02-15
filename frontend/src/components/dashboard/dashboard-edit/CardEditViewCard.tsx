@@ -1,51 +1,47 @@
+import { useCallback, useMemo } from 'react';
+
 import { EditCardWrapper } from '@/components/shared';
 import {
   DASHBOARD_METRIC_CARDS,
   type MetricCardCode,
 } from '@/constants/dashboard';
-import { formatNumber } from '@/utils/shared';
+import { useEditCard } from '@/hooks/dashboard';
 
 interface CardEditViewCardProps {
   cardCode: MetricCardCode;
 }
 export const CardEditViewCard = ({ cardCode }: CardEditViewCardProps) => {
-  const card = DASHBOARD_METRIC_CARDS[cardCode];
+  const { addCard, removeCard, isAdded } = useEditCard();
+
+  const card = useMemo(() => DASHBOARD_METRIC_CARDS[cardCode], [cardCode]);
+
+  const memoisedIsAdded = useMemo(() => isAdded(cardCode), [isAdded, cardCode]);
+
+  const handleAddCard = useCallback(() => {
+    addCard(cardCode, card.sizeX, card.sizeY);
+  }, [addCard, cardCode, card.sizeX, card.sizeY]);
+
+  const handleDeleteCard = useCallback(() => {
+    removeCard(cardCode);
+  }, [removeCard, cardCode]);
 
   if (!card) {
     return null; // 카드 정보가 없는 경우 렌더링하지 않음
   }
 
-  const { code, label, type, period, sizeX, sizeY } = card;
+  const { period, sizeX } = card;
 
   return (
-    <li key={cardCode} style={{ gridColumn: `span ${sizeX}` }}>
+    <li style={{ gridColumn: `span ${sizeX}` }}>
       <EditCardWrapper
-        isAdded={false}
-        period={period as string}
+        isAdded={memoisedIsAdded}
+        period={period}
         className="min-w-full"
         sizeX={sizeX}
-        sizeY={sizeY}
-        //innerClassName="items-start"
+        onClickAddButton={handleAddCard}
+        onClickDeleteButton={handleDeleteCard}
       >
-        {label}
-        <br />
-        {code}
-        <br />
-        {type}
-        <br />
-        {sizeX} x {sizeY}
-        <div className="flex w-75 flex-col items-start justify-start gap-1">
-          <span className="flex items-center gap-1">
-            <span className="title-medium-semibold text-grey-900">
-              {formatNumber(295600)}
-            </span>
-            <span className="title-medium-semibold text-grey-900">원</span>
-          </span>
-          <span className="whitespace-pre">
-            {`지난주 월요일\n이 시간보다`}
-            <strong className="text-brand-main ml-1">5% 늘었어요</strong>
-          </span>
-        </div>
+        <EditCardContent cardCode={cardCode} />
       </EditCardWrapper>
     </li>
   );

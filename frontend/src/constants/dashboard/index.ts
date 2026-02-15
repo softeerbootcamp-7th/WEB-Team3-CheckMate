@@ -11,6 +11,7 @@ export {
   type MetricTabs,
   type ExtractCardCodes,
 } from './dashboardMetric';
+export { GRID_ROW_SIZE, GRID_COL_SIZE } from './dashboardGridSize';
 export {
   DASHBOARD_METRIC_CARDS,
   isMetricCardCode,
