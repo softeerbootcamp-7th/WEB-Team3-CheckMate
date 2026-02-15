@@ -5,16 +5,14 @@ import { toast } from 'sonner';
 import type { MetricCardCode } from '@/constants/dashboard';
 import {
   addCardOnGrid,
-  getAvailablePositionOnGrid,
-  hasCardOnGrid,
-  removeCardFromGrid,
-} from '@/utils/dashboard';
-import {
   cloneGrid,
   countEmptyCellsOnGrid,
+  getAvailablePositionOnGrid,
   getCardListFromGrid,
+  hasCardOnGrid,
   isSameGrid,
-} from '@/utils/dashboard/editCard';
+  removeCardFromGrid,
+} from '@/utils/dashboard';
 
 import { useEditCardContext } from './useEditCardContext';
 

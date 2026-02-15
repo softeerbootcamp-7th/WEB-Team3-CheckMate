@@ -5,4 +5,7 @@ export {
   isAreaAvailableOnGrid,
   removeCardFromGrid,
   isSameGrid,
+  getCardListFromGrid,
+  cloneGrid,
+  countEmptyCellsOnGrid,
 } from './editCard';
