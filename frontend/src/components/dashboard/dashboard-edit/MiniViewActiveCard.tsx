@@ -71,13 +71,15 @@ export const MiniViewActiveCard = ({
         height: heightPx,
       }}
     >
-      <div className="relative flex h-full flex-col items-center justify-center">
+      <div className="relative flex h-full flex-col items-center justify-center p-4">
         <img
           src={`${CDN_BASE_URL}/assets/images/${type}.svg`}
           alt={`${label} 미니 뷰`}
           draggable={false}
         />
-        <p className="body-small-medium text-grey-900 mt-200 mb-100">{label}</p>
+        <p className="body-small-medium text-grey-900 mt-200 mb-100 text-center break-keep">
+          {label}
+        </p>
         <PeriodTag isAdded period={period} />
       </div>
       {/* 상단 삭제 버튼 */}
