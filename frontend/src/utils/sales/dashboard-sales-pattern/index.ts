@@ -1,3 +1,3 @@
-export { getSalesPatternPeakTimeMessage } from './getSalesPatternPeakTimeMessage1';
+export { getSalesPatternPeakTimeMessage } from './getSalesPatternPeakTimeMessage';
 export { createPeakTimeSeries } from './createPeakTimeSeries';
 export { getSalesPatternByDayMessage } from './getSalesPatternByDayMessage';
