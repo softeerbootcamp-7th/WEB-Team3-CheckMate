@@ -1,4 +1,9 @@
-import { createContext, type Dispatch, type SetStateAction } from 'react';
+import {
+  createContext,
+  type Dispatch,
+  type RefObject,
+  type SetStateAction,
+} from 'react';
 
 import type { DashboardCard, DragState, GhostState } from '@/types/dashboard';
 
@@ -9,6 +14,8 @@ interface EditCardContextType {
 
   grid: (MetricCardCode | null)[][];
   setGrid: Dispatch<SetStateAction<(MetricCardCode | null)[][]>>;
+
+  gridRef: RefObject<HTMLDivElement | null>;
 
   dragState: DragState | null;
   setDragState: Dispatch<SetStateAction<DragState | null>>;

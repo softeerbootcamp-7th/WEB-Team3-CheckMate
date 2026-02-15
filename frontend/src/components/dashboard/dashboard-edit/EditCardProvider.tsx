@@ -1,4 +1,4 @@
-import { type PropsWithChildren, useState } from 'react';
+import { type PropsWithChildren, useRef, useState } from 'react';
 
 import {
   GRID_COL_SIZE,
@@ -26,12 +26,15 @@ export const EditCardProvider = ({ children }: PropsWithChildren) => {
   const [tempLayout, setTempLayout] = useState<DashboardCard[] | null>(null);
   const [isOverList, setIsOverList] = useState(false);
 
+  const gridRef = useRef<HTMLDivElement>(null);
+
   return (
     <EditCardContext.Provider
       value={{
         initGrid,
         grid,
         setGrid,
+        gridRef,
         dragState,
         setDragState,
         ghost,
