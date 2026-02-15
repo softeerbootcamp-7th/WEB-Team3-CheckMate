@@ -5,10 +5,8 @@ import {
 } from '@/constants/dashboard';
 import { REAL_SALES, SALES_UNIT } from '@/constants/sales';
 import type { GetRealTimeSalesResponseDto } from '@/types/sales';
-import {
-  getMetricTrend,
-  getSalesCurrentComparisonMessage,
-} from '@/utils/dashboard';
+import { getMetricTrend } from '@/utils/dashboard';
+import { getSalesCurrentComparisonMessage } from '@/utils/sales';
 import type { Nullable } from '@/utils/shared';
 
 import { CurrentSalesContent } from './CurrentSalesContent';

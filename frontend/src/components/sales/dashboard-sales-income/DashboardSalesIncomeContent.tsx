@@ -2,10 +2,9 @@ import type { ReactNode } from 'react';
 
 import { DoughnutChart } from '@/components/shared';
 import { PERIOD_PRESETS } from '@/constants/shared';
-import type { SalesSource } from '@/types/sales';
-import type { SalesIncomeStructureInsight } from '@/types/sales/salesIncomeStructureInsight';
+import type { SalesIncomeStructureInsight, SalesSource } from '@/types/sales';
 import type { DoughnutChartItem } from '@/types/shared';
-import { getSalesIncomeStructureComparisionMessage } from '@/utils/dashboard';
+import { getSalesIncomeStructureComparisionMessage } from '@/utils/sales';
 import { cn, type ValueOf } from '@/utils/shared';
 
 import { SalesSourceChartLegend } from '../sales-source';

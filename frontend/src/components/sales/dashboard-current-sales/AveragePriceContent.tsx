@@ -5,10 +5,8 @@ import {
 } from '@/constants/dashboard';
 import { AVERAGE_PRICE, SALES_UNIT } from '@/constants/sales';
 import type { GetAveragePriceResponseDto } from '@/types/sales';
-import {
-  getMetricTrend,
-  getSalesCurrentComparisonMessage,
-} from '@/utils/dashboard';
+import { getMetricTrend } from '@/utils/dashboard';
+import { getSalesCurrentComparisonMessage } from '@/utils/sales';
 import type { Nullable } from '@/utils/shared';
 
 import { CurrentSalesContent } from './CurrentSalesContent';

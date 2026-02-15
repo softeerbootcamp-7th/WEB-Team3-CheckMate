@@ -5,10 +5,8 @@ import {
 } from '@/constants/dashboard';
 import { ORDER_COUNT, SALES_UNIT } from '@/constants/sales';
 import type { GetOrderCountResponseDto } from '@/types/sales';
-import {
-  getMetricTrend,
-  getSalesCurrentComparisonMessage,
-} from '@/utils/dashboard';
+import { getMetricTrend } from '@/utils/dashboard';
+import { getSalesCurrentComparisonMessage } from '@/utils/sales';
 import type { Nullable } from '@/utils/shared';
 
 import { CurrentSalesContent } from './CurrentSalesContent';
