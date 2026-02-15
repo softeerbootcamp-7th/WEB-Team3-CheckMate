@@ -8,6 +8,7 @@ import {
 } from '@/constants/dashboard';
 import type { DashboardCard } from '@/types/dashboard';
 import { getConflictingCards } from '@/utils/dashboard';
+import { throttle } from '@/utils/shared';
 
 import { useEditCardContext } from './useEditCardContext';
 import { useGridCellSize } from './useGridCellSize';
@@ -232,18 +233,21 @@ export const useDragAndDropCard = () => {
 
   /*************** 이벤트 핸들러 ****************/
 
-  const handleGridDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
+  const handleGridDragOverFn = (clientX: number, clientY: number) => {
+    // console.log('handleGridDragOver');
+
     if (!gridRef.current || !dragState) {
       return;
     }
 
-    const { row, col } = calculateGridPos(e.clientX, e.clientY);
+    const { row, col } = calculateGridPos(clientX, clientY);
 
     // Ghost 위치가 변했을 때만 계산
     if (ghost?.colNo === col && ghost?.rowNo === row) {
       return;
     }
+
+    // console.log('handleGridDragOver - new ghost');
 
     // 시뮬레이션을 위한 레이아웃 구성
     const ghostCard: DashboardCard = {
@@ -258,8 +262,8 @@ export const useDragAndDropCard = () => {
 
     // 드래그 중인 카드의 중심점 (픽셀단위)
     const rect = gridRef.current?.getBoundingClientRect();
-    const draggingCenterX = e.clientX - rect.left - dragState.centerOffset.x;
-    const draggingCenterY = e.clientY - rect.top - dragState.centerOffset.y;
+    const draggingCenterX = clientX - rect.left - dragState.centerOffset.x;
+    const draggingCenterY = clientY - rect.top - dragState.centerOffset.y;
 
     // 밀어내기 시뮬레이션 수행
     const pushedResult = getPushedLayout(
@@ -276,39 +280,54 @@ export const useDragAndDropCard = () => {
     // ghost 유효 여부 결정
     setGhost({ rowNo: row, colNo: col, isValid: pushedResult.isValid });
   };
+  const throttledHandleGridDragOver = throttle(handleGridDragOverFn, 100);
+  const handleGridDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    const clientX = e.clientX;
+    const clientY = e.clientY;
+
+    throttledHandleGridDragOver(clientX, clientY);
+  };
 
   const handleGridDrop = (e: React.DragEvent) => {
+    // console.log('handleGridDrop');
     e.preventDefault();
 
     if (ghost?.isValid && tempLayout) {
+      // console.log('handleGridDrop - update grid');
       setPlacedCards(tempLayout);
     }
     handleDragEnd();
   };
 
   const handleGridDragLeave = (e: React.DragEvent) => {
+    // console.log('handleGridDragLeave');
     if (!e.currentTarget.contains(e.relatedTarget as Node)) {
       // 영역 외부로 나갔을 때만 처리 (자식 요소로 이동할 때는 무시)
-
+      // console.log('handleGridDragLeave - really');
       setGhost(null);
     }
   };
 
   const handleListDragEnter = () => {
+    // console.log('handleListDragEnter');
     if (dragState?.sourceArea === DASHBOARD_EDIT_AREA.GRID) {
+      // console.log('handleListDragEnter - really');
       setIsOverList(true);
     }
   };
 
   const handleListDragLeave = (e: React.DragEvent) => {
+    // console.log('handleListDragLeave');
     if (!e.currentTarget.contains(e.relatedTarget as Node)) {
       // 영역 외부로 나갔을 때만 처리 (자식 요소로 이동할 때는 무시)
-
+      // console.log('handleListDragLeave - really');
       setIsOverList(false);
     }
   };
 
   const handleListDrop = (e: React.DragEvent) => {
+    // console.log('handleListDrop', { dragState });
     e.preventDefault();
 
     // 카드 삭제
@@ -316,6 +335,7 @@ export const useDragAndDropCard = () => {
       setPlacedCards((prev) =>
         prev.filter((c) => c.cardCode !== dragState.draggingCard.cardCode),
       );
+      // console.log('handleListDrop - remove card');
     }
     handleDragEnd();
   };
@@ -325,6 +345,7 @@ export const useDragAndDropCard = () => {
     sourceArea: DashboardEditArea,
     draggingCard: DashboardCard,
   ) => {
+    // console.log('handleDragStart');
     e.dataTransfer.effectAllowed = 'move';
 
     const cardRect = e.currentTarget.getBoundingClientRect();
@@ -340,6 +361,7 @@ export const useDragAndDropCard = () => {
   };
 
   const handleDragEnd = () => {
+    // console.log('handleDragEnd');
     // 드래그 상태 초기화
     setDragState(null);
     setGhost(null);
