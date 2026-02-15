@@ -1,5 +1,4 @@
-// 메뉴별 매출 랭킹 카드
-
+// 대시보드>메뉴분석에서 메뉴별 매출 랭킹 카드
 import { useMemo } from 'react';
 
 import type { DashboardRankItem } from '@/types/dashboard/menu';
@@ -9,7 +8,7 @@ import type {
 } from '@/types/menu/dto';
 import type { Nullable } from '@/utils/shared';
 
-import { MenuSalesRankingContent } from './MenuSalesRankingContent';
+import { DashboardRankingContent } from './DashboardRankingContent';
 
 // dto를 대시보드의 메뉴 매출 랭킹 카드 UI에서 사용하는 데이터 형태로 변환
 interface GetDashboardMenuRankItemsParams {
@@ -64,14 +63,15 @@ interface MenuSalesRankingCardContentProps extends Nullable<GetMenuSalesRankingR
 export const MenuSalesRankingCardContent = ({
   items = EXAMPLE_MENU_SALES,
 }: MenuSalesRankingCardContentProps) => {
-  // dto -> 대시보드의 메뉴 매출 랭킹 카드 UI 데이터 형태로 변환
+  // dto -> 대시보드의 메뉴>매출 랭킹 카드 UI 데이터 형태로 변환
   const menuRankItems = useMemo(
     () => getDashboardMenuRankItems({ items }),
     [items],
   );
+  // tHeadLabels를 통해 테이블 각 열의 이름을 지정
   return (
-    <MenuSalesRankingContent>
-      <MenuSalesRankingContent.TableBody menuRankItems={menuRankItems} />
-    </MenuSalesRankingContent>
+    <DashboardRankingContent tHeadLabels={['순위', '메뉴명', '매출액']}>
+      <DashboardRankingContent.TableBody rankItems={menuRankItems} />
+    </DashboardRankingContent>
   );
 };
