@@ -2,7 +2,7 @@ import { METRIC_TREND, type MetricTrend } from '@/constants/dashboard';
 import { DAY_OF_WEEK_LIST, PERIOD_PRESETS } from '@/constants/shared';
 import { assertNever, formatNumber, type ValueOf } from '@/utils/shared';
 
-import { createMessageToken, type MessageToken } from './createMessageToken';
+import { createMessageToken, type MessageToken } from '../dashboard';
 
 interface GetSalesCurrentComparisonMessageArgs {
   periodType: ValueOf<typeof PERIOD_PRESETS.dayWeekMonth>;

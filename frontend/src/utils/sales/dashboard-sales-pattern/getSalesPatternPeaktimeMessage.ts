@@ -1,6 +1,6 @@
 import type { GetDashboardPeakTimeResponseDto } from '@/types/sales';
 
-import { createMessageToken, type MessageToken } from './createMessageToken';
+import { createMessageToken, type MessageToken } from '../dashboard';
 
 interface GetSalesPatternPeaktimeMessageArgs {
   todayPeak: GetDashboardPeakTimeResponseDto['todayPeak'];

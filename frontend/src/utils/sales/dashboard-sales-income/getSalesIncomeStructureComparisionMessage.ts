@@ -2,7 +2,7 @@ import { PERIOD_PRESETS } from '@/constants/shared';
 import type { SalesIncomeStructureInsight } from '@/types/sales/salesIncomeStructureInsight';
 import { formatNumber, type ValueOf } from '@/utils/shared';
 
-import { createMessageToken, type MessageToken } from './createMessageToken';
+import { createMessageToken, type MessageToken } from '../dashboard';
 
 const DELTA_SHARE_THRESHOLD = 3;
 

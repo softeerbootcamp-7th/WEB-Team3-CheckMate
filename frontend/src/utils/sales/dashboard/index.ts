@@ -1,4 +1,1 @@
-export { getSalesPatternPeaktimeMessage } from './getSalesPatternPeaktimeMessage';
-export { getSalesCurrentComparisonMessage } from './getSalesCurrentComparisonMessage';
-export { getSalesIncomeStructureComparisionMessage } from './getSalesIncomeStructureComparisionMessage';
-export { createPeakTimeSeries } from './createPeakTimeSeries';
+export { createMessageToken, type MessageToken } from './createMessageToken';
